@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone;
+package edu.gatech.pmase.capstone.awesome;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
