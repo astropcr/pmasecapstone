@@ -23,19 +23,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 <Configuration status="WARN">
-  <Appenders>
-    <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
-    </Console>W
-  </Appenders>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
+        </Console>
+        <File name="FileAppender" fileName="disasterTradeStudyLog.log">
+            <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
+        </File>
+    </Appenders>
 
-  <Loggers>
-    <Logger name="edu.gatech.pmase.capstone" level="debug"  additivity="false">
-      <AppenderRef ref="Console"/>
-    </Logger>
-    <Root level="error">
-      <AppenderRef ref="Console"/>
-    </Root>
-  </Loggers>
+    <Loggers>
+        <Logger name="edu.gatech.pmase.capstone.awesome" level="debug"  additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <Logger name="edu.gatech.pmase.capstone.awesome" level="info"  additivity="false">
+            <AppenderRef ref="FileAppender"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+    </Loggers>
 
 </Configuration>

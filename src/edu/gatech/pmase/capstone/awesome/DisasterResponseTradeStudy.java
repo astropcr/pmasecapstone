@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.database.CommunicationsDatabaseDriver;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,7 +52,9 @@ public class DisasterResponseTradeStudy extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                 LOGGER.info("Hello World!");
+                LOGGER.info("Hello World!");
+                final CommunicationsDatabaseDriver driver = new CommunicationsDatabaseDriver();
+                driver.getCommOptions();
             }
         });
 

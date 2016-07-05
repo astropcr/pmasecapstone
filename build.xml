@@ -70,6 +70,11 @@
     nbproject/build-impl.xml file. 
 
     -->  
+    
+    <!-- Team Awesome Defined -->
+    <!-- 
+    Sets up and hooks in Ivy to run and grab dependency libraries defined in ivy.xml
+    -->
     <taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/>
     
     <target name="-ivy-retrieve">
@@ -89,4 +94,21 @@
     <target name="-post-clean">
         <delete dir="lib"/>
     </target>
+    <!-- End Ivy Config -->
+    
+    <!-- Creates property to reference and load the properties file -->
+    <property name="prop.file" value="disasterResponseTradeStudy.properties" />
+    <property file="${prop.file}"/>
+   
+    <!-- Called in build before jar is made, see above note -->
+    <target name="-pre-jar">
+        <!-- Copies workbooks from project root into dist folder -->
+        <copy todir="${dist.dir}${file.separator}${workbook.dir}">
+            <fileset dir="${workbook.dir}"/>
+        </copy>
+        
+        <!-- Copies properties file to dist folder -->
+        <copy todir="${dist.dir}" file="${prop.file}"/>
+    </target>
 </project>
+<!-- End File Copying Config -->
