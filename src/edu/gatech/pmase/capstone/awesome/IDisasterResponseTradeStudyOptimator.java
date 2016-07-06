@@ -21,57 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects;
+package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
+import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.List;
 
 /**
- * Architecture option that is carried on-board a platform or vehicle of some
- * type.
+ * Interface to optimize architecture based on user inputs.
+ * @param <T> the type of {@link AbstractArchitectureOption} to optimize.
  */
-public abstract class AbstractOnboardArchitectureOption extends AbstractArchitectureOption {
-
+public interface IDisasterResponseTradeStudyOptimator<T extends AbstractArchitectureOption> {
+    
+    //TODO: Add other stuff (like attribute ranking) when finalized by team
+    
     /**
-     * Weight of option (in kilograms - kg).
+     *  Optimize the architecture option based upon filtered options and user input.
+     * @param platOptions the filtered list of platform options.
+     * @param commOptions the filtered list of communications options.
+     * @param sensorOptions the filtered list of sensor options.
+     * @return the optimized architecture option
      */
-    private double weight;
-
-    /**
-     * List of platform options that cannot carry the architecture option
-     * onboard.
-     */
-    private List<PlatformOption> platformLimitations;
-
-    /**
-     *
-     * @return
-     */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     *
-     * @param weight
-     */
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<PlatformOption> getPlatformLimitations() {
-        return platformLimitations;
-    }
-
-    /**
-     *
-     * @param platformLimitations
-     */
-    public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
-        this.platformLimitations = platformLimitations;
-    }
-
+    T optimizeArchitectureOption(final List<PlatformOption> platOptions, 
+            final List<CommunicationOption> commOptions, final List<SensorOption> sensorOptions);
 }

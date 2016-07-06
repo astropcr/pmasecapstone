@@ -21,9 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.database;
+package edu.gatech.pmase.capstone.awesome.impl.database;
 
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +49,12 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     private static final String COMM_WORKBOOK_PROPERTY_NAME = "comms.workbook";
 
     /**
-     * 
-     * @return 
+     *
+     * @param platformOptions list of PlatformOptions. Must be generated before
+     * creating listing of Comm options due to the Platform restrictions.
+     * @return
      */
-    public List<CommunicationOption> getCommOptions() {
+    public List<CommunicationOption> getCommOptions(final List<PlatformOption> platformOptions) {
         final List<CommunicationOption> options = new ArrayList<>();
         Workbook workbook = null;
         final String filename = props.getProperty(COMM_WORKBOOK_PROPERTY_NAME);

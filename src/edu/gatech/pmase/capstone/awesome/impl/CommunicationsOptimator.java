@@ -21,22 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects.enums;
+package edu.gatech.pmase.capstone.awesome.impl;
+
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
+import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
+import java.util.List;
 
 /**
- * Terrain types for that a Platform can traverse.
+ * Optimized the Communications architecture option.
  */
-public enum TerrainCapability {
-    /**
-     * Vehicle can travel in the air.
-     */
-    AIR,
-    /**
-     * Vehicle can travel on the ground.
-     */
-    GROUND,
-    /**
-     * Vehicle can travel on water.
-     */
-    WATER;
+public class CommunicationsOptimator implements IDisasterResponseTradeStudyOptimator<CommunicationOption> {
+
+    @Override
+    public CommunicationOption optimizeArchitectureOption(final List<PlatformOption> platOptions,
+            final List<CommunicationOption> commOptions, final List< SensorOption> sensorOptions) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -21,57 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects;
+package edu.gatech.pmase.capstone.awesome.impl;
 
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
+import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.List;
 
 /**
- * Architecture option that is carried on-board a platform or vehicle of some
- * type.
+ * Optimized the Sensor architecture option.
  */
-public abstract class AbstractOnboardArchitectureOption extends AbstractArchitectureOption {
+public class SensorOptimator implements IDisasterResponseTradeStudyOptimator<SensorOption> {
 
-    /**
-     * Weight of option (in kilograms - kg).
-     */
-    private double weight;
-
-    /**
-     * List of platform options that cannot carry the architecture option
-     * onboard.
-     */
-    private List<PlatformOption> platformLimitations;
-
-    /**
-     *
-     * @return
-     */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     *
-     * @param weight
-     */
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<PlatformOption> getPlatformLimitations() {
-        return platformLimitations;
-    }
-
-    /**
-     *
-     * @param platformLimitations
-     */
-    public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
-        this.platformLimitations = platformLimitations;
+    @Override
+    public SensorOption optimizeArchitectureOption(final List<PlatformOption> platOptions,
+            final List<CommunicationOption> commOptions, final List<SensorOption> sensorOptions) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -23,7 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects;
 
-import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainCapability;
+import edu.gatech.pmase.capstone.awesome.objects.enums.PlatformType;
 
 /**
  * Platform Option read in from the Tech Market Survey based "database".
@@ -46,9 +46,9 @@ public class PlatformOption extends AbstractArchitectureOption {
     private double payload;
 
     /**
-     * Terrain that the platform can traverse.
+     * Type of the platform.
      */
-    private TerrainCapability terrainCapability;
+    private PlatformType platformType;
 
     /**
      *
@@ -99,18 +99,20 @@ public class PlatformOption extends AbstractArchitectureOption {
     }
 
     /**
-     *
-     * @return
+     * 
+     * @return 
      */
-    public TerrainCapability getTerrainCapability() {
-        return terrainCapability;
+    public PlatformType getPlatformType() {
+        return platformType;
     }
 
     /**
-     *
-     * @param terrainCapability
+     * 
+     * @param platformType 
      */
-    public void setTerrainCapability(TerrainCapability terrainCapability) {
-        this.terrainCapability = terrainCapability;
+    public void setPlatformType(PlatformType platformType) {
+        this.platformType = platformType;
     }
+
+
 }

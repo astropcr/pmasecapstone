@@ -23,6 +23,10 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects;
 
+import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.List;
+
 /**
  * Abstract class for all Architecture options read in from Tech Market Survey Based Spreadsheets.
  */
@@ -34,7 +38,7 @@ public abstract class AbstractArchitectureOption {
     private int costRanking;
 
     /**
-     * The actual cost value for the option.
+     * The actual cost value for the option (in thousands of dollars).
      */
     private double actualCost;
     
@@ -47,7 +51,17 @@ public abstract class AbstractArchitectureOption {
      * ID of option.
      */
     private long id;
+    
+    /**
+     * Limitations of the architecture option based upon the terrain.
+     */
+    private List<TerrainEffect> terrainLimitation;
 
+    /**
+     * Limitations of the architecture based upon the disaster.
+     */
+    private List<DisasterEffect> disasterLimitations;
+    
     /**
      *
      * @return
@@ -111,4 +125,38 @@ public abstract class AbstractArchitectureOption {
     public void setId(long id) {
         this.id = id;
     }
+
+    /**
+     * 
+     * @return 
+     */
+    public List<TerrainEffect> getTerrainLimitation() {
+        return terrainLimitation;
+    }
+
+    /**
+     * 
+     * @param terrainLimitation 
+     */
+    public void setTerrainLimitation(List<TerrainEffect> terrainLimitation) {
+        this.terrainLimitation = terrainLimitation;
+    }
+
+    /**
+     * 
+     * @return 
+     */
+    public List<DisasterEffect> getDisasterLimitations() {
+        return disasterLimitations;
+    }
+
+    /**
+     * 
+     * @param disasterLimitations 
+     */
+    public void setDisasterLimitations(List<DisasterEffect> disasterLimitations) {
+        this.disasterLimitations = disasterLimitations;
+    }
+    
+    
 }

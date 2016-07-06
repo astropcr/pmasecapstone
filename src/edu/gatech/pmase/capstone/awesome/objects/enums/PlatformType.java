@@ -21,57 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects;
-
-import java.util.List;
+package edu.gatech.pmase.capstone.awesome.objects.enums;
 
 /**
- * Architecture option that is carried on-board a platform or vehicle of some
- * type.
+ * Type of Platforms.
  */
-public abstract class AbstractOnboardArchitectureOption extends AbstractArchitectureOption {
-
+public enum PlatformType {
     /**
-     * Weight of option (in kilograms - kg).
+     * Vehicle can travel in the air.
      */
-    private double weight;
-
+    AIR,
     /**
-     * List of platform options that cannot carry the architecture option
-     * onboard.
+     * Vehicle can travel on the ground.
      */
-    private List<PlatformOption> platformLimitations;
-
+    GROUND,
     /**
-     *
-     * @return
+     * Vehicle can travel on water.
      */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     *
-     * @param weight
-     */
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public List<PlatformOption> getPlatformLimitations() {
-        return platformLimitations;
-    }
-
-    /**
-     *
-     * @param platformLimitations
-     */
-    public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
-        this.platformLimitations = platformLimitations;
-    }
-
+    WATER;
 }
