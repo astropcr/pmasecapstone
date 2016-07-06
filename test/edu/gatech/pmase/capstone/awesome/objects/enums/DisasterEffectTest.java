@@ -23,37 +23,38 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects.enums;
 
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+
 /**
- * Effect that a disaster can create.
+ * Tests the DisasterEffect class.
  */
-public enum DisasterEffects {
-    
-    FIRE("Fire"),
-    FLOOD("Flood"),
-    DEBRIS("Debris"),
-    SMOKE("Smoke"),
-    DUST("Dust"),
-    ASH("Ash"),
-    GROUND_INSTABILITY("Gound Instabilitiy"),
-    LAND_SLIDE("Land Slide"),
-    MUD_SLIDE("Mud Slide"),
-    STRUCTURAL_DAMAGE("Structural Damage"),
-    HIGH_WIND("High Wind"),
-    HAZARDOUS_MATERIAL_SPILL("Hazardous Material Spill"),
-    RADIOLOGICAL_SPILL("Radiological Spill"),
-    LAVA("Lava");
-        
+public class DisasterEffectTest {
+
     /**
-     * Reader Friendly Label.
+     * Test of getEffectById method, of class DisasterEffect.
      */
-   public final String label;
-   
-   /**
-    * Constructor
-    * @param label the reader friendly label to use 
-    */
-    private DisasterEffects(String inLabel) {
-        this.label = inLabel;
+    @Test
+    public void testGetEffectById() {
+        int inId = 2;
+        DisasterEffect expResult = DisasterEffect.FLOOD;
+        DisasterEffect result = DisasterEffect.getEffectById(inId);
+        assertEquals(expResult, result);
+
+        inId = 1;
+        expResult = DisasterEffect.FIRE;
+        result = DisasterEffect.getEffectById(inId);
+        assertEquals(expResult, result);
+
+        inId = 3;
+        expResult = DisasterEffect.DEBRIS;
+        result = DisasterEffect.getEffectById(inId);
+        assertEquals(expResult, result);
+
+        inId = 14;
+        expResult = DisasterEffect.INFRASTRUCTURE_BREAKDOWN;
+        result = DisasterEffect.getEffectById(inId);
+        assertEquals(expResult, result);
     }
-  
+
 }
