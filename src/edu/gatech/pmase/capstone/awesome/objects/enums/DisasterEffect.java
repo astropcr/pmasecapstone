@@ -47,6 +47,10 @@ public enum DisasterEffect {
     ASH("Ash", 13),
     INFRASTRUCTURE_BREAKDOWN("Infrastructure Breakdown", 14);
 
+    public static DisasterEffect getEffectById(Long effectId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * Reader Friendly Label.
      */

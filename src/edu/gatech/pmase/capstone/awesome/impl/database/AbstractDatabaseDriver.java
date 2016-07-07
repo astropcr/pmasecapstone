@@ -58,10 +58,15 @@ public class AbstractDatabaseDriver {
     private static final String WORKBOOK_DIR_PROPERTY_NAME = "workbook.dir";
 
     /**
+     * Regex to split String lists with.
+     */
+    protected static final String LIST_STRING_SPLIT_REGEX = ",";
+
+    /**
      * Properties file to load with file names.
      */
-    protected static final  Properties props = new Properties();
-    
+    protected static final Properties props = new Properties();
+
     /**
      * Name of the workbook directory.
      */

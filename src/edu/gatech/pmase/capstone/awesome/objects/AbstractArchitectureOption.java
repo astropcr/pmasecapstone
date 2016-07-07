@@ -157,6 +157,10 @@ public abstract class AbstractArchitectureOption {
     public void setDisasterLimitations(List<DisasterEffect> disasterLimitations) {
         this.disasterLimitations = disasterLimitations;
     }
-    
+
+    @Override
+    public String toString() {
+        return "AbstractArchitectureOption{" + "label=" + label + ", id=" + id + '}';
+    }
     
 }
