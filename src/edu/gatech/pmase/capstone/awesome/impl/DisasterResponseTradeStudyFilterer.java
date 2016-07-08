@@ -25,6 +25,7 @@ package edu.gatech.pmase.capstone.awesome.impl;
 
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFilterer;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
+import edu.gatech.pmase.capstone.awesome.objects.AbstractOnboardArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
@@ -53,8 +54,10 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
         for (final PlatformOption loadedOption : loadedPlatformOptions) {
             if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
                     || testTerrainLimitations(loadedOption, selectedTerrainEffects)) {
-                LOGGER.debug("Filtering out option: "+ loadedOption.getLabel()+" of type: "
+                LOGGER.debug("Filtering out option: " + loadedOption.getLabel() + " of type: "
                         + loadedOption.getClass().getSimpleName());
+            } else {
+                result.add(loadedOption);
             }
         }
 
@@ -73,6 +76,35 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
             List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions,
             List<SensorOption> loadedSensorOptions) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     *
+     * @param <T>
+     * @param selectedDisasterEffects
+     * @param selectedTerrainEffects
+     * @param loadedPlatformOptions
+     * @param loadedOptions
+     * @return
+     */
+    private static <T extends AbstractOnboardArchitectureOption> List<T> filterOptions(
+            final List<DisasterEffect> selectedDisasterEffects,
+            final List<TerrainEffect> selectedTerrainEffects, final List<PlatformOption> loadedPlatformOptions,
+            final List<T> loadedOptions) {
+        final List<T> results = new ArrayList<>();
+
+        for (final T loadedOption : loadedOptions) {
+            if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
+                    || testTerrainLimitations(loadedOption, selectedTerrainEffects)
+                    || testPlatformLimitations(loadedOption, loadedPlatformOptions)) {
+                LOGGER.debug("Filtering out option: " + loadedOption.getLabel() + " of type: "
+                        + loadedOption.getClass().getSimpleName());
+            } else {
+                results.add(loadedOption);
+            }
+        }
+
+        return results;
     }
 
     /**
@@ -108,13 +140,35 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
      * user
      * @return true if the given option should be removed
      */
-    private static boolean testTerrainLimitations(AbstractArchitectureOption loadedOption,
-            List<TerrainEffect> selectedTerrainEffects) {
+    private static boolean testTerrainLimitations(final AbstractArchitectureOption loadedOption,
+            final List<TerrainEffect> selectedTerrainEffects) {
         boolean remove = false;
         final List<TerrainEffect> terrainLimits = loadedOption.getTerrainLimitation();
 
         for (final TerrainEffect effect : selectedTerrainEffects) {
             if (terrainLimits.contains(effect)) {
+                remove = true;
+                break;
+            }
+        }
+
+        return remove;
+    }
+
+    /**
+     *
+     * @param <T>
+     * @param loadedOption
+     * @param loadedPlatformOptions
+     * @return
+     */
+    private static <T extends AbstractOnboardArchitectureOption> boolean testPlatformLimitations(
+            final T loadedOption, final List<PlatformOption> loadedPlatformOptions) {
+        boolean remove = false;
+        final List<PlatformOption> platLimits = loadedOption.getPlatformLimitations();
+
+        for (final PlatformOption platform : loadedPlatformOptions) {
+            if (platLimits.contains(platform)) {
                 remove = true;
                 break;
             }

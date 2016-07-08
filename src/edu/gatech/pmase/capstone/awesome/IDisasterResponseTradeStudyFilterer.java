@@ -53,7 +53,7 @@ public interface IDisasterResponseTradeStudyFilterer {
             final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions);
 
     /**
-     * Filters the PlatformOption list loaded from the database based on the
+     * Filters the CommunicationOption list loaded from the database based on the
      * user input.
      *
      * @param selectedDisasterEffects list of disaster effects selected by the
@@ -68,10 +68,11 @@ public interface IDisasterResponseTradeStudyFilterer {
      * user input.
      */
     List<CommunicationOption> filterCommunications(final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, List<CommunicationOption> loadedCommOptions);
+            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, 
+            List<CommunicationOption> loadedCommOptions);
 
     /**
-     * Filters the PlatformOption list loaded from the database based on the
+     * Filters the SensorOption list loaded from the database based on the
      * user input.
      *
      * @param selectedDisasterEffects list of disaster effects selected by the
@@ -86,5 +87,6 @@ public interface IDisasterResponseTradeStudyFilterer {
      * input.
      */
     List<SensorOption> filterSensors(final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, List<SensorOption> loadedSensorOptions);
+            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, 
+            List<SensorOption> loadedSensorOptions);
 }
