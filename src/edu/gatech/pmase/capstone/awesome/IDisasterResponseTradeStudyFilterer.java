@@ -53,40 +53,34 @@ public interface IDisasterResponseTradeStudyFilterer {
             final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions);
 
     /**
-     * Filters the CommunicationOption list loaded from the database based on the
-     * user input.
+     * Filters the CommunicationOption list loaded from the database based on
+     * the user input.
      *
      * @param selectedDisasterEffects list of disaster effects selected by the
      * user.
      * @param selectedTerrainEffects list of terrain effects selected by the
      * user.
-     * @param loadedPlatformOptions list of PlatformOptions that were loaded
-     * from the database.
      * @param loadedCommOptions list of CommunicationOptions that were loaded
      * from the database.
      * @return a list of CommunicationOption that were filtered based on the
      * user input.
      */
     List<CommunicationOption> filterCommunications(final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, 
-            List<CommunicationOption> loadedCommOptions);
+            final List<TerrainEffect> selectedTerrainEffects, final List<CommunicationOption> loadedCommOptions);
 
     /**
-     * Filters the SensorOption list loaded from the database based on the
-     * user input.
+     * Filters the SensorOption list loaded from the database based on the user
+     * input.
      *
      * @param selectedDisasterEffects list of disaster effects selected by the
      * user.
      * @param selectedTerrainEffects list of terrain effects selected by the
      * user.
-     * @param loadedPlatformOptions list of PlatformOptions that were loaded
-     * from the database.
      * @param loadedSensorOptions list of SensorOption that were loaded from the
      * database.
      * @return a list of SensorOption that were filtered based on the user
      * input.
      */
     List<SensorOption> filterSensors(final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions, 
-            List<SensorOption> loadedSensorOptions);
+            final List<TerrainEffect> selectedTerrainEffects, final List<SensorOption> loadedSensorOptions);
 }

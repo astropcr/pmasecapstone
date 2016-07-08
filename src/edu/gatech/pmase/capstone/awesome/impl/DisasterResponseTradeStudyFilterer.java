@@ -25,7 +25,6 @@ package edu.gatech.pmase.capstone.awesome.impl;
 
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFilterer;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
-import edu.gatech.pmase.capstone.awesome.objects.AbstractOnboardArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
@@ -47,56 +46,42 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
     private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyFilterer.class);
 
     @Override
-    public List<PlatformOption> filterPlatforms(List<DisasterEffect> selectedDisasterEffects,
-            List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions) {
-        final List<PlatformOption> result = new ArrayList<>();
-
-        for (final PlatformOption loadedOption : loadedPlatformOptions) {
-            if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
-                    || testTerrainLimitations(loadedOption, selectedTerrainEffects)) {
-                LOGGER.debug("Filtering out option: " + loadedOption.getLabel() + " of type: "
-                        + loadedOption.getClass().getSimpleName());
-            } else {
-                result.add(loadedOption);
-            }
-        }
-
-        return result;
+    public List<PlatformOption> filterPlatforms(final List<DisasterEffect> selectedDisasterEffects,
+            final List<TerrainEffect> selectedTerrainEffects, final List<PlatformOption> loadedPlatformOptions) {
+        return filterOptions(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
     }
 
     @Override
     public List<CommunicationOption> filterCommunications(List<DisasterEffect> selectedDisasterEffects,
-            List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions,
-            List<CommunicationOption> loadedCommOptions) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            List<TerrainEffect> selectedTerrainEffects, List<CommunicationOption> loadedCommOptions) {
+        return filterOptions(selectedDisasterEffects, selectedTerrainEffects, loadedCommOptions);
     }
 
     @Override
     public List<SensorOption> filterSensors(List<DisasterEffect> selectedDisasterEffects,
-            List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions,
-            List<SensorOption> loadedSensorOptions) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            List<TerrainEffect> selectedTerrainEffects, List<SensorOption> loadedSensorOptions) {
+        return filterOptions(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
     }
 
     /**
+     * Filters the options loaded from a database based upon user selected
+     * disaster effects and terrain effects.
      *
-     * @param <T>
-     * @param selectedDisasterEffects
-     * @param selectedTerrainEffects
-     * @param loadedPlatformOptions
-     * @param loadedOptions
-     * @return
+     * @param <T> the option type that extends AbstractArchitectureOption
+     * @param selectedDisasterEffects the list of user selected disaster effects
+     * @param selectedTerrainEffects the list of user selected terrain effects
+     * @param loadedOptions a list of AbstractArchitectureOption from a database
+     * @return a List of options from the loaded options but filtered based on
+     * user terrain and disaster inputs
      */
-    private static <T extends AbstractOnboardArchitectureOption> List<T> filterOptions(
+    private static <T extends AbstractArchitectureOption> List<T> filterOptions(
             final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects, final List<PlatformOption> loadedPlatformOptions,
-            final List<T> loadedOptions) {
+            final List<TerrainEffect> selectedTerrainEffects, final List<T> loadedOptions) {
         final List<T> results = new ArrayList<>();
 
         for (final T loadedOption : loadedOptions) {
             if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
-                    || testTerrainLimitations(loadedOption, selectedTerrainEffects)
-                    || testPlatformLimitations(loadedOption, loadedPlatformOptions)) {
+                    || testTerrainLimitations(loadedOption, selectedTerrainEffects)) {
                 LOGGER.debug("Filtering out option: " + loadedOption.getLabel() + " of type: "
                         + loadedOption.getClass().getSimpleName());
             } else {
@@ -154,27 +139,4 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
 
         return remove;
     }
-
-    /**
-     *
-     * @param <T>
-     * @param loadedOption
-     * @param loadedPlatformOptions
-     * @return
-     */
-    private static <T extends AbstractOnboardArchitectureOption> boolean testPlatformLimitations(
-            final T loadedOption, final List<PlatformOption> loadedPlatformOptions) {
-        boolean remove = false;
-        final List<PlatformOption> platLimits = loadedOption.getPlatformLimitations();
-
-        for (final PlatformOption platform : loadedPlatformOptions) {
-            if (platLimits.contains(platform)) {
-                remove = true;
-                break;
-            }
-        }
-
-        return remove;
-    }
-
 }
