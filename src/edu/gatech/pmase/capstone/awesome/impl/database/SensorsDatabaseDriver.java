@@ -23,8 +23,8 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl.database;
 
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,19 +40,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * Loads the Communications Database file.
+ * Loads the Sensors Database file.
  */
-public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
+public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(CommunicationsDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(SensorsDatabaseDriver.class);
 
     /**
-     * Communications Workbook Property.
+     * Sensor Workbook Property.
      */
-    private static final String COMM_WORKBOOK_PROPERTY_NAME = "comms.workbook";
+    private static final String SENSOR_WORKBOOK_PROPERTY_NAME = "sensor.workbook";
 
     /**
      * Workbook cell numbers to load from.
@@ -65,8 +65,8 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     private static final int PLAT_RESTRICT_CELL_NUM = 6;
     private static final int WEIGHT_CELL_NUM = 5;
     private static final int COST_RANK_CELL_NUM = 4;
-    private static final int DATA_RATE_CELL_NUM = 3;
-    private static final int RANGE_CELL_NUM = 2;
+    private static final int GSD_CELL_NUM = 3;
+    private static final int SWATH_SIZE_CELL_NUM = 2;
     private static final int LABEL_CELL_NUM = 1;
     private static final int ID_CELL_NUM = 0;
 
@@ -76,33 +76,33 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     private final Map<Long, PlatformOption> platformOptions = new HashMap<>();
 
     /**
-     * Gets all the Communications Options specified in the Communications
-     * database.
+     * Gets all the Sensor Options specified in the Sensor database.
      *
      * @param inPlatformOptions list of PlatformOptions. Must be generated
-     * before creating listing of Comm options due to the Platform restrictions.
-     * @return a List of CommunicationOptions in the database.
+     * before creating listing of Sensor options due to the Platform
+     * restrictions.
+     * @return a List of SensorOption in the database.
      */
-    public List<CommunicationOption> getCommOptions(final List<PlatformOption> inPlatformOptions) {
+    public List<SensorOption> getSensorOptions(final List<PlatformOption> inPlatformOptions) {
         this.mapPlatformOptions(inPlatformOptions);
 
-        List<CommunicationOption> options = new ArrayList<>();
+        List<SensorOption> options = new ArrayList<>();
         Workbook workbook = null;
-        final String filename = props.getProperty(COMM_WORKBOOK_PROPERTY_NAME);
+        final String filename = props.getProperty(SENSOR_WORKBOOK_PROPERTY_NAME);
 
         try {
-            LOGGER.debug("Reading Communications Options from filename: " + filename);
+            LOGGER.debug("Reading Sensor Options from filename: " + filename);
             workbook = loadDatabase(filename);
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Error loading workbook with filename: " + filename, ex);
         }
 
         if (null != workbook) {
-            LOGGER.info(" Communications Options read.");
+            LOGGER.info(" Sensor Options read.");
             // get options from workbook
             options = this.readOptionsFromWorkbook(workbook);
         } else {
-            LOGGER.error("Unable to load Comm workbook with filename: " + filename);
+            LOGGER.error("Unable to load Sensor workbook with filename: " + filename);
         }
 
         return options;
@@ -114,63 +114,63 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
      * @param wb the workbook to read from
      * @return the List of options in the workbook
      */
-    private List<CommunicationOption> readOptionsFromWorkbook(final Workbook wb) {
-        final List<CommunicationOption> options = new ArrayList<>();
+    private List<SensorOption> readOptionsFromWorkbook(final Workbook wb) {
+        final List<SensorOption> options = new ArrayList<>();
         // get first sheet
-        final Sheet commSheet = wb.getSheetAt(0);
+        final Sheet sensorSheet = wb.getSheetAt(0);
 
         // max rows
-        int maxRows = commSheet.getPhysicalNumberOfRows();
+        int maxRows = sensorSheet.getPhysicalNumberOfRows();
         if (maxRows > 1) {
             for (int rowIter = 1; rowIter < maxRows; rowIter++) {
-                final Row row = commSheet.getRow(rowIter);
+                final Row row = sensorSheet.getRow(rowIter);
                 if (null != row) {
-                    final CommunicationOption opt = this.getCommOptionFromRow(row);
+                    final SensorOption opt = this.getSensorOptionFromRow(row);
                     if (null != opt) {
                         options.add(opt);
                     } else {
-                        LOGGER.trace("Could not make Communications Option from row " + rowIter);
+                        LOGGER.trace("Could not make Sensor Option from row " + rowIter);
                     }
                 } else {
                     LOGGER.debug("Loaded Invalid Row: " + rowIter);
                 }
             }
         } else {
-            LOGGER.error("Communications Database does not have the expected number of rows. Must have more than one row.");
+            LOGGER.error("Sensor Database does not have the expected number of rows. Must have more than one row.");
         }
 
         return options;
     }
 
     /**
-     * Creates a CommunicationOption from a row.
+     * Creates a SensorOption from a row.
      *
      * @param row the row to transform
-     * @return the created CommunicationOption, or null if cannot read the row.
+     * @return the created SensorOption, or null if cannot read the row.
      */
-    private CommunicationOption getCommOptionFromRow(final Row row) {
-        CommunicationOption option = null;
+    private SensorOption getSensorOptionFromRow(final Row row) {
+        SensorOption option = null;
 
         // load required info
         final Cell idCell = row.getCell(ID_CELL_NUM);
         final Cell labelCell = row.getCell(LABEL_CELL_NUM);
-        final Cell rangeCell = row.getCell(RANGE_CELL_NUM);
-        final Cell dataRateCell = row.getCell(DATA_RATE_CELL_NUM);
+        final Cell gsdCell = row.getCell(GSD_CELL_NUM);
+        final Cell swathCell = row.getCell(SWATH_SIZE_CELL_NUM);
         final Cell costRankCell = row.getCell(COST_RANK_CELL_NUM);
         final Cell weightCell = row.getCell(WEIGHT_CELL_NUM);
 
-        if (null == idCell || null == labelCell || null == rangeCell || null == dataRateCell || null == costRankCell
-                || null == weightCell) {
-            LOGGER.trace("Comm Database Row " + row.getRowNum() + " missing required CommunicationsOption information.");
+        if (null == idCell || null == labelCell || null == gsdCell || null == swathCell || null == costRankCell
+                || null == weightCell || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
+            LOGGER.trace("Sensor Database Row " + row.getRowNum() + " missing required SensorOption information.");
         } else {
-            option = new CommunicationOption();
+            option = new SensorOption();
             final long idNum = (long) idCell.getNumericCellValue();
-            LOGGER.debug("Parsing CommunicationsOption with ID: " + idNum);
+            LOGGER.debug("Parsing SensorOption with ID: " + idNum);
 
             option.setId(idNum);
             option.setLabel(labelCell.getStringCellValue());
-            option.setRange(rangeCell.getNumericCellValue());
-            option.setDataRate(dataRateCell.getNumericCellValue());
+            option.setGsd(gsdCell.getNumericCellValue());
+            option.setSwathSize(swathCell.getNumericCellValue());
             option.setCostRanking((int) costRankCell.getNumericCellValue());
             option.setWeight(weightCell.getNumericCellValue());
 
@@ -185,7 +185,7 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
             terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
             terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
 
-            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for CommunicationsOption");
+            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for SensorOption");
 
             option.setTerrainLimitation(terrainLimitation);
 

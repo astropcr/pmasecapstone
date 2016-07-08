@@ -21,26 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects.enums;
+package edu.gatech.pmase.capstone.awesome.impl.database;
+
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import java.util.List;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
- * Type of Platforms.
+ * Tests the PlatformDatabaseDriver.
  */
-public enum PlatformType {
+public class PlatformDatabaseDriverTest {
+
     /**
-     * Unknown Type.
+     * Test of getPlatformOptions method, of class PlatformDatabaseDriver.
      */
-    UNKNOWN,
-    /**
-     * Vehicle can travel in the air.
-     */
-    AIR,
-    /**
-     * Vehicle can travel on the ground.
-     */
-    GROUND,
-    /**
-     * Vehicle can travel on water.
-     */
-    WATER;
+    @Test
+    public void testGetPlatformOptions() {
+        final PlatformDatabaseDriver instance = new PlatformDatabaseDriver();
+        final List<PlatformOption> result = instance.getPlatformOptions();
+
+        System.out.println(result);
+
+        assertEquals(14, result.size());
+    }
+
 }

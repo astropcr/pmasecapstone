@@ -24,22 +24,41 @@
 package edu.gatech.pmase.capstone.awesome.impl;
 
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFilterer;
+import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Implementation of IDisasterResponseTradeStudyFilterer.
  */
 public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTradeStudyFilterer {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyFilterer.class);
+
     @Override
     public List<PlatformOption> filterPlatforms(List<DisasterEffect> selectedDisasterEffects,
             List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final List<PlatformOption> result = new ArrayList<>();
+
+        for (final PlatformOption loadedOption : loadedPlatformOptions) {
+            if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
+                    || testTerrainLimitations(loadedOption, selectedTerrainEffects)) {
+                LOGGER.debug("Filtering out option: "+ loadedOption.getLabel()+" of type: "
+                        + loadedOption.getClass().getSimpleName());
+            }
+        }
+
+        return result;
     }
 
     @Override
@@ -54,6 +73,54 @@ public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTrad
             List<TerrainEffect> selectedTerrainEffects, List<PlatformOption> loadedPlatformOptions,
             List<SensorOption> loadedSensorOptions) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Given the architecture option, decides whether it should be removed based
+     * on user selected disaster effects.
+     *
+     * @param option the option loaded from the database
+     * @param selectedDisasterEffects list of selected disaster effects by the
+     * user
+     * @return true if the given option should be removed
+     */
+    private static boolean testDisasterLimitations(final AbstractArchitectureOption option,
+            final List<DisasterEffect> selectedDisasterEffects) {
+        boolean remove = false;
+        final List<DisasterEffect> disasterLimits = option.getDisasterLimitations();
+
+        for (final DisasterEffect effect : selectedDisasterEffects) {
+            if (disasterLimits.contains(effect)) {
+                remove = true;
+                break;
+            }
+        }
+
+        return remove;
+    }
+
+    /**
+     * Given the architecture option, decides whether it should be removed based
+     * on user selected terrain effects.
+     *
+     * @param loadedOption the option loaded from the database
+     * @param selectedTerrainEffects list of selected terrain effects by the
+     * user
+     * @return true if the given option should be removed
+     */
+    private static boolean testTerrainLimitations(AbstractArchitectureOption loadedOption,
+            List<TerrainEffect> selectedTerrainEffects) {
+        boolean remove = false;
+        final List<TerrainEffect> terrainLimits = loadedOption.getTerrainLimitation();
+
+        for (final TerrainEffect effect : selectedTerrainEffects) {
+            if (terrainLimits.contains(effect)) {
+                remove = true;
+                break;
+            }
+        }
+
+        return remove;
     }
 
 }

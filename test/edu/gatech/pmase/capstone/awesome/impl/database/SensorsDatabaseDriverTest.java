@@ -23,23 +23,23 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl.database;
 
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Tests the CommunicationsDatabaseDriver class.
+ * Tests the SensorsDatabaseDriver class.
  */
-public class CommunicationsDatabaseDriverTest {
+public class SensorsDatabaseDriverTest {
 
     /**
-     * Test of getCommOptions method, of class CommunicationsDatabaseDriver.
+     * Test of getSensorOptions method, of class SensorsDatabaseDriver.
      */
     @Test
-    public void testGetCommOptions() {
+    public void testGetSensorOptions() {
         final List<PlatformOption> platformOptions = new ArrayList<>(2);
 
         final PlatformOption one = new PlatformOption();
@@ -78,11 +78,10 @@ public class CommunicationsDatabaseDriverTest {
         nine.setId(9);
         platformOptions.add(nine);
 
-        final CommunicationsDatabaseDriver instance = new CommunicationsDatabaseDriver();
-        List<CommunicationOption> result = instance.getCommOptions(platformOptions);
+        final SensorsDatabaseDriver instance = new SensorsDatabaseDriver();
+        final List<SensorOption> result = instance.getSensorOptions(platformOptions);
 
-        assertEquals(9, result.size());
-
+        assertEquals(8, result.size());
     }
 
 }

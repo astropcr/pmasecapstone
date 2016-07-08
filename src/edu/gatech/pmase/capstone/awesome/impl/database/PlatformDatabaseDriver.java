@@ -23,14 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl.database;
 
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.enums.PlatformType;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -40,19 +38,19 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 /**
- * Loads the Communications Database file.
+ * Loads the Platform Database file.
  */
-public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
+public class PlatformDatabaseDriver extends AbstractDatabaseDriver {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(CommunicationsDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(PlatformDatabaseDriver.class);
 
     /**
-     * Communications Workbook Property.
+     * Platform Workbook Property.
      */
-    private static final String COMM_WORKBOOK_PROPERTY_NAME = "comms.workbook";
+    private static final String PLATFORM_WORKBOOK_PROPERTY_NAME = "platform.workbook";
 
     /**
      * Workbook cell numbers to load from.
@@ -62,47 +60,38 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     private static final int TERRAIN_THREE_RESTRICT_CELL_NUM = 11;
     private static final int TERRAIN_TWO_RESTRICT_CELL_NUM = 10;
     private static final int TERRAIN_ONE_RESTRICT_CELL_NUM = 9;
-    private static final int PLAT_RESTRICT_CELL_NUM = 6;
-    private static final int WEIGHT_CELL_NUM = 5;
-    private static final int COST_RANK_CELL_NUM = 4;
-    private static final int DATA_RATE_CELL_NUM = 3;
+    private static final int PAYLOAD_CELL_NUM = 7;
+    private static final int COST_REAL_CELL_NUM = 6;
+    private static final int COST_RANKING_CELL_NUM = 5;
+    private static final int OPS_HOURS_CELL_NUM = 4;
+    private static final int TYPE_CELL_NUM = 3;
     private static final int RANGE_CELL_NUM = 2;
     private static final int LABEL_CELL_NUM = 1;
     private static final int ID_CELL_NUM = 0;
 
     /**
-     * List of Platform Options to Use.
-     */
-    private final Map<Long, PlatformOption> platformOptions = new HashMap<>();
-
-    /**
-     * Gets all the Communications Options specified in the Communications
-     * database.
+     * Gets all the Platform Options specified in the Platform database.
      *
-     * @param inPlatformOptions list of PlatformOptions. Must be generated
-     * before creating listing of Comm options due to the Platform restrictions.
-     * @return a List of CommunicationOptions in the database.
+     * @return a List of PlatformOption in the database.
      */
-    public List<CommunicationOption> getCommOptions(final List<PlatformOption> inPlatformOptions) {
-        this.mapPlatformOptions(inPlatformOptions);
-
-        List<CommunicationOption> options = new ArrayList<>();
+    public List<PlatformOption> getPlatformOptions() {
+        List<PlatformOption> options = new ArrayList<>();
         Workbook workbook = null;
-        final String filename = props.getProperty(COMM_WORKBOOK_PROPERTY_NAME);
+        final String filename = props.getProperty(PLATFORM_WORKBOOK_PROPERTY_NAME);
 
         try {
-            LOGGER.debug("Reading Communications Options from filename: " + filename);
+            LOGGER.debug("Reading PlatformOption from filename: " + filename);
             workbook = loadDatabase(filename);
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Error loading workbook with filename: " + filename, ex);
         }
 
         if (null != workbook) {
-            LOGGER.info(" Communications Options read.");
+            LOGGER.info(" Platform Options read.");
             // get options from workbook
             options = this.readOptionsFromWorkbook(workbook);
         } else {
-            LOGGER.error("Unable to load Comm workbook with filename: " + filename);
+            LOGGER.error("Unable to load Platform workbook with filename: " + filename);
         }
 
         return options;
@@ -114,70 +103,74 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
      * @param wb the workbook to read from
      * @return the List of options in the workbook
      */
-    private List<CommunicationOption> readOptionsFromWorkbook(final Workbook wb) {
-        final List<CommunicationOption> options = new ArrayList<>();
+    private List<PlatformOption> readOptionsFromWorkbook(final Workbook wb) {
+        final List<PlatformOption> options = new ArrayList<>();
         // get first sheet
-        final Sheet commSheet = wb.getSheetAt(0);
+        final Sheet platSheet = wb.getSheetAt(0);
 
         // max rows
-        int maxRows = commSheet.getPhysicalNumberOfRows();
+        int maxRows = platSheet.getPhysicalNumberOfRows();
         if (maxRows > 1) {
             for (int rowIter = 1; rowIter < maxRows; rowIter++) {
-                final Row row = commSheet.getRow(rowIter);
+                final Row row = platSheet.getRow(rowIter);
                 if (null != row) {
-                    final CommunicationOption opt = this.getCommOptionFromRow(row);
+                    final PlatformOption opt = this.getPlatformOptionFromRow(row);
                     if (null != opt) {
                         options.add(opt);
                     } else {
-                        LOGGER.trace("Could not make Communications Option from row " + rowIter);
+                        LOGGER.trace("Could not make Platform Option from row " + rowIter);
                     }
                 } else {
                     LOGGER.debug("Loaded Invalid Row: " + rowIter);
                 }
             }
         } else {
-            LOGGER.error("Communications Database does not have the expected number of rows. Must have more than one row.");
+            LOGGER.error("Platform Database does not have the expected number of rows. Must have more than one row.");
         }
 
         return options;
     }
 
     /**
-     * Creates a CommunicationOption from a row.
+     * Creates a PlatformOption from a row.
      *
      * @param row the row to transform
-     * @return the created CommunicationOption, or null if cannot read the row.
+     * @return the created PlatformOption, or null if cannot read the row.
      */
-    private CommunicationOption getCommOptionFromRow(final Row row) {
-        CommunicationOption option = null;
+    private PlatformOption getPlatformOptionFromRow(final Row row) {
+        PlatformOption option = null;
 
         // load required info
         final Cell idCell = row.getCell(ID_CELL_NUM);
         final Cell labelCell = row.getCell(LABEL_CELL_NUM);
+        final Cell typeCell = row.getCell(TYPE_CELL_NUM);
         final Cell rangeCell = row.getCell(RANGE_CELL_NUM);
-        final Cell dataRateCell = row.getCell(DATA_RATE_CELL_NUM);
-        final Cell costRankCell = row.getCell(COST_RANK_CELL_NUM);
-        final Cell weightCell = row.getCell(WEIGHT_CELL_NUM);
+        final Cell opsHoursCell = row.getCell(OPS_HOURS_CELL_NUM);
+        final Cell costRankCell = row.getCell(COST_RANKING_CELL_NUM);
+        final Cell costRealCell = row.getCell(COST_REAL_CELL_NUM);
+        final Cell payloadCell = row.getCell(PAYLOAD_CELL_NUM);
 
-        if (null == idCell || null == labelCell || null == rangeCell || null == dataRateCell || null == costRankCell
-                || null == weightCell) {
-            LOGGER.trace("Comm Database Row " + row.getRowNum() + " missing required CommunicationsOption information.");
+        if (null == idCell || null == labelCell || null == typeCell || null == rangeCell || null == opsHoursCell
+                || null == costRankCell || null == costRealCell || null == payloadCell
+                || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
+            LOGGER.trace("Platform Database Row " + row.getRowNum() + " missing required PlatformOption information.");
         } else {
-            option = new CommunicationOption();
+            option = new PlatformOption();
             final long idNum = (long) idCell.getNumericCellValue();
-            LOGGER.debug("Parsing CommunicationsOption with ID: " + idNum);
+            LOGGER.debug("Parsing PlatformOption with ID: " + idNum);
 
             option.setId(idNum);
             option.setLabel(labelCell.getStringCellValue());
             option.setRange(rangeCell.getNumericCellValue());
-            option.setDataRate(dataRateCell.getNumericCellValue());
+            option.setOpsDuration(opsHoursCell.getNumericCellValue());
             option.setCostRanking((int) costRankCell.getNumericCellValue());
-            option.setWeight(weightCell.getNumericCellValue());
+            option.setActualCost(costRealCell.getNumericCellValue());
+            option.setPayload(payloadCell.getNumericCellValue());
+
+            // set Platform Type
+            option.setPlatformType(PlatformDatabaseDriver.getPlatformType(typeCell));
 
             // load optional info
-            // platform restrictions
-            option.setPlatformLimitations(this.getPlatFormRestrictFromCell(row.getCell(PLAT_RESTRICT_CELL_NUM), platformOptions));
-
             // terrain effects
             final List<TerrainEffect> terrainLimitation = new ArrayList<>();
             terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
@@ -185,7 +178,7 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
             terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
             terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
 
-            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for CommunicationsOption");
+            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for PlatformOption");
 
             option.setTerrainLimitation(terrainLimitation);
 
@@ -197,15 +190,42 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     }
 
     /**
-     * Creates mapping of platform options for use in lookup.
+     * Gets the Platform type from the typeCell
      *
-     * @param inPlatformOptions passed in list of PlatformOption loaded from
-     * Platform DB.
+     * @param typeCell theCell to get the Platform Type from
+     * @return the Platform Type
      */
-    private void mapPlatformOptions(final List<PlatformOption> inPlatformOptions) {
-        inPlatformOptions.stream().forEach((option) -> {
-            platformOptions.put(option.getId(), option);
-        });
+    private static PlatformType getPlatformType(final Cell typeCell) {
+        PlatformType t;
+
+        if (null != typeCell) {
+            if (typeCell.getCellType() == Cell.CELL_TYPE_STRING) {
+                final String val = typeCell.getStringCellValue();
+
+                switch (val) {
+                    case "A":
+                        t = PlatformType.AIR;
+                        break;
+                    case "G":
+                        t = PlatformType.GROUND;
+                        break;
+                    case "W":
+                        t = PlatformType.WATER;
+                        break;
+                    default:
+                        t = PlatformType.UNKNOWN;
+                }
+            } else {
+                LOGGER.warn("Could not read platform type for cell: [" + typeCell.getRowIndex() + ","
+                        + typeCell.getColumnIndex() + "]");
+                t = PlatformType.UNKNOWN;
+            }
+        } else {
+            LOGGER.warn("Could not read platform type for cell");
+            t = PlatformType.UNKNOWN;
+        }
+
+        return t;
     }
 
 }
