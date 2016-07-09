@@ -25,18 +25,19 @@ package edu.gatech.pmase.capstone.awesome.impl;
 
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.List;
 
 /**
- * Optimized the Platform architecture option.
+ * Analytical Hierarchy Process based optimator.
  */
-public class PlatformOptimator implements IDisasterResponseTradeStudyOptimator<PlatformOption> {
+public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
 
     @Override
-    public PlatformOption optimizeArchitectureOption(final List<PlatformOption> platOptions,
-            final List<CommunicationOption> commOptions, final List<SensorOption> sensorOptions) {
+    public List<DRTSArchitectureResult> generateOptimizedArchitectures(
+            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions, final List<CommunicationOption> commOptions) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

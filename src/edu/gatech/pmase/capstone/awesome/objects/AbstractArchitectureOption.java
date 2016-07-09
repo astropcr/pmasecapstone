@@ -28,7 +28,8 @@ import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.util.List;
 
 /**
- * Abstract class for all Architecture options read in from Tech Market Survey Based Spreadsheets.
+ * Abstract class for all Architecture options read in from Tech Market Survey
+ * Based Spreadsheets.
  */
 public abstract class AbstractArchitectureOption {
 
@@ -41,17 +42,17 @@ public abstract class AbstractArchitectureOption {
      * The actual cost value for the option (in thousands of dollars).
      */
     private double actualCost;
-    
+
     /**
      * Name of the option.
      */
     private String label;
-    
+
     /**
      * ID of option.
      */
     private long id;
-    
+
     /**
      * Limitations of the architecture option based upon the terrain.
      */
@@ -61,7 +62,7 @@ public abstract class AbstractArchitectureOption {
      * Limitations of the architecture based upon the disaster.
      */
     private List<DisasterEffect> disasterLimitations;
-    
+
     /**
      *
      * @return
@@ -95,64 +96,64 @@ public abstract class AbstractArchitectureOption {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getLabel() {
         return label;
     }
 
     /**
-     * 
-     * @param label 
+     *
+     * @param label
      */
     public void setLabel(String label) {
         this.label = label;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public long getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id 
+     *
+     * @param id
      */
     public void setId(long id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<TerrainEffect> getTerrainLimitation() {
         return terrainLimitation;
     }
 
     /**
-     * 
-     * @param terrainLimitation 
+     *
+     * @param terrainLimitation
      */
     public void setTerrainLimitation(List<TerrainEffect> terrainLimitation) {
         this.terrainLimitation = terrainLimitation;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<DisasterEffect> getDisasterLimitations() {
         return disasterLimitations;
     }
 
     /**
-     * 
-     * @param disasterLimitations 
+     *
+     * @param disasterLimitations
      */
     public void setDisasterLimitations(List<DisasterEffect> disasterLimitations) {
         this.disasterLimitations = disasterLimitations;
@@ -162,5 +163,35 @@ public abstract class AbstractArchitectureOption {
     public String toString() {
         return "AbstractArchitectureOption{" + "label=" + label + ", id=" + id + '}';
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
+
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final AbstractArchitectureOption other = (AbstractArchitectureOption) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

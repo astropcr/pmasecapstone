@@ -23,20 +23,18 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
-import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
-import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
-import java.util.List;
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFinalSelector;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
+import java.util.Set;
 
 /**
- * Optimized the Sensor architecture option.
+ * Checks the generated architectures for the highest ranked, viable
+ * architecture.
  */
-public class SensorOptimator implements IDisasterResponseTradeStudyOptimator<SensorOption> {
+public class SanityFilter implements IDisasterResponseTradeStudyFinalSelector {
 
     @Override
-    public SensorOption optimizeArchitectureOption(final List<PlatformOption> platOptions,
-            final List<CommunicationOption> commOptions, final List<SensorOption> sensorOptions) {
+    public DRTSArchitectureResult selectFinalArchitecture(final Set<DRTSArchitectureResult> archResults) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

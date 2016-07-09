@@ -38,12 +38,12 @@ import org.apache.logging.log4j.Logger;
 /**
  * Implementation of IDisasterResponseTradeStudyFilterer.
  */
-public class DisasterResponseTradeStudyFilterer implements IDisasterResponseTradeStudyFilterer {
+public class DRTSFilterer implements IDisasterResponseTradeStudyFilterer {
 
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyFilterer.class);
+    private static final Logger LOGGER = LogManager.getLogger(DRTSFilterer.class);
 
     @Override
     public List<PlatformOption> filterPlatforms(final List<DisasterEffect> selectedDisasterEffects,

@@ -54,7 +54,7 @@ public class DisasterResponseTradeStudyFiltererTest {
     /**
      * System Under Test.
      */
-    private DisasterResponseTradeStudyFilterer instance;
+    private DRTSFilterer instance;
 
     /**
      * Test user inputs.
@@ -85,12 +85,12 @@ public class DisasterResponseTradeStudyFiltererTest {
 
     @Before
     public void beforeEach() {
-        instance = new DisasterResponseTradeStudyFilterer();
+        instance = new DRTSFilterer();
     }
 
     /**
      * Test of filterPlatforms method, of class
-     * DisasterResponseTradeStudyFilterer.
+ DRTSFilterer.
      */
     @Test
     public void testFilterPlatforms() {
@@ -121,7 +121,7 @@ public class DisasterResponseTradeStudyFiltererTest {
 
     /**
      * Test of filterCommunications method, of class
-     * DisasterResponseTradeStudyFilterer.
+ DRTSFilterer.
      */
     @Test
     public void testFilterCommunications() {
@@ -150,7 +150,7 @@ public class DisasterResponseTradeStudyFiltererTest {
 
     /**
      * Test of filterSensors method, of class
-     * DisasterResponseTradeStudyFilterer.
+ DRTSFilterer.
      */
     @Test
     public void testFilterSensors() {

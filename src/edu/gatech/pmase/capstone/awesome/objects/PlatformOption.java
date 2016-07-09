@@ -99,20 +99,19 @@ public class PlatformOption extends AbstractArchitectureOption {
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public PlatformType getPlatformType() {
         return platformType;
     }
 
     /**
-     * 
-     * @param platformType 
+     *
+     * @param platformType
      */
     public void setPlatformType(PlatformType platformType) {
         this.platformType = platformType;
     }
-
 
 }

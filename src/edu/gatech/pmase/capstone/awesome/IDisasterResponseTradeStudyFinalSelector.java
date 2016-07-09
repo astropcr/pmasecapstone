@@ -21,23 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
-import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
-import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
-import java.util.List;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
+import java.util.Set;
 
 /**
- * Optimized the Communications architecture option.
+ * Final selector for architecture.
  */
-public class CommunicationsOptimator implements IDisasterResponseTradeStudyOptimator<CommunicationOption> {
+public interface IDisasterResponseTradeStudyFinalSelector {
 
-    @Override
-    public CommunicationOption optimizeArchitectureOption(final List<PlatformOption> platOptions,
-            final List<CommunicationOption> commOptions, final List< SensorOption> sensorOptions) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    /**
+     * Selects the final architecture from an ranked set of architectures.
+     * @param archResults the list of generated architectures
+     * @return the selected architecture from the list.
+     */
+    DRTSArchitectureResult selectFinalArchitecture(final Set<DRTSArchitectureResult> archResults);
 }
