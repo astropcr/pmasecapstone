@@ -41,8 +41,6 @@ public class PlatformDatabaseDriverTest {
         final PlatformDatabaseDriver instance = new PlatformDatabaseDriver();
         final List<PlatformOption> result = instance.getPlatformOptions();
 
-        System.out.println(result);
-
         assertEquals(14, result.size());
     }
 
