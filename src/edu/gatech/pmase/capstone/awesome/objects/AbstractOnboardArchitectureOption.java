@@ -23,6 +23,8 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects;
 
+import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,13 +36,13 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
     /**
      * Weight of option (in kilograms - kg).
      */
-    private double weight;
+    private double weight = 0.0;
 
     /**
      * List of platform options that cannot carry the architecture option
      * onboard.
      */
-    private List<PlatformOption> platformLimitations;
+    private List<PlatformOption> platformLimitations = new ArrayList<>(0);
 
     /**
      *
@@ -72,6 +74,22 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
      */
     public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
         this.platformLimitations = platformLimitations;
+    }
+
+    @Override
+    protected List<ArchitectureOptionAttribute> getBasePrioritizationAttributes() {
+        final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+
+        final ArchitectureOptionAttribute weightAttr = new ArchitectureOptionAttribute();
+        weightAttr.setColNum(-1);
+        weightAttr.setLabel("Weight");
+        weightAttr.setSorting(SortOrderEnum.DESCENDING);    // TODO: fix if wrong.
+        weightAttr.setType(Double.class);
+        weightAttr.setUnits("Kilograms");
+        weightAttr.setValue(this.getWeight());
+        attrs.add(weightAttr);
+
+        return attrs;
     }
 
 }

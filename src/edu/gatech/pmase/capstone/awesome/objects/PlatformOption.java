@@ -24,6 +24,8 @@
 package edu.gatech.pmase.capstone.awesome.objects;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.PlatformType;
+import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
+import java.util.List;
 
 /**
  * Platform Option read in from the Tech Market Survey based "database".
@@ -33,27 +35,28 @@ public class PlatformOption extends AbstractArchitectureOption {
     /**
      * Range platform can travel (in kilometers -km).
      */
-    private double range;
+    private double range = -1.0;
 
     /**
      * Duration platform can operate (in hours - hrs).
      */
-    private double opsDuration;
+    private double opsDuration = -1.0;
 
     /**
      * Payload option can carry (in kilograms - kg).
      */
-    private double payload;
+    private double payload = -1.0;
 
     /**
      * Type of the platform.
      */
-    private PlatformType platformType;
+    private PlatformType platformType = PlatformType.UNKNOWN;
 
     /**
      *
      * @return
      */
+    @Deprecated
     public double getRange() {
         return range;
     }
@@ -62,6 +65,7 @@ public class PlatformOption extends AbstractArchitectureOption {
      *
      * @param range
      */
+    @Deprecated
     public void setRange(double range) {
         this.range = range;
     }
@@ -70,6 +74,7 @@ public class PlatformOption extends AbstractArchitectureOption {
      *
      * @return
      */
+    @Deprecated
     public double getOpsDuration() {
         return opsDuration;
     }
@@ -78,6 +83,7 @@ public class PlatformOption extends AbstractArchitectureOption {
      *
      * @param opsDuration
      */
+    @Deprecated
     public void setOpsDuration(double opsDuration) {
         this.opsDuration = opsDuration;
     }
@@ -112,6 +118,23 @@ public class PlatformOption extends AbstractArchitectureOption {
      */
     public void setPlatformType(PlatformType platformType) {
         this.platformType = platformType;
+    }
+
+    @Override
+    public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
+        final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+
+        // get payload
+        final ArchitectureOptionAttribute payloadAttr = new ArchitectureOptionAttribute();
+        payloadAttr.setColNum(-1);
+        payloadAttr.setLabel("Payload");
+        payloadAttr.setSorting(SortOrderEnum.ASCENDING); // TODO: fix if wrong.
+        payloadAttr.setType(Double.class);
+        payloadAttr.setUnits("Kilograms");
+        payloadAttr.setValue(this.getPayload());
+        attrs.add(payloadAttr);
+
+        return attrs;
     }
 
 }

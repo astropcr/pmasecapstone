@@ -23,6 +23,8 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects;
 
+import java.util.List;
+
 /**
  * Sensor Option read in from the Tech Market Survey based "database".
  */
@@ -31,17 +33,18 @@ public class SensorOption extends AbstractOnboardArchitectureOption {
     /**
      * Size of the swath (in kilometers - km).
      */
-    private double swathSize;
+    private double swathSize = -1.0;
 
     /**
      * Ground sample distance (in meters - m).
      */
-    private double gsd;
+    private double gsd = -1.0;
 
     /**
      *
      * @return
      */
+    @Deprecated
     public double getSwathSize() {
         return swathSize;
     }
@@ -50,6 +53,7 @@ public class SensorOption extends AbstractOnboardArchitectureOption {
      *
      * @param swathSize
      */
+    @Deprecated
     public void setSwathSize(double swathSize) {
         this.swathSize = swathSize;
     }
@@ -58,6 +62,7 @@ public class SensorOption extends AbstractOnboardArchitectureOption {
      *
      * @return
      */
+    @Deprecated
     public double getGsd() {
         return gsd;
     }
@@ -66,8 +71,14 @@ public class SensorOption extends AbstractOnboardArchitectureOption {
      *
      * @param gsd
      */
+    @Deprecated
     public void setGsd(double gsd) {
         this.gsd = gsd;
+    }
+
+    @Override
+    public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
+        return super.getBasePrioritizationAttributes();
     }
 
 }

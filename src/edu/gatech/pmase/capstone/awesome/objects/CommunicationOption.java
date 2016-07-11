@@ -23,51 +23,62 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects;
 
+import java.util.List;
+
 /**
  * Communication Option read in from the Tech Market Survey based "database".
  */
-public class CommunicationOption  extends AbstractOnboardArchitectureOption{
-    
+public class CommunicationOption extends AbstractOnboardArchitectureOption {
+
     /**
      * Range of the options (in kilometers - lm).
      */
-    private double range;
-    
+    private double range = -1.0;
+
     /**
-     * Data rate of the option (in MegaBits per second -  Mbps).
+     * Data rate of the option (in MegaBits per second - Mbps).
      */
-    private double dataRate;
-    
+    private double dataRate = -1.0;
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
+    @Deprecated
     public double getRange() {
         return range;
     }
 
     /**
-     * 
-     * @param range 
+     *
+     * @param range
      */
+    @Deprecated
     public void setRange(double range) {
         this.range = range;
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
+    @Deprecated
     public double getDataRate() {
         return dataRate;
     }
 
     /**
-     * 
-     * @param dataRate 
+     *
+     * @param dataRate
      */
+    @Deprecated
     public void setDataRate(double dataRate) {
         this.dataRate = dataRate;
     }
-   
+
+    @Override
+    public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
+        return super.getBasePrioritizationAttributes();
+    }
+
 }

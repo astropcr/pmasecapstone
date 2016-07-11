@@ -24,7 +24,9 @@
 package edu.gatech.pmase.capstone.awesome.objects;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
+import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,37 +38,44 @@ public abstract class AbstractArchitectureOption {
     /**
      * The ranking (?-?) of the cost.
      */
-    private int costRanking;
+    private int costRanking = -1;
 
     /**
      * The actual cost value for the option (in thousands of dollars).
      */
-    private double actualCost;
+    private double actualCost = -1.0;
 
     /**
      * Name of the option.
      */
-    private String label;
+    private String label = "";
 
     /**
      * ID of option.
      */
-    private long id;
+    private long id = -1;
 
     /**
      * Limitations of the architecture option based upon the terrain.
      */
-    private List<TerrainEffect> terrainLimitation;
+    private List<TerrainEffect> terrainLimitation = new ArrayList<>(0);
 
     /**
      * Limitations of the architecture based upon the disaster.
      */
-    private List<DisasterEffect> disasterLimitations;
+    private List<DisasterEffect> disasterLimitations = new ArrayList<>(0);
 
     /**
      * List of custom attributes.
      */
-    private List<ArchitectureOptionAttribute> customAttributes;
+    private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(0);
+
+    /**
+     * Gets a list of attributes to prioritize the option with.
+     *
+     * @return the list of object to prioritize the option with
+     */
+    abstract List<ArchitectureOptionAttribute> getPrioritizationAttributess();
 
     /**
      *
@@ -164,6 +173,22 @@ public abstract class AbstractArchitectureOption {
         this.disasterLimitations = disasterLimitations;
     }
 
+    /**
+     *
+     * @return
+     */
+    public List<ArchitectureOptionAttribute> getCustomAttributes() {
+        return customAttributes;
+    }
+
+    /**
+     *
+     * @param customAttributes
+     */
+    public void setCustomAttributes(List<ArchitectureOptionAttribute> customAttributes) {
+        this.customAttributes = customAttributes;
+    }
+
     @Override
     public String toString() {
         return "AbstractArchitectureOption{" + "label=" + label + ", id=" + id + '}';
@@ -200,19 +225,27 @@ public abstract class AbstractArchitectureOption {
     }
 
     /**
-     * 
-     * @return 
+     * Returns the default attributes to prioritize upon.
+     *
+     * @return the list of default attributes
      */
-    public List<ArchitectureOptionAttribute> getCustomAttributes() {
-        return customAttributes;
+    protected List<ArchitectureOptionAttribute> getBasePrioritizationAttributes() {
+        final List<ArchitectureOptionAttribute> attrs = new ArrayList<>();
+
+        // get cost
+        final ArchitectureOptionAttribute costAttr = new ArchitectureOptionAttribute();
+        costAttr.setColNum(-1);
+        costAttr.setLabel("Cost");
+        costAttr.setSorting(SortOrderEnum.DESCENDING); // TODO: fix if wrong.
+        costAttr.setType(Integer.class);
+        costAttr.setUnits("Dollars");
+        costAttr.setValue(this.getCostRanking());
+        attrs.add(costAttr);
+
+        // add custom attributes
+        attrs.addAll(this.getCustomAttributes());
+
+        return attrs;
     }
 
-    /**
-     * 
-     * @param customAttributes 
-     */
-    public void setCustomAttributes(List<ArchitectureOptionAttribute> customAttributes) {
-        this.customAttributes = customAttributes;
-    }  
-    
 }

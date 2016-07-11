@@ -50,8 +50,9 @@ public class ArchitectureOptionAttribute {
 
     /**
      * Copy Constructor.
+     *
      * @param original
-     * @throws ClassNotFoundException 
+     * @throws ClassNotFoundException
      */
     public ArchitectureOptionAttribute(ArchitectureOptionAttribute original) throws ClassNotFoundException {
         this.colNum = original.colNum;
@@ -108,6 +109,11 @@ public class ArchitectureOptionAttribute {
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + '}';
     }
 
 }
