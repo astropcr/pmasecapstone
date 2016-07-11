@@ -26,21 +26,17 @@ package edu.gatech.pmase.capstone.awesome.impl.database;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.PlatformType;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Loads the Platform Database file.
  */
-public class PlatformDatabaseDriver extends AbstractDatabaseDriver {
+public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOption> {
 
     /**
      * Logger.
@@ -55,80 +51,25 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver {
     /**
      * Workbook cell numbers to load from.
      */
-    private static final int DISASTER_EFFECT_RESTRICT_CELL_NUM = 13;
-    private static final int TERRAIN_FOUR_RESTRICT_CELL_NUM = 12;
-    private static final int TERRAIN_THREE_RESTRICT_CELL_NUM = 11;
-    private static final int TERRAIN_TWO_RESTRICT_CELL_NUM = 10;
-    private static final int TERRAIN_ONE_RESTRICT_CELL_NUM = 9;
-    private static final int PAYLOAD_CELL_NUM = 7;
-    private static final int COST_REAL_CELL_NUM = 6;
-    private static final int COST_RANKING_CELL_NUM = 5;
-    private static final int OPS_HOURS_CELL_NUM = 4;
-    private static final int TYPE_CELL_NUM = 3;
-    private static final int RANGE_CELL_NUM = 2;
+    private static final int DISASTER_EFFECT_RESTRICT_CELL_NUM = 9;
+    private static final int TERRAIN_FOUR_RESTRICT_CELL_NUM = 8;
+    private static final int TERRAIN_THREE_RESTRICT_CELL_NUM = 7;
+    private static final int TERRAIN_TWO_RESTRICT_CELL_NUM = 6;
+    private static final int TERRAIN_ONE_RESTRICT_CELL_NUM = 5;
+    private static final int TYPE_CELL_NUM = 4;
+    private static final int PAYLOAD_CELL_NUM = 3;
+    private static final int COST_RANKING_CELL_NUM = 2;
     private static final int LABEL_CELL_NUM = 1;
     private static final int ID_CELL_NUM = 0;
 
     /**
-     * Gets all the Platform Options specified in the Platform database.
+     * Gets all the Platform options from the database.
      *
-     * @return a List of PlatformOption in the database.
+     * @return the platform options to load from the database.
      */
-    public List<PlatformOption> getPlatformOptions() {
-        List<PlatformOption> options = new ArrayList<>();
-        Workbook workbook = null;
-        final String filename = props.getProperty(PLATFORM_WORKBOOK_PROPERTY_NAME);
-
-        try {
-            LOGGER.debug("Reading PlatformOption from filename: " + filename);
-            workbook = loadDatabase(filename);
-        } catch (IOException | InvalidFormatException ex) {
-            LOGGER.error("Error loading workbook with filename: " + filename, ex);
-        }
-
-        if (null != workbook) {
-            LOGGER.info(" Platform Options read.");
-            // get options from workbook
-            options = this.readOptionsFromWorkbook(workbook);
-        } else {
-            LOGGER.error("Unable to load Platform workbook with filename: " + filename);
-        }
-
-        return options;
-    }
-
-    /**
-     * Reads the options from the workbook.
-     *
-     * @param wb the workbook to read from
-     * @return the List of options in the workbook
-     */
-    private List<PlatformOption> readOptionsFromWorkbook(final Workbook wb) {
-        final List<PlatformOption> options = new ArrayList<>();
-        // get first sheet
-        final Sheet platSheet = wb.getSheetAt(0);
-
-        // max rows
-        int maxRows = platSheet.getPhysicalNumberOfRows();
-        if (maxRows > 1) {
-            for (int rowIter = 1; rowIter < maxRows; rowIter++) {
-                final Row row = platSheet.getRow(rowIter);
-                if (null != row) {
-                    final PlatformOption opt = this.getPlatformOptionFromRow(row);
-                    if (null != opt) {
-                        options.add(opt);
-                    } else {
-                        LOGGER.trace("Could not make Platform Option from row " + rowIter);
-                    }
-                } else {
-                    LOGGER.debug("Loaded Invalid Row: " + rowIter);
-                }
-            }
-        } else {
-            LOGGER.error("Platform Database does not have the expected number of rows. Must have more than one row.");
-        }
-
-        return options;
+    public List<PlatformOption> getPlatformOptionsFromDatabase() {
+        LOGGER.info("Reading PlatformOptions from database.");
+        return this.loadOptionsFromDatabase(props.getProperty(PLATFORM_WORKBOOK_PROPERTY_NAME));
     }
 
     /**
@@ -137,21 +78,18 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver {
      * @param row the row to transform
      * @return the created PlatformOption, or null if cannot read the row.
      */
-    private PlatformOption getPlatformOptionFromRow(final Row row) {
+    @Override
+    protected PlatformOption getOptionFromRow(Row row) {
         PlatformOption option = null;
 
         // load required info
         final Cell idCell = row.getCell(ID_CELL_NUM);
         final Cell labelCell = row.getCell(LABEL_CELL_NUM);
         final Cell typeCell = row.getCell(TYPE_CELL_NUM);
-        final Cell rangeCell = row.getCell(RANGE_CELL_NUM);
-        final Cell opsHoursCell = row.getCell(OPS_HOURS_CELL_NUM);
         final Cell costRankCell = row.getCell(COST_RANKING_CELL_NUM);
-        final Cell costRealCell = row.getCell(COST_REAL_CELL_NUM);
         final Cell payloadCell = row.getCell(PAYLOAD_CELL_NUM);
 
-        if (null == idCell || null == labelCell || null == typeCell || null == rangeCell || null == opsHoursCell
-                || null == costRankCell || null == costRealCell || null == payloadCell
+        if (null == idCell || null == labelCell || null == typeCell || null == costRankCell || null == payloadCell
                 || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
             LOGGER.trace("Platform Database Row " + row.getRowNum() + " missing required PlatformOption information.");
         } else {
@@ -161,14 +99,14 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver {
 
             option.setId(idNum);
             option.setLabel(labelCell.getStringCellValue());
-            option.setRange(rangeCell.getNumericCellValue());
-            option.setOpsDuration(opsHoursCell.getNumericCellValue());
             option.setCostRanking((int) costRankCell.getNumericCellValue());
-            option.setActualCost(costRealCell.getNumericCellValue());
             option.setPayload(payloadCell.getNumericCellValue());
 
             // set Platform Type
             option.setPlatformType(PlatformDatabaseDriver.getPlatformType(typeCell));
+
+            // set custom attributes
+            option.setCustomAttributes(this.getCustomAttributes(row));
 
             // load optional info
             // terrain effects

@@ -21,27 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl.database;
-
-import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
-import java.util.List;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+package edu.gatech.pmase.capstone.awesome.objects.enums;
 
 /**
- * Tests the PlatformDatabaseDriver.
+ * Sorting Options.
  */
-public class PlatformDatabaseDriverTest {
-
-    /**
-     * Test of getPlatformOptions method, of class PlatformDatabaseDriver.
-     */
-    @Test
-    public void testGetPlatformOptions() {
-        final PlatformDatabaseDriver instance = new PlatformDatabaseDriver();
-        final List<PlatformOption> result = instance.getPlatformOptionsFromDatabase();
-
-        assertEquals(14, result.size());
-    }
-
+public enum SortOrderEnum {
+    ASCENDING,
+    DESCENDING;
 }

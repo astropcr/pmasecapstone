@@ -35,7 +35,13 @@ public class SanityFilter implements IDisasterResponseTradeStudyFinalSelector {
 
     @Override
     public DRTSArchitectureResult selectFinalArchitecture(final Set<DRTSArchitectureResult> archResults) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DRTSArchitectureResult finalResult = null;
+        if (null != archResults && archResults.size() > 0) {
+            // TODO: better solution.
+            finalResult = archResults.iterator().next();
+        }
+
+        return finalResult;
     }
 
 }

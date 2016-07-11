@@ -35,11 +35,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * IT test of Filterer and DB Driver.
@@ -69,17 +69,17 @@ public class DisasterResponseTradeStudyFiltererTest {
     public static void setUp() {
         // get platforms
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();
-        loadedPlatformOptions.addAll(platformDb.getPlatformOptions());
+        loadedPlatformOptions.addAll(platformDb.getPlatformOptionsFromDatabase());
         LOGGER.debug("Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
 
         // get comms
         final CommunicationsDatabaseDriver commDb = new CommunicationsDatabaseDriver();
-        loadedCommOptions.addAll(commDb.getCommOptions(loadedPlatformOptions));
+        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(loadedPlatformOptions));
         LOGGER.debug("Loaded " + loadedCommOptions.size() + " CommunicationOption");
 
         // get sensors
         final SensorsDatabaseDriver sensorDb = new SensorsDatabaseDriver();
-        loadedSensorOptions.addAll(sensorDb.getSensorOptions(loadedPlatformOptions));
+        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(loadedPlatformOptions));
         LOGGER.debug("Loaded " + loadedSensorOptions.size() + " SensorOption");
     }
 

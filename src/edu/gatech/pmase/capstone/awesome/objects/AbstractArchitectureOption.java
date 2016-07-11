@@ -64,6 +64,11 @@ public abstract class AbstractArchitectureOption {
     private List<DisasterEffect> disasterLimitations;
 
     /**
+     * List of custom attributes.
+     */
+    private List<ArchitectureOptionAttribute> customAttributes;
+
+    /**
      *
      * @return
      */
@@ -194,4 +199,20 @@ public abstract class AbstractArchitectureOption {
         return true;
     }
 
+    /**
+     * 
+     * @return 
+     */
+    public List<ArchitectureOptionAttribute> getCustomAttributes() {
+        return customAttributes;
+    }
+
+    /**
+     * 
+     * @param customAttributes 
+     */
+    public void setCustomAttributes(List<ArchitectureOptionAttribute> customAttributes) {
+        this.customAttributes = customAttributes;
+    }  
+    
 }

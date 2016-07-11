@@ -26,18 +26,14 @@ package edu.gatech.pmase.capstone.awesome.impl.database;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  * Loads the Sensors Database file.
@@ -57,16 +53,14 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
     /**
      * Workbook cell numbers to load from.
      */
-    private static final int DISASTER_EFFECT_RESTRICT_CELL_NUM = 13;
-    private static final int TERRAIN_FOUR_RESTRICT_CELL_NUM = 12;
-    private static final int TERRAIN_THREE_RESTRICT_CELL_NUM = 11;
-    private static final int TERRAIN_TWO_RESTRICT_CELL_NUM = 10;
-    private static final int TERRAIN_ONE_RESTRICT_CELL_NUM = 9;
-    private static final int PLAT_RESTRICT_CELL_NUM = 6;
-    private static final int WEIGHT_CELL_NUM = 5;
-    private static final int COST_RANK_CELL_NUM = 4;
-    private static final int GSD_CELL_NUM = 3;
-    private static final int SWATH_SIZE_CELL_NUM = 2;
+    private static final int DISASTER_EFFECT_RESTRICT_CELL_NUM = 9;
+    private static final int TERRAIN_FOUR_RESTRICT_CELL_NUM = 8;
+    private static final int TERRAIN_THREE_RESTRICT_CELL_NUM = 7;
+    private static final int TERRAIN_TWO_RESTRICT_CELL_NUM = 6;
+    private static final int TERRAIN_ONE_RESTRICT_CELL_NUM = 5;
+    private static final int PLAT_RESTRICT_CELL_NUM = 4;
+    private static final int WEIGHT_CELL_NUM = 3;
+    private static final int COST_RANK_CELL_NUM = 2;
     private static final int LABEL_CELL_NUM = 1;
     private static final int ID_CELL_NUM = 0;
 
@@ -83,63 +77,14 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
      * restrictions.
      * @return a List of SensorOption in the database.
      */
-    public List<SensorOption> getSensorOptions(final List<PlatformOption> inPlatformOptions) {
+    public List<SensorOption> getSensorOptionsFromDatabase(final List<PlatformOption> inPlatformOptions) {
+        LOGGER.info("Reading SensorOption from database.");
+
+        // map platforms
         this.mapPlatformOptions(inPlatformOptions);
 
-        List<SensorOption> options = new ArrayList<>();
-        Workbook workbook = null;
-        final String filename = props.getProperty(SENSOR_WORKBOOK_PROPERTY_NAME);
-
-        try {
-            LOGGER.debug("Reading Sensor Options from filename: " + filename);
-            workbook = loadDatabase(filename);
-        } catch (IOException | InvalidFormatException ex) {
-            LOGGER.error("Error loading workbook with filename: " + filename, ex);
-        }
-
-        if (null != workbook) {
-            LOGGER.info(" Sensor Options read.");
-            // get options from workbook
-            options = this.readOptionsFromWorkbook(workbook);
-        } else {
-            LOGGER.error("Unable to load Sensor workbook with filename: " + filename);
-        }
-
-        return options;
-    }
-
-    /**
-     * Reads the options from the workbook.
-     *
-     * @param wb the workbook to read from
-     * @return the List of options in the workbook
-     */
-    private List<SensorOption> readOptionsFromWorkbook(final Workbook wb) {
-        final List<SensorOption> options = new ArrayList<>();
-        // get first sheet
-        final Sheet sensorSheet = wb.getSheetAt(0);
-
-        // max rows
-        int maxRows = sensorSheet.getPhysicalNumberOfRows();
-        if (maxRows > 1) {
-            for (int rowIter = 1; rowIter < maxRows; rowIter++) {
-                final Row row = sensorSheet.getRow(rowIter);
-                if (null != row) {
-                    final SensorOption opt = this.getSensorOptionFromRow(row);
-                    if (null != opt) {
-                        options.add(opt);
-                    } else {
-                        LOGGER.trace("Could not make Sensor Option from row " + rowIter);
-                    }
-                } else {
-                    LOGGER.debug("Loaded Invalid Row: " + rowIter);
-                }
-            }
-        } else {
-            LOGGER.error("Sensor Database does not have the expected number of rows. Must have more than one row.");
-        }
-
-        return options;
+        // get options
+        return this.loadOptionsFromDatabase(props.getProperty(SENSOR_WORKBOOK_PROPERTY_NAME));
     }
 
     /**
@@ -148,18 +93,17 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
      * @param row the row to transform
      * @return the created SensorOption, or null if cannot read the row.
      */
-    private SensorOption getSensorOptionFromRow(final Row row) {
+    @Override
+    protected SensorOption getOptionFromRow(final Row row) {
         SensorOption option = null;
 
         // load required info
         final Cell idCell = row.getCell(ID_CELL_NUM);
         final Cell labelCell = row.getCell(LABEL_CELL_NUM);
-        final Cell gsdCell = row.getCell(GSD_CELL_NUM);
-        final Cell swathCell = row.getCell(SWATH_SIZE_CELL_NUM);
         final Cell costRankCell = row.getCell(COST_RANK_CELL_NUM);
         final Cell weightCell = row.getCell(WEIGHT_CELL_NUM);
 
-        if (null == idCell || null == labelCell || null == gsdCell || null == swathCell || null == costRankCell
+        if (null == idCell || null == labelCell || null == costRankCell
                 || null == weightCell || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
             LOGGER.trace("Sensor Database Row " + row.getRowNum() + " missing required SensorOption information.");
         } else {
@@ -169,10 +113,11 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
 
             option.setId(idNum);
             option.setLabel(labelCell.getStringCellValue());
-            option.setGsd(gsdCell.getNumericCellValue());
-            option.setSwathSize(swathCell.getNumericCellValue());
             option.setCostRanking((int) costRankCell.getNumericCellValue());
             option.setWeight(weightCell.getNumericCellValue());
+
+            // set custom attributes
+            option.setCustomAttributes(this.getCustomAttributes(row));
 
             // load optional info
             // platform restrictions
