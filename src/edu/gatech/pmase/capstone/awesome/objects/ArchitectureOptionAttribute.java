@@ -41,6 +41,8 @@ public class ArchitectureOptionAttribute {
     private Object value;
 
     private SortOrderEnum sorting;
+    
+    private double priority;
 
     /**
      * Default Constructor.
@@ -111,6 +113,15 @@ public class ArchitectureOptionAttribute {
         this.value = value;
     }
 
+    public double getPriority() {
+        return priority;
+    }
+
+    public void setPriority(double priority) {
+        this.priority = priority;
+    }
+    
+    
     @Override
     public String toString() {
         return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + '}';
