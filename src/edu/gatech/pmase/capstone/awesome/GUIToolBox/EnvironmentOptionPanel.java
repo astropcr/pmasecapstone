@@ -86,7 +86,7 @@ public class EnvironmentOptionPanel extends AnchorPane {
         
         
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/GUIToolBox/EnvironmentOptionPanel.fxml"));
+                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EnvironmentOptionPanel.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

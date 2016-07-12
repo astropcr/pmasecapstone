@@ -26,6 +26,8 @@ package edu.gatech.pmase.capstone.awesome;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -44,24 +46,15 @@ public class DisasterResponseTradeStudy extends Application {
     private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
 
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LOGGER.info("Hello World!");
-            }
-        });
-
+    public void start(Stage primaryStage) throws Exception {
+        LOGGER.info("Hello World!");
         LOGGER.debug("Testing Logger");
+        
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudy.fxml"));
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        Scene scene = new Scene(root);
 
-        Scene scene = new Scene(root, 300, 250);
-
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

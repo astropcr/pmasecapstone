@@ -74,7 +74,7 @@ public class EnvironmentElementStatus extends AnchorPane {
         
         
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/GUIToolBox/EnvironmentElementStatus.fxml"));
+                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EnvironmentElementStatus.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

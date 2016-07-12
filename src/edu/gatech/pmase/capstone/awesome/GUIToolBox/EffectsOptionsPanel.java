@@ -77,7 +77,7 @@ public class EffectsOptionsPanel extends AnchorPane {
         
         
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/GUIToolBox/EffectsOptionsPanel.fxml"));
+                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

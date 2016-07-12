@@ -88,7 +88,7 @@ public class WeightingOptionQuestion extends AnchorPane {
         
         
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/GUIToolBox/WeightingOptionQuestion.fxml"));
+                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
