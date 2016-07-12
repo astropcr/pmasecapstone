@@ -24,16 +24,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<fx:root id="EnvironmentStatus" prefHeight="50.0" prefWidth="200.0" type="AnchorPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<fx:root id="EnvironmentStatus" prefHeight="50.0" prefWidth="175.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btnEnvOpt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionButtonAction" prefHeight="50.0" prefWidth="150.0" text="Button" />
-      <Label fx:id="lblEnvOptWeight" layoutX="161.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="Label" />
+      <Button fx:id="btnEnvOpt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionButtonAction" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: GoldenRod; -fx-effect: three-pass-box , #DAA520 , 10 , 0.5 , 2 , 0  ); -fx-border-color: GoldenRod; -fx-border-radius: 5; -fx-padding: 3 6 6 6;" text="Button">
+         <font>
+            <Font name="Agency FB Bold" size="20.0" />
+         </font></Button>
+      <Label fx:id="lblEnvOptWeight" layoutX="161.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" text="Label" textAlignment="CENTER" AnchorPane.rightAnchor="0.0" style="-fx-background-color: DarkSeaGreen; -fx-effect: three-pass-box , #556B2F , 10 , 0.5 , 2 , 0  ); -fx-border-color: DarkOliveGreen; -fx-border-radius: 5; -fx-padding: 3 6 6 6;">
+         <font>
+            <Font name="Trebuchet MS Bold" size="18.0" />
+         </font></Label>
    </children>
 </fx:root>

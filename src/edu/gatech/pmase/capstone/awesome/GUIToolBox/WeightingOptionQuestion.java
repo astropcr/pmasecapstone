@@ -104,10 +104,6 @@ public class WeightingOptionQuestion extends AnchorPane {
             throw new RuntimeException(exception);
         }
         
-        System.out.println("The weighting option question loader got called!!!");
-        
-        
-               
         // Setup the toggle group that handles the radio buttons
         questionSet = new ToggleGroup();
         questionSet.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {

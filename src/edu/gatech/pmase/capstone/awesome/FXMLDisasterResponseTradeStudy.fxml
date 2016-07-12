@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,21 +9,75 @@
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.FXMLDisasterResponseTradeStudy">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.FXMLDisasterResponseTradeStudy">
     <children>
+      <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0">
+         <center>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
+              </columnConstraints>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <rowConstraints>
+                  <RowConstraints />
+               </rowConstraints>
+            </GridPane>
+         </center>
+         
+         
+
+         <left>
+            <Pane prefHeight="468.0" prefWidth="12.0" />
+         </left>
+         <right>
+            <Pane prefHeight="468.0" prefWidth="12.0">
+               <children>
+                    
+                    <Button fx:id="button" alignment="CENTER" onAction="#handleButtonAction" text="Done" />
+               </children>
+            </Pane>
+         </right>
+         <bottom>
+            <GridPane layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" />
+               </children>
+            </GridPane>
+         </bottom>
+         <top>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="750.0" text="Disaster Response Trade Study Tool" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Agency FB Bold" size="40.0" />
+               </font>
+            </Label>
+         </top>
+      </BorderPane>
+      <EffectsOptionsPanel />
         <!--WeightingOptionPanel fx:id="wop1" title="Sensor Weighting" GridPane.rowIndex="1" /-->
         
-        <!--<EnvironmentOptionPanel fx:id="eep1" question="Roads are defined as follows (choose the most appropriate value):" GridPane.rowIndex="1" envOpt1="0 = no factor" envOpt2="1 = majority of roadways are paved"  />-->
-        <EnvironmentOptionPanel id="eopRoads" fx:id="eopElevation" GridPane.rowIndex="1">
+                    <!--<EnvironmentOptionPanel fx:id="eep1" question="Roads are defined as follows (choose the most appropriate value):" GridPane.rowIndex="1" envOpt1="0 = no factor" envOpt2="1 = majority of roadways are paved"  />-->
+        <EnvironmentOptionPanel id="eopRoads" fx:id="eopElevation" prefHeight="468.0" prefWidth="501.0">
             <question>Roads are defined as follows (choose the most appropriate value):</question>
             <envOpt1>0 = no factor</envOpt1>
             <envOpt2>1 = majority of roadways are paved</envOpt2>
             <envOpt3>2 = Mike's Awesome Option</envOpt3>
         </EnvironmentOptionPanel>
-        
-        <Button fx:id="button" layoutX="514.0" layoutY="490.0" onAction="#handleButtonAction" text="Done" />
-      <EffectsOptionsPanel layoutX="437.0" layoutY="20.0" />
-      <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" layoutX="50.0" layoutY="453.0" />
         <!--<Label fx:id="label" layoutX="317.0" layoutY="494.0" minHeight="16" minWidth="69" text="Select done when complete:" />
       <Label layoutX="258.0" layoutY="60.0" prefHeight="93.0" prefWidth="512.0" text="In order to generate weighting criteria based on user preferences, please answer the following questions by selecting the desired radial button next to each question:" wrapText="true" />
       <GridPane layoutX="12.0" layoutY="180.0" prefHeight="251.0" prefWidth="1000.0">
