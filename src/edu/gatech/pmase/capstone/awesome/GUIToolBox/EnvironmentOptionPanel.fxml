@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root id="EnvOptPanel3" fx:id="testEop" prefHeight="350.0" prefWidth="500.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0">
+         <center>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="480.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ToggleButton fx:id="tbEnvironmentOption1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" text="ToggleButton">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="tgEnvironmentOptions" />
+                     </toggleGroup>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="tbEnvironmentOption2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="tbEnvironmentOption3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="tbEnvironmentOption4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="tbEnvironmentOption5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </ToggleButton>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <Label fx:id="questionLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="480.0" text="Label" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Agency FB Bold" size="20.0" />
+               </font>
+            </Label>
+         </top>
+         <bottom>
+            <Button fx:id="btnDone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDoneButtonAction" prefHeight="50.0" prefWidth="200.0" text="Done" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" />
+               </BorderPane.margin>
+            </Button>
+         </bottom>
+      </BorderPane>
+   </children>
+</fx:root>
