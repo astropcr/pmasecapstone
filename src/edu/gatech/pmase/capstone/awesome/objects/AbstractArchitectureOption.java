@@ -247,5 +247,5 @@ public abstract class AbstractArchitectureOption {
 
         return attrs;
     }
-
+    
 }
