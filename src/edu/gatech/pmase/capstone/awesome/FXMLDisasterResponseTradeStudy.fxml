@@ -4,12 +4,17 @@
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import java.net.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.FXMLDisasterResponseTradeStudy">
+    <stylesheets>
+        <URL value="@GUIToolBox/guitoolbox.css" />
+    </stylesheets>
+    
     <children>
       <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0">
          <center>
@@ -24,6 +29,18 @@
                <rowConstraints>
                   <RowConstraints />
                </rowConstraints>
+               <children>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0">
+                     <children>
+                        <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label fx:id="lblSubTitleWeightingCriteria" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="450.0" styleClass="mainSubTitleLabel" text="3. Define Weighting Criteria" textAlignment="CENTER" />
+                     </children>
+                  </AnchorPane>
+               </children>
             </GridPane>
          </center>
          
@@ -48,7 +65,6 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -56,15 +72,37 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" />
+                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!"  prefHeight="67.0" prefWidth="111.0" />
+                  <EnvironmentElementStatus fx:id="eesRoads" environmentOption="Roads" environmentOptionPanel="eepRoads" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesBridges" environmentOption="Bridges" environmentOptionPanel="eepBridges" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="2" />
+                  
+                  <EnvironmentElementStatus fx:id="eesFoilage" environmentOption="Foilage" environmentOptionPanel="eepFoilage" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesWetness" environmentOption="Wetness" environmentOptionPanel="eepWetness" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  
+                  <EnvironmentElementStatus fx:id="eesStreams" environmentOption="Streams" environmentOptionPanel="eepStreams" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesBeach" environmentOption="Beach" environmentOptionPanel="eepBeach" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  
+                  <EnvironmentElementStatus fx:id="eesWaterWays" environmentOption="Water Ways" environmentOptionPanel="eepWaterWays" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" />
+                  <EnvironmentElementStatus fx:id="eesUrbanization" environmentOption="Urbanization" environmentOptionPanel="eepUrbanization" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesRange" environmentOption="Range" environmentOptionPanel="eepRange" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  
+                  <EnvironmentElementStatus fx:id="eesPopulation" environmentOption="Population" environmentOptionPanel="eepPopulation" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" />
+                  <EnvironmentElementStatus fx:id="eesPersistence" environmentOption="Persistence" environmentOptionPanel="eepPersistence" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesTrafficability" environmentOption="Trafficability" environmentOptionPanel="eepTrafficability" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="12.0" right="12.0" />
+               </padding>
             </GridPane>
          </bottom>
          <top>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="750.0" text="Disaster Response Trade Study Tool" textAlignment="CENTER" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Agency FB Bold" size="40.0" />
-               </font>
+            <Label fx:id="lblTitleMain" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="750.0" styleClass="mainTitleLabel" text="Disaster Response Trade Study Tool" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="13.0" top="12.0" />
+               </BorderPane.margin>
             </Label>
          </top>
       </BorderPane>

@@ -45,7 +45,10 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
 
     
     @FXML    private Label label;    
-    @FXML    private Label title;
+    @FXML    private Label lblTitleMain;
+    @FXML    private Label lblSubTitleWeightingCriteria;
+    @FXML    private Label lblSubTitleDisasterEffects;
+    @FXML    private Label lblSubTitleEnvironmentOptions;
     
     @FXML    private WeightingOptionQuestion woqc1;    
     @FXML    private WeightingOptionQuestion woqc2;    
@@ -64,7 +67,6 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
     @FXML    private WeightingOptionPanel wop1;
     
     @FXML    private EnvironmentOptionPanel eopElevation;
-    
     
     @FXML   private EnvironmentElementStatus eesElevation;
     
@@ -104,7 +106,7 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
     // -------------------------------------------------------------------------
     public void attachControllersToEachOther()
     {
-        eesElevation.setDisasterEffectPanel("eopRoads");
+        eesElevation.setTetheredEnvironmentOptionPanel("eopElevation");  // TODO: Rename eop
     }
     
 }

@@ -159,6 +159,24 @@ public class EnvironmentOptionPanel extends AnchorPane {
         //       dependency injection.
         
         
+        
+        // Turns off the panel.
+        this.setVisible(false);
+    }
+    
+    // -------------------------------------------------------------------------
+    // Event handlers
+    // -------------------------------------------------------------------------
+    @FXML
+    private void handleOptionButtonAction(ActionEvent event) {
+        // Update caller that we've returned
+        // TODO: possibly fire an event...could require object registration or
+        //       dependency injection.
+        
+        // Set the tooltip property
+        
+        // update the caller with the selected option
+        
         // Turns off the panel.
         this.setVisible(false);
     }

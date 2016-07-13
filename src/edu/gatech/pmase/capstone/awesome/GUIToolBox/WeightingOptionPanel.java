@@ -123,7 +123,6 @@ public class WeightingOptionPanel extends AnchorPane {
         
         // bind the properties to the text properties
         titleLabel.textProperty().bind(titleProperty());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-underline: true;");
     }
     
     // -------------------------------------------------------------------------
