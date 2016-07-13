@@ -104,7 +104,6 @@ public class EffectsOptionsPanel extends AnchorPane {
         
         // bind the properties to the text properties
         titleLabel.textProperty().bind(questionProperty());
-        titleLabel.setStyle("-fx-font-weight: bold; -fx-underline: true;");
         
     }
     
@@ -123,6 +122,19 @@ public class EffectsOptionsPanel extends AnchorPane {
         this.setVisible(false);
     }
     
+    @FXML
+    private void handleOptionButtonAction(ActionEvent event) {
+        
+        // Update caller that we've returned
+        // TODO: possibly fire an event...could require object registration or
+        //       dependency injection.
+        
+        // update the tooltip (send to caller)
+        
+        // Turns off the panel.
+        this.setVisible(false);
+    }
+    
     
     // ---------------------------------------------------------------------
     // A utility procedure that creates the disaster effects list.
@@ -131,7 +143,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     {   
         disasterEffects.add(new DisasterEffect("Flood", false));
         disasterEffects.add(new DisasterEffect("Debris", false));
-        disasterEffects.add(new DisasterEffect("Smoke/Dush/Ash (airborne)", false));
+        disasterEffects.add(new DisasterEffect("Smoke/Dust", false));
         disasterEffects.add(new DisasterEffect("Ground Instability", false));
         disasterEffects.add(new DisasterEffect("Land Slide", false));
         disasterEffects.add(new DisasterEffect("Mud Slide", false));
@@ -140,7 +152,7 @@ public class EffectsOptionsPanel extends AnchorPane {
         disasterEffects.add(new DisasterEffect("Hazardous Material Spill", false));
         disasterEffects.add(new DisasterEffect("Radiological Spill", false));
         disasterEffects.add(new DisasterEffect("Lava", false));
-        disasterEffects.add(new DisasterEffect("Ash <---- does this mean something different than airborne???", false));
+        disasterEffects.add(new DisasterEffect("Ash", false));
     }
     
     

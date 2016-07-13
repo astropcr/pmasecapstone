@@ -1,0 +1,118 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.userSelectionButton {
+    -fx-background-color: Gold;
+    -fx-background-radius: 5;
+    
+    -fx-border-color: GoldenRod;
+    -fx-border-radius: 5;
+    
+    -fx-effect: innershadow( one-pass-box , #DAA520 , 8 , 0.5 , 0 , 0  );
+    
+    -fx-text-fill: #7f6000;
+    
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
+.userSelectionButton:pressed {
+    -fx-background-color: goldenrod;
+}
+
+.userSelectionButton:selected {
+    /* #e4ba4e - goldenrod @60% */
+    /* #e1b137 - goldenrod @55% */
+    /* #dea821 - goldenrod @50%*/
+    -fx-background-color: #e1b137; /* #daa520 */
+    /* #daa520 - goldenrod @49%*/
+    /* #c8981e - goldenrod @45% */
+    /* #b1871b - goldenrod @40% */
+    
+    -fx-border-color: Gold;
+}
+
+.userStatusLabel {
+    -fx-background-color: DarkSeaGreen;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow( three-pass-box , #556B2F , 10 , 0.5 , 0 , 0  );
+    -fx-border-color: DarkOliveGreen;
+    -fx-border-radius: 5;
+    
+    -fx-font-family: "Trebuchet MS Bold";
+    -fx-font-size: 18pt;
+    
+}
+
+#ToolTip {
+    -fx-effect: dropshadow( three-pass-box , #333333 , 10 , 0.5 , 0 , 0  );
+}
+
+.environmentOptionPanel {
+    -fx-background-color: cornflowerblue;
+    -fx-background-radius: 5;
+    -fx-border-color: darkblue;
+    -fx-border-radius: 5;
+}
+
+.effectsOptionPanel {
+    -fx-background-color: cornflowerblue;
+    -fx-background-radius: 5;
+    -fx-border-color: darkblue;
+    -fx-border-radius: 5;
+}
+
+.weightingCriteriaPanel {
+    -fx-background-color: lightblue;
+    -fx-border-color: cornflowerblue;
+    -fx-background-radius: 5;
+    -fx-border-color: darkblue;
+    -fx-border-radius: 5;
+}
+
+/* 
+ * These are the header boxen aboves the selection columns that tells the user 
+ * what the criteria are.
+ */
+.weightingCriteriaLabel {
+    -fx-background-color: cornflowerblue;
+    -fx-border-color: black;
+}
+
+.titleLabel {
+    -fx-font-size: 30pt;
+    -fx-font-weight: bold;
+    -fx-font-underline: true;
+    -fx-font-family: "Agency FB";
+}
+
+.mainTitleLabel {
+    -fx-background-color: lightgrey;
+    -fx-background-radius: 5;
+    -fx-border-color: darkblue;
+    -fx-border-radius: 5;
+    
+    -fx-font-size: 40pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Agency FB";
+    
+    -fx-text-fill: #7f6000;
+    -fx-text-alignment: center;
+    -fx-text-origin:top;
+    
+}
+
+.mainSubTitleLabel {
+    -fx-background-color: lightblue;
+    -fx-background-radius: 5;
+    -fx-border-color: darkblue;
+    -fx-border-radius: 5;
+    
+    -fx-font-size: 32pt;
+    -fx-font-weight: bold;
+    -fx-font-family: "Agency FB";
+    
+    -fx-text-fill: #7f6000;
+}

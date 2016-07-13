@@ -33,7 +33,9 @@ THE SOFTWARE.
 <?import javafx.scene.layout.*?>
 
 <fx:root id="AnchorPane" prefHeight="23.0" prefWidth="487.0" styleClass="questionSetLine" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-
+    <stylesheets>
+        <URL value="@guitoolbox.css" />
+    </stylesheets>
    <children>
       <GridPane layoutY="3.0" prefHeight="17.0" prefWidth="1000.0">
          <columnConstraints>

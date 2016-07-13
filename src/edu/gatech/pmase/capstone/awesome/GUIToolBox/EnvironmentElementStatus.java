@@ -31,6 +31,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -45,6 +46,8 @@ public class EnvironmentElementStatus extends AnchorPane {
 
     @FXML    private Label lblEnvOptWeight;
     @FXML    private Button btnEnvOpt;
+    
+    @FXML   private Tooltip ttDescription;
     
     // -------------------------------------------------------------------------
     // These expose the controls that contain the questions and the related 
@@ -66,6 +69,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     private final SimpleStringProperty environmentOption;
     private final SimpleStringProperty environmentOptionPanel;
+    private final SimpleStringProperty toolTip;
     
     private EnvironmentOptionPanel eop;
     
@@ -91,17 +95,16 @@ public class EnvironmentElementStatus extends AnchorPane {
         }
              
         // Set the styles
-        lblEnvOptWeight.setStyle("-fx-font-weight: bold; -fx-underline: true;");
-        
-//        tbEnvironmentOption1.setStyle("-fx-alignment: BASELINE_LEFT; -fx-font: 20px \"Agency FB Bold\"; -fx-font-weight: bold;");
+        // This is done in the XML file
         
         // Initialize the properties to read from the FXML file
         this.environmentOption      = new SimpleStringProperty("Effect");
         this.environmentOptionPanel = new SimpleStringProperty("");
+        this.toolTip                = new SimpleStringProperty("");
         
         // bind the XML properties to the text properties
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
-        btnEnvOpt.textProperty().bind(environmentOptionPanelProperty());
+        ttDescription.textProperty().bind(toolTipProperty());
         
         eop = null;
         
@@ -151,7 +154,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     // This stores an EOP node based on it's given name
     // -------------------------------------------------------------------------
-    public void setDisasterEffectPanel(String eopName)
+    public void setTetheredEnvironmentOptionPanel(String eopName)
     {
         Scene scene = this.getScene();
 
@@ -191,6 +194,21 @@ public class EnvironmentElementStatus extends AnchorPane {
     
     public SimpleStringProperty environmentOptionPanelProperty() {
         return environmentOptionPanel;
+    }
+    
+    // -------------------------------------------------------------------------
+    // This property informs this controller of the text needed for the tooltip.
+    // -------------------------------------------------------------------------
+    public String getToolTip() {
+        return toolTipProperty().get();
+    }
+
+    public void setToolTip(String fName) {
+        toolTipProperty().set(fName);
+    }
+    
+    public SimpleStringProperty toolTipProperty() {
+        return toolTip;
     }
     
     
