@@ -35,7 +35,7 @@ public enum DisasterEffect {
     FIRE("Fire", 1),
     FLOOD("Flood", 2),
     DEBRIS("Debris", 3),
-    SMOKE_DUST_ASH("Smoke, Dust, or Ash", 4),
+    SMOKE_DUST("Smoke and Dust", 4),
     GROUND_INSTABILITY("Gound Instabilitiy", 5),
     LAND_SLIDE("Land Slide", 6),
     MUD_SLIDE("Mud Slide", 7),
@@ -46,10 +46,6 @@ public enum DisasterEffect {
     LAVA("Lava", 12),
     ASH("Ash", 13),
     INFRASTRUCTURE_BREAKDOWN("Infrastructure Breakdown", 14);
-
-    public static DisasterEffect getEffectById(Long effectId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * Reader Friendly Label.
