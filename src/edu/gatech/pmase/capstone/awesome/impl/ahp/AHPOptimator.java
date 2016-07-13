@@ -21,14 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
+import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -38,11 +40,18 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
 
     @Override
     public List<DRTSArchitectureResult> generateOptimizedArchitectures(
-            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions, final List<CommunicationOption> commOptions) {
-       final  List<DRTSArchitectureResult> results = new ArrayList<>();
-            
-       
-       return results;
+            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions,
+            final List<CommunicationOption> commOptions,
+            final List<ArchitectureOptionAttribute> prioritizes) {
+        final List<DRTSArchitectureResult> results = new ArrayList<>();
+
+        Arrays.asList(platformOptions, sensorOptions, commOptions).parallelStream().forEach((optList) -> {
+            // maybe just do one by one to maintain class types - prob.
+            ComponentAHPOptimator compOpt = new ComponentAHPOptimator();
+            List result = compOpt.generateOptimizedOption(optList, prioritizes);
+        });
+
+        return results;
     }
 
 }

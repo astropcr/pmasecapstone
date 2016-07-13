@@ -75,7 +75,7 @@ public abstract class AbstractArchitectureOption {
      *
      * @return the list of object to prioritize the option with
      */
-    abstract List<ArchitectureOptionAttribute> getPrioritizationAttributess();
+    public abstract List<ArchitectureOptionAttribute> getPrioritizationAttributess();
 
     /**
      *
@@ -236,7 +236,7 @@ public abstract class AbstractArchitectureOption {
         final ArchitectureOptionAttribute costAttr = new ArchitectureOptionAttribute();
         costAttr.setColNum(-1);
         costAttr.setLabel("Cost");
-        costAttr.setSorting(SortOrderEnum.DESCENDING); // TODO: fix if wrong.
+        costAttr.setSorting(SortOrderEnum.ASCENDING); // TODO: fix if wrong.
         costAttr.setType(Integer.class);
         costAttr.setUnits("Dollars");
         costAttr.setValue(this.getCostRanking());
@@ -247,5 +247,5 @@ public abstract class AbstractArchitectureOption {
 
         return attrs;
     }
-    
+
 }

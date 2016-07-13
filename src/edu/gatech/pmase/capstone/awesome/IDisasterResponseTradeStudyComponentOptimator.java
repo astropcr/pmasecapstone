@@ -23,20 +23,22 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
-import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
-import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
-import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
-import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.List;
 
 /**
- * Creates a set of optimized architectures based on architecture options
- * filtered by user inputs.
+ * Optimizes a specific component of the overall architecture.
  */
-public interface IDisasterResponseTradeStudyOptimator {
+public interface IDisasterResponseTradeStudyComponentOptimator {
 
-    List<DRTSArchitectureResult> generateOptimizedArchitectures(
-            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions,
-            final List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> prioritizes);
+    /**
+     * 
+     * @param <T>
+     * @param options
+     * @param prioritizes
+     * @return 
+     */
+    <T extends AbstractArchitectureOption> List generateOptimizedOption(final List<T> options, final List<ArchitectureOptionAttribute> prioritizes);
+
 }

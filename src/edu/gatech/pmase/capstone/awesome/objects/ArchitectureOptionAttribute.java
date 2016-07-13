@@ -24,11 +24,18 @@
 package edu.gatech.pmase.capstone.awesome.objects;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  */
 public class ArchitectureOptionAttribute {
+
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(ArchitectureOptionAttribute.class);
 
     private String label;
 
@@ -41,7 +48,7 @@ public class ArchitectureOptionAttribute {
     private Object value;
 
     private SortOrderEnum sorting;
-    
+
     private double priority;
 
     /**
@@ -120,11 +127,31 @@ public class ArchitectureOptionAttribute {
     public void setPriority(double priority) {
         this.priority = priority;
     }
-    
-    
+
     @Override
     public String toString() {
         return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + '}';
+    }
+
+    /**
+     * Gets the value of the attribute as a double if the value is numerical.
+     *
+     * @param attr the attribute to get the value of
+     * @return the value as a double
+     */
+    public static Double getAttributeNumericalValue(final ArchitectureOptionAttribute attr) {
+        Double value = 0.0;
+
+        final Class clazz = attr.getType();
+        if (Number.class.isAssignableFrom(clazz)) {
+            value += ((Number) attr.getValue()).doubleValue();
+        } else {
+            LOGGER.error("Cannot get value for attribute: " + attr.getLabel()
+                    + ". Value is not a recognized class: " + clazz.getName());
+            value = null;
+        }
+
+        return value;
     }
 
 }
