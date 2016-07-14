@@ -23,10 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -41,6 +43,20 @@ import org.apache.logging.log4j.Logger;
 public class DisasterResponseTradeStudy extends Application {
 
     /**
+     * These setup the windows that will be shown.
+     * This is inspired by the ScreenController example found at the following site:
+     * https://blogs.oracle.com/acaicedo/entry/managing_multiple_screens_in_javafx1
+     * 
+     */
+    public static String classPath = "/edu/gatech/pmase/capstone/awesome/";
+    public static String screenMainID           = classPath + "MainWindow";
+    public static String screenMainFile         = classPath + "MainWindow.fxml";
+    public static String screenEffectsOptID     = classPath + "DisasterEffectsOptions";
+    public static String screenEffectsFile      = classPath + "DisasterEffectsOptions.fxml";
+    public static String screenEnvironmentID    = classPath + "EnvironmentOptions";
+    public static String screenEnvironmenFile   = classPath + "EnvironmentOptions.fxml";
+    
+    /**
      * Logger. Use to log all things
      */
     private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
@@ -50,11 +66,23 @@ public class DisasterResponseTradeStudy extends Application {
         LOGGER.info("Hello World!");
         LOGGER.debug("Testing Logger");
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudy.fxml"));
-
+//        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
+//
+//        Scene scene = new Scene(root);
+//
+//        primaryStage.setTitle("Disaster Response Trade Study Tool");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+        ScreensController mainContainer = new ScreensController();
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvironmentID, DisasterResponseTradeStudy.screenEnvironmenFile);
+        
+        mainContainer.setScreen(DisasterResponseTradeStudy.screenMainID);
+        
+        Group root = new Group();
+        root.getChildren().addAll(mainContainer);
         Scene scene = new Scene(root);
-
-        primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

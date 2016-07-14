@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.FXMLDisasterResponseTradeStudy">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
@@ -32,7 +32,9 @@
                <children>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0">
                      <children>
-                        <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
+                        <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
+                        <Button fx:id="btnDepOpen" layoutX="22.0" layoutY="98.0" mnemonicParsing="false" onAction="#handlePanelSwitchButtonAction" styleClass="userSelectionButton" text="Disaster Effects" />
+                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="275.0" prefWidth="457.0" styleClass="userStatusLabel" text="Label" />
                      </children>
                   </AnchorPane>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0" GridPane.columnIndex="1">
@@ -72,7 +74,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!"  prefHeight="67.0" prefWidth="111.0" />
+                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!" />
                   <EnvironmentElementStatus fx:id="eesRoads" environmentOption="Roads" environmentOptionPanel="eepRoads" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="1" />
                   <EnvironmentElementStatus fx:id="eesBridges" environmentOption="Bridges" environmentOptionPanel="eepBridges" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="2" />
                   
@@ -106,16 +108,6 @@
             </Label>
          </top>
       </BorderPane>
-      <EffectsOptionsPanel />
-        <!--WeightingOptionPanel fx:id="wop1" title="Sensor Weighting" GridPane.rowIndex="1" /-->
-        
-                    <!--<EnvironmentOptionPanel fx:id="eep1" question="Roads are defined as follows (choose the most appropriate value):" GridPane.rowIndex="1" envOpt1="0 = no factor" envOpt2="1 = majority of roadways are paved"  />-->
-        <EnvironmentOptionPanel id="eopRoads" fx:id="eopElevation" prefHeight="468.0" prefWidth="501.0">
-            <question>Roads are defined as follows (choose the most appropriate value):</question>
-            <envOpt1>0 = no factor</envOpt1>
-            <envOpt2>1 = majority of roadways are paved</envOpt2>
-            <envOpt3>2 = Mike's Awesome Option</envOpt3>
-        </EnvironmentOptionPanel>
         <!--<Label fx:id="label" layoutX="317.0" layoutY="494.0" minHeight="16" minWidth="69" text="Select done when complete:" />
       <Label layoutX="258.0" layoutY="60.0" prefHeight="93.0" prefWidth="512.0" text="In order to generate weighting criteria based on user preferences, please answer the following questions by selecting the desired radial button next to each question:" wrapText="true" />
       <GridPane layoutX="12.0" layoutY="180.0" prefHeight="251.0" prefWidth="1000.0">

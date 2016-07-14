@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
+    <stylesheets>
+        <URL value="@GUIToolBox/guitoolbox.css" />
+    </stylesheets>
+    
+    <children>
+      
+        <EnvironmentOptionPanel id="eopElevation" fx:id="eopElevation" prefHeight="468.0" prefWidth="501.0">
+            <question>Roads are defined as follows (choose the most appropriate value):</question>
+            <envOpt1>0 = no factor</envOpt1>
+            <envOpt2>1 = majority of roadways are paved</envOpt2>
+            <envOpt3>2 = Mike's Awesome Option</envOpt3>
+        </EnvironmentOptionPanel>
+      
+      <Button id="eopClose" fx:id="btnEopClose" layoutX="232.0" layoutY="493.0" onAction="#handlePanelSwitchButtonAction" text="Close">
+      </Button>      
+    </children>
+</AnchorPane>

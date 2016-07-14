@@ -23,25 +23,40 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
+import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class FXMLDisasterResponseTradeStudy implements Initializable {
+public class MainWindowController implements Initializable,
+                                             ControlledScreen {
+
+    ScreensController myController;
 
     
     @FXML    private Label label;    
@@ -66,9 +81,16 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
     
     @FXML    private WeightingOptionPanel wop1;
     
-    @FXML    private EnvironmentOptionPanel eopElevation;
     
+    
+    @FXML   private EffectsOptionsPanel eopDisasterEffects;
+    @FXML   private Label lblDisasterEffects;
+    @FXML   private Button btnDepClose;
+    @FXML   private Button btnDepOpen;
+    
+    @FXML    private EnvironmentOptionPanel eopElevation;
     @FXML   private EnvironmentElementStatus eesElevation;
+    @FXML   private Button btnEopClose;                     // this could be used for them all?
     
     private Text weightingOption1;
     private Text weightingOption2;
@@ -84,7 +106,7 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        eopElevation.removeUnusedButtons();
+//        eopElevation.removeUnusedButtons();
     }
 
     @FXML
@@ -100,6 +122,64 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
         attachControllersToEachOther();
     }
     
+    /**
+     * This function handles the opening and closing of subpanels.
+     * @param event
+     * @throws IOException 
+     */
+    
+    @FXML
+    private void handlePanelSwitchButtonAction(ActionEvent event) throws IOException {
+        System.out.println("You clicked me!");
+        
+//        Boolean buttonIsValid = false;
+//        
+//        Stage stage = null;
+//        Parent root = null;
+//        if(event.getSource()==btnDepOpen)
+//        {
+//            stage=(Stage) btnDepOpen.getScene().getWindow();
+//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyDisasterEffectsOpts.fxml"));
+//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyDisasterEffectsOpts...");
+//            buttonIsValid = true;
+//        }
+//        else if (event.getSource()==btnDepClose)
+//        {
+//            stage=(Stage) btnDepClose.getScene().getWindow();
+//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyMainWindow.fxml"));
+//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyMainWindow...");
+//            buttonIsValid = true;
+//            
+//            ObservableList<DisasterEffectCheckBoxData> deTemp = eopDisasterEffects.getSelection();
+//            
+//            lblDisasterEffects.setText(deTemp.toString());
+//            
+//            
+//        }
+//        else if (event.getSource()==eesElevation)
+//        {
+//            stage=(Stage) btnDepClose.getScene().getWindow();
+//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyEnvironmentOpts.fxml"));
+//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyEnvironmentOpts...");
+//            buttonIsValid = true;
+//        }
+//        
+//        
+//
+//        // If the button source was not valid, then don't crash the program
+//        // by tring to using an uninitialized root!!
+//        if(buttonIsValid)
+//        {
+//            Scene scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
+//        }
+//        else
+//        {
+//            System.out.println("Invalid call to the panel switch even handler (handlePanelSwitchButtonAction())!!");
+//        }
+    }
+    
     // -------------------------------------------------------------------------
     // Wires all of the controllers together.  Can only be completed after they
     // have all been constructed, instatiated, and the scene is set.
@@ -107,6 +187,11 @@ public class FXMLDisasterResponseTradeStudy implements Initializable {
     public void attachControllersToEachOther()
     {
         eesElevation.setTetheredEnvironmentOptionPanel("eopElevation");  // TODO: Rename eop
+    }
+
+    @Override
+    public void setScreenParent(ScreensController screenParent) {
+        myController = screenParent;
     }
     
 }

@@ -28,7 +28,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -47,7 +46,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     @FXML   private Label titleLabel;
     @FXML   private BorderPane bpMain;
     //@FXML   private VBox vbChoices;
-    @FXML   private ListView<DisasterEffect> lvChoices;
+    @FXML   private ListView<DisasterEffectCheckBoxData> lvChoices;
     @FXML   private Button btnDone;
     
     // -------------------------------------------------------------------------
@@ -62,7 +61,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     // List of Effects the user can choose.  Also modified by setDisasterEffects
     // -------------------------------------------------------------------------
-    private final ObservableList<DisasterEffect> disasterEffects = FXCollections.observableArrayList(); 
+    private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.observableArrayList(); 
     
     
     
@@ -141,18 +140,18 @@ public class EffectsOptionsPanel extends AnchorPane {
     // ---------------------------------------------------------------------
     private void createTheDisasterEffectList()
     {   
-        disasterEffects.add(new DisasterEffect("Flood", false));
-        disasterEffects.add(new DisasterEffect("Debris", false));
-        disasterEffects.add(new DisasterEffect("Smoke/Dust", false));
-        disasterEffects.add(new DisasterEffect("Ground Instability", false));
-        disasterEffects.add(new DisasterEffect("Land Slide", false));
-        disasterEffects.add(new DisasterEffect("Mud Slide", false));
-        disasterEffects.add(new DisasterEffect("Structural", false));
-        disasterEffects.add(new DisasterEffect("High Wind (near term)", false));
-        disasterEffects.add(new DisasterEffect("Hazardous Material Spill", false));
-        disasterEffects.add(new DisasterEffect("Radiological Spill", false));
-        disasterEffects.add(new DisasterEffect("Lava", false));
-        disasterEffects.add(new DisasterEffect("Ash", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Flood", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Debris", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Smoke/Dust", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Ground Instability", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Land Slide", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Mud Slide", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Structural", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("High Wind (near term)", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Hazardous Material Spill", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Radiological Spill", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Lava", false));
+        disasterEffects.add(new DisasterEffectCheckBoxData("Ash", false));
     }
     
     
@@ -161,7 +160,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
     
-    public ObservableList<DisasterEffect> getSelection()
+    public ObservableList<DisasterEffectCheckBoxData> getSelection()
     {
         return disasterEffects;
     }

@@ -34,12 +34,12 @@ import javafx.beans.property.SimpleStringProperty;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class DisasterEffect {
+public class DisasterEffectCheckBoxData {
 //public static class DisasterEffect {
     private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleBooleanProperty on = new SimpleBooleanProperty();
 
-    public DisasterEffect(String name, boolean on) {
+    public DisasterEffectCheckBoxData(String name, boolean on) {
         setName(name);
         setOn(on);
     }
