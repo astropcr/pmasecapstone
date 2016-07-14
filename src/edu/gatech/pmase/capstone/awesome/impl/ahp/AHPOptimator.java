@@ -23,34 +23,65 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
+import com.google.common.collect.Lists;
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Analytical Hierarchy Process based optimator.
  */
 public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
 
+    /**
+     * Index in the combinations list that correspond to each component.
+     */
+    private static final int COMM_INDEX = 2;
+    private static final int SENSOR_INDEX = 1;
+    private static final int PLAT_INDEX = 0;
+
+    /**
+     * Number of components in architecture.
+     */
+    private static final int NUMBER_OF_COMPONENTS = 3;
+
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(AHPOptimator.class);
+
     @Override
     public List<DRTSArchitectureResult> generateOptimizedArchitectures(
-            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions,
-            final List<CommunicationOption> commOptions,
-            final List<ArchitectureOptionAttribute> prioritizes) {
-        final List<DRTSArchitectureResult> results = new ArrayList<>();
+            List<PlatformOption> platformOptions, List<SensorOption> sensorOptions,
+            List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> platformPrioritizes,
+            final List<ArchitectureOptionAttribute> sensorPrioritizes, final List<ArchitectureOptionAttribute> commPrioritizes) {
+        LOGGER.debug("Prioritizing architecture components");
 
-        Arrays.asList(platformOptions, sensorOptions, commOptions).parallelStream().forEach((optList) -> {
-            // maybe just do one by one to maintain class types - prob.
-            ComponentAHPOptimator compOpt = new ComponentAHPOptimator();
-            List result = compOpt.generateOptimizedOption(optList, prioritizes);
-        });
+        // sort options based on prioritization
+        final ComponentAHPOptimator compOptimator = new ComponentAHPOptimator();
+        platformOptions = compOptimator.generateOptimizedOption(platformOptions, platformPrioritizes);
+        sensorOptions = compOptimator.generateOptimizedOption(sensorOptions, sensorPrioritizes);
+        commOptions = compOptimator.generateOptimizedOption(commOptions, commPrioritizes);
 
+        LOGGER.info("Creating architecture combinations from: " + platformOptions.size() + " platforms, "
+                + sensorOptions.size() + " sensors, and " + commOptions.size() + " communication options.");
+
+        // create, score, and sort architectures
+        final List<DRTSArchitectureResult> results = Lists.cartesianProduct(platformOptions, sensorOptions, commOptions).parallelStream()
+                .filter(list -> list.size() == NUMBER_OF_COMPONENTS)
+                .map(list -> new DRTSArchitectureResult((PlatformOption) list.get(PLAT_INDEX),
+                        (SensorOption) list.get(SENSOR_INDEX),
+                        (CommunicationOption) list.get(COMM_INDEX))).sorted().collect(Collectors.toList());
+
+        LOGGER.debug("Best Score: " + results.get(0).getTotalScore() + " to Worst Score: " + results.get(results.size() - 1).getTotalScore());
+        LOGGER.info("Created " + results.size() + " architecture combinations.");
         return results;
     }
 

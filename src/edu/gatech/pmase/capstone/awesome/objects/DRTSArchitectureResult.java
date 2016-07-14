@@ -29,7 +29,7 @@ import java.util.Objects;
  * Represents the resulting architecture as specified by the Disaster Response
  * Trade Study tool.
  */
-public class DRTSArchitectureResult {
+public class DRTSArchitectureResult implements Comparable<DRTSArchitectureResult> {
 
     /**
      * The selected Platform for the architecture.
@@ -45,6 +45,11 @@ public class DRTSArchitectureResult {
      * The selected Communications for the architecture.
      */
     private CommunicationOption comms;
+
+    /**
+     * Total prioritized score for the components.
+     */
+    private double totalScore = 0.0;
 
     /**
      * Default Constructor.
@@ -67,6 +72,8 @@ public class DRTSArchitectureResult {
         this.platform = platform;
         this.sensor = sensor;
         this.comms = comms;
+
+        this.totalScore = platform.getScore() + sensor.getScore() + comms.getScore();
     }
 
     /**
@@ -123,6 +130,24 @@ public class DRTSArchitectureResult {
         this.comms = comms;
     }
 
+    /**
+     * Returns the total score.
+     *
+     * @return the total score.
+     */
+    public double getTotalScore() {
+        return totalScore;
+    }
+
+    /**
+     * Set the total score.
+     *
+     * @param totalScore the total score.
+     */
+    public void setTotalScore(final double totalScore) {
+        this.totalScore = totalScore;
+    }
+
     @Override
     public String toString() {
         return "DRTSArchitectureResult{" + "platform=" + platform.getLabel() + ", sensor=" + sensor.getLabel()
@@ -166,6 +191,15 @@ public class DRTSArchitectureResult {
         }
 
         return true;
+    }
+
+    @Override
+    public int compareTo(final DRTSArchitectureResult other) {
+        if (this.totalScore == other.getTotalScore()) {
+            return 0;
+        } else {
+            return this.totalScore < other.getTotalScore() ? 1 : -1;
+        }
     }
 
 }

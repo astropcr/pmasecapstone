@@ -36,7 +36,18 @@ import java.util.List;
  */
 public interface IDisasterResponseTradeStudyOptimator {
 
+    /**
+     *
+     * @param platformOptions
+     * @param sensorOptions
+     * @param commOptions
+     * @param platformPrioritizes
+     * @param sensorPrioritizes
+     * @param commPrioritizes
+     * @return
+     */
     List<DRTSArchitectureResult> generateOptimizedArchitectures(
             final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions,
-            final List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> prioritizes);
+            final List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> platformPrioritizes,
+            final List<ArchitectureOptionAttribute> sensorPrioritizes, final List<ArchitectureOptionAttribute> commPrioritizes);
 }

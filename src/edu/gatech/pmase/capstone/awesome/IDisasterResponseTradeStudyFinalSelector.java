@@ -24,7 +24,7 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Final selector for architecture.
@@ -33,8 +33,9 @@ public interface IDisasterResponseTradeStudyFinalSelector {
 
     /**
      * Selects the final architecture from an ranked set of architectures.
+     *
      * @param archResults the list of generated architectures
      * @return the selected architecture from the list.
      */
-    DRTSArchitectureResult selectFinalArchitecture(final Set<DRTSArchitectureResult> archResults);
+    DRTSArchitectureResult selectFinalArchitecture(final List<DRTSArchitectureResult> archResults);
 }

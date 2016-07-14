@@ -21,27 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFinalSelector;
-import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
-import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
- * Checks the generated architectures for the highest ranked, viable
- * architecture.
+ * IT Test for AHPOptimator class.
  */
-public class SanityFilter implements IDisasterResponseTradeStudyFinalSelector {
+public class AHPOptimatorTest {
 
-    @Override
-    public DRTSArchitectureResult selectFinalArchitecture(final List<DRTSArchitectureResult> archResults) {
-        DRTSArchitectureResult finalResult = null;
-        if (null != archResults && archResults.size() > 0) {
-            // TODO: better solution.
-            finalResult = archResults.iterator().next();
-        }
+    @BeforeClass
+    public static void setUpClass() {
+    }
 
-        return finalResult;
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of generateOptimizedArchitectures method, of class AHPOptimator.
+     */
+    @Test
+    public void testGenerateOptimizedArchitectures() {
+
     }
 
 }
