@@ -45,7 +45,6 @@ import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade
@@ -124,7 +123,7 @@ public class DisasterResponseTradeStudyIT {
                 filteredSensors, filteredComms, platformPriorities, sensorPriorities, commPriorities);
         assertEquals(results.size(), 160);
 
-        //TODO: sanity check
+        // sanity check
         final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
         final List<DRTSArchitectureResult> finalResults = sanity.selectFinalArchitecture(results);
         LOGGER.info(finalResults.size() + " final results returned");
