@@ -28,7 +28,7 @@ import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
-import edu.gatech.pmase.capstone.awesome.objects.WeightingOption;
+import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.util.PrioritizationUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +66,10 @@ public class ComponentAHPOptimatorTest {
     @Test
     public void testGenerateOptimizedOption() {
         final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
-        final List<WeightingOption> options = PrioritizationUtil.getWeightingOptions(priAttrs);
+        final List<WeightingChoice> options = PrioritizationUtil.getWeightingOptions(priAttrs);
 
         int size = options.size();
-        for (WeightingOption opt : options) {
+        for (WeightingChoice opt : options) {
             LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;

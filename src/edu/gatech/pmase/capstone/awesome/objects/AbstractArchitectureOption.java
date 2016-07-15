@@ -41,11 +41,6 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
     private int costRanking = -1;
 
     /**
-     * The actual cost value for the option (in thousands of dollars).
-     */
-    private double actualCost = -1.0;
-
-    /**
      * Name of the option.
      */
     private String label = "";

@@ -24,7 +24,7 @@
 package edu.gatech.pmase.capstone.awesome.util;
 
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
-import edu.gatech.pmase.capstone.awesome.objects.WeightingOption;
+import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,8 +51,8 @@ public class PrioritizationUtil {
      * @param attrs list of attributes to compare and weight
      * @return list of weighting options.
      */
-    public static List<WeightingOption> getWeightingOptions(final List<ArchitectureOptionAttribute> attrs) {
-        final List<WeightingOption> opts = new ArrayList<>();
+    public static List<WeightingChoice> getWeightingOptions(final List<ArchitectureOptionAttribute> attrs) {
+        final List<WeightingChoice> opts = new ArrayList<>();
 
         final int size = attrs.size();
         LOGGER.debug("Creating prioritization weighting options for " + size + " attributes.");
@@ -64,7 +64,7 @@ public class PrioritizationUtil {
             for (int opt2Count = count + 1; opt2Count < size; opt2Count++) {
                 final ArchitectureOptionAttribute attr2 = attrs.get(opt2Count);
 
-                final WeightingOption opt = new WeightingOption();
+                final WeightingChoice opt = new WeightingChoice();
                 opt.setOptionOneLabel(opt1Label);
                 opt.setOptionTwoLabel(attr2.getLabel());
                 opt.setResult(-1);
@@ -111,7 +111,7 @@ public class PrioritizationUtil {
      * questions asked to determine highest priority to user.
      * @return same provided list of attributes but with prioritizes added.
      */
-    public static List<ArchitectureOptionAttribute> getPriorityWeightingsForAttributes(final List<WeightingOption> options,
+    public static List<ArchitectureOptionAttribute> getPriorityWeightingsForAttributes(final List<WeightingChoice> options,
             final List<ArchitectureOptionAttribute> attrs) {
 
         // init and setup mapping of attr labels to values
@@ -120,7 +120,7 @@ public class PrioritizationUtil {
         LOGGER.debug("Found " + priCalc.size() + " attributes to prioritize");
 
         // get sums accross columns
-        for (final WeightingOption option : options) {
+        for (final WeightingChoice option : options) {
             final double value = option.getResult();
 
             final String opt1Label = option.getOptionOneLabel();

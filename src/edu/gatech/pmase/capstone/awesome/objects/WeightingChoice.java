@@ -26,7 +26,7 @@ package edu.gatech.pmase.capstone.awesome.objects;
 /**
  *
  */
-public class WeightingOption {
+public class WeightingChoice {
 
     /**
      *
@@ -43,10 +43,10 @@ public class WeightingOption {
      */
     private double result;
 
-    public WeightingOption() {
+    public WeightingChoice() {
     }
 
-    public WeightingOption(String optionOneLabel, String optionTwoLabel, double result) {
+    public WeightingChoice(String optionOneLabel, String optionTwoLabel, double result) {
         this.optionOneLabel = optionOneLabel;
         this.optionTwoLabel = optionTwoLabel;
         this.result = result;
