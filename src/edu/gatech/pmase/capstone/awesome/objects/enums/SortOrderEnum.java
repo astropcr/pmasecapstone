@@ -27,6 +27,14 @@ package edu.gatech.pmase.capstone.awesome.objects.enums;
  * Sorting Options.
  */
 public enum SortOrderEnum {
+    /**
+     * Enumeration value indicating the items are sorted in increasing order.
+     * For example, the set 1, 4, 0 sorted in ASCENDING order is 0, 1, 4..
+     */
     ASCENDING,
+    /**
+     * Enumeration value indicating the items are sorted in decreasing order.
+     * For example, the set 1, 4, 0 sorted in DESCENDING order is 4, 1, 0. .
+     */
     DESCENDING;
 }

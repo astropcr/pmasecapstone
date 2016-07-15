@@ -102,22 +102,6 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
      *
      * @return
      */
-    public double getActualCost() {
-        return actualCost;
-    }
-
-    /**
-     *
-     * @param actualCost
-     */
-    public void setActualCost(double actualCost) {
-        this.actualCost = actualCost;
-    }
-
-    /**
-     *
-     * @return
-     */
     public String getLabel() {
         return label;
     }
@@ -212,7 +196,7 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
 
     @Override
     public String toString() {
-        return "AbstractArchitectureOption{" + "label=" + label + ", id=" + id + '}';
+        return "ArchitectureOption{" + "label=" + label + ", id=" + id + '}';
     }
 
     @Override

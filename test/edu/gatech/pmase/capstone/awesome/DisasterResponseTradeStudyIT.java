@@ -24,7 +24,7 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.impl.DRTSFilterer;
-import edu.gatech.pmase.capstone.awesome.impl.SanityFilter;
+import edu.gatech.pmase.capstone.awesome.impl.DRTSSanityFilter;
 import edu.gatech.pmase.capstone.awesome.impl.ahp.AHPOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
@@ -48,7 +48,11 @@ import org.junit.Test;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade
- * study.
+ * study. Simulates user inputs with hardcoding.
+ *
+ * The user inputs needed are: 1) List<DisasterEffect>
+ * 2) List<TerrainEffect>
+ * 3) List<WeightingOption> for each (Sensor, Comms, Platform).
  */
 public class DisasterResponseTradeStudyIT {
 
@@ -65,18 +69,18 @@ public class DisasterResponseTradeStudyIT {
     private static final List<PlatformOption> loadedPlatformOptions = new ArrayList<>();
     private static final List<CommunicationOption> loadedCommOptions = new ArrayList<>();
     private static final List<SensorOption> loadedSensorOptions = new ArrayList<>();
-    
+
     @BeforeClass
     public static void setupBefore() {
-        // add disasters
+        // add disasters - MIKE: Need these from UI
         selectedDisasterEffects.add(DisasterEffect.HIGH_WIND); // ID 9
         selectedDisasterEffects.add(DisasterEffect.HAZARDOUS_MATERIAL_SPILL);  // ID 10
 
-        // add terrain
+        // add terrain - MIKE: Need these from the UI
         selectedTerrainEffects.add(TerrainEffect.ELEVATION_3);  // ID 1
         selectedTerrainEffects.add(TerrainEffect.URBANIZATION_4);   // ID 12
     }
-    
+
     @Test
     public void testTradeStudy() {
         // get platforms
@@ -101,10 +105,10 @@ public class DisasterResponseTradeStudyIT {
         final IDisasterResponseTradeStudyFilterer filterer = new DRTSFilterer();
         final List<PlatformOption> filteredPlatforms = filterer.filterPlatforms(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
         assertEquals(filteredPlatforms.size(), 4);
-        
+
         final List<CommunicationOption> filteredComms = filterer.filterCommunications(selectedDisasterEffects, selectedTerrainEffects, loadedCommOptions);
         assertEquals(filteredComms.size(), 5);
-        
+
         final List<SensorOption> filteredSensors = filterer.filterSensors(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
         assertEquals(filteredSensors.size(), 8);
 
@@ -120,9 +124,13 @@ public class DisasterResponseTradeStudyIT {
         assertEquals(results.size(), 160);
 
         //TODO: sanity check
-        final IDisasterResponseTradeStudyFinalSelector sanity = new SanityFilter();
-        final DRTSArchitectureResult result = sanity.selectFinalArchitecture(results);
-        LOGGER.info("Final Architecture Selected with a score of: " + result.getTotalScore() + ": " + result.toString());
+        final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
+        final List<DRTSArchitectureResult> finalResults = sanity.selectFinalArchitecture(results);
+        LOGGER.info(finalResults.size() + " final results returned");
+        assertEquals(finalResults.size(), 3);
+        final DRTSArchitectureResult topResult = finalResults.get(0);
+
+        LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
     }
 
     /**
@@ -133,14 +141,14 @@ public class DisasterResponseTradeStudyIT {
     private List<ArchitectureOptionAttribute> getCommPriorities(List<CommunicationOption> comms) {
         final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
         final List<WeightingOption> options = PrioritizationUtil.getWeightingOptions(priAttrs);
-        
+
         int size = options.size();
         for (WeightingOption opt : options) {
             LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
-        
+
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
     }
 
@@ -152,14 +160,14 @@ public class DisasterResponseTradeStudyIT {
     private List<ArchitectureOptionAttribute> getSensorPriorities(List<SensorOption> sensors) {
         final List<ArchitectureOptionAttribute> priAttrs = sensors.get(0).getPrioritizationAttributess();
         final List<WeightingOption> options = PrioritizationUtil.getWeightingOptions(priAttrs);
-        
+
         int size = options.size();
         for (WeightingOption opt : options) {
             LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
-        
+
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
     }
 
@@ -171,15 +179,15 @@ public class DisasterResponseTradeStudyIT {
     private List<ArchitectureOptionAttribute> getPlatformPriorities(List<PlatformOption> platforms) {
         final List<ArchitectureOptionAttribute> priAttrs = platforms.get(0).getPrioritizationAttributess();
         final List<WeightingOption> options = PrioritizationUtil.getWeightingOptions(priAttrs);
-        
+
         int size = options.size();
         for (WeightingOption opt : options) {
             LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
-        
+
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
     }
-    
+
 }
