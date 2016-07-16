@@ -21,27 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFinalSelector;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
-import java.util.Set;
 
 /**
- * Checks the generated architectures for the highest ranked, viable
- * architecture.
+ * Criteria that an architecture must meet to be considered for the final
+ * selection.
  */
-public class SanityFilter implements IDisasterResponseTradeStudyFinalSelector {
+public interface IDisasterResponseFinalSelectionCriterion {
 
-    @Override
-    public DRTSArchitectureResult selectFinalArchitecture(final Set<DRTSArchitectureResult> archResults) {
-        DRTSArchitectureResult finalResult = null;
-        if (null != archResults && archResults.size() > 0) {
-            // TODO: better solution.
-            finalResult = archResults.iterator().next();
-        }
-
-        return finalResult;
-    }
-
+    /**
+     * Checks whether the given architecture result should be in the final
+     * selection.
+     *
+     * @param result the result to check
+     * @return true if should be filtered out (not included in final results),
+     * false otherwise.
+     */
+    boolean checkArchitectureResultRemovedByFilter(final DRTSArchitectureResult result);
 }

@@ -33,16 +33,6 @@ import java.util.List;
 public class PlatformOption extends AbstractArchitectureOption {
 
     /**
-     * Range platform can travel (in kilometers -km).
-     */
-    private double range = -1.0;
-
-    /**
-     * Duration platform can operate (in hours - hrs).
-     */
-    private double opsDuration = -1.0;
-
-    /**
      * Payload option can carry (in kilograms - kg).
      */
     private double payload = -1.0;
@@ -51,42 +41,6 @@ public class PlatformOption extends AbstractArchitectureOption {
      * Type of the platform.
      */
     private PlatformType platformType = PlatformType.UNKNOWN;
-
-    /**
-     *
-     * @return
-     */
-    @Deprecated
-    public double getRange() {
-        return range;
-    }
-
-    /**
-     *
-     * @param range
-     */
-    @Deprecated
-    public void setRange(double range) {
-        this.range = range;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Deprecated
-    public double getOpsDuration() {
-        return opsDuration;
-    }
-
-    /**
-     *
-     * @param opsDuration
-     */
-    @Deprecated
-    public void setOpsDuration(double opsDuration) {
-        this.opsDuration = opsDuration;
-    }
 
     /**
      *

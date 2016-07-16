@@ -33,17 +33,12 @@ import java.util.List;
  * Abstract class for all Architecture options read in from Tech Market Survey
  * Based Spreadsheets.
  */
-public abstract class AbstractArchitectureOption {
+public abstract class AbstractArchitectureOption implements Comparable<AbstractArchitectureOption> {
 
     /**
      * The ranking (?-?) of the cost.
      */
     private int costRanking = -1;
-
-    /**
-     * The actual cost value for the option (in thousands of dollars).
-     */
-    private double actualCost = -1.0;
 
     /**
      * Name of the option.
@@ -54,6 +49,11 @@ public abstract class AbstractArchitectureOption {
      * ID of option.
      */
     private long id = -1;
+
+    /**
+     * Prioritized score.
+     */
+    private double score = 0.0;
 
     /**
      * Limitations of the architecture option based upon the terrain.
@@ -91,22 +91,6 @@ public abstract class AbstractArchitectureOption {
      */
     public void setCostRanking(int costRanking) {
         this.costRanking = costRanking;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public double getActualCost() {
-        return actualCost;
-    }
-
-    /**
-     *
-     * @param actualCost
-     */
-    public void setActualCost(double actualCost) {
-        this.actualCost = actualCost;
     }
 
     /**
@@ -189,9 +173,25 @@ public abstract class AbstractArchitectureOption {
         this.customAttributes = customAttributes;
     }
 
+    /**
+     *
+     * @return
+     */
+    public double getScore() {
+        return score;
+    }
+
+    /**
+     *
+     * @param score
+     */
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
-        return "AbstractArchitectureOption{" + "label=" + label + ", id=" + id + '}';
+        return "ArchitectureOption{" + "label=" + label + ", id=" + id + '}';
     }
 
     @Override
@@ -222,6 +222,15 @@ public abstract class AbstractArchitectureOption {
         }
 
         return true;
+    }
+
+    @Override
+    public int compareTo(final AbstractArchitectureOption other) {
+        if (this.score == other.getScore()) {
+            return 0;
+        } else {
+            return this.score < other.getScore() ? 1 : -1;
+        }
     }
 
     /**

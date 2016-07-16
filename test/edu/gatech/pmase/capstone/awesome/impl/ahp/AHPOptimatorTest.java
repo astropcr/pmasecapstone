@@ -21,18 +21,41 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects;
+package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
-import java.util.List;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
- * Communication Option read in from the Tech Market Survey based "database".
+ * IT Test for AHPOptimator class.
  */
-public class CommunicationOption extends AbstractOnboardArchitectureOption {
+public class AHPOptimatorTest {
 
-    @Override
-    public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
-        return super.getBasePrioritizationAttributes();
+    @BeforeClass
+    public static void setUpClass() {
+    }
+
+    @AfterClass
+    public static void tearDownClass() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+    /**
+     * Test of generateOptimizedArchitectures method, of class AHPOptimator.
+     */
+    @Test
+    public void testGenerateOptimizedArchitectures() {
+
     }
 
 }

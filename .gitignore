@@ -3,6 +3,10 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+
 # Package Files #
 *.jar
 *.war
@@ -11,7 +15,11 @@
 # Log Files #
 *.log
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml #
 hs_err_pid*
+
+# folders #
 /dist/
 /build/
+/nbproject/private/
+/nbproject/project.properties

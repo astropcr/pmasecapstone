@@ -21,18 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.objects;
+package edu.gatech.pmase.capstone.awesome.impl;
 
-import java.util.List;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
 
 /**
- * Communication Option read in from the Tech Market Survey based "database".
+ * Checks the given architecture to ensure that the selected Platform can carry
+ * the given sensor and comms weight.
  */
-public class CommunicationOption extends AbstractOnboardArchitectureOption {
+public class PlatformPayloadCriterion implements IDisasterResponseFinalSelectionCriterion {
 
     @Override
-    public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
-        return super.getBasePrioritizationAttributes();
+    public boolean checkArchitectureResultRemovedByFilter(final DRTSArchitectureResult arch) {
+        boolean result = false;
+
+        final double platformPayload = arch.getPlatform().getPayload();
+        final double payloadWeight = (arch.getComms().getWeight() + arch.getSensor().getWeight());
+
+        if (platformPayload < payloadWeight) {
+            result = true;
+        }
+
+        return result;
     }
 
 }

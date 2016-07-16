@@ -29,14 +29,17 @@ import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- *
+ * Compares an architecture Component using user inputs and a prioritization
+ * matrix.
  */
 public class ComponentAHPOptimator implements IDisasterResponseTradeStudyComponentOptimator {
 
@@ -46,8 +49,9 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
     private static final Logger LOGGER = LogManager.getLogger(ComponentAHPOptimator.class);
 
     @Override
-    public <T extends AbstractArchitectureOption> List generateOptimizedOption(List<T> options, List<ArchitectureOptionAttribute> prioritizes) {
-        final List<T> optionResults = new ArrayList<>();
+    public <T extends AbstractArchitectureOption> List generateOptimizedOption(final List<T> options,
+            final List<ArchitectureOptionAttribute> prioritizes) {
+        final List<T> optionResults = new ArrayList<>(options.size());
 
         LOGGER.debug("Will prioritize on " + prioritizes.size() + " attributes.");
         // create mapping of attribute to priority
@@ -57,9 +61,9 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
         }
 
         // get attr mappings for all options
-        final Map<Long, List<ArchitectureOptionAttribute>> optionAttributes = new HashMap<>();
+        final Map<T, List<ArchitectureOptionAttribute>> optionAttributes = new HashMap<>();
         for (final T option : options) {
-            optionAttributes.put(option.getId(), option.getPrioritizationAttributess());
+            optionAttributes.put(option, option.getPrioritizationAttributess());
         }
 
         // get matrix of values
@@ -80,8 +84,18 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             });
         });
 
-        // TODO sum accross row to get total -- add to ArchOption somehow?
-        // return list of options sorted by total
+        //  sum accross row to get total -- add to ArchOption somehow?
+        for (final Map.Entry<T, List<ArchitectureOptionAttribute>> entry : optionAttributes.entrySet()) {
+            final T option = entry.getKey();
+            option.setScore(entry.getValue().stream().collect(Collectors.summingDouble(attr -> attr.getPriority())));
+
+            optionResults.add(option);
+        }
+
+        // sort by score
+        Collections.sort(optionResults);
+
+        // return list of option
         return optionResults;
     }
 

@@ -30,7 +30,7 @@ import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
-import edu.gatech.pmase.capstone.awesome.objects.WeightingOption;
+import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.fail;
 
 /**
  * Test for PrioritizationUtil class;.
@@ -76,7 +77,7 @@ public class PrioritizationUtilTest {
         if (plats.isEmpty()) {
             fail("Could not load platforms from database.");
         } else {
-            List<WeightingOption> result = PrioritizationUtil.getWeightingOptions(plats.get(0).getPrioritizationAttributess());
+            List<WeightingChoice> result = PrioritizationUtil.getWeightingOptions(plats.get(0).getPrioritizationAttributess());
             LOGGER.debug(result);
 
             result = PrioritizationUtil.getWeightingOptions(sensors.get(0).getPrioritizationAttributess());
@@ -116,16 +117,16 @@ public class PrioritizationUtilTest {
         attrs.add(attr3);
         attrs.add(attr4);
 
-        final WeightingOption op1 = new WeightingOption(opt2Label, opt1Label, 0.2);
-        final WeightingOption op2 = new WeightingOption(opt3Label, opt1Label, 0.2);
-        final WeightingOption op3 = new WeightingOption(opt4Label, opt1Label, 1.0);
+        final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label, 0.2);
+        final WeightingChoice op2 = new WeightingChoice(opt3Label, opt1Label, 0.2);
+        final WeightingChoice op3 = new WeightingChoice(opt4Label, opt1Label, 1.0);
 
-        final WeightingOption op4 = new WeightingOption(opt3Label, opt2Label, 0.1);
-        final WeightingOption op5 = new WeightingOption(opt4Label, opt2Label, 0.2);
+        final WeightingChoice op4 = new WeightingChoice(opt3Label, opt2Label, 0.1);
+        final WeightingChoice op5 = new WeightingChoice(opt4Label, opt2Label, 0.2);
 
-        final WeightingOption op6 = new WeightingOption(opt4Label, opt3Label, 5.0);
+        final WeightingChoice op6 = new WeightingChoice(opt4Label, opt3Label, 5.0);
 
-        final List<WeightingOption> options = new ArrayList<>();
+        final List<WeightingChoice> options = new ArrayList<>();
         options.addAll(Arrays.asList(op1, op2, op3, op4, op5, op6));
 
         final List<ArchitectureOptionAttribute> results = PrioritizationUtil.getPriorityWeightingsForAttributes(options, attrs);
