@@ -49,12 +49,20 @@ public class DisasterResponseTradeStudy extends Application {
      * 
      */
     public static String classPath = "/edu/gatech/pmase/capstone/awesome/";
-    public static String screenMainID           = classPath + "MainWindow";
-    public static String screenMainFile         = classPath + "MainWindow.fxml";
-    public static String screenEffectsOptID     = classPath + "DisasterEffectsOptions";
-    public static String screenEffectsFile      = classPath + "DisasterEffectsOptions.fxml";
-    public static String screenEnvironmentID    = classPath + "EnvironmentOptions";
-    public static String screenEnvironmenFile   = classPath + "EnvironmentOptions.fxml";
+    public static String screenMainID                   = classPath + "MainWindow";
+    public static String screenMainFile                 = classPath + "MainWindow.fxml";
+    public static String screenEffectsOptID             = classPath + "DisasterEffectsOptions";
+    public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
+    public static String screenEnvironmentID            = classPath + "EnvironmentOptions";
+    public static String screenEnvironmentFile          = classPath + "EnvironmentOptions.fxml";
+    public static String screenAPWeightingID            = classPath + "WeightingOptionsAirPlatforms";
+    public static String screenAPWeightingFile          = classPath + "WeightingOptionsAirPlatforms.fxml";
+    public static String screenGPWeightingID            = classPath + "WeightingOptionsGroundPlatforms";
+    public static String screenGPWeightingFile          = classPath + "WeightingOptionsGroundPlatforms.fxml";
+    public static String screenCommsWeightingID         = classPath + "WeightingOptionsComms";
+    public static String screenCommsWeightingFile       = classPath + "WeightingOptionsComms.fxml";
+    public static String screenSensorsWeightingID       = classPath + "WeightingOptionsSensors";
+    public static String screenSensorsWeightingFile     = classPath + "WeightingOptionsSensors.fxml";
     
     /**
      * Logger. Use to log all things
@@ -65,26 +73,30 @@ public class DisasterResponseTradeStudy extends Application {
     public void start(Stage primaryStage) throws Exception {
         LOGGER.info("Hello World!");
         LOGGER.debug("Testing Logger");
-        
-//        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-//
-//        Scene scene = new Scene(root);
-//
-//        primaryStage.setTitle("Disaster Response Trade Study Tool");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvironmentID, DisasterResponseTradeStudy.screenEnvironmenFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvironmentID, DisasterResponseTradeStudy.screenEnvironmentFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenAPWeightingID, DisasterResponseTradeStudy.screenAPWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenGPWeightingID, DisasterResponseTradeStudy.screenGPWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenCommsWeightingID, DisasterResponseTradeStudy.screenCommsWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
         
         mainContainer.setScreen(DisasterResponseTradeStudy.screenMainID);
         
         Group root = new Group();
-        root.getChildren().addAll(mainContainer);
+        root.getChildren().addAll(mainContainer);      
+        
         Scene scene = new Scene(root);
+        
+        
+//        () scene.lookup("DisasterEffectsOptions");
+        
+        primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
 
     /**

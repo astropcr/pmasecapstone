@@ -23,12 +23,15 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
@@ -37,6 +40,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -98,6 +105,8 @@ public class MainWindowController implements Initializable,
     private Text weightingOption4;
     private Text weightingOption5;
     
+    @FXML   private Button button = null;
+    
     
     /**
      * Initializes the controller class.
@@ -106,6 +115,37 @@ public class MainWindowController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
+        
+        if(btnDepClose != null) {
+//            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
+            System.out.println(this.getClass().toString());
+        }
+        
+        if(button != null)
+        {
+            //button.addEventHandler(EventType.ROOT, new EventHandler<TestEvent>);
+//            button.addEventHandler(TestEvent.OPTION_SELECTED, new EventHandler<TestEvent> {
+//            
+//                @Override
+//                public void handle(TestEvent event) {
+//                        System.out.println("Event is finally handled!");
+//                }
+//            });
+
+            
+//            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
+            
+////            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(myController, "main"));
+//            button.addEventHandler(TestEvent.OPTION_SELECTED, new EventHandler<TestEvent>() {
+//            
+//                @Override
+//                public void handle(TestEvent event) {
+//                    System.out.println("TestEventHandler has been provoked!!!");
+//                }
+//            });
+        }     
+            
+        
 //        eopElevation.removeUnusedButtons();
     }
 
@@ -113,15 +153,24 @@ public class MainWindowController implements Initializable,
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         
-        // ---------------------------------------------------------------------
-        // Gather all of the options selected, package them, and send them off
-        // ---------------------------------------------------------------------
-//        label.setText(woqc1.getSelection());
-        
-//        eopElevation.removeUnusedButtons();
         attachControllersToEachOther();
+        
+        
+        
+        //this.myController.addEventFilter(TestEvent.ANY, this.testEventHandler);
+        //this.myController.addEventHandler(TestEvent, eventFilter);
+        
+        Event.fireEvent((EventTarget) event.getSource(), new TestEvent());
     }
     
+    @FXML
+    private void handleTestEvent(TestEvent event) {
+        System.out.println("Test event successfully captured!! (original)");
+    }
+    
+       
+    
+
     /**
      * This function handles the opening and closing of subpanels.
      * @param event
@@ -132,52 +181,47 @@ public class MainWindowController implements Initializable,
     private void handlePanelSwitchButtonAction(ActionEvent event) throws IOException {
         System.out.println("You clicked me!");
         
-//        Boolean buttonIsValid = false;
-//        
-//        Stage stage = null;
-//        Parent root = null;
-//        if(event.getSource()==btnDepOpen)
-//        {
-//            stage=(Stage) btnDepOpen.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyDisasterEffectsOpts.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyDisasterEffectsOpts...");
-//            buttonIsValid = true;
-//        }
-//        else if (event.getSource()==btnDepClose)
-//        {
-//            stage=(Stage) btnDepClose.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyMainWindow.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyMainWindow...");
-//            buttonIsValid = true;
-//            
-//            ObservableList<DisasterEffectCheckBoxData> deTemp = eopDisasterEffects.getSelection();
-//            
-//            lblDisasterEffects.setText(deTemp.toString());
-//            
-//            
-//        }
-//        else if (event.getSource()==eesElevation)
-//        {
-//            stage=(Stage) btnDepClose.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyEnvironmentOpts.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyEnvironmentOpts...");
-//            buttonIsValid = true;
-//        }
-//        
-//        
-//
-//        // If the button source was not valid, then don't crash the program
-//        // by tring to using an uninitialized root!!
-//        if(buttonIsValid)
-//        {
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
-//        }
-//        else
-//        {
-//            System.out.println("Invalid call to the panel switch even handler (handlePanelSwitchButtonAction())!!");
-//        }
+    }
+    
+    
+    
+    
+    // -------------------------------------------------------------------------
+    // These functions are what switch between windows.
+    // -------------------------------------------------------------------------
+    @FXML
+    private void goToMain(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenMainID);
+    }
+    
+    @FXML
+    private void goToEffects(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenEffectsOptID);
+    }
+    
+    @FXML
+    private void goToEnvironmentOptions(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenEnvironmentID);
+    }
+    
+    @FXML
+    private void goToAPWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenAPWeightingID);
+    }
+    
+    @FXML
+    private void goToGPWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenGPWeightingID);
+    }
+    
+    @FXML
+    private void goToCommsWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenCommsWeightingID);
+    }
+    
+    @FXML
+    private void goToSensorsWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
     
     // -------------------------------------------------------------------------
@@ -193,5 +237,9 @@ public class MainWindowController implements Initializable,
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
-    
+
+    @Override
+    public ScreensController getScreenParent() {
+        return myController; //To change body of generated methods, choose Tools | Templates.
+    }
 }

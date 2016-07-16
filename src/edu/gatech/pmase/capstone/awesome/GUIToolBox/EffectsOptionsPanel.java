@@ -23,13 +23,17 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -41,13 +45,15 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EffectsOptionsPanel extends AnchorPane {
+public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen {
 
     @FXML   private Label titleLabel;
     @FXML   private BorderPane bpMain;
-    //@FXML   private VBox vbChoices;
     @FXML   private ListView<DisasterEffectCheckBoxData> lvChoices;
+    
     @FXML   private Button btnDone;
+    
+    private ScreensController myController;
     
     // -------------------------------------------------------------------------
     // These expose the controls that contain the questions and the related 
@@ -77,7 +83,6 @@ public class EffectsOptionsPanel extends AnchorPane {
         
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
-
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
         
@@ -109,16 +114,26 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     // Event handlers
     // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // These functions are what switch between windows.
+    // -------------------------------------------------------------------------
     @FXML
-    private void handleDoneButtonAction(ActionEvent event) {
+    private void goToMain(ActionEvent event)  {
+        Event.fireEvent((EventTarget) event.getSource(), new TestEvent());
+        System.out.println("Firing the custom event.");
         
-        // Update caller that we've returned
-        // TODO: possibly fire an event...could require object registration or
-        //       dependency injection.
-        
-        
-        // Turns off the panel.
-        this.setVisible(false);
+        myController.setScreen("main");
+    }
+    
+    @Override
+    public void setScreenParent(ScreensController parent)
+    {
+        myController = parent;
+    }
+    
+    @Override
+    public ScreensController getScreenParent() {
+        return myController; //To change body of generated methods, choose Tools | Templates.
     }
     
     @FXML
@@ -129,9 +144,7 @@ public class EffectsOptionsPanel extends AnchorPane {
         //       dependency injection.
         
         // update the tooltip (send to caller)
-        
-        // Turns off the panel.
-        this.setVisible(false);
+
     }
     
     

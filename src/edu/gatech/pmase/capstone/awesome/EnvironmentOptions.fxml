@@ -24,7 +24,7 @@
             <envOpt3>2 = Mike's Awesome Option</envOpt3>
         </EnvironmentOptionPanel>
       
-      <Button id="eopClose" fx:id="btnEopClose" layoutX="232.0" layoutY="493.0" onAction="#handlePanelSwitchButtonAction" text="Close">
+      <Button id="eopClose" fx:id="btnEopClose" layoutX="207.0" layoutY="482.0" onAction="#goToMain" styleClass="userSelectionButton" text="Close">
       </Button>      
     </children>
 </AnchorPane>

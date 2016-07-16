@@ -38,7 +38,6 @@ THE SOFTWARE.
         <URL value="@guitoolbox.css" />
     </stylesheets>
     <children>
-        <Button fx:id="btnDone" layoutX="514.0" layoutY="490.0" onAction="#handleDoneButtonAction" styleClass="userSelectionButton" text="Done" />
       <Label layoutX="258.0" layoutY="60.0" prefHeight="93.0" prefWidth="512.0" text="In order to generate weighting criteria based on user preferences, please answer the following questions by selecting the desired radial button next to each question:" wrapText="true" />
       <GridPane layoutX="12.0" layoutY="180.0" prefHeight="251.0" prefWidth="1000.0">
         <columnConstraints>

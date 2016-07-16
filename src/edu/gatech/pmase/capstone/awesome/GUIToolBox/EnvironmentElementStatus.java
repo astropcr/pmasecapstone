@@ -215,7 +215,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     @FXML
     void initialize() {
         // check for empty options and remove them from view and make sure they're never selected
-        System.out.print("We're in the initialization stage.");
     }     
     
 }

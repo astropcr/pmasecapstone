@@ -33,13 +33,18 @@
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0">
                      <children>
                         <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
-                        <Button fx:id="btnDepOpen" layoutX="22.0" layoutY="98.0" mnemonicParsing="false" onAction="#handlePanelSwitchButtonAction" styleClass="userSelectionButton" text="Disaster Effects" />
-                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="275.0" prefWidth="457.0" styleClass="userStatusLabel" text="Label" />
+                        <Button fx:id="btnDepOpen" layoutX="22.0" layoutY="98.0" mnemonicParsing="false" onAction="#goToEffects" styleClass="userSelectionButton" text="Disaster Effects" />
+                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="173.0" prefWidth="457.0" styleClass="userStatusLabel" text="Label" />
+                        <Label fx:id="lblSubTitleDisasterEffects1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="379.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="2. Define Environment" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0" GridPane.columnIndex="1">
                      <children>
                         <Label fx:id="lblSubTitleWeightingCriteria" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="450.0" styleClass="mainSubTitleLabel" text="3. Define Weighting Criteria" textAlignment="CENTER" />
+                        <Button fx:id="btnDepOpen1" layoutX="36.0" layoutY="106.0" mnemonicParsing="false" onAction="#goToAPWeightingCriteria" styleClass="userSelectionButton" text="Air Platforms" />
+                        <Button fx:id="btnDepOpen11" layoutX="117.0" layoutY="174.0" mnemonicParsing="false" onAction="#goToGPWeightingCriteria" styleClass="userSelectionButton" text="Ground Platforms" />
+                        <Button fx:id="btnDepOpen12" layoutX="217.0" layoutY="254.0" mnemonicParsing="false" onAction="#goToCommsWeightingCriteria" styleClass="userSelectionButton" text="Communication" />
+                        <Button fx:id="btnDepOpen13" layoutX="306.0" layoutY="338.0" mnemonicParsing="false" onAction="#goToSensorsWeightingCriteria" styleClass="userSelectionButton" text="Sensors" />
                      </children>
                   </AnchorPane>
                </children>
@@ -74,7 +79,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!" />
+                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" onMouseReleased="#goToEnvironmentOptions" prefHeight="67.0" prefWidth="111.0" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!" />
                   <EnvironmentElementStatus fx:id="eesRoads" environmentOption="Roads" environmentOptionPanel="eepRoads" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="1" />
                   <EnvironmentElementStatus fx:id="eesBridges" environmentOption="Bridges" environmentOptionPanel="eepBridges" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="2" />
                   
@@ -84,12 +89,12 @@
                   <EnvironmentElementStatus fx:id="eesStreams" environmentOption="Streams" environmentOptionPanel="eepStreams" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <EnvironmentElementStatus fx:id="eesBeach" environmentOption="Beach" environmentOptionPanel="eepBeach" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   
-                  <EnvironmentElementStatus fx:id="eesWaterWays" environmentOption="Water Ways" environmentOptionPanel="eepWaterWays" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" />
-                  <EnvironmentElementStatus fx:id="eesUrbanization" environmentOption="Urbanization" environmentOptionPanel="eepUrbanization" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesWaterWays" environmentOption="Water Ways" environmentOptionPanel="eepWaterWays" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesUrbanization" environmentOption="Urbanization" environmentOptionPanel="eepUrbanization" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="1" />
                   <EnvironmentElementStatus fx:id="eesRange" environmentOption="Range" environmentOptionPanel="eepRange" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   
-                  <EnvironmentElementStatus fx:id="eesPopulation" environmentOption="Population" environmentOptionPanel="eepPopulation" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" />
-                  <EnvironmentElementStatus fx:id="eesPersistence" environmentOption="Persistence" environmentOptionPanel="eepPersistence" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesPopulation" environmentOption="Population" environmentOptionPanel="eepPopulation" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <EnvironmentElementStatus fx:id="eesPersistence" environmentOption="Persistence" environmentOptionPanel="eepPersistence" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" />
                   <EnvironmentElementStatus fx:id="eesTrafficability" environmentOption="Trafficability" environmentOptionPanel="eepTrafficability" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                </children>
                <BorderPane.margin>
