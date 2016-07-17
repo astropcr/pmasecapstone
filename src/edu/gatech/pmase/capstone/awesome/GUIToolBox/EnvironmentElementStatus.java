@@ -26,6 +26,8 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -126,12 +128,11 @@ public class EnvironmentElementStatus extends AnchorPane {
         // TODO: trick main panel into opening up the necessary window
         //       possibly fire an event...could require object registration or
         //       dependency injection.
+
+        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED));
         
-        try {
-            eop.setVisible(true);
-        } catch (RuntimeException exception) {
-            System.out.println("The eop is not valid!!");
-        }
+//        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
+        
         
     }
     
@@ -214,6 +215,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     
     @FXML
     void initialize() {
+        lblEnvOptWeight.setTooltip(ttDescription);
         // check for empty options and remove them from view and make sure they're never selected
     }     
     

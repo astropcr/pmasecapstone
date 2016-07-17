@@ -33,10 +33,11 @@ import javafx.event.EventType;
  */
 public class ScreenSwitchEvent extends Event {
     
-    public static final EventType<ScreenSwitchEvent> OPTION_SELECTED = new EventType<>(Event.ANY, "OPTION_SELECTED");
+    public static final EventType<ScreenSwitchEvent> SCREEN_SELECTED = new EventType<>(Event.ANY, "SCREEN_SELECTED");
+    public static final EventType<ScreenSwitchEvent> SCREEN2_SELECTED = new EventType<>(Event.ANY, "SCREEN2_SELECTED");
 
     public ScreenSwitchEvent() {
-        this(OPTION_SELECTED);
+        this(SCREEN_SELECTED);
     }
     
     public ScreenSwitchEvent(EventType<? extends Event> eventType) {
@@ -49,7 +50,7 @@ public class ScreenSwitchEvent extends Event {
     
     
     public ScreenSwitchEvent(Object source, EventTarget target) {
-        super(source, target, OPTION_SELECTED);
+        super(source, target, SCREEN_SELECTED);
     }
     
     @Override

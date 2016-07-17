@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
+
+<AnchorPane id="AnchorPane" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.EnvironmentOptionsController">
+    <stylesheets>
+        <URL value="@GUIToolBox/guitoolbox.css" />
+    </stylesheets>
+    
+    <children>
+      
+      <EnvironmentOptionPanel fx:id="eop" layoutX="261.0" layoutY="14.0">
+          <question>Urbanization is defined as follows (choose most appropriate value):</question>
+          <envOpt1>0 = no factor</envOpt1>
+          <envOpt2>1 = open area (very sparsely populated)</envOpt2>
+          <envOpt3>2 = suburban area</envOpt3>
+          <envOpt4>3 = urban area</envOpt4>
+          <envOpt5>4 = dense urban area</envOpt5>
+      </EnvironmentOptionPanel>
+      <Button fx:id="btnEopClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
+    </children>
+</AnchorPane>

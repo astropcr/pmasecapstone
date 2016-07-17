@@ -24,9 +24,13 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEventHandler;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -35,21 +39,21 @@ import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class DisasterEffectOptionsController implements Initializable,
+public class EnvironmentOptionsController implements Initializable,
                                              ControlledScreen {
 
     ScreensController myController;
     
-    @FXML   private EffectsOptionsPanel eopDisasterEffects;
-    @FXML   private Label lblDisasterEffects;
-    @FXML   private Button btnDepClose;
+    @FXML   private AnchorPane ap;
+    @FXML   private EnvironmentOptionPanel eop;
+    @FXML   private Button btnEopClose;
     
     @FXML   private Button button = null;
     
@@ -60,6 +64,10 @@ public class DisasterEffectOptionsController implements Initializable,
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO  
+        ap.addEventHandler(EnvironmentOptionChangeEvent.OPTION_SELECTED, 
+                           new EnvironmentOptionChangeEventHandler("Handled by EOP instance!"));
+        
+        eop.removeUnusedButtons();
     }
    
     
@@ -75,7 +83,7 @@ public class DisasterEffectOptionsController implements Initializable,
         
         // Now switch the window
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
-        goToMain(event);
+        this.goToMain(event);
     }
     
     // -------------------------------------------------------------------------

@@ -43,7 +43,7 @@ THE SOFTWARE.
          <center>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="480.0" BorderPane.alignment="CENTER">
                <children>
-                  <ToggleButton fx:id="tbEnvironmentOption1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton">
+                  <ToggleButton fx:id="tbEnvironmentOption1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionSelected" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton">
                      <toggleGroup>
                         <ToggleGroup fx:id="tgEnvironmentOptions" />
                      </toggleGroup>
@@ -51,22 +51,22 @@ THE SOFTWARE.
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="tbEnvironmentOption2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                  <ToggleButton fx:id="tbEnvironmentOption2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionSelected" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="tbEnvironmentOption3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                  <ToggleButton fx:id="tbEnvironmentOption3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionSelected" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="tbEnvironmentOption4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                  <ToggleButton fx:id="tbEnvironmentOption4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionSelected" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </ToggleButton>
-                  <ToggleButton fx:id="tbEnvironmentOption5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
+                  <ToggleButton fx:id="tbEnvironmentOption5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionSelected" prefHeight="50.0" prefWidth="480.0" styleClass="userSelectionButton" text="ToggleButton" toggleGroup="$tgEnvironmentOptions">
                      <VBox.margin>
                         <Insets bottom="5.0" />
                      </VBox.margin>
@@ -81,13 +81,6 @@ THE SOFTWARE.
                </font>
             </Label>
          </top>
-         <bottom>
-            <Button fx:id="btnDone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleDoneButtonAction" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" />
-               </BorderPane.margin>
-            </Button>
-         </bottom>
       </BorderPane>
    </children>
 </fx:root>

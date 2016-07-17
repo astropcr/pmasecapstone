@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
+<AnchorPane fx:id="ap" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
@@ -56,14 +56,6 @@
          <left>
             <Pane prefHeight="468.0" prefWidth="12.0" />
          </left>
-         <right>
-            <Pane prefHeight="468.0" prefWidth="12.0">
-               <children>
-                    
-                    <Button fx:id="button" alignment="CENTER" onAction="#handleButtonAction" text="Done" />
-               </children>
-            </Pane>
-         </right>
          <bottom>
             <GridPane layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -95,7 +87,7 @@
                   
                   <EnvironmentElementStatus fx:id="eesPopulation" environmentOption="Population" environmentOptionPanel="eepPopulation" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <EnvironmentElementStatus fx:id="eesPersistence" environmentOption="Persistence" environmentOptionPanel="eepPersistence" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="2" />
-                  <EnvironmentElementStatus fx:id="eesTrafficability" environmentOption="Trafficability" environmentOptionPanel="eepTrafficability" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <EnvironmentElementStatus fx:id="eesTrafficability" environmentOption="Trafficability" environmentOptionPanel="eepTrafficability" onMouseClicked="#goToEnvironmentOptions" prefHeight="67.0" prefWidth="111.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                </children>
                <BorderPane.margin>
                   <Insets />

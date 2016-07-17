@@ -23,47 +23,38 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import javafx.event.EventHandler;
+import javafx.event.Event;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class TestEventHandler implements EventHandler<TestEvent> {
+public class EnvironmentOptionChangeEvent extends Event {
+    
+    public static final EventType<EnvironmentOptionChangeEvent> OPTION_SELECTED = new EventType<>(Event.ANY, "OPTION_SELECTED");
 
-    ScreensController sc;
-    String switchTargetScreen;
-    String msg;
-    
-    public TestEventHandler()
-    {
-        this.msg = "No message has been set.";
+    public EnvironmentOptionChangeEvent() {
+        this(OPTION_SELECTED);
     }
     
-    public TestEventHandler(String msg)
-    {
-        this.msg = msg;
+    public EnvironmentOptionChangeEvent(EventType<? extends Event> eventType) {
+        super(eventType);
     }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = "No message has been set.";
-    }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen, String msg)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = msg;
+
+    public EnvironmentOptionChangeEvent(Object source, EventTarget target, EventType<? extends Event> eventType) {
+        super(source, target, eventType);
     }
     
     
+    public EnvironmentOptionChangeEvent(Object source, EventTarget target) {
+        super(source, target, OPTION_SELECTED);
+    }
     
     @Override
-    public void handle(TestEvent event) {
-        System.out.println("TestEventHandler would like to say: " + msg);
-        //sc.setScreen(switchTargetScreen);
+    public EventType<? extends EnvironmentOptionChangeEvent> getEventType() {
+        return (EventType<? extends EnvironmentOptionChangeEvent>) super.getEventType();
     }
+    
 }

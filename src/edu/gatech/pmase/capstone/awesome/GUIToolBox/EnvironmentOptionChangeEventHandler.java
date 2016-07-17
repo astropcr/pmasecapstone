@@ -29,41 +29,27 @@ import javafx.event.EventHandler;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class TestEventHandler implements EventHandler<TestEvent> {
+public class EnvironmentOptionChangeEventHandler implements EventHandler<EnvironmentOptionChangeEvent> {
 
     ScreensController sc;
     String switchTargetScreen;
     String msg;
     
-    public TestEventHandler()
-    {
-        this.msg = "No message has been set.";
-    }
+//    public EnvironmentOptionChangeEventHandler(EnvironmentOption eoData, String screeswitchTargetScreennTarget)
+//    {
+//        this.sc = sc;
+//        this.switchTargetScreen = switchTargetScreen;
+//        this.msg = "No message has been set.";
+//    }
     
-    public TestEventHandler(String msg)
+    public EnvironmentOptionChangeEventHandler(String msg)
     {
         this.msg = msg;
     }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = "No message has been set.";
-    }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen, String msg)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = msg;
-    }
-    
-    
     
     @Override
-    public void handle(TestEvent event) {
-        System.out.println("TestEventHandler would like to say: " + msg);
+    public void handle(EnvironmentOptionChangeEvent event) {
+        System.out.println("EnvironmentOptionChangeEventHandler would like to say: " + msg);
         //sc.setScreen(switchTargetScreen);
     }
 }

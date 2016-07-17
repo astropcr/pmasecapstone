@@ -26,6 +26,8 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -149,36 +151,14 @@ public class EnvironmentOptionPanel extends AnchorPane {
         });
     }
     
-    // -------------------------------------------------------------------------
-    // Event handlers
-    // -------------------------------------------------------------------------
-    @FXML
-    private void handleDoneButtonAction(ActionEvent event) {
-        // Update caller that we've returned
-        // TODO: possibly fire an event...could require object registration or
-        //       dependency injection.
-        
-        
-        
-        // Turns off the panel.
-        this.setVisible(false);
-    }
     
     // -------------------------------------------------------------------------
     // Event handlers
     // -------------------------------------------------------------------------
     @FXML
-    private void handleOptionButtonAction(ActionEvent event) {
-        // Update caller that we've returned
-        // TODO: possibly fire an event...could require object registration or
-        //       dependency injection.
-        
-        // Set the tooltip property
-        
-        // update the caller with the selected option
-        
-        // Turns off the panel.
-        this.setVisible(false);
+    private void handleOptionSelected(ActionEvent event) {
+        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
+        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED)); // TODO: eventually figure out how to switch windows
     }
     
 
