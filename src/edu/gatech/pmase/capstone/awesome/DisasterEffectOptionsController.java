@@ -28,7 +28,9 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventTarget;
@@ -75,6 +77,8 @@ public class DisasterEffectOptionsController implements Initializable,
         
         // Now switch the window
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
+        DRTSGUIModel.getInstance().updateDisasterEffectsStatus(eopDisasterEffects.getSelectionStringized());
+        
         goToMain(event);
     }
     

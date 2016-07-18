@@ -41,7 +41,12 @@ public class EnvironmentOptionChangeEventHandler implements EventHandler<Environ
 //        this.switchTargetScreen = switchTargetScreen;
 //        this.msg = "No message has been set.";
 //    }
-    
+
+
+    public EnvironmentOptionChangeEventHandler()
+    {
+        this.msg = "the author is shy.";
+    }    
     public EnvironmentOptionChangeEventHandler(String msg)
     {
         this.msg = msg;

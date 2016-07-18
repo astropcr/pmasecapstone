@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -109,6 +110,9 @@ public class DisasterResponseTradeStudy extends Application {
         // Main Screen
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
         
+        // Disaster Effect Screen
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
+        
         // Environment Factors Screeens
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBeachID, DisasterResponseTradeStudy.screenEnvBeachFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBridgesID, DisasterResponseTradeStudy.screenEnvBridgesFile);
@@ -144,7 +148,13 @@ public class DisasterResponseTradeStudy extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         
+        EnvironmentElementStatus ees;
+        ees = (EnvironmentElementStatus) scene.lookup("#wopAirPlatforms");
+        
+        
+        
     }
+
 
     /**
      * @param args the command line arguments

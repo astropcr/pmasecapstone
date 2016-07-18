@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DRTSGUIModel;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -30,6 +31,7 @@ import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -82,6 +84,8 @@ public class EnvironmentOptionPanel extends AnchorPane {
     private final SimpleStringProperty envOpt4;
     private final SimpleStringProperty envOpt5;
     
+    private final SimpleStringProperty envOptName;      // VERY IMPORTANT: used by the controller to distinguish between different instances
+    
     
     
     public EnvironmentOptionPanel() {
@@ -125,6 +129,7 @@ public class EnvironmentOptionPanel extends AnchorPane {
         this.envOpt3 = new SimpleStringProperty(TB_DEFAULT_VAL + " 3");
         this.envOpt4 = new SimpleStringProperty(TB_DEFAULT_VAL + " 4");
         this.envOpt5 = new SimpleStringProperty(TB_DEFAULT_VAL + " 5");
+        this.envOptName = new SimpleStringProperty("not yet set");
         
         // bind the XML properties to the text properties
         questionLabel.textProperty().bind(questionProperty());
@@ -157,8 +162,31 @@ public class EnvironmentOptionPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     @FXML
     private void handleOptionSelected(ActionEvent event) {
-        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED)); // TODO: eventually figure out how to switch windows
+        String temp;
+        // first let's find which one was selected
+        temp = ((ToggleButton)(tgEnvironmentOptions.getSelectedToggle())).textProperty().getValue();
+        // then update the model
+        DRTSGUIModel.getInstance().setEesBeachSelOpt(temp);
+        DRTSGUIModel.getInstance().updateEesBeachTooltip(temp);
+        
+        
+//        Scene scene = this.getScene();
+//        EnvironmentElementStatus ees;
+//        String eesName = "eesBeach";
+//        AnchorPane apTemp;
+//
+//        try {
+//            
+//            apTemp = (AnchorPane) scene.lookup("#apMainWindow");
+//            ees = (EnvironmentElementStatus) scene.lookup("#"+eesName);
+//        } catch (RuntimeException exception) {
+//            System.out.println("The ees specific '" + eesName +"' was not found.");
+//        }
+                                    
+  
+        
+        
+        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED, this));
     }
     
 
@@ -256,6 +284,19 @@ public class EnvironmentOptionPanel extends AnchorPane {
     
     public SimpleStringProperty envOpt5Property() {
         return envOpt5;
+    }
+    
+    // Environment Option Name
+    public String getEnvOptName() {
+        return envOptNameProperty().get();
+    }
+
+    public void setEnvOptName(String fName) {
+        envOptNameProperty().set(fName);
+    }
+    
+    public SimpleStringProperty envOptNameProperty() {
+        return envOptName;
     }
     
     

@@ -34,13 +34,22 @@ import javafx.event.EventType;
 public class EnvironmentOptionChangeEvent extends Event {
     
     public static final EventType<EnvironmentOptionChangeEvent> OPTION_SELECTED = new EventType<>(Event.ANY, "OPTION_SELECTED");
+    
+    
+    public EnvironmentOptionPanel eop;
 
     public EnvironmentOptionChangeEvent() {
         this(OPTION_SELECTED);
+        eop = null;
     }
     
     public EnvironmentOptionChangeEvent(EventType<? extends Event> eventType) {
         super(eventType);
+    }
+    
+    public EnvironmentOptionChangeEvent(EventType<? extends Event> eventType, EnvironmentOptionPanel eop) {
+        super(eventType);
+        this.eop = eop;
     }
 
     public EnvironmentOptionChangeEvent(Object source, EventTarget target, EventType<? extends Event> eventType) {
@@ -50,6 +59,11 @@ public class EnvironmentOptionChangeEvent extends Event {
     
     public EnvironmentOptionChangeEvent(Object source, EventTarget target) {
         super(source, target, OPTION_SELECTED);
+    }
+    
+    public EnvironmentOptionChangeEvent(Object source, EventTarget target, EnvironmentOptionPanel eop) {
+        super(source, target, OPTION_SELECTED);
+        this.eop = eop;
     }
     
     @Override

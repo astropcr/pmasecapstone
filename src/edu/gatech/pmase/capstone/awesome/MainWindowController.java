@@ -26,6 +26,8 @@ package edu.gatech.pmase.capstone.awesome;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
@@ -43,6 +45,7 @@ import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -60,7 +63,7 @@ public class MainWindowController implements Initializable,
 
     ScreensController myController;
 
-    @FXML    private AnchorPane ap;
+    @FXML    private AnchorPane apMainWindow;
     
     @FXML    private Label label;    
     @FXML    private Label lblTitleMain;
@@ -132,12 +135,20 @@ public class MainWindowController implements Initializable,
             button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
         }
 
-          ap.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
+          apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
                             new ScreenSwitchEventHandler() {
                                 public void handle(ScreenSwitchEvent event) {
                                     goToEnvironmentOptions(event);
                                 };    
                             });
+          
+          
+        // ---------------------------------------------------------------------
+        // Now attach all of the controllers to the model
+        // ---------------------------------------------------------------------
+        DRTSGUIModel.getInstance().setEesBeach(eesBeach);
+        DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
+          
     }
 
     @FXML
@@ -189,20 +200,6 @@ public class MainWindowController implements Initializable,
     // Environment Status
     // -------------------------------------------------------------------------
     
-    //@FXML
-//    private void goToEnvironmentOptions(ActionEvent event)  {
-    @FXML
-    private void goToEnvironmentOptions(MouseEvent event)  {
-        String toSet = DisasterResponseTradeStudy.screenMainID;
-        
-        if(event.getSource().equals(eesTrafficability)) {
-            toSet = DisasterResponseTradeStudy.screenEnvTrafficabilityID;
-            //myController.setScreen(toSet);
-        }
-        
-        myController.setScreen(toSet);
-    }
-
     /**
      * This event handler will switch to the correct Environment Option window
      * selected by the user.
@@ -210,11 +207,11 @@ public class MainWindowController implements Initializable,
      */
     private void goToEnvironmentOptions(ScreenSwitchEvent event)  {
         String toSet = DisasterResponseTradeStudy.screenMainID;
+        String relatedEopPanel = "";
         
         // ---------------------------------------------------------------------
         // First, select the ID based on the caller (button)
         // ---------------------------------------------------------------------
-//        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesTrafficability)){
         if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesBeach)) {
             toSet = DisasterResponseTradeStudy.screenEnvBeachID;
         }

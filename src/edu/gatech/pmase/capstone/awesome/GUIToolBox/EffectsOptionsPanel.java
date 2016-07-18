@@ -178,6 +178,16 @@ public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen 
         return disasterEffects;
     }
     
+    public String getSelectionStringized()
+    {
+        String temp = "";
+        for (DisasterEffectCheckBoxData decbd : disasterEffects)
+        {
+            if(decbd.isOn()) { temp += decbd.getName() + ",\n"; }
+        }
+        return temp;
+    }
+    
     // -------------------------------------------------------------------------
     // Sets the title/question statement directiong the user's interaction.
     // -------------------------------------------------------------------------

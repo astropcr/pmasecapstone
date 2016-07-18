@@ -23,13 +23,17 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,6 +52,9 @@ public class EnvironmentElementStatus extends AnchorPane {
 
     @FXML    private Label lblEnvOptWeight;
     @FXML    private Button btnEnvOpt;
+    
+    @FXML   private AnchorPane ap;
+    
     
     @FXML   private Tooltip ttDescription;
     
@@ -72,6 +79,8 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty environmentOption;
     private final SimpleStringProperty environmentOptionPanel;
     private final SimpleStringProperty toolTip;
+    private final SimpleStringProperty envOptWeight;
+    
     
     private EnvironmentOptionPanel eop;
     
@@ -103,14 +112,17 @@ public class EnvironmentElementStatus extends AnchorPane {
         this.environmentOption      = new SimpleStringProperty("Effect");
         this.environmentOptionPanel = new SimpleStringProperty("");
         this.toolTip                = new SimpleStringProperty("");
+        this.envOptWeight           = new SimpleStringProperty("");
         
         // bind the XML properties to the text properties
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
         ttDescription.textProperty().bind(toolTipProperty());
+        lblEnvOptWeight.textProperty().bind(envOptWeight);
         
         eop = null;
         
     }
+    
     
     
 // -------------------------------------------------------------------------
@@ -136,6 +148,13 @@ public class EnvironmentElementStatus extends AnchorPane {
         
     }
     
+    
+    private void updateStatusWindow(EnvironmentOptionChangeEvent event)
+    {
+        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eop)) {
+            this.setToolTip(eop.getQuestion());
+        };
+    }
 
     
     // -------------------------------------------------------------------------
@@ -165,6 +184,13 @@ public class EnvironmentElementStatus extends AnchorPane {
             System.out.println("The eop specific '" + eopName +"' was not found.");
         }
     }
+    
+    public void setTetheredEnvironmentOptionPanel(EnvironmentOptionPanel eopToAttach)
+    {
+        eop = eopToAttach;
+    }
+    
+    
     
     // -------------------------------------------------------------------------
     // This property sets the name on the button
@@ -216,6 +242,17 @@ public class EnvironmentElementStatus extends AnchorPane {
     @FXML
     void initialize() {
         lblEnvOptWeight.setTooltip(ttDescription);
+        
+        ap.addEventHandler(EnvironmentOptionChangeEvent.OPTION_SELECTED, 
+                new EnvironmentOptionChangeEventHandler() {
+                    public void handle(EnvironmentOptionChangeEvent event) {
+                        updateStatusWindow(event);
+                    }
+                    
+                }
+        
+        
+        );
         // check for empty options and remove them from view and make sure they're never selected
     }     
     

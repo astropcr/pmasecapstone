@@ -23,9 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.util.HashMap;
+import javafx.scene.control.Label;
 
 
 /**
@@ -39,6 +42,54 @@ import java.util.HashMap;
 public class DRTSGUIModel {
 //    private HashMap<DisasterEffect> disasterEffects;
 //    private HashMap<TerrainEffect> terrainEffects;
+    
+    private final static DRTSGUIModel instance = new DRTSGUIModel();
+    
+    
+    // Environment Options
+    private String eesBeachSelOpt = "";
+    private EnvironmentElementStatus eesBeach;
+    
+    // Disaster Effects
+    EffectsOptionsPanel eop;
+    Label lblDisasterEffects;
+    
+    public static DRTSGUIModel getInstance()
+    {
+        return instance;
+    }
+    
+    public String getEesBeachSelOpt()
+    {
+        return this.eesBeachSelOpt;
+    }
+    
+    public void setEesBeachSelOpt(String eesBeachSelOpt)
+    {
+        this.eesBeachSelOpt = eesBeachSelOpt;
+    }
+    
+    public void setEesBeach(EnvironmentElementStatus eesToSet) {
+        this.eesBeach = eesToSet;
+    }
+    
+    public void updateEesBeachTooltip(String tooltip) {
+        this.eesBeach.setToolTip(tooltip);
+    }
+    public void updateEesBeachStatus(String tooltip) {
+        this.eesBeach.setToolTip(tooltip);
+    }
+    
+    
+    public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
+        this.lblDisasterEffects = lblDisasterEffectsToSet;
+    }
+    
+    public void updateDisasterEffectsStatus(String status) {
+        this.lblDisasterEffects.setText(status);
+    }
+    
+    
     
     
 }
