@@ -156,6 +156,15 @@ public class EnvironmentOptionPanel extends AnchorPane {
         });
     }
     
+    /**
+     * This function will remove the unused buttons from the GUI and keep it from
+     * accidentally being included.  This should be 'future proof' from changing
+     * the number of buttons as longs as they're added to the ToggleGroup
+     */
+    public void connectToModel()
+    {
+        DRTSGUIModel.getInstance().addEes(TB_DEFAULT_VAL, eesToAdd);
+    }
     
     // -------------------------------------------------------------------------
     // Event handlers
@@ -168,24 +177,10 @@ public class EnvironmentOptionPanel extends AnchorPane {
         // then update the model
         DRTSGUIModel.getInstance().setEesBeachSelOpt(temp);
         DRTSGUIModel.getInstance().updateEesBeachTooltip(temp);
+        DRTSGUIModel.getInstance().updateEesTooltip(envOptName, temp);
         
-        
-//        Scene scene = this.getScene();
-//        EnvironmentElementStatus ees;
-//        String eesName = "eesBeach";
-//        AnchorPane apTemp;
-//
-//        try {
-//            
-//            apTemp = (AnchorPane) scene.lookup("#apMainWindow");
-//            ees = (EnvironmentElementStatus) scene.lookup("#"+eesName);
-//        } catch (RuntimeException exception) {
-//            System.out.println("The ees specific '" + eesName +"' was not found.");
-//        }
-                                    
-  
-        
-        
+        // Now tell the world about it
+        // TODO: is this really necessary?
         Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED, this));
     }
     

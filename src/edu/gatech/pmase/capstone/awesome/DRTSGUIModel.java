@@ -25,9 +25,13 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
 import java.util.HashMap;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 
 
@@ -49,6 +53,13 @@ public class DRTSGUIModel {
     // Environment Options
     private String eesBeachSelOpt = "";
     private EnvironmentElementStatus eesBeach;
+    
+    
+//    private ObservableList<EnvironmentOptionPanel> eopCollection = new ObservableList<EnvironmentOptionPanel>();
+    private final ArrayList<EnvironmentOptionPanel> eopCollection = new ArrayList<>();
+    private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
+//    private final HashMap<String> eesSelectionsCollection = new HashMap<>();
+    
     
     // Disaster Effects
     EffectsOptionsPanel eop;
@@ -72,6 +83,25 @@ public class DRTSGUIModel {
     public void setEesBeach(EnvironmentElementStatus eesToSet) {
         this.eesBeach = eesToSet;
     }
+    
+    
+    ////////////////////////////////
+    
+    public void addEes(String ID, EnvironmentElementStatus eesToAdd){
+        this.eesCollection.put(ID, eesToAdd);
+    }
+    
+    public void updateEesTooltip(String eesToUpdate, String tooltip) {
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
+        
+        if(eesTemp != null)
+        {
+            eesTemp.setToolTip(tooltip);
+        }
+    }
+    
+    
+    ////////////////////////////////
     
     public void updateEesBeachTooltip(String tooltip) {
         this.eesBeach.setToolTip(tooltip);

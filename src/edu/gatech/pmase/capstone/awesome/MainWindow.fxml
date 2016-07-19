@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
-<AnchorPane fx:id="apMainWindow" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
+<AnchorPane id="AnchorPane" fx:id="apMainWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
@@ -34,7 +34,7 @@
                      <children>
                         <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
                         <Button fx:id="btnDepOpen" layoutX="22.0" layoutY="98.0" mnemonicParsing="false" onAction="#goToEffects" styleClass="userSelectionButton" text="Disaster Effects" />
-                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="173.0" prefWidth="457.0" styleClass="userStatusLabel" text="Label" />
+                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="173.0" prefWidth="457.0" styleClass="userStatusLabel" wrapText="true" />
                         <Label fx:id="lblSubTitleDisasterEffects1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="379.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="2. Define Environment" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>

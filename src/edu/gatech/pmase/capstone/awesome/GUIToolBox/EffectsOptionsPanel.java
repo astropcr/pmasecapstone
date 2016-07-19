@@ -23,17 +23,13 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -45,7 +41,8 @@ import javafx.scene.layout.BorderPane;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen {
+//public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen {
+public class EffectsOptionsPanel extends AnchorPane {
 
     @FXML   private Label titleLabel;
     @FXML   private BorderPane bpMain;
@@ -65,11 +62,9 @@ public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen 
     
     
     // -------------------------------------------------------------------------
-    // List of Effects the user can choose.  Also modified by setDisasterEffects
+    // List of Effects the user can choose.
     // -------------------------------------------------------------------------
-    private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.observableArrayList(); 
-    
-    
+    private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.observableArrayList();
     
     // -------------------------------------------------------------------------
     // These are what set the properties from the FXML file.  They should be
@@ -114,37 +109,10 @@ public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen 
     // -------------------------------------------------------------------------
     // Event handlers
     // -------------------------------------------------------------------------
-    // -------------------------------------------------------------------------
-    // These functions are what switch between windows.
-    // -------------------------------------------------------------------------
-    @FXML
-    private void goToMain(ActionEvent event)  {
-        Event.fireEvent((EventTarget) event.getSource(), new TestEvent());
-        System.out.println("Firing the custom event.");
-        
-        myController.setScreen("main");
-    }
-    
-    @Override
-    public void setScreenParent(ScreensController parent)
-    {
-        myController = parent;
-    }
-    
-    @Override
-    public ScreensController getScreenParent() {
-        return myController; //To change body of generated methods, choose Tools | Templates.
-    }
     
     @FXML
     private void handleOptionButtonAction(ActionEvent event) {
-        
-        // Update caller that we've returned
-        // TODO: possibly fire an event...could require object registration or
-        //       dependency injection.
-        
-        // update the tooltip (send to caller)
-
+        ; // currently a place holder for possible future events
     }
     
     
@@ -178,12 +146,23 @@ public class EffectsOptionsPanel extends AnchorPane implements ControlledScreen 
         return disasterEffects;
     }
     
+    /**
+     * Function will return a comma + newline separated string representation of
+     * those items selected by the user.
+     * @return 
+     */
     public String getSelectionStringized()
     {
         String temp = "";
         for (DisasterEffectCheckBoxData decbd : disasterEffects)
         {
             if(decbd.isOn()) { temp += decbd.getName() + ",\n"; }
+        }
+        
+        // remove trailing ",\n"
+        if(temp.endsWith(",\n"))
+        {
+            temp = temp.substring(0, temp.length()-2);
         }
         return temp;
     }
