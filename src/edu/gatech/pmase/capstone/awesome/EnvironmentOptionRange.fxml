@@ -18,11 +18,12 @@
     <children>
       
       <EnvironmentOptionPanel fx:id="eop" layoutX="261.0" layoutY="14.0">
+          <envOptName>Range</envOptName>
           <question>Range is defined as follows in nautical miles (nm) (choose most appropriate value):</question>
           <envOpt1>0 = no factor</envOpt1>
-          <envOpt2>1 = distance from staging area to disaster < 50 nm</envOpt2>
+          <envOpt2>1 = distance from staging area to disaster less than 50 nm</envOpt2>
           <envOpt3>2 = distance from staging area to disaster 50 - 100 nm</envOpt3>
-          <envOpt4>3 = distance from staging area to disaster > 100 nm</envOpt4>
+          <envOpt4>3 = distance from staging area to disaster reater than 100 nm</envOpt4>
       </EnvironmentOptionPanel>
       <Button fx:id="btnEopClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
     </children>

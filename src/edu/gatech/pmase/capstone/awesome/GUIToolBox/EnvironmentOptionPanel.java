@@ -64,11 +64,11 @@ public class EnvironmentOptionPanel extends AnchorPane {
     // These values control what the user selection 'is'.  It should be mapped
     // to some kind of value systems such "Least", "Less", "Equal", "More", "Most"
     // -------------------------------------------------------------------------
-    private final Integer TB_VAL_1 = 1;
-    private final Integer TB_VAL_2 = 2;
-    private final Integer TB_VAL_3 = 3;
-    private final Integer TB_VAL_4 = 4;
-    private final Integer TB_VAL_5 = 5;
+    private final Integer TB_VAL_1 = 0;
+    private final Integer TB_VAL_2 = 1;
+    private final Integer TB_VAL_3 = 2;
+    private final Integer TB_VAL_4 = 3;
+    private final Integer TB_VAL_5 = 4;
     
     private final String TB_DEFAULT_VAL = "Environment Option";
     
@@ -117,10 +117,10 @@ public class EnvironmentOptionPanel extends AnchorPane {
         
         // Set values for which one was selected.
         tbEnvironmentOption1.setUserData(TB_VAL_1);
-        tbEnvironmentOption2.setUserData(TB_VAL_1);
-        tbEnvironmentOption3.setUserData(TB_VAL_1);
-        tbEnvironmentOption4.setUserData(TB_VAL_1);
-        tbEnvironmentOption5.setUserData(TB_VAL_1);
+        tbEnvironmentOption2.setUserData(TB_VAL_2);
+        tbEnvironmentOption3.setUserData(TB_VAL_3);
+        tbEnvironmentOption4.setUserData(TB_VAL_4);
+        tbEnvironmentOption5.setUserData(TB_VAL_5);
         
         // Initialize the properties to read from the FXML file
         this.question = new SimpleStringProperty("question");
@@ -163,7 +163,8 @@ public class EnvironmentOptionPanel extends AnchorPane {
      */
     public void connectToModel()
     {
-        DRTSGUIModel.getInstance().addEes(TB_DEFAULT_VAL, eesToAdd);
+        DRTSGUIModel.getInstance().addEop(envOptName.getValue(), this);
+        //this.envOptName             = new SimpleStringProperty("");
     }
     
     // -------------------------------------------------------------------------
@@ -171,17 +172,18 @@ public class EnvironmentOptionPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     @FXML
     private void handleOptionSelected(ActionEvent event) {
-        String temp;
+        String temp1, temp2;
         // first let's find which one was selected
-        temp = ((ToggleButton)(tgEnvironmentOptions.getSelectedToggle())).textProperty().getValue();
+        temp1 = ((ToggleButton)(tgEnvironmentOptions.getSelectedToggle())).textProperty().getValue();
+        temp2 = tgEnvironmentOptions.getSelectedToggle().getUserData().toString();
+        
         // then update the model
-        DRTSGUIModel.getInstance().setEesBeachSelOpt(temp);
-        DRTSGUIModel.getInstance().updateEesBeachTooltip(temp);
-        DRTSGUIModel.getInstance().updateEesTooltip(envOptName, temp);
+        DRTSGUIModel.getInstance().updateEesTooltip(envOptName.getValue(), temp1);
+        DRTSGUIModel.getInstance().updateEesStatus(envOptName.getValue(), temp2);
         
         // Now tell the world about it
         // TODO: is this really necessary?
-        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED, this));
+//        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED, this));
     }
     
 

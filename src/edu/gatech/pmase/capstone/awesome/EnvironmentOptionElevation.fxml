@@ -18,11 +18,12 @@
     <children>
       
       <EnvironmentOptionPanel fx:id="eop" layoutX="261.0" layoutY="14.0">
+          <envOptName>Elevation</envOptName>
           <question>Elevation is defined as follows (choose most appropriate value):</question>
-          <envOpt1>0 = ?????????????????????</envOpt1>
-          <envOpt2>1 = ?????????????????????</envOpt2>
-          <envOpt3>2 = ?????????????????????</envOpt3>
-          <envOpt4>3 = ?????????????????????</envOpt4>
+          <envOpt1>0 = no factor</envOpt1>
+          <envOpt2>1 = minimal elevation changes (+/- 1000 feet)</envOpt2>
+          <envOpt3>2 = moderate elevation change (+/- 5000 feet)</envOpt3>
+          <envOpt4>3 = severe elevation change (+/- 10,000 feet)</envOpt4>
       </EnvironmentOptionPanel>
       <Button fx:id="btnEopClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
     </children>

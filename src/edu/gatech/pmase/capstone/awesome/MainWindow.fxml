@@ -71,7 +71,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" toolTip="and I said GO-OOOOOOOOOOOOO!!!!!" />
+                  <EnvironmentElementStatus fx:id="eesElevation" environmentOption="Elevation" environmentOptionPanel="eepElevation" prefHeight="67.0" prefWidth="111.0" />
                   <EnvironmentElementStatus fx:id="eesRoads" environmentOption="Roads" environmentOptionPanel="eepRoads" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="1" />
                   <EnvironmentElementStatus fx:id="eesBridges" environmentOption="Bridges" environmentOptionPanel="eepBridges" prefHeight="67.0" prefWidth="111.0" GridPane.rowIndex="2" />
                   

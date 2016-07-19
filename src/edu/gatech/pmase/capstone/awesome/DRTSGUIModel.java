@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
@@ -31,6 +32,8 @@ import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 
@@ -44,8 +47,6 @@ import javafx.scene.control.Label;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class DRTSGUIModel {
-//    private HashMap<DisasterEffect> disasterEffects;
-//    private HashMap<TerrainEffect> terrainEffects;
     
     private final static DRTSGUIModel instance = new DRTSGUIModel();
     
@@ -56,7 +57,7 @@ public class DRTSGUIModel {
     
     
 //    private ObservableList<EnvironmentOptionPanel> eopCollection = new ObservableList<EnvironmentOptionPanel>();
-    private final ArrayList<EnvironmentOptionPanel> eopCollection = new ArrayList<>();
+    private final HashMap<String, EnvironmentOptionPanel> eopCollection = new HashMap<>();
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
 //    private final HashMap<String> eesSelectionsCollection = new HashMap<>();
     
@@ -64,28 +65,42 @@ public class DRTSGUIModel {
     // Disaster Effects
     EffectsOptionsPanel eop;
     Label lblDisasterEffects;
+    ObservableList<DisasterEffectCheckBoxData> disasterEffects;
     
     public static DRTSGUIModel getInstance()
     {
         return instance;
     }
     
-    public String getEesBeachSelOpt()
-    {
-        return this.eesBeachSelOpt;
-    }
-    
-    public void setEesBeachSelOpt(String eesBeachSelOpt)
-    {
-        this.eesBeachSelOpt = eesBeachSelOpt;
-    }
-    
-    public void setEesBeach(EnvironmentElementStatus eesToSet) {
-        this.eesBeach = eesToSet;
-    }
+//    public String getEesBeachSelOpt()
+//    {
+//        return this.eesBeachSelOpt;
+//    }
+//    
+//    public void setEesBeachSelOpt(String eesBeachSelOpt)
+//    {
+//        this.eesBeachSelOpt = eesBeachSelOpt;
+//    }
+//    
+//    public void setEesBeach(EnvironmentElementStatus eesToSet) {
+//        this.eesBeach = eesToSet;
+//    }
     
     
     ////////////////////////////////
+    
+    public void addEop(String ID, EnvironmentOptionPanel eopToAdd){
+        this.eopCollection.put(ID, eopToAdd);
+    }
+    
+//    public void updateEesTooltip(String eesToUpdate, String tooltip) {
+//        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
+//        
+//        if(eesTemp != null)
+//        {
+//            eesTemp.setToolTip(tooltip);
+//        }
+//    }
     
     public void addEes(String ID, EnvironmentElementStatus eesToAdd){
         this.eesCollection.put(ID, eesToAdd);
@@ -100,15 +115,17 @@ public class DRTSGUIModel {
         }
     }
     
+    public void updateEesStatus(String eesToUpdate, String status) {
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
+        
+        if(eesTemp != null)
+        {
+            eesTemp.setEnvOptWeight(status);
+        }
+    }
+    
     
     ////////////////////////////////
-    
-    public void updateEesBeachTooltip(String tooltip) {
-        this.eesBeach.setToolTip(tooltip);
-    }
-    public void updateEesBeachStatus(String tooltip) {
-        this.eesBeach.setToolTip(tooltip);
-    }
     
     
     public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
@@ -118,6 +135,14 @@ public class DRTSGUIModel {
     public void updateDisasterEffectsStatus(String status) {
         this.lblDisasterEffects.setText(status);
     }
+    
+//    public void setDisasterEffectsSelected(ObservableList<DisasterEffectCheckBoxData> list) {
+//        this.lblDisasterEffects = lblDisasterEffectsToSet;
+//    }
+//    
+//    public void setDisasterEffectsSelected(String status) {
+//        this.lblDisasterEffects.setText(status);
+//    }
     
     
     

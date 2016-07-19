@@ -46,6 +46,21 @@
     
 }
 
+.envOptStatusLabel {
+    -fx-background-color: DarkSeaGreen;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow( three-pass-box , #556B2F , 10 , 0.5 , 0 , 0  );
+    -fx-border-color: DarkOliveGreen;
+    -fx-border-radius: 5;
+    
+    -fx-padding: 0;
+    -fx-text-alignment: center;
+    
+    -fx-font-family: "Trebuchet MS Bold";
+    -fx-font-size: 14pt;
+    
+}
+
 #ToolTip {
     -fx-effect: dropshadow( three-pass-box , #333333 , 10 , 0.5 , 0 , 0  );
 }

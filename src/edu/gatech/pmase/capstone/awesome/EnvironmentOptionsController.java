@@ -24,7 +24,6 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
@@ -67,6 +66,7 @@ public class EnvironmentOptionsController implements Initializable,
         
         
         eop.removeUnusedButtons();
+        eop.connectToModel();
         
     }  
     
@@ -83,8 +83,6 @@ public class EnvironmentOptionsController implements Initializable,
         
         // Now switch the window
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
-        
-
 
         this.goToMain(event);
     }
