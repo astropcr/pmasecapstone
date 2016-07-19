@@ -24,7 +24,9 @@
 package edu.gatech.pmase.capstone.awesome.objects.enums;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Different types of Terrain effects.
@@ -168,6 +170,18 @@ public enum TerrainEffect {
         this.terrainLabel = terrainLabel;
         this.codeNum = codeNum;
         this.codeMeaning = meaning;
+    }
+
+    /**
+     * Gets all TerrainEffects with the given label.
+     *
+     * @param label the label for the TerrainEffect
+     * @return a List of TerrainEffects with the given label.
+     */
+    public static List<TerrainEffect> getEffectByLabel(final String label) {
+        return Arrays.asList(TerrainEffect.values()).stream()
+                .filter(eff -> eff.terrainLabel.equals(label))
+                .collect(Collectors.toList());
     }
 
     /**

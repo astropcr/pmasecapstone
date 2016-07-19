@@ -40,6 +40,8 @@ import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.fail;
+import static org.junit.Assert.fail;
 
 /**
  * Test for PrioritizationUtil class;.
@@ -70,20 +72,20 @@ public class PrioritizationUtilTest {
     }
 
     /**
-     * Test of getWeightingOptions method, of class PrioritizationUtil.
+     * Test of getWeightingChoice method, of class PrioritizationUtil.
      */
     @Test
     public void testGetWeightingOptions() {
         if (plats.isEmpty()) {
             fail("Could not load platforms from database.");
         } else {
-            List<WeightingChoice> result = PrioritizationUtil.getWeightingOptions(plats.get(0).getPrioritizationAttributess());
+            List<WeightingChoice> result = PrioritizationUtil.getWeightingChoice(plats.get(0).getPrioritizationAttributess());
             LOGGER.debug(result);
 
-            result = PrioritizationUtil.getWeightingOptions(sensors.get(0).getPrioritizationAttributess());
+            result = PrioritizationUtil.getWeightingChoice(sensors.get(0).getPrioritizationAttributess());
             LOGGER.debug(result);
 
-            result = PrioritizationUtil.getWeightingOptions(comms.get(0).getPrioritizationAttributess());
+            result = PrioritizationUtil.getWeightingChoice(comms.get(0).getPrioritizationAttributess());
             LOGGER.debug(result);
         }
     }

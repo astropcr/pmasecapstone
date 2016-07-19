@@ -51,7 +51,7 @@ public class GUIValuesUtil {
         if (loadedOptions.isEmpty()) {
             throw new IllegalArgumentException("Cannot create weighting options as no values loaded from database");
         } else {
-            results.addAll(PrioritizationUtil.getWeightingOptions(loadedOptions.get(0).getPrioritizationAttributess()));
+            results.addAll(PrioritizationUtil.getWeightingChoice(loadedOptions.get(0).getPrioritizationAttributess()));
         }
 
         return results;

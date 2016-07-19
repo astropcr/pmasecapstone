@@ -66,7 +66,7 @@ public class ComponentAHPOptimatorTest {
     @Test
     public void testGenerateOptimizedOption() {
         final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingOptions(priAttrs);
+        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {

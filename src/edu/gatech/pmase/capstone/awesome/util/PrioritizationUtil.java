@@ -51,7 +51,7 @@ public class PrioritizationUtil {
      * @param attrs list of attributes to compare and weight
      * @return list of weighting options.
      */
-    public static List<WeightingChoice> getWeightingOptions(final List<ArchitectureOptionAttribute> attrs) {
+    public static List<WeightingChoice> getWeightingChoice(final List<ArchitectureOptionAttribute> attrs) {
         final List<WeightingChoice> opts = new ArrayList<>();
 
         final int size = attrs.size();

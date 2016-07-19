@@ -45,6 +45,7 @@ import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade
@@ -140,7 +141,7 @@ public class DisasterResponseTradeStudyIT {
      */
     private List<ArchitectureOptionAttribute> getCommPriorities(List<CommunicationOption> comms) {
         final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingOptions(priAttrs);
+        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
@@ -159,7 +160,7 @@ public class DisasterResponseTradeStudyIT {
      */
     private List<ArchitectureOptionAttribute> getSensorPriorities(List<SensorOption> sensors) {
         final List<ArchitectureOptionAttribute> priAttrs = sensors.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingOptions(priAttrs);
+        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
@@ -178,7 +179,7 @@ public class DisasterResponseTradeStudyIT {
      */
     private List<ArchitectureOptionAttribute> getPlatformPriorities(List<PlatformOption> platforms) {
         final List<ArchitectureOptionAttribute> priAttrs = platforms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingOptions(priAttrs);
+        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
