@@ -10,16 +10,16 @@
 <?import javafx.scene.layout.*?>
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.MainWindowController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.DisasterEffectOptionsController">
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
     
     <children>
       
-      <EffectsOptionsPanel fx:id="eopDisasterEffects" />
+      <EffectsOptionsPanel fx:id="eopDisasterEffects" layoutX="262.0" layoutY="14.0" />
       
-            <Button id="eopClose" fx:id="btnDepClose" layoutX="232.0" layoutY="493.0" onAction="#handlePanelSwitchButtonAction" text="Close">
+                  <Button id="depClose" fx:id="btnDepClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done">
       </Button>      
     </children>
 </AnchorPane>

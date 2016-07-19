@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -43,12 +44,52 @@ public class DisasterResponseTradeStudy extends Application {
      * 
      */
     public static String classPath = "/edu/gatech/pmase/capstone/awesome/";
-    public static String screenMainID           = classPath + "MainWindow";
-    public static String screenMainFile         = classPath + "MainWindow.fxml";
-    public static String screenEffectsOptID     = classPath + "DisasterEffectsOptions";
-    public static String screenEffectsFile      = classPath + "DisasterEffectsOptions.fxml";
-    public static String screenEnvironmentID    = classPath + "EnvironmentOptions";
-    public static String screenEnvironmenFile   = classPath + "EnvironmentOptions.fxml";
+    
+    // Main Screen
+    public static String screenMainID                   = classPath + "MainWindow";
+    public static String screenMainFile                 = classPath + "MainWindow.fxml";
+    
+    // Disaster Effects Screens
+    public static String screenEffectsOptID             = classPath + "DisasterEffectsOptions";
+    public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
+    
+    // Environment Option Screens
+    public static String screenEnvBeachID               = classPath + "EnvironmentOptionBeach";
+    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
+    public static String screenEnvBridgesID             = classPath + "EnvironmentOptionBridges";
+    public static String screenEnvBridgesFile           = classPath + "EnvironmentOptionBridges.fxml";
+    public static String screenEnvElevationID           = classPath + "EnvironmentOptionElevation";
+    public static String screenEnvElevationFile         = classPath + "EnvironmentOptionElevation.fxml";
+    public static String screenEnvFoilageID             = classPath + "EnvironmentOptionFoilage";
+    public static String screenEnvFoliageFile           = classPath + "EnvironmentOptionFoilage.fxml";
+    public static String screenEnvPersistenceID         = classPath + "EnvironmentOptionPersistence";
+    public static String screenEnvPersistenceFile       = classPath + "EnvironmentOptionPersistence.fxml";
+    public static String screenEnvPopulationID          = classPath + "EnvironmentOptionPopulation";
+    public static String screenEnvPopulationFile        = classPath + "EnvironmentOptionPopulation.fxml";
+    public static String screenEnvRangeID               = classPath + "EnvironmentOptionRange";
+    public static String screenEnvRangeFile             = classPath + "EnvironmentOptionRange.fxml";
+    public static String screenEnvRoadsID               = classPath + "EnvironmentOptionRoads";
+    public static String screenEnvRoadsFile             = classPath + "EnvironmentOptionRoads.fxml";
+    public static String screenEnvStreamsID             = classPath + "EnvironmentOptionStreams";
+    public static String screenEnvStreamsFile           = classPath + "EnvironmentOptionStreams.fxml";
+    public static String screenEnvTrafficabilityID      = classPath + "EnvironmentOptionTrafficability";
+    public static String screenEnvTrafficabilityFile    = classPath + "EnvironmentOptionTrafficability.fxml";
+    public static String screenEnvUrbanizationID        = classPath + "EnvironmentOptionUrbanization";
+    public static String screenEnvUrbanizationFile      = classPath + "EnvironmentOptionUrbanization.fxml";
+    public static String screenEnvWaterWaysID           = classPath + "EnvironmentOptionWaterWays";
+    public static String screenEnvWaterWaysFile         = classPath + "EnvironmentOptionWaterWays.fxml";
+    public static String screenEnvWetnessID             = classPath + "EnvironmentOptionWetness";
+    public static String screenEnvWetnessFile           = classPath + "EnvironmentOptionWetness.fxml";
+    
+    // Solution Creiteria Weighting Screens
+    public static String screenAPWeightingID            = classPath + "WeightingOptionsAirPlatforms";
+    public static String screenAPWeightingFile          = classPath + "WeightingOptionsAirPlatforms.fxml";
+    public static String screenGPWeightingID            = classPath + "WeightingOptionsGroundPlatforms";
+    public static String screenGPWeightingFile          = classPath + "WeightingOptionsGroundPlatforms.fxml";
+    public static String screenCommsWeightingID         = classPath + "WeightingOptionsComms";
+    public static String screenCommsWeightingFile       = classPath + "WeightingOptionsComms.fxml";
+    public static String screenSensorsWeightingID       = classPath + "WeightingOptionsSensors";
+    public static String screenSensorsWeightingFile     = classPath + "WeightingOptionsSensors.fxml";
     
     /**
      * Logger. Use to log all things
@@ -59,27 +100,61 @@ public class DisasterResponseTradeStudy extends Application {
     public void start(Stage primaryStage) throws Exception {
         LOGGER.info("Hello World!");
         LOGGER.debug("Testing Logger");
-        
-//        Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
-//
-//        Scene scene = new Scene(root);
-//
-//        primaryStage.setTitle("Disaster Response Trade Study Tool");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+
         ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvironmentID, DisasterResponseTradeStudy.screenEnvironmenFile);
         
+        // ---------------------------------------------------------------------
+        // Load the screens
+        // ---------------------------------------------------------------------
+        
+        // Main Screen
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
+        
+        // Disaster Effect Screen
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
+        
+        // Environment Factors Screeens
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBeachID, DisasterResponseTradeStudy.screenEnvBeachFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBridgesID, DisasterResponseTradeStudy.screenEnvBridgesFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvElevationID, DisasterResponseTradeStudy.screenEnvElevationFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvFoilageID, DisasterResponseTradeStudy.screenEnvFoliageFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvPersistenceID, DisasterResponseTradeStudy.screenEnvPersistenceFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvPopulationID, DisasterResponseTradeStudy.screenEnvPopulationFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvRangeID, DisasterResponseTradeStudy.screenEnvRangeFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvRoadsID, DisasterResponseTradeStudy.screenEnvRoadsFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvStreamsID, DisasterResponseTradeStudy.screenEnvStreamsFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvTrafficabilityID, DisasterResponseTradeStudy.screenEnvTrafficabilityFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvUrbanizationID, DisasterResponseTradeStudy.screenEnvUrbanizationFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvWaterWaysID, DisasterResponseTradeStudy.screenEnvWaterWaysFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvWetnessID, DisasterResponseTradeStudy.screenEnvWetnessFile);
+
+        // Weighting Criteria Screens
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenAPWeightingID, DisasterResponseTradeStudy.screenAPWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenGPWeightingID, DisasterResponseTradeStudy.screenGPWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenCommsWeightingID, DisasterResponseTradeStudy.screenCommsWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
+        
+        // ---------------------------------------------------------------------
+        // Now let's start the show
+        // ---------------------------------------------------------------------
         mainContainer.setScreen(DisasterResponseTradeStudy.screenMainID);
         
         Group root = new Group();
-        root.getChildren().addAll(mainContainer);
+        root.getChildren().addAll(mainContainer);      
+        
         Scene scene = new Scene(root);
+        
+        primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        EnvironmentElementStatus ees;
+        ees = (EnvironmentElementStatus) scene.lookup("#wopAirPlatforms");
+        
+        
+        
     }
+
 
     /**
      * @param args the command line arguments

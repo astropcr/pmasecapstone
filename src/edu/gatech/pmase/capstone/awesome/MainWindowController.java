@@ -24,29 +24,34 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
-import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -58,6 +63,7 @@ public class MainWindowController implements Initializable,
 
     ScreensController myController;
 
+    @FXML    private AnchorPane apMainWindow;
     
     @FXML    private Label label;    
     @FXML    private Label lblTitleMain;
@@ -81,15 +87,25 @@ public class MainWindowController implements Initializable,
     
     @FXML    private WeightingOptionPanel wop1;
     
-    
-    
     @FXML   private EffectsOptionsPanel eopDisasterEffects;
     @FXML   private Label lblDisasterEffects;
     @FXML   private Button btnDepClose;
     @FXML   private Button btnDepOpen;
     
-    @FXML    private EnvironmentOptionPanel eopElevation;
+    @FXML   private EnvironmentElementStatus eesBeach;
+    @FXML   private EnvironmentElementStatus eesBridges;
     @FXML   private EnvironmentElementStatus eesElevation;
+    @FXML   private EnvironmentElementStatus eesFoilage;
+    @FXML   private EnvironmentElementStatus eesPersistence;
+    @FXML   private EnvironmentElementStatus eesPopulation;
+    @FXML   private EnvironmentElementStatus eesRange;
+    @FXML   private EnvironmentElementStatus eesRoads;
+    @FXML   private EnvironmentElementStatus eesStreams;
+    @FXML   private EnvironmentElementStatus eesTrafficability;
+    @FXML   private EnvironmentElementStatus eesUrbanization;
+    @FXML   private EnvironmentElementStatus eesWaterWays;
+    @FXML   private EnvironmentElementStatus eesWetness;
+    
     @FXML   private Button btnEopClose;                     // this could be used for them all?
     
     private Text weightingOption1;
@@ -97,6 +113,8 @@ public class MainWindowController implements Initializable,
     private Text weightingOption3;
     private Text weightingOption4;
     private Text weightingOption5;
+    
+    @FXML   private Button button = null;
     
     
     /**
@@ -106,22 +124,50 @@ public class MainWindowController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-//        eopElevation.removeUnusedButtons();
+        
+        if(btnDepClose != null) {
+//            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
+            System.out.println(this.getClass().toString());
+        }
+        
+        if(button != null)
+        {   
+            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
+        }
+
+          apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
+                            new ScreenSwitchEventHandler() {
+                                public void handle(ScreenSwitchEvent event) {
+                                    goToEnvironmentOptions(event);
+                                };    
+                            });
+          
+          
+        // ---------------------------------------------------------------------
+        // Now attach all of the controllers to the model
+        // ---------------------------------------------------------------------
+        DRTSGUIModel.getInstance().setEesBeach(eesBeach);
+        DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
+          
     }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         
-        // ---------------------------------------------------------------------
-        // Gather all of the options selected, package them, and send them off
-        // ---------------------------------------------------------------------
-//        label.setText(woqc1.getSelection());
-        
-//        eopElevation.removeUnusedButtons();
         attachControllersToEachOther();
+        
+        Event.fireEvent((EventTarget) event.getSource(), new TestEvent());
     }
     
+    @FXML
+    private void handleTestEvent(TestEvent event) {
+        System.out.println("Test event successfully captured!! (original)");
+    }
+    
+       
+    
+
     /**
      * This function handles the opening and closing of subpanels.
      * @param event
@@ -132,52 +178,107 @@ public class MainWindowController implements Initializable,
     private void handlePanelSwitchButtonAction(ActionEvent event) throws IOException {
         System.out.println("You clicked me!");
         
-//        Boolean buttonIsValid = false;
-//        
-//        Stage stage = null;
-//        Parent root = null;
-//        if(event.getSource()==btnDepOpen)
-//        {
-//            stage=(Stage) btnDepOpen.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyDisasterEffectsOpts.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyDisasterEffectsOpts...");
-//            buttonIsValid = true;
-//        }
-//        else if (event.getSource()==btnDepClose)
-//        {
-//            stage=(Stage) btnDepClose.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyMainWindow.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyMainWindow...");
-//            buttonIsValid = true;
-//            
-//            ObservableList<DisasterEffectCheckBoxData> deTemp = eopDisasterEffects.getSelection();
-//            
-//            lblDisasterEffects.setText(deTemp.toString());
-//            
-//            
-//        }
-//        else if (event.getSource()==eesElevation)
-//        {
-//            stage=(Stage) btnDepClose.getScene().getWindow();
-//            root=FXMLLoader.load(getClass().getResource("FXMLDisasterResponseTradeStudyEnvironmentOpts.fxml"));
-//            System.out.println("Switching to scene FXMLDisasterResponseTradeStudyEnvironmentOpts...");
-//            buttonIsValid = true;
-//        }
-//        
-//        
-//
-//        // If the button source was not valid, then don't crash the program
-//        // by tring to using an uninitialized root!!
-//        if(buttonIsValid)
-//        {
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
-//        }
-//        else
-//        {
-//            System.out.println("Invalid call to the panel switch even handler (handlePanelSwitchButtonAction())!!");
-//        }
+    }
+    
+    
+    
+    
+    // -------------------------------------------------------------------------
+    // These functions are what switch between windows.
+    // -------------------------------------------------------------------------
+    @FXML
+    private void goToMain(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenMainID);
+    }
+    
+    @FXML
+    private void goToEffects(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenEffectsOptID);
+    }
+    
+    // -------------------------------------------------------------------------
+    // Environment Status
+    // -------------------------------------------------------------------------
+    
+    /**
+     * This event handler will switch to the correct Environment Option window
+     * selected by the user.
+     * @param event 
+     */
+    private void goToEnvironmentOptions(ScreenSwitchEvent event)  {
+        String toSet = DisasterResponseTradeStudy.screenMainID;
+        String relatedEopPanel = "";
+        
+        // ---------------------------------------------------------------------
+        // First, select the ID based on the caller (button)
+        // ---------------------------------------------------------------------
+        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesBeach)) {
+            toSet = DisasterResponseTradeStudy.screenEnvBeachID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesBridges)) {
+            toSet = DisasterResponseTradeStudy.screenEnvBridgesID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesElevation)) {
+            toSet = DisasterResponseTradeStudy.screenEnvElevationID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesFoilage)) {
+            toSet = DisasterResponseTradeStudy.screenEnvFoilageID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesPersistence)) {
+            toSet = DisasterResponseTradeStudy.screenEnvPersistenceID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesPopulation)) {
+            toSet = DisasterResponseTradeStudy.screenEnvPopulationID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesRange)) {
+            toSet = DisasterResponseTradeStudy.screenEnvRangeID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesRoads)) {
+            toSet = DisasterResponseTradeStudy.screenEnvRoadsID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesStreams)) {
+            toSet = DisasterResponseTradeStudy.screenEnvStreamsID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesTrafficability)) {
+            toSet = DisasterResponseTradeStudy.screenEnvTrafficabilityID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesUrbanization)) {
+            toSet = DisasterResponseTradeStudy.screenEnvUrbanizationID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesWaterWays)) {
+            toSet = DisasterResponseTradeStudy.screenEnvWaterWaysID;
+        }
+        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesWetness)) {
+            toSet = DisasterResponseTradeStudy.screenEnvWetnessID;
+        }
+        
+        // ---------------------------------------------------------------------
+        // Now, let's set the screen
+        // ---------------------------------------------------------------------
+        myController.setScreen(toSet);
+    }
+    
+    // -------------------------------------------------------------------------
+    // Weighting Criteria
+    // -------------------------------------------------------------------------
+    @FXML
+    private void goToAPWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenAPWeightingID);
+    }
+    
+    @FXML
+    private void goToGPWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenGPWeightingID);
+    }
+    
+    @FXML
+    private void goToCommsWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenCommsWeightingID);
+    }
+    
+    @FXML
+    private void goToSensorsWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
     
     // -------------------------------------------------------------------------
@@ -193,5 +294,9 @@ public class MainWindowController implements Initializable,
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
-    
+
+    @Override
+    public ScreensController getScreenParent() {
+        return myController; //To change body of generated methods, choose Tools | Templates.
+    }
 }

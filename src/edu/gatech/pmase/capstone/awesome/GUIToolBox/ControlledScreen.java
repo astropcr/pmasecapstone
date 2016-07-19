@@ -47,4 +47,7 @@ public interface ControlledScreen {
     
     //This method will allow the injection of the Parent ScreenPane
     public void setScreenParent(ScreensController screenParent);
+    
+    // This method will return the injection of the Parent ScreenPane
+    public ScreensController getScreenParent();
 }

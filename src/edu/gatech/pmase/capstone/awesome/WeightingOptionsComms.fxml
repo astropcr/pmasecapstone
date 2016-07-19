@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" fx:controller="edu.gatech.pmase.capstone.awesome.WeightingOptionsController">
+    <stylesheets>
+        <URL value="@GUIToolBox/guitoolbox.css" />
+    </stylesheets>
+    
+    <children>
+      
+      <WeightingOptionPanel fx:id="wopComms" layoutX="0.0" layoutY="0.0">
+          <title>Communications Weighting</title>
+          <weightingOption1>Extremely More Important</weightingOption1>
+          <weightingOption2>Significantly More Important</weightingOption2>
+          <weightingOption3>Equally Important</weightingOption3>
+          <weightingOption4>Significantly Less Important</weightingOption4>
+          <weightingOption5>Extremely Less Important</weightingOption5>
+          
+          <question1Opt1>communication data rate</question1Opt1>
+          <question1Opt2>communications range</question1Opt2>
+          
+          <question2Opt1>communications cost</question2Opt1>
+          <question2Opt2>communications range</question2Opt2>
+          
+          <question3Opt1>communications weight</question3Opt1>
+          <question3Opt2>communications range</question3Opt2>
+          
+          <question4Opt1>communications cost</question4Opt1>
+          <question4Opt2>communications data rate</question4Opt2>
+          
+          <question5Opt1>communications weight</question5Opt1>
+          <question5Opt2>communications data rate</question5Opt2>
+          
+          <question6Opt1>communications weight</question6Opt1>
+          <question6Opt2>communications cost</question6Opt2>
+      </WeightingOptionPanel>
+      <Button fx:id="btnWopClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
+    </children>
+</AnchorPane>
