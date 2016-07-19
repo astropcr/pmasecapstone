@@ -23,10 +23,8 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
+import edu.gatech.pmase.capstone.awesome.DRTSGUIModel;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -81,6 +79,8 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty toolTip;
     private final SimpleStringProperty envOptWeight;
     
+    private final SimpleStringProperty envOptName;      // VERY IMPORTANT: used by the controller to distinguish between different instances
+    
     
     private EnvironmentOptionPanel eop;
     
@@ -113,6 +113,7 @@ public class EnvironmentElementStatus extends AnchorPane {
         this.environmentOptionPanel = new SimpleStringProperty("");
         this.toolTip                = new SimpleStringProperty("");
         this.envOptWeight           = new SimpleStringProperty("");
+        this.envOptName             = new SimpleStringProperty("");
         
         // bind the XML properties to the text properties
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
@@ -156,6 +157,18 @@ public class EnvironmentElementStatus extends AnchorPane {
         // TODO: return the selection?
         return (Integer) 0;
     }
+    
+    
+    /**
+     * This function will remove the unused buttons from the GUI and keep it from
+     * accidentally being included.  This should be 'future proof' from changing
+     * the number of buttons as longs as they're added to the ToggleGroup
+     */
+    public void connectToModel()
+    {
+        DRTSGUIModel.getInstance().addEes(environmentOption.getValue(), this);
+    }
+    
     // -------------------------------------------------------------------------
     // This stores an EOP node based on it's given name
     // -------------------------------------------------------------------------
@@ -223,6 +236,21 @@ public class EnvironmentElementStatus extends AnchorPane {
         return toolTip;
     }
     
+    // -------------------------------------------------------------------------
+    // This property informs this controller of the text needed for the
+    // environment option weight.
+    // -------------------------------------------------------------------------
+    public String getEnvOptWeight() {
+        return envOptWeightProperty().get();
+    }
+
+    public void setEnvOptWeight(String fName) {
+        envOptWeightProperty().set(fName);
+    }
+    
+    public SimpleStringProperty envOptWeightProperty() {
+        return envOptWeight;
+    }
     
     @FXML
     void initialize() {
@@ -238,6 +266,8 @@ public class EnvironmentElementStatus extends AnchorPane {
         
         
         );
+        
+//        this.connectToModel();
         // check for empty options and remove them from view and make sure they're never selected
     }     
     

@@ -141,9 +141,22 @@ public class MainWindowController implements Initializable,
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
-        DRTSGUIModel.getInstance().setEesBeach(eesBeach);
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
-          
+        
+        eesBeach.connectToModel();
+        eesBridges.connectToModel();
+        eesElevation.connectToModel();
+        eesFoilage.connectToModel();
+        eesPersistence.connectToModel();
+        eesPopulation.connectToModel();
+        eesRange.connectToModel();
+        eesRoads.connectToModel();
+        eesStreams.connectToModel();
+        eesTrafficability.connectToModel();
+        eesUrbanization.connectToModel();
+        eesWaterWays.connectToModel();
+        eesWetness.connectToModel();
+        
     }
 
     @FXML

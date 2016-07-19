@@ -18,6 +18,7 @@
     <children>
       
       <EnvironmentOptionPanel fx:id="eop" layoutX="261.0" layoutY="14.0">
+          <envOptName>Persistence</envOptName>
           <question>Persistence of the disaster cause is defined as follows (choose most appropriate value):</question>
           <envOpt1>0 = no factor</envOpt1>
           <envOpt2>1 = short duration of disaster cause over/at disaster area</envOpt2>

@@ -147,12 +147,6 @@ public class DisasterResponseTradeStudy extends Application {
         primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
-        EnvironmentElementStatus ees;
-        ees = (EnvironmentElementStatus) scene.lookup("#wopAirPlatforms");
-        
-        
-        
     }
 
 

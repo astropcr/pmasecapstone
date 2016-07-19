@@ -40,7 +40,7 @@ THE SOFTWARE.
     </stylesheets>
     <children>
         <Button fx:id="btnEnvOpt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleOptionButtonAction" prefHeight="50.0" prefWidth="160.0" styleClass="userSelectionButton" text="Button" />
-        <Label fx:id="lblEnvOptWeight" alignment="CENTER" layoutX="165.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="userStatusLabel" text="Label" textAlignment="CENTER">
+        <Label fx:id="lblEnvOptWeight" alignment="CENTER" layoutX="165.0" layoutY="13.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="25.0" styleClass="envOptStatusLabel" text="Label" textAlignment="CENTER">
             <tooltip>
                 <Tooltip fx:id="ttDescription" text="Tooltip text" /> 
             </tooltip>
