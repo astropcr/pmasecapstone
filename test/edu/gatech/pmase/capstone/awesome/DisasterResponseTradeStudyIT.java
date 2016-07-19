@@ -128,8 +128,8 @@ public class DisasterResponseTradeStudyIT {
         final List<DRTSArchitectureResult> finalResults = sanity.selectFinalArchitecture(results);
         LOGGER.info(finalResults.size() + " final results returned");
         assertEquals(finalResults.size(), 3);
-        final DRTSArchitectureResult topResult = finalResults.get(0);
 
+        final DRTSArchitectureResult topResult = finalResults.get(0);
         LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
     }
 
