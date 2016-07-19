@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome.impl.database;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.util.DisasterResponseTradeStudyPropertiesSingleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +45,6 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(CommunicationsDatabaseDriver.class);
-
-    /**
-     * Communications Workbook Property.
-     */
-    private static final String COMM_WORKBOOK_PROPERTY_NAME = "comms.workbook";
 
     /**
      * Workbook cell numbers to load from.
@@ -85,7 +81,8 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
         this.mapPlatformOptions(inPlatformOptions);
 
         // get options
-        return this.loadOptionsFromDatabase(props.getProperty(COMM_WORKBOOK_PROPERTY_NAME));
+        return this.loadOptionsFromDatabase(
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getCommWorkbookFileName());
     }
 
     @Override

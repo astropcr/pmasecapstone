@@ -29,8 +29,8 @@ import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.util.DisasterResponseTradeStudyPropertiesSingleton;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -63,16 +63,6 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(AbstractDatabaseDriver.class);
-
-    /**
-     * Name of the properties file.
-     */
-    private static final String PROPERTIES_FILE = "disasterResponseTradeStudy.properties";
-
-    /**
-     * Name of the property to load the workbook directory name from.
-     */
-    private static final String WORKBOOK_DIR_PROPERTY_NAME = "workbook.dir";
 
     /**
      * Column number for label attribute in custom column description.
@@ -120,23 +110,6 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
     protected static final List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>();
 
     /**
-     * Name of the workbook directory.
-     */
-    private static String WORKBOOK_DIR;
-
-    static {
-        try {
-            props.load(new FileInputStream(PROPERTIES_FILE));
-            final String dir = props.getProperty(WORKBOOK_DIR_PROPERTY_NAME);
-
-            LOGGER.debug("Workbook Base Directory set at: " + dir);
-            WORKBOOK_DIR = dir;
-        } catch (IOException ex) {
-            LOGGER.error("Cannot load required properties file.", ex);
-        }
-    }
-
-    /**
      * Creates a Attribute Description object from the given row. Does not set
      * the value.
      *
@@ -180,7 +153,8 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
         if (null != workbookName) {
             LOGGER.debug("Reading options from filename: " + workbookName);
 
-            final Path path = Paths.get(WORKBOOK_DIR, workbookName);
+            final Path path = Paths.get(
+                    DisasterResponseTradeStudyPropertiesSingleton.getInstance().getWorkbookDirectory(), workbookName);
             LOGGER.debug("Testing Workbok at " + path.toAbsolutePath());
             final File workbookFile = path.toFile();
 

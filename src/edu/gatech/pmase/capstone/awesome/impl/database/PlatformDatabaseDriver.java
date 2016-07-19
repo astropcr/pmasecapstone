@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome.impl.database;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.PlatformType;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.util.DisasterResponseTradeStudyPropertiesSingleton;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
@@ -42,11 +43,6 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(PlatformDatabaseDriver.class);
-
-    /**
-     * Platform Workbook Property.
-     */
-    private static final String PLATFORM_WORKBOOK_PROPERTY_NAME = "platform.workbook";
 
     /**
      * Workbook cell numbers to load from.
@@ -69,7 +65,8 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
      */
     public List<PlatformOption> getPlatformOptionsFromDatabase() {
         LOGGER.info("Reading PlatformOptions from database.");
-        return this.loadOptionsFromDatabase(props.getProperty(PLATFORM_WORKBOOK_PROPERTY_NAME));
+        return this.loadOptionsFromDatabase(
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getPlatformWorkbookFileName());
     }
 
     /**

@@ -25,6 +25,7 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.impl.DRTSFilterer;
 import edu.gatech.pmase.capstone.awesome.impl.DRTSSanityFilter;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudyOutputer;
 import edu.gatech.pmase.capstone.awesome.impl.ahp.AHPOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
@@ -38,14 +39,15 @@ import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.util.PrioritizationUtil;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade
@@ -132,6 +134,14 @@ public class DisasterResponseTradeStudyIT {
 
         final DRTSArchitectureResult topResult = finalResults.get(0);
         LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+
+        // write file
+       final  DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
+        try {
+            LOGGER.debug(instance.createOutputFile(finalResults));
+        } catch (IOException | InvalidFormatException ex) {
+            LOGGER.error("Cannot write results out.", ex);
+        }
     }
 
     /**

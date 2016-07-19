@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome.impl.database;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.util.DisasterResponseTradeStudyPropertiesSingleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +45,6 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(SensorsDatabaseDriver.class);
-
-    /**
-     * Sensor Workbook Property.
-     */
-    private static final String SENSOR_WORKBOOK_PROPERTY_NAME = "sensor.workbook";
 
     /**
      * Workbook cell numbers to load from.
@@ -84,7 +80,8 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
         this.mapPlatformOptions(inPlatformOptions);
 
         // get options
-        return this.loadOptionsFromDatabase(props.getProperty(SENSOR_WORKBOOK_PROPERTY_NAME));
+        return this.loadOptionsFromDatabase(
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getSensorsWorkbookFileName());
     }
 
     /**

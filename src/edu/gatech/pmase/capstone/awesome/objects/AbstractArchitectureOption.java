@@ -36,6 +36,11 @@ import java.util.List;
 public abstract class AbstractArchitectureOption implements Comparable<AbstractArchitectureOption> {
 
     /**
+     * Sep. used between output attributes.
+     */
+    protected static final String OUTPUT_STRING_ATTR_SEP = ", ";
+
+    /**
      * The ranking (?-?) of the cost.
      */
     private int costRanking = -1;
@@ -244,10 +249,10 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
         // get cost
         final ArchitectureOptionAttribute costAttr = new ArchitectureOptionAttribute();
         costAttr.setColNum(-1);
-        costAttr.setLabel("Cost");
-        costAttr.setSorting(SortOrderEnum.ASCENDING); // TODO: fix if wrong.
+        costAttr.setLabel("Cost Rank");
+        costAttr.setSorting(SortOrderEnum.ASCENDING);
         costAttr.setType(Integer.class);
-        costAttr.setUnits("Dollars");
+        costAttr.setUnits("(1-5)");
         costAttr.setValue(this.getCostRanking());
         attrs.add(costAttr);
 
@@ -255,6 +260,37 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
         attrs.addAll(this.getCustomAttributes());
 
         return attrs;
+    }
+
+    /**
+     * Creates the string to use to print in the output file
+     *
+     * @return the String to use.
+     */
+    public String getOutputString() {
+        final StringBuilder sb = new StringBuilder();
+
+        final List<ArchitectureOptionAttribute> attrs = this.getPrioritizationAttributess();
+        for (int x = 0; x < attrs.size(); x++) {
+            final ArchitectureOptionAttribute attr = attrs.get(x);
+
+            if (x != 0) {
+                sb.append(", ");
+            }
+
+            final Class clazz = attr.getType();
+
+            if (Number.class.isAssignableFrom(clazz)) {
+                final Number num = (Number) attr.getValue();
+                sb.append(attr.getLabel()).append(": ").append(num.toString());
+            }
+
+            if (attr.getUnits() != null) {
+                sb.append(" ").append(attr.getUnits());
+            }
+        }
+
+        return sb.toString();
     }
 
 }

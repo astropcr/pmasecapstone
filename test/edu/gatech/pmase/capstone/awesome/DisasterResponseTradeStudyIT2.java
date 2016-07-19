@@ -24,7 +24,6 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
-import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
@@ -83,10 +82,7 @@ public class DisasterResponseTradeStudyIT2 {
         drts.setSelectedTerrainEffects(selectedTerrainEffects);
 
         // optimate
-        final List<DRTSArchitectureResult> finalResults = drts.calculate();
-
-        final DRTSArchitectureResult topResult = finalResults.get(0);
-        LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+        drts.calculate();
     }
 
     /**
