@@ -130,22 +130,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     @FXML
     private void handleOptionButtonAction(ActionEvent event) {
-        // Update caller that we've returned
-        // TODO: possibly fire an event...could require object registration or
-        //       dependency injection.
-        
-        
-        // Turns off the panel.
-        //this.setVisible(false);
-        // TODO: trick main panel into opening up the necessary window
-        //       possibly fire an event...could require object registration or
-        //       dependency injection.
-
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED));
-        
-//        Event.fireEvent((EventTarget) event.getSource(), new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
-        
-        
     }
     
     

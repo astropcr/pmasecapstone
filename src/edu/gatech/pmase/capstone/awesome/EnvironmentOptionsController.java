@@ -26,12 +26,9 @@ package edu.gatech.pmase.capstone.awesome;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -39,8 +36,6 @@ import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
@@ -56,12 +51,9 @@ public class EnvironmentOptionsController implements Initializable,
     
     @FXML   private AnchorPane ap;
     @FXML   private EnvironmentOptionPanel eop;
-    @FXML   private EnvironmentOptionPanel eopBeach;
     @FXML   private Button btnEopClose;
     
     @FXML   private Button button = null;
-    
-    private EnvironmentElementStatus ees;
     
     
     /**
@@ -87,26 +79,13 @@ public class EnvironmentOptionsController implements Initializable,
     private void doneButtonClicked(ActionEvent event)
     {
         // Fire event for data update
+        Event.fireEvent((EventTarget)eop, new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
         
         // Now switch the window
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
         
-        // In the following line, the EES panel needs to be targeted, but currently there is now way to do this.
-        // Scene.lookup reliably fails on each call and there's not a currently reliable way (given how FXML instantiates)
-        // to pass references between instances.
-        
-//        // ---------------------------------------------------------------------
-//        // First, select the ID based on the caller (button)
-//        // ---------------------------------------------------------------------
-//        EnvironmentElementStatus eesTemp = null;
-//                
-//        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eop)) {
-////            toSet = DisasterResponseTradeStudy.screenEnvBeachID;
-//            eesTemp = ((EnvironmentElementStatus)(((Node)event.getSource()).getScene().lookup("#eesBeach")));
-//        }
-        
-//        (EventTarget) eop
-        Event.fireEvent((EventTarget)eop, new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
+
+
         this.goToMain(event);
     }
     
