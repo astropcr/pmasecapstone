@@ -51,6 +51,8 @@ public class ArchitectureOptionAttribute {
 
     private double priority;
 
+    private Object originalValue;
+
     /**
      * Default Constructor.
      */
@@ -128,9 +130,17 @@ public class ArchitectureOptionAttribute {
         this.priority = priority;
     }
 
+    public Object getOriginalValue() {
+        return originalValue;
+    }
+
+    public void setOriginalValue(Object originalValue) {
+        this.originalValue = originalValue;
+    }
+
     @Override
     public String toString() {
-        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + '}';
+        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + ", priority=" +             priority + ", originalValue=" + originalValue + '}';
     }
 
     /**

@@ -68,6 +68,8 @@ public class PrioritizationUtil {
                 opt.setOptionOneLabel(opt1Label);
                 opt.setOptionTwoLabel(attr2.getLabel());
                 opt.setResult(-1);
+                LOGGER.trace("Creating Weighting Options for Attribute: "
+                        + opt.getOptionOneLabel() + " versus " + opt.getOptionTwoLabel());
 
                 opts.add(opt);
             }
