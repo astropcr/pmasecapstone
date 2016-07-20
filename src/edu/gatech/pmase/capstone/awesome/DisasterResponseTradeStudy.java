@@ -152,6 +152,7 @@ public class DisasterResponseTradeStudy extends Application {
         
         // Test Code
         testCon.setupEnvOpts("Beach");
+        
 
         // ---------------------------------------------------------------------
         // Now let's start the show

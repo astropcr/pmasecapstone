@@ -33,6 +33,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -149,6 +150,11 @@ public class MainWindowController implements Initializable,
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
         
 //        DRTSGUIModel.getInstance().addWeightingOptionPanel(DisasterResponseTradeStudy.screenPlatformWeightingID, this.cbWeightingsPlatformsComplete);
+        
+        DRTSGUIModel.getInstance()
+                    .addEes(TerrainEffect.getEffectByLabel("Beach").get(0),
+                            eesBeach);
+
         eesBeach.connectToModel();
         eesBridges.connectToModel();
         eesElevation.connectToModel();

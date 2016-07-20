@@ -73,7 +73,6 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
         this.envOpt = envOpt;
         
         questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
-//        questionLabel.setStyle("-fx-font-weight: bold;");
         questionLabel.getStyleClass().add("questionOnPanel");
 
         tempObsList.addAll(envOptList);
@@ -109,14 +108,8 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
             DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(temp);
             
             // Update the status window
-//            String temp1, temp2;
-//            // first let's find which one was selected
-//            temp1 = ((ToggleButton)(tgEnvironmentOptions.getSelectedToggle())).textProperty().getValue();
-//            temp2 = tgEnvironmentOptions.getSelectedToggle().getUserData().toString();
-//        
-//            // then update the model
-//            DRTSGUIModel.getInstance().updateEesTooltip(envOptName.getValue(), temp1);
-//            DRTSGUIModel.getInstance().updateEesStatus(envOptName.getValue(), temp2);
+            DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
+            DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(temp.codeNum));
 
 
             // Now switch the window
@@ -126,11 +119,7 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
             this.questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
             questionLabel.getStyleClass().add("questionOnPanel");
             questionLabel.getStyleClass().remove("warning");
-            
-            
-            
-            
-            
+        
         }
         else
         {

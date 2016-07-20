@@ -37,7 +37,7 @@ public enum TerrainEffect {
     /**
      * Unknown
      */
-    UNKNWON(0, "Unknown", 0, "Unknown"),
+    UNKNOWN(0, "Unknown", 0, "Unknown"),
     /**
      * Elevation Options. - Terrain ID 1
      */
@@ -192,7 +192,7 @@ public enum TerrainEffect {
      */
     public static Set<String> getEffectLabels() {
         return Arrays.asList(TerrainEffect.values())
-                .stream().filter(eff -> eff.terrainId != TerrainEffect.UNKNWON.terrainId)
+                .stream().filter(eff -> eff.terrainId != TerrainEffect.UNKNOWN.terrainId)
                 .map(eff -> eff.terrainLabel)
                 .collect(Collectors.toSet());
     }
@@ -203,10 +203,10 @@ public enum TerrainEffect {
      * @param inId the ID to find by
      * @param inCode the code to find by
      * @return the given Terrain Effect. If none found to match ID and code,
-     * returns {@link TerrainEffect#UNKNWON}.
+     * returns {@link TerrainEffect#UNKNOWN}.
      */
     public static TerrainEffect getEffectByIdAndCode(final int inId, final int inCode) {
-        TerrainEffect effect = TerrainEffect.UNKNWON;
+        TerrainEffect effect = TerrainEffect.UNKNOWN;
 
         final Optional<TerrainEffect> result = Arrays.asList(TerrainEffect.values())
                 .stream()

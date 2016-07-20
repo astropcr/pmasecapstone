@@ -58,6 +58,9 @@ public class DRTSGUIModel {
     private final HashMap<String, EnvironmentOptionPanel> eopCollection = new HashMap<>();
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
     
+    private final HashMap<String, EnvironmentElementStatus> eesCollectionNew = new HashMap<>();
+    
+    
     private final HashMap<String, WeightingOptionPanel> weightingsOptionsCollection = new HashMap<>();
     private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
     private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
@@ -137,9 +140,7 @@ public class DRTSGUIModel {
         this.eesCollection.put(ID, eesToAdd);
     }
     
-//    public void addEes(String ID, EnvironmentElementStatus eesToAdd){
-//        this.eesCollection.put(ID, eesToAdd);
-//    }
+
 
     public void updateEesTooltip(String eesToUpdate, String tooltip) {
         EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
@@ -147,10 +148,6 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setToolTip(tooltip);
         }
-    }
-    
-    public void updateEesTooltip(TerrainEffect te) {
-        ;
     }
     
     public void updateEesStatus(String eesToUpdate, String status) {
@@ -161,6 +158,20 @@ public class DRTSGUIModel {
             eesTemp.setEnvOptWeight(status);
         }
     }
+    
+    public void addEes(TerrainEffect te, EnvironmentElementStatus eesToAdd){
+        this.eesCollectionNew.put(te.terrainLabel, eesToAdd);
+    }
+    
+    public void updateEesTooltip(TerrainEffect te, String toolip) {
+        this.eesCollectionNew.get(te.terrainLabel).setToolTip(toolip);
+    }
+    
+    public void updateEesStatus(TerrainEffect te, String weight) {
+        this.eesCollectionNew.get(te.terrainLabel).setEnvOptWeight(weight);
+    }
+    
+
     
     
     ////////////////////////////////
