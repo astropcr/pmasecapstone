@@ -57,12 +57,14 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
         // create mapping of attribute to priority
         final Map<String, Double> priorityMap = new HashMap<>();
         for (final ArchitectureOptionAttribute pri : prioritizes) {
+            LOGGER.trace("Attribute: " + pri.getLabel() + " has priority: " + pri.getPriority());
             priorityMap.put(pri.getLabel(), pri.getPriority());
         }
 
         // get attr mappings for all options
         final Map<T, List<ArchitectureOptionAttribute>> optionAttributes = new HashMap<>();
         for (final T option : options) {
+            LOGGER.trace("Options Considered: " + option.getLabel());
             optionAttributes.put(option, option.getPrioritizationAttributess());
         }
 
@@ -77,9 +79,12 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             optionAttr.stream().forEach((attr) -> {
                 final Double value = ComponentAHPOptimator.normalizeAndPrioritizeValue(attr,
                         attrMinAndMax.get(attr.getLabel()), priorityMap);
+
                 if (null != value) {
                     attr.setValue(value);
                     attr.setType(Double.class);
+                } else {
+                    LOGGER.error("Cannot set value");
                 }
             });
         });

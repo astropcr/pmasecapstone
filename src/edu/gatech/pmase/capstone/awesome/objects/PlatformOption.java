@@ -41,6 +41,11 @@ public class PlatformOption extends AbstractArchitectureOption {
      * Type of the platform.
      */
     private PlatformType platformType = PlatformType.UNKNOWN;
+    
+      /**
+     * Prioritization Attributes.
+     */
+    private List<ArchitectureOptionAttribute> prioritizationAttributes = null;
 
     /**
      *
@@ -76,19 +81,25 @@ public class PlatformOption extends AbstractArchitectureOption {
 
     @Override
     public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
-        final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+        if (null == prioritizationAttributes) {
+            final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
 
-        // get payload
-        final ArchitectureOptionAttribute payloadAttr = new ArchitectureOptionAttribute();
-        payloadAttr.setColNum(-1);
-        payloadAttr.setLabel("Payload");
-        payloadAttr.setSorting(SortOrderEnum.DESCENDING); // TODO: fix if wrong.
-        payloadAttr.setType(Double.class);
-        payloadAttr.setUnits("kilograms");
-        payloadAttr.setValue(this.getPayload());
-        attrs.add(payloadAttr);
+            // get payload
+            final ArchitectureOptionAttribute payloadAttr = new ArchitectureOptionAttribute();
+            payloadAttr.setColNum(-1);
+            payloadAttr.setLabel("Payload");
+            payloadAttr.setSorting(SortOrderEnum.DESCENDING); // TODO: fix if wrong.
+            payloadAttr.setType(Double.class);
+            payloadAttr.setUnits("kilograms");
+            payloadAttr.setValue(this.getPayload());
+            payloadAttr.setOriginalValue(this.getPayload());
+            attrs.add(payloadAttr);
 
-        return attrs;
+            // set
+            prioritizationAttributes = attrs;
+        }
+
+        return prioritizationAttributes;
     }
 
 }

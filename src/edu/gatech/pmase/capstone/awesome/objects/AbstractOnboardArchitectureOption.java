@@ -45,6 +45,11 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
     private List<PlatformOption> platformLimitations = new ArrayList<>(0);
 
     /**
+     * Prioritization Attributes.
+     */
+    private List<ArchitectureOptionAttribute> prioritizationAttributes = null;
+
+    /**
      *
      * @return
      */
@@ -78,18 +83,23 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
 
     @Override
     protected List<ArchitectureOptionAttribute> getBasePrioritizationAttributes() {
-        final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+        if (null == prioritizationAttributes) {
+            final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
 
-        final ArchitectureOptionAttribute weightAttr = new ArchitectureOptionAttribute();
-        weightAttr.setColNum(-1);
-        weightAttr.setLabel("Weight");
-        weightAttr.setSorting(SortOrderEnum.DESCENDING);    // TODO: fix if wrong.
-        weightAttr.setType(Double.class);
-        weightAttr.setUnits("kilograms");
-        weightAttr.setValue(this.getWeight());
-        attrs.add(weightAttr);
+            final ArchitectureOptionAttribute weightAttr = new ArchitectureOptionAttribute();
+            weightAttr.setColNum(-1);
+            weightAttr.setLabel("Weight");
+            weightAttr.setSorting(SortOrderEnum.DESCENDING);    // TODO: fix if wrong.
+            weightAttr.setType(Double.class);
+            weightAttr.setUnits("kilograms");
+            weightAttr.setValue(this.getWeight());
+            weightAttr.setOriginalValue(this.getWeight());
+            attrs.add(weightAttr);
 
-        return attrs;
+            prioritizationAttributes = attrs;
+        }
+
+        return prioritizationAttributes;
     }
 
 }

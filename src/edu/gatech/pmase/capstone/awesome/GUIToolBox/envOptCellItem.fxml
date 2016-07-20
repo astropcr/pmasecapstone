@@ -5,10 +5,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
 
-<HBox fx:id="hBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<HBox fx:id="hBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <Label fx:id="label1" />
-    <Label fx:id="label2" />
-    <ToggleButton fx:id="btn1" onAction="#handleToggleButton"/>
+    <ToggleButton fx:id="btn1" onAction="#handleToggleButton" styleClass="userSelectionButton" />
 </children>
 </HBox>

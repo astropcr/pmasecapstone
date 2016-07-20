@@ -307,13 +307,12 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
             try {
                 final ArchitectureOptionAttribute cpy = new ArchitectureOptionAttribute(attr);
 
-                if (cpy.getType().equals(String.class
-                )) {
+                if (cpy.getType().equals(String.class)) {
                     cpy.setValue(cell.getStringCellValue());
-
-                } else if (cpy.getType().equals(Double.class
-                )) {
+                    cpy.setOriginalValue(cell.getStringCellValue());
+                } else if (cpy.getType().equals(Double.class)) {
                     cpy.setValue(cell.getNumericCellValue());
+                    cpy.setOriginalValue(cell.getNumericCellValue());
                 } else {
                     LOGGER.warn("Unable to read custom attributes for row: " + row.getRowNum()
                             + ". Unknown cell type: " + cpy.getType().getName());

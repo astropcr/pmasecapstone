@@ -172,7 +172,7 @@ public class DisasterResponseTradeStudySingleton {
         final DisasterResponseTradeStudyOutputer outputter = new DisasterResponseTradeStudyOutputer();
         String resultFile;
         try {
-            resultFile = outputter.createOutputFile(finalResults);
+            resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects);
             LOGGER.info("Architecture Results writen to file: " + resultFile);
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Cannot write architecture results out.", ex);

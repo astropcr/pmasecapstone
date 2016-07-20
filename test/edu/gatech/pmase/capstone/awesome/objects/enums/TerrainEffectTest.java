@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.objects.enums;
 
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
@@ -91,6 +92,13 @@ public class TerrainEffectTest {
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
         LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
+    }
+
+    @Test
+    public void testLabelList() {
+        final Set<String> val = TerrainEffect.getEffectLabels();
+        assertEquals(val.size(), 14);
+        LOGGER.info(val);
     }
 
 }

@@ -62,7 +62,7 @@ public class DisasterResponseTradeStudy extends Application {
     //public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
     
     public static String screenEnvBeachID               = classPath + "Beach";
-    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsBeachNew.fxml";
+    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsNew.fxml";
     
     public static String screenEnvBridgesID             = classPath + "EnvironmentOptionBridges";
     public static String screenEnvBridgesFile           = classPath + "EnvironmentOptionBridges.fxml";

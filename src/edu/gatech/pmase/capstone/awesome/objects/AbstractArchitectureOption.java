@@ -76,6 +76,11 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
     private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(0);
 
     /**
+     * Base Prioritization Attributes.
+     */
+    private List<ArchitectureOptionAttribute> basePrioritizationAttributes = null;
+
+    /**
      * Gets a list of attributes to prioritize the option with.
      *
      * @return the list of object to prioritize the option with
@@ -244,53 +249,28 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
      * @return the list of default attributes
      */
     protected List<ArchitectureOptionAttribute> getBasePrioritizationAttributes() {
-        final List<ArchitectureOptionAttribute> attrs = new ArrayList<>();
+        if (null == basePrioritizationAttributes) {
+            final List<ArchitectureOptionAttribute> attrs = new ArrayList<>();
 
-        // get cost
-        final ArchitectureOptionAttribute costAttr = new ArchitectureOptionAttribute();
-        costAttr.setColNum(-1);
-        costAttr.setLabel("Cost Rank");
-        costAttr.setSorting(SortOrderEnum.ASCENDING);
-        costAttr.setType(Integer.class);
-        costAttr.setUnits("(1-5)");
-        costAttr.setValue(this.getCostRanking());
-        attrs.add(costAttr);
+            // get cost
+            final ArchitectureOptionAttribute costAttr = new ArchitectureOptionAttribute();
+            costAttr.setColNum(-1);
+            costAttr.setLabel("Cost Rank");
+            costAttr.setSorting(SortOrderEnum.ASCENDING);
+            costAttr.setType(Integer.class);
+            costAttr.setUnits("(1-5)");
+            costAttr.setValue(this.getCostRanking());
+            costAttr.setOriginalValue(this.getCostRanking());
+            attrs.add(costAttr);
 
-        // add custom attributes
-        attrs.addAll(this.getCustomAttributes());
+            // add custom attributes
+            attrs.addAll(this.getCustomAttributes());
 
-        return attrs;
-    }
-
-    /**
-     * Creates the string to use to print in the output file
-     *
-     * @return the String to use.
-     */
-    public String getOutputString() {
-        final StringBuilder sb = new StringBuilder();
-
-        final List<ArchitectureOptionAttribute> attrs = this.getPrioritizationAttributess();
-        for (int x = 0; x < attrs.size(); x++) {
-            final ArchitectureOptionAttribute attr = attrs.get(x);
-
-            if (x != 0) {
-                sb.append(", ");
-            }
-
-            final Class clazz = attr.getType();
-
-            if (Number.class.isAssignableFrom(clazz)) {
-                final Number num = (Number) attr.getValue();
-                sb.append(attr.getLabel()).append(": ").append(num.toString());
-            }
-
-            if (attr.getUnits() != null) {
-                sb.append(" ").append(attr.getUnits());
-            }
+            // set
+            basePrioritizationAttributes = attrs;
         }
 
-        return sb.toString();
+        return basePrioritizationAttributes;
     }
 
 }

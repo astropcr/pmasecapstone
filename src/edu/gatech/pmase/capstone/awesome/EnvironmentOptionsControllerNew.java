@@ -25,23 +25,19 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptCell;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
@@ -59,17 +55,26 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
     @FXML   private ToggleGroup     tg;
     @FXML   private Button          btnEopClose;
     @FXML   private ListView        environmentOptions;
+    @FXML   private Label           questionLabel;
     
     private ObservableList<TerrainEffect>   tempObsList;
     
+    private static final String STR_QUESTION = " is defined as follow (choose most appropriate value):";
+    private static final String STR_WARNING = "(Please select an option before continuing)";
+    private String envOpt = "";
+    
     public EnvironmentOptionsControllerNew() {
         tempObsList = FXCollections.observableArrayList();
-//        environmentOptions = new ListView();
+        tg = new ToggleGroup();
     }
-    
     
     void setupEnvOpts(String envOpt){
         List<TerrainEffect> envOptList = TerrainEffect.getEffectByLabel(envOpt);
+        this.envOpt = envOpt;
+        
+        questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
+//        questionLabel.setStyle("-fx-font-weight: bold;");
+        questionLabel.getStyleClass().add("questionOnPanel");
 
         tempObsList.addAll(envOptList);
         environmentOptions.setItems(tempObsList);
@@ -78,7 +83,7 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
             new Callback<ListView<TerrainEffect>, ListCell<TerrainEffect>>() {
                 @Override
                 public ListCell<TerrainEffect> call(ListView<TerrainEffect> environmentOptions) {
-                   return new EnvOptCell();
+                   return new EnvOptCell(tg);
                 }
         });
     }
@@ -97,11 +102,42 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
     @FXML
     private void doneButtonClicked(ActionEvent event)
     {
-        // Update the backend
-        
-        
-        // Now switch the window
-        this.goToMain(event);
+        if(tg.getSelectedToggle() != null)
+        {
+            // Update the backend
+            TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().getUserData();
+            DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(temp);
+            
+            // Update the status window
+//            String temp1, temp2;
+//            // first let's find which one was selected
+//            temp1 = ((ToggleButton)(tgEnvironmentOptions.getSelectedToggle())).textProperty().getValue();
+//            temp2 = tgEnvironmentOptions.getSelectedToggle().getUserData().toString();
+//        
+//            // then update the model
+//            DRTSGUIModel.getInstance().updateEesTooltip(envOptName.getValue(), temp1);
+//            DRTSGUIModel.getInstance().updateEesStatus(envOptName.getValue(), temp2);
+
+
+            // Now switch the window
+            this.goToMain(event);
+            
+            // Clear the warning from the label text
+            this.questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
+            questionLabel.getStyleClass().add("questionOnPanel");
+            questionLabel.getStyleClass().remove("warning");
+            
+            
+            
+            
+            
+        }
+        else
+        {
+            this.questionLabel.textProperty().setValue(STR_WARNING);// inform the user!!!
+            questionLabel.getStyleClass().remove("questionOnPanel");
+            questionLabel.getStyleClass().add("warning");
+        }
     }
     
     // -------------------------------------------------------------------------

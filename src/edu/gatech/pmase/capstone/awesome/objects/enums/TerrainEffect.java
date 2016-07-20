@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome.objects.enums;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -182,6 +183,18 @@ public enum TerrainEffect {
         return Arrays.asList(TerrainEffect.values()).stream()
                 .filter(eff -> eff.terrainLabel.equals(label))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a Set with each unique effect label.
+     *
+     * @return the Set of effect label
+     */
+    public static Set<String> getEffectLabels() {
+        return Arrays.asList(TerrainEffect.values())
+                .stream().filter(eff -> eff.terrainId != TerrainEffect.UNKNWON.terrainId)
+                .map(eff -> eff.terrainLabel)
+                .collect(Collectors.toSet());
     }
 
     /**

@@ -28,6 +28,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -135,6 +136,10 @@ public class DRTSGUIModel {
     public void addEes(String ID, EnvironmentElementStatus eesToAdd){
         this.eesCollection.put(ID, eesToAdd);
     }
+    
+//    public void addEes(String ID, EnvironmentElementStatus eesToAdd){
+//        this.eesCollection.put(ID, eesToAdd);
+//    }
 
     public void updateEesTooltip(String eesToUpdate, String tooltip) {
         EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
@@ -142,6 +147,10 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setToolTip(tooltip);
         }
+    }
+    
+    public void updateEesTooltip(TerrainEffect te) {
+        ;
     }
     
     public void updateEesStatus(String eesToUpdate, String status) {
