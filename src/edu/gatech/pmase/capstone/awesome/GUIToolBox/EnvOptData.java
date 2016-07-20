@@ -23,16 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 
@@ -46,11 +42,10 @@ class EnvOptData {
     private HBox hBox;
     @FXML   private ToggleButton btn1;
     
-    private ToggleGroup tgSelection;
-    
     private String strData;
-
-    public EnvOptData()
+    
+    
+    public EnvOptData(ToggleGroup tg)
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptCellItem.fxml"));
         fxmlLoader.setController(this);
@@ -63,27 +58,20 @@ class EnvOptData {
             throw new RuntimeException(e);
         }
         
-        btn1.setToggleGroup(tgSelection);
-        
-        tgSelection = new ToggleGroup();
+        btn1.setToggleGroup(tg);
     }
 
-    public void setInfo(String string)
+    public void setInfo(TerrainEffect te)
     {
-        strData = string;
+        strData = Integer.toString(te.codeNum) + " - " + te.codeMeaning;
         btn1.setText(strData);
-        
-    }
-    
-    public Object getSelection()
-    {
-        return tgSelection.getSelectedToggle().getUserData();
+        btn1.setUserData(te);
     }
     
     @FXML
     public void handleToggleButton(ActionEvent event)
     {
-//        DRTSGUIModel.getInstance().printStringThing(strData);
+         System.out.println("The " + strData + " was selected.");
     }
 
     public HBox getBox()

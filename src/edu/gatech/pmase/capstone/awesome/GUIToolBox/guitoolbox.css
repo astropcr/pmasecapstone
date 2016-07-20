@@ -65,6 +65,40 @@
     -fx-effect: dropshadow( three-pass-box , #333333 , 10 , 0.5 , 0 , 0  );
 }
 
+.basePanel {
+    -fx-background-color: #777777;
+    -fx-padding: 5,5,5,5;
+}
+
+.listOfOptions {
+    -fx-border-color: cornflowerblue;
+    -fx-background-color: cornflowerblue;
+    -fx-padding: 5,5,5,5;
+    -fx-spacing: 5;
+}
+
+.list-cell:even {
+    -fx-background-color: cornflowerblue;
+    -fx-alignment: CENTER;
+}
+.list-cell:odd {
+    -fx-background-color: cornflowerblue;
+    -fx-alignment: CENTER;
+}
+
+
+
+.warning {
+    -fx-background-color: lightgrey;
+    -fx-text-fill: darkred;
+    -fx-font-weight: bold;
+}
+
+.questionOnPanel {
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
 .environmentOptionPanel {
     -fx-background-color: cornflowerblue;
     -fx-background-radius: 5;

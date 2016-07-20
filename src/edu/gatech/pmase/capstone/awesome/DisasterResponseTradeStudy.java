@@ -23,8 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.HashSet;
+import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -58,7 +62,7 @@ public class DisasterResponseTradeStudy extends Application {
     //public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
     
     public static String screenEnvBeachID               = classPath + "Beach";
-    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsBeachNew.fxml";
+    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsNew.fxml";
     
     public static String screenEnvBridgesID             = classPath + "EnvironmentOptionBridges";
     public static String screenEnvBridgesFile           = classPath + "EnvironmentOptionBridges.fxml";
@@ -116,7 +120,9 @@ public class DisasterResponseTradeStudy extends Application {
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
         
         // Environment Factors Screeens
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBeachID, DisasterResponseTradeStudy.screenEnvBeachFile);
+        EnvironmentOptionsControllerNew testCon = (EnvironmentOptionsControllerNew)(mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBeachID, DisasterResponseTradeStudy.screenEnvBeachFile));
+        
+        
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBridgesID, DisasterResponseTradeStudy.screenEnvBridgesFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvElevationID, DisasterResponseTradeStudy.screenEnvElevationFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvFoilageID, DisasterResponseTradeStudy.screenEnvFoliageFile);
@@ -136,10 +142,16 @@ public class DisasterResponseTradeStudy extends Application {
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
         
         
-
-        // Test Code
-//        ((EnvironmentOptionsControllerNew)(mainContainer.getScreen(screenEnvBeachID))).setupEnvOpts();
         
+//        TerrainEffect teLabels = TerrainEffect.getEffectLabels();
+//        TerrainEffect teLabels = TerrainEffect.getEffectByLabel("Beach");
+//        for(TerrainEffect te : teLabels)
+//        {
+//            ;
+//        }
+        
+        // Test Code
+        testCon.setupEnvOpts("Beach");
 
         // ---------------------------------------------------------------------
         // Now let's start the show
@@ -154,6 +166,9 @@ public class DisasterResponseTradeStudy extends Application {
         primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+
+        
     }
 
 
