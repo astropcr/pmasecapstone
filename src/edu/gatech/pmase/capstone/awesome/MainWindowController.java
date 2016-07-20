@@ -43,6 +43,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -101,6 +102,10 @@ public class MainWindowController implements Initializable,
     @FXML   private EnvironmentElementStatus eesWaterWays;
     @FXML   private EnvironmentElementStatus eesWetness;
     
+    @FXML   private CheckBox cbWeightingsPlatformsComplete;
+    @FXML   private CheckBox cbWeightingsCommunicationsComplete;
+    @FXML   private CheckBox cbWeightingsSensorsComplete;
+    
     @FXML   private Button btnEopClose;                     // this could be used for them all?
     
     private Text weightingOption1;
@@ -143,6 +148,7 @@ public class MainWindowController implements Initializable,
         // ---------------------------------------------------------------------
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
         
+//        DRTSGUIModel.getInstance().addWeightingOptionPanel(DisasterResponseTradeStudy.screenPlatformWeightingID, this.cbWeightingsPlatformsComplete);
         eesBeach.connectToModel();
         eesBridges.connectToModel();
         eesElevation.connectToModel();
@@ -156,6 +162,8 @@ public class MainWindowController implements Initializable,
         eesUrbanization.connectToModel();
         eesWaterWays.connectToModel();
         eesWetness.connectToModel();
+        
+        
         
     }
 
@@ -270,13 +278,8 @@ public class MainWindowController implements Initializable,
     // Weighting Criteria
     // -------------------------------------------------------------------------
     @FXML
-    private void goToAPWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(DisasterResponseTradeStudy.screenAPWeightingID);
-    }
-    
-    @FXML
-    private void goToGPWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(DisasterResponseTradeStudy.screenGPWeightingID);
+    private void goToPlatformsWeightingCriteria(ActionEvent event)  {
+        myController.setScreen(DisasterResponseTradeStudy.screenPlatformWeightingID);
     }
     
     @FXML

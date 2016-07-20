@@ -54,8 +54,12 @@ public class DisasterResponseTradeStudy extends Application {
     public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
     
     // Environment Option Screens
-    public static String screenEnvBeachID               = classPath + "EnvironmentOptionBeach";
-    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
+    //public static String screenEnvBeachID               = classPath + "EnvironmentOptionBeach";
+    //public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
+    
+    public static String screenEnvBeachID               = classPath + "Beach";
+    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsBeachNew.fxml";
+    
     public static String screenEnvBridgesID             = classPath + "EnvironmentOptionBridges";
     public static String screenEnvBridgesFile           = classPath + "EnvironmentOptionBridges.fxml";
     public static String screenEnvElevationID           = classPath + "EnvironmentOptionElevation";
@@ -82,10 +86,8 @@ public class DisasterResponseTradeStudy extends Application {
     public static String screenEnvWetnessFile           = classPath + "EnvironmentOptionWetness.fxml";
     
     // Solution Creiteria Weighting Screens
-    public static String screenAPWeightingID            = classPath + "WeightingOptionsAirPlatforms";
-    public static String screenAPWeightingFile          = classPath + "WeightingOptionsAirPlatforms.fxml";
-    public static String screenGPWeightingID            = classPath + "WeightingOptionsGroundPlatforms";
-    public static String screenGPWeightingFile          = classPath + "WeightingOptionsGroundPlatforms.fxml";
+    public static String screenPlatformWeightingID      = classPath + "WeightingOptionsPlatforms";
+    public static String screenPlatformsWeightingFile   = classPath + "WeightingOptionsPlatforms.fxml";
     public static String screenCommsWeightingID         = classPath + "WeightingOptionsComms";
     public static String screenCommsWeightingFile       = classPath + "WeightingOptionsComms.fxml";
     public static String screenSensorsWeightingID       = classPath + "WeightingOptionsSensors";
@@ -129,11 +131,16 @@ public class DisasterResponseTradeStudy extends Application {
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvWetnessID, DisasterResponseTradeStudy.screenEnvWetnessFile);
 
         // Weighting Criteria Screens
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenAPWeightingID, DisasterResponseTradeStudy.screenAPWeightingFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenGPWeightingID, DisasterResponseTradeStudy.screenGPWeightingFile);
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenPlatformWeightingID, DisasterResponseTradeStudy.screenPlatformsWeightingFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenCommsWeightingID, DisasterResponseTradeStudy.screenCommsWeightingFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
         
+        
+
+        // Test Code
+//        ((EnvironmentOptionsControllerNew)(mainContainer.getScreen(screenEnvBeachID))).setupEnvOpts();
+        
+
         // ---------------------------------------------------------------------
         // Now let's start the show
         // ---------------------------------------------------------------------

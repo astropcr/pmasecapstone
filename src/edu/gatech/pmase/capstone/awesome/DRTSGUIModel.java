@@ -27,11 +27,13 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.collections.ObservableList;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
 /**
@@ -54,7 +56,11 @@ public class DRTSGUIModel {
 //    private ObservableList<EnvironmentOptionPanel> eopCollection = new ObservableList<EnvironmentOptionPanel>();
     private final HashMap<String, EnvironmentOptionPanel> eopCollection = new HashMap<>();
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
-//    private final HashMap<String> eesSelectionsCollection = new HashMap<>();
+    
+    private final HashMap<String, WeightingOptionPanel> weightingsOptionsCollection = new HashMap<>();
+    private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
+    private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
+
 
     // Disaster Effects
     EffectsOptionsPanel eop;
@@ -66,20 +72,50 @@ public class DRTSGUIModel {
         return instance;
     }
     
-//    public String getEesBeachSelOpt()
-//    {
-//        return this.eesBeachSelOpt;
-//    }
-//    
-//    public void setEesBeachSelOpt(String eesBeachSelOpt)
-//    {
-//        this.eesBeachSelOpt = eesBeachSelOpt;
-//    }
-//    
-//    public void setEesBeach(EnvironmentElementStatus eesToSet) {
-//        this.eesBeach = eesToSet;
-//    }
+    //public void 
     
+    
+    
+    ////////////////////////////////
+    public void addWeightingOptionPanel(String ID, WeightingOptionPanel wopToAdd)
+    {
+        this.weightingsOptionsCollection.put(ID, wopToAdd);
+    }
+    
+    public void addWeightingOptionCompletedCheckBox(String weightOptID, CheckBox cbToAdd)
+    {
+        this.weightingsOptionsCheckBoxenCollection.put(weightOptID, cbToAdd);
+    }
+    
+    public void setWeightingOptionComplete(String weightOptID, Boolean complete)
+    {
+        Boolean temp = this.weightingsCompletedCollection.get(weightOptID);
+        
+        if (temp != null) {
+            temp = complete;
+        }
+        
+        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(weightOptID);
+        
+        if (cbTemp != null) {
+            cbTemp.selectedProperty().setValue(complete);
+        }
+        
+        
+    }
+    ////////////////////////////////
+    
+    public void updateWopChecked(String wopToUpdate, Boolean checkedVal) {
+        Boolean temp = this.weightingsCompletedCollection.get(wopToUpdate);
+        
+
+        if (temp != null) {
+            temp = checkedVal;
+            
+        }
+    }
+    
+    ////////////////////////////////
     
     ////////////////////////////////
     

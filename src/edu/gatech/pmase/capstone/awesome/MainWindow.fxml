@@ -41,10 +41,12 @@
                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="500.0" GridPane.columnIndex="1">
                      <children>
                         <Label fx:id="lblSubTitleWeightingCriteria" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="450.0" styleClass="mainSubTitleLabel" text="3. Define Weighting Criteria" textAlignment="CENTER" />
-                        <Button fx:id="btnDepOpen1" layoutX="36.0" layoutY="106.0" mnemonicParsing="false" onAction="#goToAPWeightingCriteria" styleClass="userSelectionButton" text="Air Platforms" />
-                        <Button fx:id="btnDepOpen11" layoutX="117.0" layoutY="174.0" mnemonicParsing="false" onAction="#goToGPWeightingCriteria" styleClass="userSelectionButton" text="Ground Platforms" />
-                        <Button fx:id="btnDepOpen12" layoutX="217.0" layoutY="254.0" mnemonicParsing="false" onAction="#goToCommsWeightingCriteria" styleClass="userSelectionButton" text="Communication" />
-                        <Button fx:id="btnDepOpen13" layoutX="306.0" layoutY="338.0" mnemonicParsing="false" onAction="#goToSensorsWeightingCriteria" styleClass="userSelectionButton" text="Sensors" />
+                        <Button fx:id="btnDepOpen1" layoutX="59.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToPlatformsWeightingCriteria" prefHeight="50.0" prefWidth="300.0" styleClass="userSelectionButton" text="Platforms" />
+                        <Button fx:id="btnDepOpen12" layoutX="121.0" layoutY="209.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToCommsWeightingCriteria" prefHeight="50.0" prefWidth="300.0" styleClass="userSelectionButton" text="Communication" />
+                        <Button fx:id="btnDepOpen13" layoutX="186.0" layoutY="306.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToSensorsWeightingCriteria" prefHeight="50.0" prefWidth="300.0" styleClass="userSelectionButton" text="Sensors" />
+                        <CheckBox fx:id="cbWeightingsPlatformsComplete" disable="true" layoutX="32.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
+                        <CheckBox fx:id="cbWeightingsCommunicationsComplete" disable="true" layoutX="95.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
+                        <CheckBox fx:id="cbWeightingsSensorsComplete" disable="true" layoutX="157.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
                      </children>
                   </AnchorPane>
                </children>

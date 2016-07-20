@@ -157,14 +157,12 @@ public class EnvironmentOptionPanel extends AnchorPane {
     }
     
     /**
-     * This function will remove the unused buttons from the GUI and keep it from
-     * accidentally being included.  This should be 'future proof' from changing
-     * the number of buttons as longs as they're added to the ToggleGroup
+     * This function will register the eop to the GUI Model allowing it to be
+     * linked to other GUI components and behavior.
      */
     public void connectToModel()
     {
         DRTSGUIModel.getInstance().addEop(envOptName.getValue(), this);
-        //this.envOptName             = new SimpleStringProperty("");
     }
     
     // -------------------------------------------------------------------------
