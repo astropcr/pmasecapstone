@@ -258,7 +258,7 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
             costAttr.setLabel("Cost Rank");
             costAttr.setSorting(SortOrderEnum.ASCENDING);
             costAttr.setType(Integer.class);
-            costAttr.setUnits("(1-5)");
+            costAttr.setUnits("[1 < 5]");
             costAttr.setValue(this.getCostRanking());
             costAttr.setOriginalValue(this.getCostRanking());
             attrs.add(costAttr);

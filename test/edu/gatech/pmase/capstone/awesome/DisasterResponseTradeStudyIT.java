@@ -138,7 +138,7 @@ public class DisasterResponseTradeStudyIT {
         // write file
        final  DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
         try {
-            LOGGER.debug(instance.createOutputFile(finalResults, selectedDisasterEffects));
+            LOGGER.debug(instance.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects));
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Cannot write results out.", ex);
         }

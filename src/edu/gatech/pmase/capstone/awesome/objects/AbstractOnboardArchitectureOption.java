@@ -91,7 +91,7 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
             weightAttr.setLabel("Weight");
             weightAttr.setSorting(SortOrderEnum.DESCENDING);    // TODO: fix if wrong.
             weightAttr.setType(Double.class);
-            weightAttr.setUnits("kilograms");
+            weightAttr.setUnits("kg");
             weightAttr.setValue(this.getWeight());
             weightAttr.setOriginalValue(this.getWeight());
             attrs.add(weightAttr);

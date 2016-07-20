@@ -90,7 +90,7 @@ public class PlatformOption extends AbstractArchitectureOption {
             payloadAttr.setLabel("Payload");
             payloadAttr.setSorting(SortOrderEnum.DESCENDING); // TODO: fix if wrong.
             payloadAttr.setType(Double.class);
-            payloadAttr.setUnits("kilograms");
+            payloadAttr.setUnits("kg");
             payloadAttr.setValue(this.getPayload());
             payloadAttr.setOriginalValue(this.getPayload());
             attrs.add(payloadAttr);
