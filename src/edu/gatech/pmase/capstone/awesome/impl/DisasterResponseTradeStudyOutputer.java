@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOutputter;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
@@ -60,7 +61,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STVerticalJc;
 /**
  * Outputs the results of Trade Study into a file.
  */
-public class DisasterResponseTradeStudyOutputer {
+public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTradeStudyOutputter {
 
     /**
      * Logger.
@@ -162,16 +163,7 @@ public class DisasterResponseTradeStudyOutputer {
         terEffectColsMap.put("Slope", 14);
     }
 
-    /**
-     * Creates the output file from the results of the Trade Study.
-     *
-     * @param results the resulting architectures
-     * @param selectedDisasterEffects the selected disaster effects
-     * @param selectedTerrainEffects the values set for terrain effects
-     * @return the filename created
-     * @throws IOException if cannot create new file or read old file
-     * @throws org.apache.poi.openxml4j.exceptions.InvalidFormatException
-     */
+    @Override
     public String createOutputFile(final List<DRTSArchitectureResult> results,
             final List<DisasterEffect> selectedDisasterEffects, final List<TerrainEffect> selectedTerrainEffects)
             throws IOException, InvalidFormatException {
@@ -342,30 +334,6 @@ public class DisasterResponseTradeStudyOutputer {
     }
 
     /**
-     * Creates the string to use to print in the output file
-     *
-     * @return the String to use.
-     */
-    private static String getOutputString(final ArchitectureOptionAttribute attr) {
-        final StringBuilder sb = new StringBuilder();
-
-        final Class clazz = attr.getType();
-
-        if (Number.class.isAssignableFrom(clazz)) {
-            final Number num = (Number) attr.getOriginalValue();
-            sb.append(attr.getLabel())
-                    .append(": ")
-                    .append(num.toString());
-        }
-
-        if (attr.getUnits() != null) {
-            sb.append(" ").append(attr.getUnits());
-        }
-
-        return sb.toString();
-    }
-
-    /**
      *
      * @param xdoc
      */
@@ -390,6 +358,30 @@ public class DisasterResponseTradeStudyOutputer {
         final XWPFRun run4 = para.createRun();
         run4.setBold(false);
         run4.setText(currentLocale.getDisplayCountry());
+    }
+
+    /**
+     * Creates the string to use to print in the output file
+     *
+     * @return the String to use.
+     */
+    private static String getOutputString(final ArchitectureOptionAttribute attr) {
+        final StringBuilder sb = new StringBuilder();
+
+        final Class clazz = attr.getType();
+
+        if (Number.class.isAssignableFrom(clazz)) {
+            final Number num = (Number) attr.getOriginalValue();
+            sb.append(attr.getLabel())
+                    .append(": ")
+                    .append(num.toString());
+        }
+
+        if (attr.getUnits() != null) {
+            sb.append(" ").append(attr.getUnits());
+        }
+
+        return sb.toString();
     }
 
 }
