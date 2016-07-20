@@ -40,9 +40,9 @@ public class EnvOptCell extends ListCell<TerrainEffect> {
         super.updateItem(te, empty);
         if(te != null)
         {
-            EnvOptData data = new EnvOptData();
-            data.setInfo(Integer.toString(te.codeNum) + " - " + te.codeMeaning);
-            setGraphic(data.getBox());
+            EnvOptData eod = new EnvOptData();
+            eod.setInfo(Integer.toString(te.codeNum) + " - " + te.codeMeaning);
+            setGraphic(eod.getBox());
         }
     }
     

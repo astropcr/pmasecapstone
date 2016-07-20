@@ -32,6 +32,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -50,26 +51,20 @@ import javafx.util.Callback;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvironmentOptionsControllerNew implements Initializable,
-                                             ControlledScreen {
+public class EnvironmentOptionsControllerNew implements ControlledScreen {
 
     ScreensController myController;
     
-    @FXML   private AnchorPane  ap;
-    @FXML   private ToggleGroup tg;
-    @FXML   private Button      btnEopClose;
-    @FXML   private ListView    environmentOptions;
+    @FXML   private AnchorPane      ap;
+    @FXML   private ToggleGroup     tg;
+    @FXML   private Button          btnEopClose;
+    @FXML   private ListView        environmentOptions;
     
-    @FXML   private Button button = null;
-    
-    private ObservableList      tempObsList;
-    
-//    private final SimpleStringProperty Name;
-    
-    
+    private ObservableList<TerrainEffect>   tempObsList;
     
     public EnvironmentOptionsControllerNew() {
-        ;
+        tempObsList = FXCollections.observableArrayList();
+//        environmentOptions = new ListView();
     }
     
     
@@ -77,11 +72,10 @@ public class EnvironmentOptionsControllerNew implements Initializable,
         List<TerrainEffect> envOptList = TerrainEffect.getEffectByLabel(envOpt);
 
         tempObsList.addAll(envOptList);
-        
         environmentOptions.setItems(tempObsList);
         
         environmentOptions.setCellFactory(
-            new Callback<ListView<TerrainEffect>, javafx.scene.control.ListCell<TerrainEffect>>() {
+            new Callback<ListView<TerrainEffect>, ListCell<TerrainEffect>>() {
                 @Override
                 public ListCell<TerrainEffect> call(ListView<TerrainEffect> environmentOptions) {
                    return new EnvOptCell();
@@ -89,25 +83,10 @@ public class EnvironmentOptionsControllerNew implements Initializable,
         });
     }
     
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
-//        ap.addEventHandler(EnvironmentOptionChangeEvent.OPTION_SELECTED, 
-//                           new EnvironmentOptionChangeEventHandler("Handled by EOP instance!"));
-        
-        
-//        eop.removeUnusedButtons();
-//        eop.connectToModel();
-        
-    }  
-    
     @FXML
     void initialize()
     {
-        ;
+
     }
     
     /**
@@ -118,12 +97,10 @@ public class EnvironmentOptionsControllerNew implements Initializable,
     @FXML
     private void doneButtonClicked(ActionEvent event)
     {
-        // Fire event for data update
-//        Event.fireEvent((EventTarget)eop, new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
+        // Update the backend
+        
         
         // Now switch the window
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
-
         this.goToMain(event);
     }
     

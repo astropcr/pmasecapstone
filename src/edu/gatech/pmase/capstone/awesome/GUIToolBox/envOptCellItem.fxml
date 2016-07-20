@@ -9,7 +9,6 @@
 <children>
     <Label fx:id="label1" />
     <Label fx:id="label2" />
-    <ToggleButton fx:id="btn1" />
-    <ToggleButton fx:id="btn2" onAction="#handleToggleButton" />
+    <ToggleButton fx:id="btn1" onAction="#handleToggleButton"/>
 </children>
 </HBox>

@@ -11,13 +11,13 @@
 <?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
 
-<AnchorPane id="AnchorPane" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.EnvironmentOptionsController">
+<AnchorPane id="AnchorPane" fx:id="ap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #777777;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gatech.pmase.capstone.awesome.EnvironmentOptionsControllerNew">
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
     
     <children>
-      
+      <ListView fx:id="environmentOptions" />
       
       <Button fx:id="btnEopClose" layoutX="413.0" layoutY="557.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
     </children>
