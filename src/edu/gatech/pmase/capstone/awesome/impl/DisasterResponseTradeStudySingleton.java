@@ -104,6 +104,30 @@ public class DisasterResponseTradeStudySingleton {
     }
 
     /**
+     * Get the platform options loaded from the database (set by the user).
+     * @return
+     */
+    public List<PlatformOption> getLoadedPlatformOptions() {
+        return loadedPlatformOptions;
+    }
+
+    /**
+     * Get the comms options loaded from the database (set by the user).
+     * @return
+     */
+    public List<CommunicationOption> getLoadedCommOptions() {
+        return loadedCommOptions;
+    }
+
+    /**
+     * Get the sensor options loaded from the database (set by the user).
+     * @return
+     */
+    public List<SensorOption> getLoadedSensorOptions() {
+        return loadedSensorOptions;
+    }
+
+    /**
      * Gets the single instance to use. Not thread safe, not safe with multiple
      * class loaders.
      *

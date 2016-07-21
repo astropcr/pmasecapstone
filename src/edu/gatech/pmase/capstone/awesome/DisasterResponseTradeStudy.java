@@ -27,8 +27,10 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -93,16 +95,27 @@ public class DisasterResponseTradeStudy extends Application {
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
         
         // Environment Factors Screeens
-        Set<String> strLabels = TerrainEffect.getEffectLabels();
-        for(String label : strLabels)
+        Set<String> strTELabels = TerrainEffect.getEffectLabels();
+        for(String label : strTELabels)
         {
             ((EnvironmentOptionsController)(mainContainer.loadScreen(label, 
-                                                                        classPath + 
-                                                                        "EnvironmentOptions.fxml")))
+                                                                     classPath + 
+                                                                     "EnvironmentOptions.fxml")))
                                                .setupEnvOpts(label);
         }
 
         // Weighting Criteria Screens
+        Set<String> strWCLabels = WeightingCategory.getCategoryLabels();
+        
+        for(String label : strWCLabels)
+        {
+            ((WeightingOptionsController)(mainContainer.loadScreen(label, 
+                                                                   classPath + 
+                                                                   "WeightingOptions.fxml")))
+                                               .setupEnvOpts(WeightingCategory.getCategoriesByLabel(label));
+        }
+
+        
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenPlatformWeightingID, DisasterResponseTradeStudy.screenPlatformsWeightingFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenCommsWeightingID, DisasterResponseTradeStudy.screenCommsWeightingFile);
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
