@@ -24,104 +24,42 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
-import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
-import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
-import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ToggleGroup;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class WeightingOptionsController implements ControlledScreen {
+public class WeightingOptionsControllerOld implements Initializable,
+                                             ControlledScreen {
 
     ScreensController myController;
     
-    @FXML   private WeightingOptionPanel wop; // this is going to be broken apart
-    @FXML   private ToggleGroup     tg;
+    @FXML   private WeightingOptionPanel wop;
     @FXML   private Button btnWopClose;
-    @FXML   private ListView        weightingOptions;
     
     @FXML   private Button button = null;
     
     
-    private ObservableList<WeightingChoice>   tempObsList;
-    
-    private WeightingCategory weightingOpt = WeightingCategory.UNKNOWN;
-    private DisasterResponseTradeStudySingleton DRTSS;
-    
-    public WeightingOptionsController(){
-        tempObsList = FXCollections.observableArrayList();
-        
-        DRTSS = DisasterResponseTradeStudySingleton.getInstance();
-    }
-    
-    
-    void setupEnvOpts(WeightingCategory weightingOpt){
-        List<WeightingChoice> weightingOptList = new ArrayList<>();
-                
-        this.weightingOpt = weightingOpt;
-        
-        switch(weightingOpt)
-        {
-            case PLATFORMS:
-                weightingOptList.addAll(DRTSS.getPlatformWeightingChoice());
-                break;
-            
-            case COMMS:
-                weightingOptList.addAll(DRTSS.getCommWeightingChoice());
-                break;
-                
-            case SENSORS:
-                weightingOptList.addAll(DRTSS.getCommWeightingChoice());
-                break;
-        }
-        
-//        questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
-//        questionLabel.getStyleClass().add("questionOnPanel");
-
-        tempObsList.addAll(weightingOptList);
-        weightingOptions.setItems(tempObsList);
-        
-        weightingOptions.setCellFactory(
-            new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
-                @Override
-                public ListCell<WeightingChoice> call(ListView<WeightingChoice> environmentOptions) {
-                   return new WeightOptCell(tg);
-                }
-        });
-    }
-    
     /**
      * Initializes the controller class.
      */
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
         // TODO  
     }
-    
+   
     
     /**
      * This function will trigger a data update event for the Disaster Effects

@@ -193,7 +193,6 @@ public class EffectsOptionsPanel extends AnchorPane {
         return question;
     }
     
-    
     @FXML
     void initialize() {
 

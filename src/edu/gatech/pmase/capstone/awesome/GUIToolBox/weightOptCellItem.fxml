@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+<?import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion?>
+
+<HBox fx:id="hBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <WeightingOptionQuestion prefWidth="450.0" prefHeight="50.0"  />
+</children>
+</HBox>
