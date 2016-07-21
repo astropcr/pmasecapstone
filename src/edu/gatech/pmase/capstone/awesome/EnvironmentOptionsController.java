@@ -47,7 +47,7 @@ import javafx.util.Callback;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvironmentOptionsControllerNew implements ControlledScreen {
+public class EnvironmentOptionsController implements ControlledScreen {
 
     ScreensController myController;
     
@@ -63,7 +63,7 @@ public class EnvironmentOptionsControllerNew implements ControlledScreen {
     private static final String STR_WARNING = "(Please select an option before continuing)";
     private String envOpt = "";
     
-    public EnvironmentOptionsControllerNew() {
+    public EnvironmentOptionsController() {
         tempObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
     }

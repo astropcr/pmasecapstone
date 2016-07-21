@@ -125,9 +125,9 @@ public class DisasterResponseTradeStudy extends Application {
         Set<String> strLabels = TerrainEffect.getEffectLabels();
         for(String label : strLabels)
         {
-            ((EnvironmentOptionsControllerNew)(mainContainer.loadScreen(label, 
+            ((EnvironmentOptionsController)(mainContainer.loadScreen(label, 
                                                                         classPath + 
-                                                                        "EnvironmentOptionsNew.fxml")))
+                                                                        "EnvironmentOptions.fxml")))
                                                .setupEnvOpts(label);
         }
 

@@ -80,8 +80,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty toolTip;
     private final SimpleStringProperty envOptWeight;
     
-    private EnvironmentOptionPanel eop;
-    
     
     public EnvironmentElementStatus() {
         
@@ -116,8 +114,6 @@ public class EnvironmentElementStatus extends AnchorPane {
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
         ttDescription.textProperty().bind(toolTipProperty());
         lblEnvOptWeight.textProperty().bind(envOptWeight);
-        
-        eop = null;   
     }
     
     
@@ -130,13 +126,6 @@ public class EnvironmentElementStatus extends AnchorPane {
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED));
     }
     
-    
-    private void updateStatusWindow(EnvironmentOptionChangeEvent event)
-    {
-        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eop)) {
-            this.setToolTip(eop.getQuestion());
-        };
-    }
 
     
     // -------------------------------------------------------------------------
@@ -229,13 +218,5 @@ public class EnvironmentElementStatus extends AnchorPane {
     @FXML
     void initialize() {
         lblEnvOptWeight.setTooltip(ttDescription);
-        
-        ap.addEventHandler(EnvironmentOptionChangeEvent.OPTION_SELECTED, 
-                new EnvironmentOptionChangeEventHandler() {
-                    public void handle(EnvironmentOptionChangeEvent event) {
-                        updateStatusWindow(event);
-                    }          
-                }
-        );
     }
 }

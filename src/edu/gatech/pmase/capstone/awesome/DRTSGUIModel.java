@@ -26,13 +26,9 @@ package edu.gatech.pmase.capstone.awesome;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -49,38 +45,39 @@ import javafx.scene.control.Label;
 public class DRTSGUIModel {
     
     private final static DRTSGUIModel instance = new DRTSGUIModel();
-
-    // Environment Options
-    private String eesBeachSelOpt = "";
-    private EnvironmentElementStatus eesBeach;
-
-//    private ObservableList<EnvironmentOptionPanel> eopCollection = new ObservableList<EnvironmentOptionPanel>();
-    private final HashMap<String, EnvironmentOptionPanel> eopCollection = new HashMap<>();
+    
+    // -------------------------------------------------------------------------
+    // Collections of Enumeration to GUI Objects (both views and controllers)
+    // -------------------------------------------------------------------------
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
-    
-    private final HashMap<String, EnvironmentElementStatus> eesCollectionNew = new HashMap<>();
-    
-    
     private final HashMap<String, WeightingOptionPanel> weightingsOptionsCollection = new HashMap<>();
     private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
     private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
 
 
+    // -------------------------------------------------------------------------
+    // Temp variables used by the methods below for each functional GUI area
+    // -------------------------------------------------------------------------
     // Disaster Effects
-    EffectsOptionsPanel eop;
     Label lblDisasterEffects;
     ObservableList<DisasterEffectCheckBoxData> disasterEffects;
     
+    /**
+     * Grabs the singleton instance of the model.  Is meant to be seen by all
+     * members of the top level package.  This is effectively the glue that ties
+     * the MVC components together.  Quite literally, this is the rug.
+     * @return 
+     */
     public static DRTSGUIModel getInstance()
     {
         return instance;
     }
     
-    //public void 
     
     
-    
-    ////////////////////////////////
+    // -------------------------------------------------------------------------
+    // Weighting Options controllers and viewers
+    // -------------------------------------------------------------------------
     public void addWeightingOptionPanel(String ID, WeightingOptionPanel wopToAdd)
     {
         this.weightingsOptionsCollection.put(ID, wopToAdd);
@@ -104,10 +101,7 @@ public class DRTSGUIModel {
         if (cbTemp != null) {
             cbTemp.selectedProperty().setValue(complete);
         }
-        
-        
     }
-    ////////////////////////////////
     
     public void updateWopChecked(String wopToUpdate, Boolean checkedVal) {
         Boolean temp = this.weightingsCompletedCollection.get(wopToUpdate);
@@ -119,52 +113,16 @@ public class DRTSGUIModel {
         }
     }
     
-    ////////////////////////////////
-    
-    ////////////////////////////////
-    
-    public void addEop(String ID, EnvironmentOptionPanel eopToAdd){
-        this.eopCollection.put(ID, eopToAdd);
-    }
-    
-//    public void updateEesTooltip(String eesToUpdate, String tooltip) {
-//        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
-//        
-//        if(eesTemp != null)
-//        {
-//            eesTemp.setToolTip(tooltip);
-//        }
-//    }
-    
-    public void addEes(String ID, EnvironmentElementStatus eesToAdd){
-        this.eesCollection.put(ID, eesToAdd);
-    }
-    
-
-
-    public void updateEesTooltip(String eesToUpdate, String tooltip) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
-
-        if (eesTemp != null) {
-            eesTemp.setToolTip(tooltip);
-        }
-    }
-    
-    public void updateEesStatus(String eesToUpdate, String status) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(eesToUpdate);
-        
-        if(eesTemp != null)
-        {
-            eesTemp.setEnvOptWeight(status);
-        }
-    }
+    // -------------------------------------------------------------------------
+    // Environment Effect Status controllers and viewers
+    // -------------------------------------------------------------------------
     
     public void addEes(TerrainEffect te, EnvironmentElementStatus eesToAdd){
-        this.eesCollectionNew.put(te.terrainLabel, eesToAdd);
+        this.eesCollection.put(te.terrainLabel, eesToAdd);
     }
     
     public void updateEesTooltip(TerrainEffect te, String toolTip) {
-        EnvironmentElementStatus eesTemp = this.eesCollectionNew.get(te.terrainLabel);
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
         if(eesTemp != null) {
             eesTemp.setToolTip(toolTip);
         } else {
@@ -173,7 +131,7 @@ public class DRTSGUIModel {
     }
     
     public void updateEesStatus(TerrainEffect te, String weight) {
-        EnvironmentElementStatus eesTemp = this.eesCollectionNew.get(te.terrainLabel);
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
         if(eesTemp != null) { 
             eesTemp.setEnvOptWeight(weight);
         } else {
@@ -184,7 +142,9 @@ public class DRTSGUIModel {
 
     
     
-    ////////////////////////////////
+// -------------------------------------------------------------------------
+    // Disaster Effect controllers and viewers
+    // -------------------------------------------------------------------------
     
     
     public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
@@ -194,16 +154,4 @@ public class DRTSGUIModel {
     public void updateDisasterEffectsStatus(String status) {
         this.lblDisasterEffects.setText(status);
     }
-    
-//    public void setDisasterEffectsSelected(ObservableList<DisasterEffectCheckBoxData> list) {
-//        this.lblDisasterEffects = lblDisasterEffectsToSet;
-//    }
-//    
-//    public void setDisasterEffectsSelected(String status) {
-//        this.lblDisasterEffects.setText(status);
-//    }
-    
-    
-    
-    
 }
