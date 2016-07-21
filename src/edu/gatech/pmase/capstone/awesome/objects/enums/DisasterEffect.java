@@ -31,7 +31,7 @@ import java.util.Optional;
  */
 public enum DisasterEffect {
 
-    UNKNWON("Unknown", 0),
+    UNKNOWN("Unknown", 0),
     FIRE("Fire", 1),
     FLOOD("Flood", 2),
     DEBRIS("Debris", 3),
@@ -73,14 +73,35 @@ public enum DisasterEffect {
      *
      * @param inId the ID to find by
      * @return the given Disaster Effect. If none found to match ID, returns
-     * {@link DisasterEffect#UNKNWON}.
+     * {@link DisasterEffect#UNKNOWN}.
      */
     public static DisasterEffect getEffectById(final int inId) {
-        DisasterEffect effect = DisasterEffect.UNKNWON;
+        DisasterEffect effect = DisasterEffect.UNKNOWN;
 
         final Optional<DisasterEffect> result = Arrays.asList(DisasterEffect.values())
                 .stream()
                 .filter(eff -> (eff.id == inId))
+                .findFirst();
+        if (result.isPresent()) {
+            effect = result.get();
+        }
+
+        return effect;
+    }
+    
+    /**
+     * Given the ID, returns the associated DisasterEffect.
+     *
+     * @param inId the ID to find by
+     * @return the given Disaster Effect. If none found to match ID, returns
+     * {@link DisasterEffect#UNKNOWN}.
+     */
+    public static DisasterEffect getEffectByLabel(final String inLabel) {
+        DisasterEffect effect = DisasterEffect.UNKNOWN;
+
+        final Optional<DisasterEffect> result = Arrays.asList(DisasterEffect.values())
+                .stream()
+                .filter(eff -> eff.label.equals(inLabel))
                 .findFirst();
         if (result.isPresent()) {
             effect = result.get();

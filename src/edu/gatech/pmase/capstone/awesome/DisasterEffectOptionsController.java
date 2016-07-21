@@ -25,13 +25,11 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -71,12 +69,19 @@ public class DisasterEffectOptionsController implements Initializable,
     @FXML
     private void doneButtonClicked(ActionEvent event)
     {
-        // Fire event for data update
+        // Update the model and the view
+        DisasterResponseTradeStudySingleton.getInstance()
+                                           .setSelectedDisasterEffects(
+                                                   eopDisasterEffects.getSelectionList()
+                                           );
+        
+        DRTSGUIModel.getInstance()
+                    .updateDisasterEffectsStatus(
+                            eopDisasterEffects.getSelectionStringized()
+                    );
+        
         
         // Now switch the window
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
-        DRTSGUIModel.getInstance().updateDisasterEffectsStatus(eopDisasterEffects.getSelectionStringized());
-        
         goToMain(event);
     }
     

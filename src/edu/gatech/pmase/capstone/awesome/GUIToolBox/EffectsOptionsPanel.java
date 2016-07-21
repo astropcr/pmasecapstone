@@ -23,7 +23,9 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import java.io.IOException;
+import java.util.List;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -66,6 +68,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.observableArrayList();
     
+    
     // -------------------------------------------------------------------------
     // These are what set the properties from the FXML file.  They should be
     // be set there.
@@ -74,8 +77,6 @@ public class EffectsOptionsPanel extends AnchorPane {
     
     
     public EffectsOptionsPanel() {
-        
-        
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
         fxmlLoader.setRoot(this);
@@ -91,7 +92,6 @@ public class EffectsOptionsPanel extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        
         
         // Initialize the control allowing the user to select the effects that apply
         createTheDisasterEffectList();
@@ -120,19 +120,14 @@ public class EffectsOptionsPanel extends AnchorPane {
     // A utility procedure that creates the disaster effects list.
     // ---------------------------------------------------------------------
     private void createTheDisasterEffectList()
-    {   
-        disasterEffects.add(new DisasterEffectCheckBoxData("Flood", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Debris", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Smoke/Dust", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Ground Instability", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Land Slide", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Mud Slide", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Structural", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("High Wind (near term)", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Hazardous Material Spill", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Radiological Spill", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Lava", false));
-        disasterEffects.add(new DisasterEffectCheckBoxData("Ash", false));
+    {
+        
+        for (DisasterEffect de : DisasterEffect.values())
+        {
+            if(!de.equals(DisasterEffect.UNKNOWN)) {
+                disasterEffects.add(new DisasterEffectCheckBoxData(de.label, false));
+            }
+        }
     }
     
     
@@ -142,8 +137,24 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     
     public ObservableList<DisasterEffectCheckBoxData> getSelection()
-    {
+    {   
         return disasterEffects;
+    }
+
+    public List<DisasterEffect> getSelectionList()
+    {
+        List<DisasterEffect> selectedDisasterEffects = FXCollections.observableArrayList();
+
+        for (DisasterEffectCheckBoxData decbd : disasterEffects)
+        {
+            if(decbd.isOn()) {
+                selectedDisasterEffects.add(
+                    DisasterEffect.getEffectByLabel(decbd.getName())
+                );
+            }
+        }
+        
+        return selectedDisasterEffects;
     }
     
     /**

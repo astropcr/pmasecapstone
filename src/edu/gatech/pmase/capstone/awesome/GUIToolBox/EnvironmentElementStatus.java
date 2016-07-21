@@ -126,8 +126,6 @@ public class EnvironmentElementStatus extends AnchorPane {
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED));
     }
     
-
-    
     // -------------------------------------------------------------------------
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans

@@ -59,36 +59,7 @@ public class DisasterResponseTradeStudy extends Application {
     public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
     
     // Environment Option Screens
-    //public static String screenEnvBeachID               = classPath + "EnvironmentOptionBeach";
-    //public static String screenEnvBeachFile             = classPath + "EnvironmentOptionBeach.fxml";
-    
-    public static String screenEnvBeachID               = classPath + "Beach";
-    public static String screenEnvBeachFile             = classPath + "EnvironmentOptionsNew.fxml";
-    
-    public static String screenEnvBridgesID             = classPath + "EnvironmentOptionBridges";
-    public static String screenEnvBridgesFile           = classPath + "EnvironmentOptionBridges.fxml";
-    public static String screenEnvElevationID           = classPath + "EnvironmentOptionElevation";
-    public static String screenEnvElevationFile         = classPath + "EnvironmentOptionElevation.fxml";
-    public static String screenEnvFoilageID             = classPath + "EnvironmentOptionFoilage";
-    public static String screenEnvFoliageFile           = classPath + "EnvironmentOptionFoilage.fxml";
-    public static String screenEnvPersistenceID         = classPath + "EnvironmentOptionPersistence";
-    public static String screenEnvPersistenceFile       = classPath + "EnvironmentOptionPersistence.fxml";
-    public static String screenEnvPopulationID          = classPath + "EnvironmentOptionPopulation";
-    public static String screenEnvPopulationFile        = classPath + "EnvironmentOptionPopulation.fxml";
-    public static String screenEnvRangeID               = classPath + "EnvironmentOptionRange";
-    public static String screenEnvRangeFile             = classPath + "EnvironmentOptionRange.fxml";
-    public static String screenEnvRoadsID               = classPath + "EnvironmentOptionRoads";
-    public static String screenEnvRoadsFile             = classPath + "EnvironmentOptionRoads.fxml";
-    public static String screenEnvStreamsID             = classPath + "EnvironmentOptionStreams";
-    public static String screenEnvStreamsFile           = classPath + "EnvironmentOptionStreams.fxml";
-    public static String screenEnvTrafficabilityID      = classPath + "EnvironmentOptionTrafficability";
-    public static String screenEnvTrafficabilityFile    = classPath + "EnvironmentOptionTrafficability.fxml";
-    public static String screenEnvUrbanizationID        = classPath + "EnvironmentOptionUrbanization";
-    public static String screenEnvUrbanizationFile      = classPath + "EnvironmentOptionUrbanization.fxml";
-    public static String screenEnvWaterWaysID           = classPath + "EnvironmentOptionWaterWays";
-    public static String screenEnvWaterWaysFile         = classPath + "EnvironmentOptionWaterWays.fxml";
-    public static String screenEnvWetnessID             = classPath + "EnvironmentOptionWetness";
-    public static String screenEnvWetnessFile           = classPath + "EnvironmentOptionWetness.fxml";
+    // None needed...generated automagically based on enumerations.
     
     // Solution Creiteria Weighting Screens
     public static String screenPlatformWeightingID      = classPath + "WeightingOptionsPlatforms";

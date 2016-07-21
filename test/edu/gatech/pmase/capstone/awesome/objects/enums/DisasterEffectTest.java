@@ -25,6 +25,7 @@ package edu.gatech.pmase.capstone.awesome.objects.enums;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the DisasterEffect class.

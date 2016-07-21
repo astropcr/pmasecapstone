@@ -18,12 +18,9 @@
     <children>
         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="500.0" layoutX="261.0" layoutY="14.0" styleClass="environmentOptionPanel">
            <center>
-               <!--AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="500.0">
-               <BorderPane.margin>
-                   <Insets bottom="0" left="5" right="5" top="0" />
-               </BorderPane.margin-->
+
               <ListView fx:id="environmentOptions" BorderPane.alignment="CENTER" styleClass="listOfOptions" />
-               <!--/AnchorPane-->
+
            </center>
            <top>
               <Label fx:id="questionLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="480.0" style="-fx-font-weight: bold; -fx-underline: true;" text="Label" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">

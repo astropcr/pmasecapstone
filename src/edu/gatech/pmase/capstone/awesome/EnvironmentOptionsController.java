@@ -111,7 +111,6 @@ public class EnvironmentOptionsController implements ControlledScreen {
             DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
             DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(temp.codeNum));
 
-
             // Now switch the window
             this.goToMain(event);
             
@@ -119,7 +118,6 @@ public class EnvironmentOptionsController implements ControlledScreen {
             this.questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
             questionLabel.getStyleClass().add("questionOnPanel");
             questionLabel.getStyleClass().remove("warning");
-        
         }
         else
         {
