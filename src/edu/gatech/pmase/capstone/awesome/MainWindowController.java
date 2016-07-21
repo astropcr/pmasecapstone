@@ -33,6 +33,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -92,19 +93,6 @@ public class MainWindowController implements Initializable,
     @FXML   private Button btnDepClose;
     @FXML   private Button btnDepOpen;
     
-//    @FXML   private EnvironmentElementStatus eesBeach;
-//    @FXML   private EnvironmentElementStatus eesBridges;
-//    @FXML   private EnvironmentElementStatus eesElevation;
-//    @FXML   private EnvironmentElementStatus eesFoilage;
-//    @FXML   private EnvironmentElementStatus eesPersistence;
-//    @FXML   private EnvironmentElementStatus eesPopulation;
-//    @FXML   private EnvironmentElementStatus eesRange;
-//    @FXML   private EnvironmentElementStatus eesRoads;
-//    @FXML   private EnvironmentElementStatus eesStreams;
-//    @FXML   private EnvironmentElementStatus eesTrafficability;
-//    @FXML   private EnvironmentElementStatus eesUrbanization;
-//    @FXML   private EnvironmentElementStatus eesWaterWays;
-//    @FXML   private EnvironmentElementStatus eesWetness;
     @FXML   private GridView envStatusGrid;
     
     @FXML   private CheckBox cbWeightingsPlatformsComplete;
@@ -231,17 +219,17 @@ public class MainWindowController implements Initializable,
     // -------------------------------------------------------------------------
     @FXML
     private void goToPlatformsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(DisasterResponseTradeStudy.screenPlatformWeightingID);
+        myController.setScreen(WeightingCategory.PLATFORMS.label);//DisasterResponseTradeStudy.screenPlatformWeightingID);
     }
     
     @FXML
     private void goToCommsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(DisasterResponseTradeStudy.screenCommsWeightingID);
+        myController.setScreen(WeightingCategory.COMMS.label);
     }
     
     @FXML
     private void goToSensorsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(DisasterResponseTradeStudy.screenSensorsWeightingID);
+        myController.setScreen(WeightingCategory.SENSORS.label);//DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
     
     

@@ -108,7 +108,7 @@ public class WeightingOptionsController implements ControlledScreen {
         weightingOptions.setCellFactory(
             new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
                 @Override
-                public ListCell<WeightingChoice> call(ListView<WeightingChoice> environmentOptions) {
+                public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
                    return new WeightOptCell(tg);
                 }
         });
