@@ -64,6 +64,7 @@ public class DisasterResponseTradeStudyIT2 {
         // add terrain - MIKE: Need these from the UI
         selectedTerrainEffects.add(TerrainEffect.ELEVATION_3);  // ID 1
         selectedTerrainEffects.add(TerrainEffect.URBANIZATION_4);   // ID 12
+        selectedTerrainEffects.add(TerrainEffect.SLOPE_2);   // ID 2
     }
 
     @Test

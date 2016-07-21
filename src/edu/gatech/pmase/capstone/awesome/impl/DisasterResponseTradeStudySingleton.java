@@ -208,24 +208,24 @@ public class DisasterResponseTradeStudySingleton {
     }
 
     /**
-     *
-     * @return
-     */
+     * Gets a list of all selected disaster effect.
+     * @return list of all selected disaster effect.
+     */ 
     public List<DisasterEffect> getSelectedDisasterEffects() {
         return selectedDisasterEffects;
     }
 
     /**
-     *
-     * @param selectedDisasterEffects
+     * Sets a list of all selected disaster effect. Will replace any previous disaster effects set.
+     * @param selectedDisasterEffects  list of all selected disaster effect.
      */
     public void setSelectedDisasterEffects(final List<DisasterEffect> selectedDisasterEffects) {
         this.selectedDisasterEffects = selectedDisasterEffects;
     }
 
     /**
-     *
-     * @param eff
+     * Adds a disaster effect to the user selected list of effects. 
+     * @param eff the effect to add
      */
     public void addDisasterEffect(final DisasterEffect eff) {
         this.selectedDisasterEffects.add(eff);
