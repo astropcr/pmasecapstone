@@ -262,10 +262,6 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             final XWPFTableCell effectIndicatorCell = table.getRow(index).getCell(1);
             effectIndicatorCell.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
             effectIndicatorCell.setText(CHECKMARK_UNICODE);
-
-            final XWPFTableCell effectDescriptionCell = table.getRow(index).getCell(2);
-            effectDescriptionCell.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-            effectDescriptionCell.setText(effect.label);
         }
     }
 

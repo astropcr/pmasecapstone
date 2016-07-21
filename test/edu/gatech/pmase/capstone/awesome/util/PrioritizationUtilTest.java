@@ -39,9 +39,6 @@ import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.fail;
 
 /**
  * Test for PrioritizationUtil class;.
@@ -119,7 +116,7 @@ public class PrioritizationUtilTest {
         attrs.add(attr3);
         attrs.add(attr4);
 
-        final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label, 0.2);
+        final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label, 0.2); 
         final WeightingChoice op2 = new WeightingChoice(opt3Label, opt1Label, 0.2);
         final WeightingChoice op3 = new WeightingChoice(opt4Label, opt1Label, 1.0);
 

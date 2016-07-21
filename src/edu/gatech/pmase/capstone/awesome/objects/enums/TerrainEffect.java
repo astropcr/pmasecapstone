@@ -41,69 +41,69 @@ public enum TerrainEffect {
     /**
      * Elevation Options. - Terrain ID 1
      */
-    ELEVATION_0(1, "Elevation", 0, "No Value"),
-    ELEVATION_1(1, "Elevation", 1, "Low"),
-    ELEVATION_2(1, "Elevation", 2, "Medium"),
-    ELEVATION_3(1, "Elevation", 3, "High"),
+    ELEVATION_0(1, "Elevation", 0, "No Factor"),
+    ELEVATION_1(1, "Elevation", 1, "Minimal elevation changes (+/- 1000 feet)"),
+    ELEVATION_2(1, "Elevation", 2, "Moderate elevation change (+/- 5000 feet)"),
+    ELEVATION_3(1, "Elevation", 3, "Severe elevation change (+/- 10,000 feet)"),
     /**
      * Slope Options. - Terrain ID 2
      */
-    SLOPE_0(2, "Slope", 0, "No Value"),
-    SLOPE_1(2, "Slope", 1, "Low"),
-    SLOPE_2(2, "Slope", 2, "Medium"),
-    SLOPE_3(2, "Slope", 3, "High"),
+    SLOPE_0(2, "Slope", 0, "No Factor"),
+    SLOPE_1(2, "Slope", 1, "Level Terrain"),
+    SLOPE_2(2, "Slope", 2, "Medium Terrain"),
+    SLOPE_3(2, "Slope", 3, "Steep Terrain"),
     /**
      * Roads Options. - Terrain ID 3
      */
-    ROADS_0(3, "Roads", 0, "No Value"),
-    ROADS_1(3, "Roads", 1, "Paved"),
-    ROADS_2(3, "Roads", 2, "Unimproved"),
-    ROADS_3(3, "Roads", 3, "Few or None"),
+    ROADS_0(3, "Roads", 0, "No Factor"),
+    ROADS_1(3, "Roads", 1, "Majority of roadways are paved"),
+    ROADS_2(3, "Roads", 2, "Majority of roadways are unimproved"),
+    ROADS_3(3, "Roads", 3, "Few or no roads exist in the disaster area"),
     /**
      * Trafficability Options. - Terrain ID 4
      */
-    TRAFFICABILITY_0(4, "Trafficability", 0, "No Value"),
-    TRAFFICABILITY_1(4, "Trafficability", 1, "Clear"),
-    TRAFFICABILITY_2(4, "Trafficability", 2, "Partially Obstructed"),
-    TRAFFICABILITY_3(4, "Trafficability", 3, "Obstructed"),
+    TRAFFICABILITY_0(4, "Trafficability", 0, "No Factor"),
+    TRAFFICABILITY_1(4, "Trafficability", 1, "Roadways are clear"),
+    TRAFFICABILITY_2(4, "Trafficability", 2, "Roadways are partially obstructed"),
+    TRAFFICABILITY_3(4, "Trafficability", 3, "Roadways are nearly impassible"),
     /**
      * Bridges Options. - Terrain ID 5
      */
-    BRIDGES_0(5, "Bridges", 0, "No Value"),
-    BRIDGES_1(5, "Bridges", 1, "Heavy Traffic"),
-    BRIDGES_2(5, "Bridges", 2, "Medium Traffic"),
-    BRIDGES_3(5, "Bridges", 3, "Foot"),
+    BRIDGES_0(5, "Bridges", 0, "No Factor"),
+    BRIDGES_1(5, "Bridges", 1, "Bridges handle heavy traffic"),
+    BRIDGES_2(5, "Bridges", 2, "Bridges handle medium traffic"),
+    BRIDGES_3(5, "Bridges", 3, "Bridges handle only foot traffic"),
     /**
      * Foliage Options. - Terrain ID 6
      */
-    FOLIAGE_0(6, "Foliage", 0, "No Value"),
-    FOLIAGE_1(6, "Foliage", 1, "Open"),
-    FOLIAGE_2(6, "Foliage", 2, "Partial"),
-    FOLIAGE_3(6, "Foliage", 3, "Complete"),
-    FOLIAGE_4(6, "Foliage", 4, "Triple Canopy"),
+    FOLIAGE_0(6, "Foliage", 0, "No Factor"),
+    FOLIAGE_1(6, "Foliage", 1, "Completely open"),
+    FOLIAGE_2(6, "Foliage", 2, "Partial coverage due to foliage"),
+    FOLIAGE_3(6, "Foliage", 3, "Complete layer of canopy over disaster area"),
+    FOLIAGE_4(6, "Foliage", 4, "Triple jungle-like canopy over disaster area"),
     /**
      * Wetness Options. - Terrain ID 7
      */
-    WETNESS_0(7, "Wetness", 0, "No Value"),
-    WETNESS_1(7, "Wetness", 1, "Dry"),
-    WETNESS_2(7, "Wetness", 2, "Areas of Wetness"),
-    WETNESS_3(7, "Wetness", 3, "Marsh "),
+    WETNESS_0(7, "Wetness", 0, "No Factor"),
+    WETNESS_1(7, "Wetness", 1, "Terrain is dry"),
+    WETNESS_2(7, "Wetness", 2, "Terrain has some areas of saturated soil"),
+    WETNESS_3(7, "Wetness", 3, "Terrain consists of extreme marsh-like conditions "),
     /**
      * Water Ways Options. - Terrain ID 8
      */
-    WATERWAYS_0(8, "Water Ways", 0, "No Value"),
-    WATERWAYS_1(8, "Water Ways", 1, "Navigable"),
-    WATERWAYS_2(8, "Water Ways", 2, "Unnavigable"),
+    WATERWAYS_0(8, "Water Ways", 0, "No Factor"),
+    WATERWAYS_1(8, "Water Ways", 1, "Water ways are navigable"),
+    WATERWAYS_2(8, "Water Ways", 2, "Water ways are unnavigable"),
     /**
      * Streams Options. - Terrain ID 9
      */
-    STREAMS_0(9, "Streams", 0, "No Value"),
-    STREAMS_1(9, "Streams", 1, "Bridged"),
-    STREAMS_2(9, "Streams", 2, "Unbridged"),
+    STREAMS_0(9, "Streams", 0, "No Factor"),
+    STREAMS_1(9, "Streams", 1, "Streams have bridge crossings"),
+    STREAMS_2(9, "Streams", 2, "Streams have no bridges crossings"),
     /**
      * Beach Options. - Terrain ID 10
      */
-    BEACH_0(10, "Beach", 0, "No Value"),
+    BEACH_0(10, "Beach", 0, "No Factor"),
     BEACH_1(10, "Beach", 1, "Gradual Sand or Pebble"),
     BEACH_2(10, "Beach", 2, "Steeper Sand or Pebble"),
     BEACH_3(10, "Beach", 3, "Steep Sand or Pebble"),
@@ -111,32 +111,32 @@ public enum TerrainEffect {
     /**
      * Population Options. - Terrain ID 11
      */
-    POPULATION_0(11, "Population", 0, "No Value"),
-    POPULATION_1(11, "Population", 1, "Low"),
-    POPULATION_2(11, "Population", 2, "Medium"),
-    POPULATION_3(11, "Population", 3, "High"),
+    POPULATION_0(11, "Population", 0, "No Factor"),
+    POPULATION_1(11, "Population", 1, "Low population level"),
+    POPULATION_2(11, "Population", 2, "Medium population level"),
+    POPULATION_3(11, "Population", 3, "High population level"),
     /**
      * Urbanization Options. - Terrain ID 12
      */
-    URBANIZATION_0(12, "Urbanization", 0, "No Value"),
-    URBANIZATION_1(12, "Urbanization", 1, "Open"),
-    URBANIZATION_2(12, "Urbanization", 2, "Suburban"),
-    URBANIZATION_3(12, "Urbanization", 3, "Urban"),
-    URBANIZATION_4(12, "Urbanization", 4, "Dense Urban"),
+    URBANIZATION_0(12, "Urbanization", 0, "No Factor"),
+    URBANIZATION_1(12, "Urbanization", 1, "Open area (very sparsely populated)"),
+    URBANIZATION_2(12, "Urbanization", 2, "Suburban area"),
+    URBANIZATION_3(12, "Urbanization", 3, "Urban area"),
+    URBANIZATION_4(12, "Urbanization", 4, "Dense urban area"),
     /**
      * Range Options. - Terrain ID 13
      */
-    RANGE_0(13, "Range", 0, "No Value"),
-    RANGE_1(13, "Range", 1, "Near"),
-    RANGE_2(13, "Range", 2, "Medium"),
-    RANGE_3(13, "Range", 3, "Far"),
+    RANGE_0(13, "Range", 0, "No Factor"),
+    RANGE_1(13, "Range", 1, "Distance from staging area to disaster < 50 nm"),
+    RANGE_2(13, "Range", 2, "Distance from staging area to disaster 50-100 nm"),
+    RANGE_3(13, "Range", 3, "Distance from staging area to disaster > 100 nm"),
     /**
      * Persistance Options. - Terrain ID 14
      */
-    PERSISTANCE_0(14, "Persistance", 0, "No Value"),
-    PERSISTANCE_1(14, "Persistance", 1, "Short"),
-    PERSISTANCE_2(14, "Persistance", 2, "Medium"),
-    PERSISTANCE_3(14, "Persistance", 3, "Long");
+    PERSISTANCE_0(14, "Persistance", 0, "No Factor"),
+    PERSISTANCE_1(14, "Persistance", 1, "Short duration persistence over/at disaster area"),
+    PERSISTANCE_2(14, "Persistance", 2, "Medium duration persistence over/at disaster area"),
+    PERSISTANCE_3(14, "Persistance", 3, "Long duration persistence overhead/at disaster area");
 
     /**
      * ID of the Terrain Effect.
