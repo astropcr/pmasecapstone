@@ -33,10 +33,17 @@ import java.util.stream.Collectors;
  */
 public enum WeightingCategory {
 
-    UNKNOWN("Unknown", 0),
-    PLATFORMS("Platforms", 1),
-    COMMS("Communications", 2),
-    SENSORS("Sensors", 3);
+    UNKNOWN(            0, "Unknown",                       0.0),
+    EXTREMELY_LESS(     1, "Platforms",                     0.1),
+    SIGNIFICANTLY_LESS( 2, "Communications",                0.5),
+    EQUALLY(            3, "Equally Important",             1.0),
+    SIGNIFICANTLY_MORE( 4, "Significantly More Important",  5.0),
+    EXTREMELY_MORE(     5, "Extremely More Important",      10.0);
+
+    /**
+     * The ID of the Weighting Criteria.
+     */
+    public int id;
 
     /**
      * Reader Friendly Label.
@@ -44,27 +51,30 @@ public enum WeightingCategory {
     public final String label;
 
     /**
-     * The ID of the Weighting Categoryt.
+     * The value of the Weighting Category.
      */
-    public int id;
+    public final double value;
 
     /**
      * Constructor
      *
-     * @param inLabel the reader friendly label to use
      * @param inId the id of the disaster effect
+     * @param inLabel the reader friendly label to use
+     * @param inValue the value of the weighting category
      */
-    private WeightingCategory(final String inLabel, final int inId) {
+    private WeightingCategory(final int inId, final String inLabel, final double inValue) {
         this.label = inLabel;
         this.id = inId;
+        this.value = inValue;
+        
     }
 
     /**
      * Given the ID, returns the associated WeightingCategory.
      *
      * @param inId the ID to find by
-     * @return the given Disaster Effect. If none found to match ID, returns
-     * {@link DisasterEffect#UNKNOWN}.
+     * @return the given Weighting Category. If none found to match ID, returns
+     * {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesById(final int inId) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
@@ -84,8 +94,8 @@ public enum WeightingCategory {
      * Given the ID, returns the associated WeightingCategory.
      *
      * @param inId the ID to find by
-     * @return the given Disaster Effect. If none found to match ID, returns
-     * {@link DisasterEffect#UNKNOWN}.
+     * @return the given Weighting Category. If none found to match ID, returns
+     * {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesByLabel(final String inLabel) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
@@ -101,6 +111,27 @@ public enum WeightingCategory {
         return effect;
     }
     
+    
+    /**
+     * Given the Value, returns the associated WeightingCategory.
+     *
+     * @param inVal the ID to find by
+     * @return the given Weighting Category. If none found to match ID, returns
+     * {@link WeightingCategory#UNKNOWN}.
+     */
+    public static WeightingCategory getCategoriesByValue(final double inValue) {
+        WeightingCategory effect = WeightingCategory.UNKNOWN;
+
+        final Optional<WeightingCategory> result = Arrays.asList(WeightingCategory.values())
+                .stream()
+                .filter(eff -> eff.value == inValue)
+                .findFirst();
+        if (result.isPresent()) {
+            effect = result.get();
+        }
+
+        return effect;
+    }
     /**
      * Returns a Set labels.
      *

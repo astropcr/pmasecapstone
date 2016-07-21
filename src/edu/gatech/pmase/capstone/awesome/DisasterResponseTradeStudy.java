@@ -23,14 +23,9 @@
  */
 package edu.gatech.pmase.capstone.awesome;
 
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -87,49 +82,55 @@ public class DisasterResponseTradeStudy extends Application {
         // Load the screens
         // ---------------------------------------------------------------------
         
-        // Main Screen
-        ((MainWindowController)mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile)).connectToModel();
+        //......................................................................
+        //                         Main Screen
+        //......................................................................
+        ((MainWindowController)mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID,
+                                                        DisasterResponseTradeStudy.screenMainFile))
+                               .connectToModel();
             
         
-        // Disaster Effect Screen
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
+        //......................................................................
+        //                  Disaster Effect Screen
+        //......................................................................
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, 
+                                 DisasterResponseTradeStudy.screenEffectsFile);
         
-        // Environment Factors Screeens
+        
+        //......................................................................
+        //          Environment Options/Factors Screens
+        //......................................................................
         Set<String> strTELabels = TerrainEffect.getEffectLabels();
         for(String label : strTELabels)
         {
-            ((EnvironmentOptionsController)(mainContainer.loadScreen(label, 
-                                                                     classPath + 
-                                                                     "EnvironmentOptions.fxml")))
-                                               .setupEnvOpts(label);
+            ((EnvironmentOptionsController)(mainContainer
+                                                .loadScreen(label, 
+                                                            classPath + 
+                                                            "EnvironmentOptions.fxml")))
+                                           .setupEnvOpts(label);
         }
+        
+        
+        //......................................................................
+        //              Environment Options/Factors Screens
+        //......................................................................
+        // These elements are created inside the Main window controller and thus
+        // don't have a separate screen to be loaded
 
-        // Weighting Criteria Screens
-        Set<String> strWCLabels = WeightingCategory.getCategoryLabels();
+        
+        //......................................................................
+        //                  Weighting Criteria Screens
+        //......................................................................
+        Set<String> strWCLabels = WeightingAreasOfConcern.getCategoryLabels();
         
         for(String label : strWCLabels)
         {
-            ((WeightingOptionsController)(mainContainer.loadScreen(label, 
-                                                                   classPath + 
-                                                                   "WeightingOptions.fxml")))
-                                               .setupEnvOpts(WeightingCategory.getCategoriesByLabel(label));
+            ((WeightingOptionsController)(mainContainer
+                                            .loadScreen(label, 
+                                                        classPath + 
+                                                        "WeightingOptions.fxml")))
+                                         .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(label));
         }
-
-        
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenPlatformWeightingID, DisasterResponseTradeStudy.screenPlatformsWeightingFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenCommsWeightingID, DisasterResponseTradeStudy.screenCommsWeightingFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenSensorsWeightingID, DisasterResponseTradeStudy.screenSensorsWeightingFile);
-        
-        
-        
-        // Environmental Options Screens
-
-
-    
-        
-        // Test Code
-        
-        
 
         // ---------------------------------------------------------------------
         // Now let's start the show

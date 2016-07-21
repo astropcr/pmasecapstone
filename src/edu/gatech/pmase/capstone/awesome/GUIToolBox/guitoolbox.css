@@ -67,21 +67,25 @@
 
 .basePanel {
     -fx-background-color: #777777;
-    -fx-padding: 5;
 }
 
 .listOfOptions {
     -fx-border-color: cornflowerblue;
     -fx-background-color: cornflowerblue;
-    -fx-padding: 5;
-    -fx-spacing: 5;
+    -fx-label-padding: 5 0 5 0;
+    -fx-spacing: 0;
 }
 
 .list-cell:even {
     -fx-background-color: cornflowerblue;
+    -fx-font-size: 11pt;
+    -fx-label-padding: 5 0 5 0;
 }
 .list-cell:odd {
     -fx-background-color: cornflowerblue;
+    -fx-font-size: 11pt;
+    -fx-label-padding: 5 0 5 0;
+
 }
 
 
@@ -119,11 +123,25 @@
     -fx-border-radius: 5;
 }
 
+
+/*
+ * The are various text styles used by the panels, cells, and controls
+ */
+.weightingCriteriaCategoryLabel {
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 12pt;
+}
+
+.weightingCriteriaPanelText {
+    -fx-font-size: 12pt;
+}
+
 /* 
  * These are the header boxen aboves the selection columns that tells the user 
  * what the criteria are.
  */
-.weightingCriteriaLabel {
+.weightingCriteriaPanelTitleLabel {
     -fx-background-color: cornflowerblue;
     -fx-border-color: black;
 }
@@ -133,6 +151,7 @@
     -fx-font-weight: bold;
     -fx-font-underline: true;
     -fx-font-family: "Agency FB";
+    -fx-text-alignment: center;
 }
 
 .mainTitleLabel {

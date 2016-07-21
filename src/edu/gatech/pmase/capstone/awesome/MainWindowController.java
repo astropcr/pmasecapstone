@@ -33,7 +33,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -219,17 +219,17 @@ public class MainWindowController implements Initializable,
     // -------------------------------------------------------------------------
     @FXML
     private void goToPlatformsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(WeightingCategory.PLATFORMS.label);//DisasterResponseTradeStudy.screenPlatformWeightingID);
+        myController.setScreen(WeightingAreasOfConcern.PLATFORMS.label);//DisasterResponseTradeStudy.screenPlatformWeightingID);
     }
     
     @FXML
     private void goToCommsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(WeightingCategory.COMMS.label);
+        myController.setScreen(WeightingAreasOfConcern.COMMS.label);
     }
     
     @FXML
     private void goToSensorsWeightingCriteria(ActionEvent event)  {
-        myController.setScreen(WeightingCategory.SENSORS.label);//DisasterResponseTradeStudy.screenSensorsWeightingID);
+        myController.setScreen(WeightingAreasOfConcern.SENSORS.label);//DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
     
     
@@ -239,7 +239,7 @@ public class MainWindowController implements Initializable,
     void connectToModel() {
         
         // ---------------------------------------------------------------------
-        // Add the Environmental Effect Status controls to the model
+        // Connect the Environmental Effect Status controls to the model
         // ---------------------------------------------------------------------
         ObservableList<Node> nTemp = envStatusGrid.getChildrenUnmodifiable();
         
