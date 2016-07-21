@@ -34,12 +34,14 @@ import javafx.scene.control.ToggleGroup;
 
 
 /**
- *
+ * This class creates the set of UI controls that implement the environmental 
+ * selections for the user.  It's designed to be paired with the EnvOptCell 
+ * class for ultimate inclusion in some type of iterative container, such as
+ * a list view or grid view.
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 class EnvOptData {
-@FXML
-    private HBox hBox;
+    @FXML   private HBox hBox;
     @FXML   private ToggleButton btn1;
     
     private String strData;

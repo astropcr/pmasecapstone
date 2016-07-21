@@ -23,38 +23,36 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import javafx.event.EventHandler;
+
+import edu.gatech.pmase.capstone.awesome.objects.enums.*;
+
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ToggleGroup;
+import org.controlsfx.control.GridCell;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvironmentOptionChangeEventHandler implements EventHandler<EnvironmentOptionChangeEvent> {
+public class EnvOptStatusCell extends GridCell<TerrainEffect> {
 
-    ScreensController sc;
-    String switchTargetScreen;
-    String msg;
+    ToggleGroup tg;
     
-//    public EnvironmentOptionChangeEventHandler(EnvironmentOption eoData, String screeswitchTargetScreennTarget)
-//    {
-//        this.sc = sc;
-//        this.switchTargetScreen = switchTargetScreen;
-//        this.msg = "No message has been set.";
-//    }
-
-
-    public EnvironmentOptionChangeEventHandler()
+    public  EnvOptStatusCell()
     {
-        this.msg = "the author is shy.";
-    }    
-    public EnvironmentOptionChangeEventHandler(String msg)
-    {
-        this.msg = msg;
+        ; // could apply styles here
     }
-    
+
     @Override
-    public void handle(EnvironmentOptionChangeEvent event) {
-        System.out.println("EnvironmentOptionChangeEventHandler would like to say: " + msg);
-        //sc.setScreen(switchTargetScreen);
+    public void updateItem(TerrainEffect te, boolean empty)
+    {
+        super.updateItem(te, empty);
+        if(te != null)
+        {
+            EnvOptStatusData eosd = new EnvOptStatusData(this.tg);
+            eosd.setInfo(te);
+            setGraphic(eosd.getBox());
+        }
     }
+    
 }

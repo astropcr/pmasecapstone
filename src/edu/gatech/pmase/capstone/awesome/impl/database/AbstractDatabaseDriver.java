@@ -244,7 +244,7 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
         final List<TerrainEffect> effects = new ArrayList<>();
         for (final Long terrainId : this.getListFromCell(cell)) {
             final TerrainEffect effect = TerrainEffect.getEffectByIdAndCode(terrainId.intValue(), terrainCodeNum);
-            if (TerrainEffect.UNKNWON == effect) {
+            if (TerrainEffect.UNKNOWN == effect) {
                 LOGGER.error("Unknown TerrainEffect with id: " + terrainId + " and code: " + terrainCodeNum
                         + " found in DB for cell: [" + cell.getRowIndex() + "," + cell.getColumnIndex() + "]");
             } else {

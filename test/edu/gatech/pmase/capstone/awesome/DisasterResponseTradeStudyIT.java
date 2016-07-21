@@ -48,6 +48,9 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade

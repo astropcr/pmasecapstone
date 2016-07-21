@@ -4,9 +4,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.*?>
+<?import edu.gatech.pmase.capstone.awesome.GUIToolBox.*?>
 
 <HBox fx:id="hBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 <children>
-    <ToggleButton fx:id="btn1" onAction="#handleToggleButton" styleClass="userSelectionButton" prefWidth="450.0" prefHeight="50.0"  />
+    <EnvironmentElementStatus fx:id="ees" />
 </children>
 </HBox>

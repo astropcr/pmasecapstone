@@ -24,46 +24,74 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionChangeEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentOptionPanel;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import java.net.URL;
-import java.util.ResourceBundle;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvironmentOptionsController implements Initializable,
-                                             ControlledScreen {
+public class EnvironmentOptionsController implements ControlledScreen {
 
     ScreensController myController;
     
-    @FXML   private AnchorPane ap;
-    @FXML   private EnvironmentOptionPanel eop;
-    @FXML   private Button btnEopClose;
+    @FXML   private AnchorPane      ap;
+    @FXML   private ToggleGroup     tg;
+    @FXML   private Button          btnEopClose;
+    @FXML   private ListView        environmentOptions;
+    @FXML   private Label           questionLabel;
     
-    @FXML   private Button button = null;
+    private ObservableList<TerrainEffect>   tempObsList;
     
+    private static final String STR_QUESTION = " is defined as follow (choose most appropriate value):";
+    private static final String STR_WARNING = "(Please select an option before continuing)";
+    private String envOpt = "";
     
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        eop.removeUnusedButtons();
-        eop.connectToModel();
+    public EnvironmentOptionsController() {
+        tempObsList = FXCollections.observableArrayList();
+        tg = new ToggleGroup();
+    }
+    
+    void setupEnvOpts(String envOpt){
+        List<TerrainEffect> envOptList = TerrainEffect.getEffectByLabel(envOpt);
+        this.envOpt = envOpt;
         
-    }  
+        questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
+        questionLabel.getStyleClass().add("questionOnPanel");
+
+        tempObsList.addAll(envOptList);
+        environmentOptions.setItems(tempObsList);
+        
+        environmentOptions.setCellFactory(
+            new Callback<ListView<TerrainEffect>, ListCell<TerrainEffect>>() {
+                @Override
+                public ListCell<TerrainEffect> call(ListView<TerrainEffect> environmentOptions) {
+                   return new EnvOptCell(tg);
+                }
+        });
+    }
+    
+    @FXML
+    void initialize()
+    {
+
+    }
     
     /**
      * This function will trigger a data update event for the Disaster Effects
@@ -73,13 +101,30 @@ public class EnvironmentOptionsController implements Initializable,
     @FXML
     private void doneButtonClicked(ActionEvent event)
     {
-        // Fire event for data update
-        Event.fireEvent((EventTarget)eop, new EnvironmentOptionChangeEvent(EnvironmentOptionChangeEvent.OPTION_SELECTED));
-        
-        // Now switch the window
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
+        if(tg.getSelectedToggle() != null)
+        {
+            // Update the backend
+            TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().getUserData();
+            DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(temp);
+            
+            // Update the status window
+            DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
+            DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(temp.codeNum));
 
-        this.goToMain(event);
+            // Now switch the window
+            this.goToMain(event);
+            
+            // Clear the warning from the label text
+            this.questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
+            questionLabel.getStyleClass().add("questionOnPanel");
+            questionLabel.getStyleClass().remove("warning");
+        }
+        else
+        {
+            this.questionLabel.textProperty().setValue(STR_WARNING);// inform the user!!!
+            questionLabel.getStyleClass().remove("questionOnPanel");
+            questionLabel.getStyleClass().add("warning");
+        }
     }
     
     // -------------------------------------------------------------------------

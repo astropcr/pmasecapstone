@@ -23,47 +23,58 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import javafx.event.EventHandler;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
+import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class TestEventHandler implements EventHandler<TestEvent> {
+class EnvOptStatusData {
+    @FXML   private HBox hBox;
+    @FXML   private EnvironmentElementStatus ees;
+    
+    private String strData;
+    
+    
+    public EnvOptStatusData(ToggleGroup tg)
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptStatusCellItem.fxml"));
+        fxmlLoader.setController(this);
+        try
+        {
+            fxmlLoader.load();
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void setInfo(TerrainEffect te)
+    {
+        ees.setUserData(te);
+        ees.setEnvironmentOption(te.terrainLabel);
+        
+        // We have to connect the EES custom controller to the model here since we have easy access to it.
+        ees.connectToModel();                       
+    }
+    
+    @FXML
+    public void handleToggleButton(ActionEvent event)
+    {
+         System.out.println("The " + strData + " was selected.");
+    }
 
-    ScreensController sc;
-    String switchTargetScreen;
-    String msg;
-    
-    public TestEventHandler()
+    public HBox getBox()
     {
-        this.msg = "No message has been set.";
-    }
-    
-    public TestEventHandler(String msg)
-    {
-        this.msg = msg;
-    }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = "No message has been set.";
-    }
-    
-    public TestEventHandler(ScreensController sc, String switchTargetScreen, String msg)
-    {
-        this.sc = sc;
-        this.switchTargetScreen = switchTargetScreen;
-        this.msg = msg;
-    }
-    
-    
-    
-    @Override
-    public void handle(TestEvent event) {
-        System.out.println("TestEventHandler would like to say: " + msg);
-        //sc.setScreen(switchTargetScreen);
+        return hBox;
     }
 }

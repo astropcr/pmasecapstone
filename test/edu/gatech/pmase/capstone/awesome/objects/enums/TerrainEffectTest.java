@@ -28,6 +28,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the TerrainEffect class.
@@ -81,14 +82,14 @@ public class TerrainEffectTest {
 
         inId = 50;
         inCode = 0;
-        expResult = TerrainEffect.UNKNWON;
+        expResult = TerrainEffect.UNKNOWN;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
         LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = -1;
         inCode = -1;
-        expResult = TerrainEffect.UNKNWON;
+        expResult = TerrainEffect.UNKNOWN;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
         LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);

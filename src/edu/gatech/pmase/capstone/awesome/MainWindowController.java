@@ -25,20 +25,21 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptStatusCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.TestEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -48,6 +49,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.util.Callback;
+import org.controlsfx.control.GridCell;
+import org.controlsfx.control.GridView;
 
 /**
  * FXML Controller class
@@ -88,19 +92,20 @@ public class MainWindowController implements Initializable,
     @FXML   private Button btnDepClose;
     @FXML   private Button btnDepOpen;
     
-    @FXML   private EnvironmentElementStatus eesBeach;
-    @FXML   private EnvironmentElementStatus eesBridges;
-    @FXML   private EnvironmentElementStatus eesElevation;
-    @FXML   private EnvironmentElementStatus eesFoilage;
-    @FXML   private EnvironmentElementStatus eesPersistence;
-    @FXML   private EnvironmentElementStatus eesPopulation;
-    @FXML   private EnvironmentElementStatus eesRange;
-    @FXML   private EnvironmentElementStatus eesRoads;
-    @FXML   private EnvironmentElementStatus eesStreams;
-    @FXML   private EnvironmentElementStatus eesTrafficability;
-    @FXML   private EnvironmentElementStatus eesUrbanization;
-    @FXML   private EnvironmentElementStatus eesWaterWays;
-    @FXML   private EnvironmentElementStatus eesWetness;
+//    @FXML   private EnvironmentElementStatus eesBeach;
+//    @FXML   private EnvironmentElementStatus eesBridges;
+//    @FXML   private EnvironmentElementStatus eesElevation;
+//    @FXML   private EnvironmentElementStatus eesFoilage;
+//    @FXML   private EnvironmentElementStatus eesPersistence;
+//    @FXML   private EnvironmentElementStatus eesPopulation;
+//    @FXML   private EnvironmentElementStatus eesRange;
+//    @FXML   private EnvironmentElementStatus eesRoads;
+//    @FXML   private EnvironmentElementStatus eesStreams;
+//    @FXML   private EnvironmentElementStatus eesTrafficability;
+//    @FXML   private EnvironmentElementStatus eesUrbanization;
+//    @FXML   private EnvironmentElementStatus eesWaterWays;
+//    @FXML   private EnvironmentElementStatus eesWetness;
+    @FXML   private GridView envStatusGrid;
     
     @FXML   private CheckBox cbWeightingsPlatformsComplete;
     @FXML   private CheckBox cbWeightingsCommunicationsComplete;
@@ -122,25 +127,13 @@ public class MainWindowController implements Initializable,
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-        
-        if(btnDepClose != null) {
-//            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
-            System.out.println(this.getClass().toString());
-        }
-        
-        if(button != null)
-        {   
-            button.addEventHandler(TestEvent.OPTION_SELECTED, new TestEventHandler(this.getScreenParent(), "main"));
-        }
 
-          apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
-                            new ScreenSwitchEventHandler() {
-                                public void handle(ScreenSwitchEvent event) {
-                                    goToEnvironmentOptions(event);
-                                };    
-                            });
+        apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
+                          new ScreenSwitchEventHandler() {
+                              public void handle(ScreenSwitchEvent event) {
+                                  goToEnvironmentOptions(event);
+                              };    
+                          });
           
           
         // ---------------------------------------------------------------------
@@ -148,42 +141,43 @@ public class MainWindowController implements Initializable,
         // ---------------------------------------------------------------------
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
         
-//        DRTSGUIModel.getInstance().addWeightingOptionPanel(DisasterResponseTradeStudy.screenPlatformWeightingID, this.cbWeightingsPlatformsComplete);
-        eesBeach.connectToModel();
-        eesBridges.connectToModel();
-        eesElevation.connectToModel();
-        eesFoilage.connectToModel();
-        eesPersistence.connectToModel();
-        eesPopulation.connectToModel();
-        eesRange.connectToModel();
-        eesRoads.connectToModel();
-        eesStreams.connectToModel();
-        eesTrafficability.connectToModel();
-        eesUrbanization.connectToModel();
-        eesWaterWays.connectToModel();
-        eesWetness.connectToModel();
         
         
         
-    }
-
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
+        // ---------------------------------------------------------------------
+        // First, create a list of Disaster Effects that will be used to populate
+        // the GridView with Environment Effect Stati
+        // ---------------------------------------------------------------------
+        Set<String> strTerrainEffectStatus = TerrainEffect.getEffectLabels();
+        ObservableList<TerrainEffect>   tempObsList = FXCollections.observableArrayList();
         
-        attachControllersToEachOther();
+        int i = 1;  // needs to be one ordered since the 0 orderded is an "UNKNOWN" place holder
+        for(String str : strTerrainEffectStatus)
+        {
+            tempObsList.add(TerrainEffect.getEffectByIdAndCode(i, 0));
+            i++;
+        }
+        envStatusGrid.setItems(tempObsList);
         
-        Event.fireEvent((EventTarget) event.getSource(), new TestEvent());
+        // ---------------------------------------------------------------------
+        // Now let's create them
+        // ---------------------------------------------------------------------
+        envStatusGrid.setCellFactory(
+            new Callback<GridView<TerrainEffect>, GridCell<TerrainEffect>>() {
+                @Override
+                public GridCell<TerrainEffect> call(GridView<TerrainEffect> environmentOptions) {
+                   return new EnvOptStatusCell();
+                }
+        });
+        
+        // ---------------------------------------------------------------------
+        // And to connect them...
+        // The EES panels are connected to the model inside the cell factory 
+        // methods, specifically insde the EnvOptStatusCell class via the 
+        // setInfo() call.  This is due to the EES being a custom controller.
+        // ---------------------------------------------------------------------
     }
     
-    @FXML
-    private void handleTestEvent(TestEvent event) {
-        System.out.println("Test event successfully captured!! (original)");
-    }
-    
-       
-    
-
     /**
      * This function handles the opening and closing of subpanels.
      * @param event
@@ -222,55 +216,13 @@ public class MainWindowController implements Initializable,
      * @param event 
      */
     private void goToEnvironmentOptions(ScreenSwitchEvent event)  {
-        String toSet = DisasterResponseTradeStudy.screenMainID;
-        String relatedEopPanel = "";
+        String toSet = DisasterResponseTradeStudy.screenMainID; // the main screen is a graceful fall-through
+
+        // First, select the ID based on the caller (button)                
+        EnvironmentElementStatus eesTemp = (EnvironmentElementStatus)((Node)event.getSource()).getScene().getFocusOwner().getParent();        
+        toSet = ((TerrainEffect)eesTemp.getUserData()).terrainLabel;
         
-        // ---------------------------------------------------------------------
-        // First, select the ID based on the caller (button)
-        // ---------------------------------------------------------------------
-        if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesBeach)) {
-            toSet = DisasterResponseTradeStudy.screenEnvBeachID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesBridges)) {
-            toSet = DisasterResponseTradeStudy.screenEnvBridgesID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesElevation)) {
-            toSet = DisasterResponseTradeStudy.screenEnvElevationID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesFoilage)) {
-            toSet = DisasterResponseTradeStudy.screenEnvFoilageID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesPersistence)) {
-            toSet = DisasterResponseTradeStudy.screenEnvPersistenceID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesPopulation)) {
-            toSet = DisasterResponseTradeStudy.screenEnvPopulationID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesRange)) {
-            toSet = DisasterResponseTradeStudy.screenEnvRangeID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesRoads)) {
-            toSet = DisasterResponseTradeStudy.screenEnvRoadsID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesStreams)) {
-            toSet = DisasterResponseTradeStudy.screenEnvStreamsID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesTrafficability)) {
-            toSet = DisasterResponseTradeStudy.screenEnvTrafficabilityID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesUrbanization)) {
-            toSet = DisasterResponseTradeStudy.screenEnvUrbanizationID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesWaterWays)) {
-            toSet = DisasterResponseTradeStudy.screenEnvWaterWaysID;
-        }
-        else if(((Node)event.getSource()).getScene().getFocusOwner().getParent().equals(eesWetness)) {
-            toSet = DisasterResponseTradeStudy.screenEnvWetnessID;
-        }
-        
-        // ---------------------------------------------------------------------
-        // Now, let's set the screen
-        // ---------------------------------------------------------------------
+        // Now, let's set the screen       
         myController.setScreen(toSet);
     }
     
@@ -292,13 +244,22 @@ public class MainWindowController implements Initializable,
         myController.setScreen(DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
     
-    // -------------------------------------------------------------------------
-    // Wires all of the controllers together.  Can only be completed after they
-    // have all been constructed, instatiated, and the scene is set.
-    // -------------------------------------------------------------------------
-    public void attachControllersToEachOther()
-    {
-        eesElevation.setTetheredEnvironmentOptionPanel("eopElevation");  // TODO: Rename eop
+    
+    /**
+     * Connects all of the GUI element created in the control/view to the model
+     */
+    void connectToModel() {
+        
+        // ---------------------------------------------------------------------
+        // Add the Environmental Effect Status controls to the model
+        // ---------------------------------------------------------------------
+        ObservableList<Node> nTemp = envStatusGrid.getChildrenUnmodifiable();
+        
+        nTemp.stream().forEach((ees) -> {
+            DRTSGUIModel.getInstance()
+                    .addEes((TerrainEffect)ees.getUserData(),
+                            (EnvironmentElementStatus)ees);
+        });
     }
 
     @Override
@@ -310,4 +271,6 @@ public class MainWindowController implements Initializable,
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.
     }
+
+
 }
