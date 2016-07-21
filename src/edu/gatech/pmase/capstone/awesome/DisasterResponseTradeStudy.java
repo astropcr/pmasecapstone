@@ -27,6 +27,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import javafx.application.Application;
@@ -114,27 +115,21 @@ public class DisasterResponseTradeStudy extends Application {
         // ---------------------------------------------------------------------
         
         // Main Screen
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile);
+        ((MainWindowController)mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID, DisasterResponseTradeStudy.screenMainFile)).connectToModel();
+            
         
         // Disaster Effect Screen
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, DisasterResponseTradeStudy.screenEffectsFile);
         
         // Environment Factors Screeens
-        EnvironmentOptionsControllerNew testCon = (EnvironmentOptionsControllerNew)(mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBeachID, DisasterResponseTradeStudy.screenEnvBeachFile));
-        
-        
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvBridgesID, DisasterResponseTradeStudy.screenEnvBridgesFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvElevationID, DisasterResponseTradeStudy.screenEnvElevationFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvFoilageID, DisasterResponseTradeStudy.screenEnvFoliageFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvPersistenceID, DisasterResponseTradeStudy.screenEnvPersistenceFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvPopulationID, DisasterResponseTradeStudy.screenEnvPopulationFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvRangeID, DisasterResponseTradeStudy.screenEnvRangeFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvRoadsID, DisasterResponseTradeStudy.screenEnvRoadsFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvStreamsID, DisasterResponseTradeStudy.screenEnvStreamsFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvTrafficabilityID, DisasterResponseTradeStudy.screenEnvTrafficabilityFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvUrbanizationID, DisasterResponseTradeStudy.screenEnvUrbanizationFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvWaterWaysID, DisasterResponseTradeStudy.screenEnvWaterWaysFile);
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEnvWetnessID, DisasterResponseTradeStudy.screenEnvWetnessFile);
+        Set<String> strLabels = TerrainEffect.getEffectLabels();
+        for(String label : strLabels)
+        {
+            ((EnvironmentOptionsControllerNew)(mainContainer.loadScreen(label, 
+                                                                        classPath + 
+                                                                        "EnvironmentOptionsNew.fxml")))
+                                               .setupEnvOpts(label);
+        }
 
         // Weighting Criteria Screens
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenPlatformWeightingID, DisasterResponseTradeStudy.screenPlatformsWeightingFile);
@@ -143,15 +138,13 @@ public class DisasterResponseTradeStudy extends Application {
         
         
         
-//        TerrainEffect teLabels = TerrainEffect.getEffectLabels();
-//        TerrainEffect teLabels = TerrainEffect.getEffectByLabel("Beach");
-//        for(TerrainEffect te : teLabels)
-//        {
-//            ;
-//        }
+        // Environmental Options Screens
+
+
+    
         
         // Test Code
-        testCon.setupEnvOpts("Beach");
+        
         
 
         // ---------------------------------------------------------------------

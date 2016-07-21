@@ -23,38 +23,36 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import javafx.event.Event;
-import javafx.event.EventTarget;
-import javafx.event.EventType;
+
+import edu.gatech.pmase.capstone.awesome.objects.enums.*;
+
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ToggleGroup;
+import org.controlsfx.control.GridCell;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class TestEvent extends Event {
-    
-    public static final EventType<TestEvent> OPTION_SELECTED = new EventType<>(Event.ANY, "OPTION_SELECTED");
+public class EnvOptStatusCell extends GridCell<TerrainEffect> {
 
-    public TestEvent() {
-        this(OPTION_SELECTED);
-    }
+    ToggleGroup tg;
     
-    public TestEvent(EventType<? extends Event> eventType) {
-        super(eventType);
+    public  EnvOptStatusCell()
+    {
+        ; // could apply styles here
     }
 
-    public TestEvent(Object source, EventTarget target, EventType<? extends Event> eventType) {
-        super(source, target, eventType);
-    }
-    
-    
-    public TestEvent(Object source, EventTarget target) {
-        super(source, target, OPTION_SELECTED);
-    }
-    
     @Override
-    public EventType<? extends TestEvent> getEventType() {
-        return (EventType<? extends TestEvent>) super.getEventType();
+    public void updateItem(TerrainEffect te, boolean empty)
+    {
+        super.updateItem(te, empty);
+        if(te != null)
+        {
+            EnvOptStatusData eosd = new EnvOptStatusData(this.tg);
+            eosd.setInfo(te);
+            setGraphic(eosd.getBox());
+        }
     }
     
 }

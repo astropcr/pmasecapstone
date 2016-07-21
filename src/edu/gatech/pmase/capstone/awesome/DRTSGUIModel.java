@@ -163,12 +163,22 @@ public class DRTSGUIModel {
         this.eesCollectionNew.put(te.terrainLabel, eesToAdd);
     }
     
-    public void updateEesTooltip(TerrainEffect te, String toolip) {
-        this.eesCollectionNew.get(te.terrainLabel).setToolTip(toolip);
+    public void updateEesTooltip(TerrainEffect te, String toolTip) {
+        EnvironmentElementStatus eesTemp = this.eesCollectionNew.get(te.terrainLabel);
+        if(eesTemp != null) {
+            eesTemp.setToolTip(toolTip);
+        } else {
+            System.out.println("EES not found for tooltip update!");
+        }
     }
     
     public void updateEesStatus(TerrainEffect te, String weight) {
-        this.eesCollectionNew.get(te.terrainLabel).setEnvOptWeight(weight);
+        EnvironmentElementStatus eesTemp = this.eesCollectionNew.get(te.terrainLabel);
+        if(eesTemp != null) { 
+            eesTemp.setEnvOptWeight(weight);
+        } else {
+            System.out.println("EES not found for status update!");
+        }
     }
     
 

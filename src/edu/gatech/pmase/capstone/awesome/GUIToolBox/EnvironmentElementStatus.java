@@ -24,6 +24,7 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.DRTSGUIModel;
+import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -79,9 +80,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty toolTip;
     private final SimpleStringProperty envOptWeight;
     
-    private final SimpleStringProperty envOptName;      // VERY IMPORTANT: used by the controller to distinguish between different instances
-    
-    
     private EnvironmentOptionPanel eop;
     
     
@@ -113,15 +111,13 @@ public class EnvironmentElementStatus extends AnchorPane {
         this.environmentOptionPanel = new SimpleStringProperty("");
         this.toolTip                = new SimpleStringProperty("");
         this.envOptWeight           = new SimpleStringProperty("");
-        this.envOptName             = new SimpleStringProperty("");
         
         // bind the XML properties to the text properties
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
         ttDescription.textProperty().bind(toolTipProperty());
         lblEnvOptWeight.textProperty().bind(envOptWeight);
         
-        eop = null;
-        
+        eop = null;   
     }
     
     
@@ -160,35 +156,13 @@ public class EnvironmentElementStatus extends AnchorPane {
     
     
     /**
-     * This function will remove the unused buttons from the GUI and keep it from
-     * accidentally being included.  This should be 'future proof' from changing
-     * the number of buttons as longs as they're added to the ToggleGroup
+     * Connects the controller to the model back-end interfaces via the TerrainEffect
+     * enumeration.
      */
     public void connectToModel()
     {
-        DRTSGUIModel.getInstance().addEes(environmentOption.getValue(), this);
+        DRTSGUIModel.getInstance().addEes((TerrainEffect) this.getUserData(), this);
     }
-    
-    // -------------------------------------------------------------------------
-    // This stores an EOP node based on it's given name
-    // -------------------------------------------------------------------------
-    public void setTetheredEnvironmentOptionPanel(String eopName)
-    {
-        Scene scene = this.getScene();
-
-        try {
-            eop = (EnvironmentOptionPanel) scene.lookup("#"+eopName);
-        } catch (RuntimeException exception) {
-            System.out.println("The eop specific '" + eopName +"' was not found.");
-        }
-    }
-    
-    public void setTetheredEnvironmentOptionPanel(EnvironmentOptionPanel eopToAttach)
-    {
-        eop = eopToAttach;
-    }
-    
-    
     
     // -------------------------------------------------------------------------
     // This property sets the name on the button
@@ -260,15 +234,8 @@ public class EnvironmentElementStatus extends AnchorPane {
                 new EnvironmentOptionChangeEventHandler() {
                     public void handle(EnvironmentOptionChangeEvent event) {
                         updateStatusWindow(event);
-                    }
-                    
+                    }          
                 }
-        
-        
         );
-        
-//        this.connectToModel();
-        // check for empty options and remove them from view and make sure they're never selected
-    }     
-    
+    }
 }
