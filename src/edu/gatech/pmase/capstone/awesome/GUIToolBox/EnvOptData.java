@@ -24,13 +24,15 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class creates the set of UI controls that implement the environmental
@@ -41,6 +43,11 @@ import javafx.scene.control.ToggleGroup;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 class EnvOptData {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(EnvOptData.class);
 
     @FXML
     private HBox hBox;
@@ -69,7 +76,7 @@ class EnvOptData {
 
     @FXML
     public void handleToggleButton(ActionEvent event) {
-        System.out.println("The " + strData + " was selected.");
+        LOGGER.info("The " + strData + " was selected.");
     }
 
     public HBox getBox() {

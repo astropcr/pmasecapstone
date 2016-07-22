@@ -40,8 +40,6 @@ public class WeightOptCell extends ListCell<WeightingChoice> {
     public void updateItem(WeightingChoice wc, boolean empty) {
         super.updateItem(wc, empty);
         if (wc != null) {
-//            wc.setResult(wod.getSelection().value);
-
             WeightOptData wod = new WeightOptData();
             wod.setInfo(wc);
 

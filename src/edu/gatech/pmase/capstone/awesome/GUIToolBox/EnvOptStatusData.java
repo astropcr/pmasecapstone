@@ -30,12 +30,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 class EnvOptStatusData {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(EnvOptStatusData.class);
 
     @FXML
     private HBox hBox;
@@ -64,7 +71,7 @@ class EnvOptStatusData {
 
     @FXML
     public void handleToggleButton(ActionEvent event) {
-        System.out.println("The " + strData + " was selected.");
+        LOGGER.info("The " + strData + " was selected.");
     }
 
     public HBox getBox() {

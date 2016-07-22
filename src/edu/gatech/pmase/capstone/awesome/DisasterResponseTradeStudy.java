@@ -41,6 +41,11 @@ import org.apache.logging.log4j.Logger;
 public class DisasterResponseTradeStudy extends Application {
 
     /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
+
+    /**
      * These setup the windows that will be shown. This is inspired by the
      * ScreenController example found at the following site:
      * https://blogs.oracle.com/acaicedo/entry/managing_multiple_screens_in_javafx1
@@ -68,11 +73,6 @@ public class DisasterResponseTradeStudy extends Application {
     // Solution Creiteria Weighting Screens
     // None needed...generated automagically based on enumerations.
     //..........................................................................
-    /**
-     * Logger. Use to log all things
-     */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         LOGGER.info("Hello World!");

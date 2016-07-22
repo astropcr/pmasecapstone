@@ -24,12 +24,19 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import javafx.event.EventHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent> {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(ScreenSwitchEventHandler.class);
 
     ScreensController sc;
     String switchTargetScreen;
@@ -55,13 +62,13 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
 
     @Override
     public void handle(ScreenSwitchEvent event) {
-        System.out.println("ScreenSwitchEventHandler would like to say: " + msg);
-        //sc.setScreen(switchTargetScreen);
+        LOGGER.debug("ScreenSwitchEventHandler(event) would like to say: " + msg);
     }
 
     public void handle(ScreenSwitchEvent event, ScreensController sc, String switchTargetScreen) {
-        System.out.println("ScreenSwitchEventHandler would like to say: " + msg);
+        LOGGER.debug("ScreenSwitchEventHandler(event, ScreensController, String) would like to say: " + msg);
         sc.setScreen(switchTargetScreen);
+
     }
 
 }

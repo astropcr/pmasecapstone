@@ -23,13 +23,16 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
+import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
-import javafx.event.ActionEvent;
-import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class creates the set of UI controls that implement the environmental
@@ -40,6 +43,11 @@ import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class WeightOptData {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
 
     @FXML
     private HBox hBox;
@@ -71,7 +79,7 @@ public class WeightOptData {
 
     @FXML
     public void handleToggleButton(ActionEvent event) {
-        System.out.println("The " + strData + " was selected.");
+        LOGGER.info("The " + strData + " was selected.");
     }
 
     public HBox getBox() {

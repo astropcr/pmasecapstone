@@ -51,6 +51,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -58,6 +60,11 @@ import javafx.util.Duration;
  */
 public class ScreensController extends StackPane {
     //Holds the screens to be displayed
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(ScreensController.class);
 
     private HashMap<String, Node> screens = new HashMap<>();
 
@@ -87,7 +94,7 @@ public class ScreensController extends StackPane {
             addScreen(name, loadScreen);
             return myScreenControler;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOGGER.debug(e.getMessage());
             return null;
         }
     }
@@ -126,7 +133,7 @@ public class ScreensController extends StackPane {
             }
             return true;
         } else {
-            System.out.println("screen hasn't been loaded!!! \n");
+            LOGGER.debug("screen hasn't been loaded!!! \n");
             return false;
         }
 
@@ -150,7 +157,7 @@ public class ScreensController extends StackPane {
     //This method will remove the screen with the given name from the collection of screens
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
-            System.out.println("Screen didn't exist");
+            LOGGER.debug("Screen didn't exist");
             return false;
         } else {
             return true;

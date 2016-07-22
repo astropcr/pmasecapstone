@@ -31,6 +31,8 @@ import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This file is meant to keep the model that drives the GUI and allows all of
@@ -42,6 +44,11 @@ import javafx.scene.control.Label;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class DRTSGUIModel {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(DRTSGUIModel.class);
 
     private final static DRTSGUIModel instance = new DRTSGUIModel();
 
@@ -108,7 +115,7 @@ public class DRTSGUIModel {
         if (cbTemp != null) {
             cbTemp.setSelected(update);
         } else {
-            System.out.println("Weighting Area of Concern CheckBox not found update!");
+            LOGGER.debug("Weighting Area of Concern CheckBox not found update!");
         }
     }
 
@@ -121,8 +128,8 @@ public class DRTSGUIModel {
         Boolean determination = true;
 
         // .....................................................................
-        // The decision to use the CheckBox collection vs the 
-        // WeightingAreasOfConceren enumeration is predicated on the logic that 
+        // The decision to use the CheckBox collection vs the
+        // WeightingAreasOfConceren enumeration is predicated on the logic that
         // if the program fails to load a CheckBox collection, it's a logic
         // error on the part programmer and not necessarily the user (assuming
         // the user can defined the number of areas of concern). The validity of
@@ -131,7 +138,7 @@ public class DRTSGUIModel {
         // {@link updateWoccb} function does warn for null pointers to checkboxen.
         // .....................................................................
         // .....................................................................
-        // peforms the following operation more efficiently 
+        // peforms the following operation more efficiently
         //
         //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
         //      if (cb != null) { determination &= cb.isSelected(); }
@@ -159,7 +166,7 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setToolTip(toolTip);
         } else {
-            System.out.println("EES not found for tooltip update!");
+            LOGGER.debug("EES not found for tooltip update!");
         }
     }
 
@@ -168,7 +175,7 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
         } else {
-            System.out.println("EES not found for status update!");
+            LOGGER.debug("EES not found for status update!");
         }
     }
 }
