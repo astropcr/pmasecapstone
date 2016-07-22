@@ -110,7 +110,7 @@ public class DisasterResponseTradeStudy extends Application {
         //                  Disaster Effect Screen
         //......................................................................
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID,
-                DisasterResponseTradeStudy.screenEffectsFile);
+                                 DisasterResponseTradeStudy.screenEffectsFile);
 
         //......................................................................
         //          Environment Options/Factors Screens
@@ -119,9 +119,9 @@ public class DisasterResponseTradeStudy extends Application {
         for (String label : strTELabels) {
             ((EnvironmentOptionsController) (mainContainer
                                              .loadScreen(label,
-                                             classPath
-                                             + "EnvironmentOptions.fxml")))
-                    .setupEnvOpts(label);
+                                                         classPath
+                                                         + "EnvironmentOptions.fxml"))).
+                    setupEnvOpts(label);
         }
 
         //......................................................................
@@ -137,9 +137,9 @@ public class DisasterResponseTradeStudy extends Application {
         for (String label : strWCLabels) {
             ((WeightingOptionsController) (mainContainer
                                            .loadScreen(label,
-                                           classPath
-                                           + "WeightingOptions.fxml")))
-                    .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(
+                                                       classPath
+                                                       + "WeightingOptions.fxml"))).
+                    setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(
                             label));
         }
 

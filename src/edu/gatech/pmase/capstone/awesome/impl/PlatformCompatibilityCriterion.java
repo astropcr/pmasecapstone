@@ -38,7 +38,7 @@ public class PlatformCompatibilityCriterion implements IDisasterResponseFinalSel
     public boolean checkArchitectureResultRemovedByFilter(
             final DRTSArchitectureResult arch) {
         return Stream.concat(arch.getComms().getPlatformLimitations().stream(),
-                arch.getSensor().getPlatformLimitations().stream())
+                             arch.getSensor().getPlatformLimitations().stream())
                 .collect(Collectors.toList())
                 .stream()
                 .anyMatch(opt -> opt.getId() == arch.getPlatform().getId());

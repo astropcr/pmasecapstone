@@ -155,7 +155,7 @@ public enum TerrainEffect {
      *
      */
     WETNESS_3(7, "Wetness", 3,
-            "Terrain consists of extreme marsh-like conditions "),
+              "Terrain consists of extreme marsh-like conditions "),
     /**
      * Water Ways Options. - Terrain ID 8
      */
@@ -261,17 +261,17 @@ public enum TerrainEffect {
      *
      */
     PERSISTANCE_1(14, "Persistance", 1,
-            "Short duration persistence over/at disaster area"),
+                  "Short duration persistence over/at disaster area"),
     /**
      *
      */
     PERSISTANCE_2(14, "Persistance", 2,
-            "Medium duration persistence over/at disaster area"),
+                  "Medium duration persistence over/at disaster area"),
     /**
      *
      */
     PERSISTANCE_3(14, "Persistance", 3,
-            "Long duration persistence overhead/at disaster area");
+                  "Long duration persistence overhead/at disaster area");
 
     /**
      * ID of the Terrain Effect.

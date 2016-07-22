@@ -86,7 +86,9 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             optionAttr.stream().forEach((attr) -> {
                 final Double value = ComponentAHPOptimator.
                         normalizeAndPrioritizeValue(attr,
-                                attrMinAndMax.get(attr.getLabel()), priorityMap);
+                                                    attrMinAndMax.get(attr.
+                                                            getLabel()),
+                                                    priorityMap);
 
                 if (null != value) {
                     attr.setValue(value);

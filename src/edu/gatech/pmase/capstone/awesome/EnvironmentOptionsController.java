@@ -118,7 +118,7 @@ public class EnvironmentOptionsController implements ControlledScreen {
             // Update the status window
             DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
             DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(
-                    temp.codeNum));
+                                                       temp.codeNum));
 
             // Now switch the window
             this.goToMain(event);

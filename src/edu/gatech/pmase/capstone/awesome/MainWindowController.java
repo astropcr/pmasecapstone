@@ -109,11 +109,11 @@ public class MainWindowController implements Initializable,
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
 
         apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
-                new ScreenSwitchEventHandler() {
-            public void handle(ScreenSwitchEvent event) {
-                goToEnvironmentOptions(event);
-            }
-        ;
+                                     new ScreenSwitchEventHandler() {
+                                 public void handle(ScreenSwitchEvent event) {
+                                     goToEnvironmentOptions(event);
+                                 }
+                             ;
         });
 
         // ---------------------------------------------------------------------
@@ -234,11 +234,11 @@ public class MainWindowController implements Initializable,
         // Connect the Weighting Area check boxen controls to the model
         // ---------------------------------------------------------------------
         DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS,
-                cbWeightingsPlatformsComplete);
+                                             cbWeightingsPlatformsComplete);
         DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,
-                cbWeightingsCommunicationsComplete);
+                                             cbWeightingsCommunicationsComplete);
         DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,
-                cbWeightingsSensorsComplete);
+                                             cbWeightingsSensorsComplete);
     }
 
     /**

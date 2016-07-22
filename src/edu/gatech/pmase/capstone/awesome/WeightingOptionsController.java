@@ -250,7 +250,7 @@ public class WeightingOptionsController implements ControlledScreen {
 
             // Update the view
             DRTSGUIModel.getInstance().updateWoccb(weightingOpt,
-                    allQuestionsAnswered);
+                                                   allQuestionsAnswered);
 
             // Now switch the window
             this.goToMain(event);

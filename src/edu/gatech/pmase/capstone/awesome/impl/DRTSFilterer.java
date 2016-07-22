@@ -52,7 +52,7 @@ public class DRTSFilterer implements IDisasterResponseTradeStudyFilterer {
             final List<TerrainEffect> selectedTerrainEffects,
             final List<PlatformOption> loadedPlatformOptions) {
         return filterOptions(selectedDisasterEffects, selectedTerrainEffects,
-                loadedPlatformOptions);
+                             loadedPlatformOptions);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class DRTSFilterer implements IDisasterResponseTradeStudyFilterer {
             List<TerrainEffect> selectedTerrainEffects,
             List<CommunicationOption> loadedCommOptions) {
         return filterOptions(selectedDisasterEffects, selectedTerrainEffects,
-                loadedCommOptions);
+                             loadedCommOptions);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DRTSFilterer implements IDisasterResponseTradeStudyFilterer {
             List<TerrainEffect> selectedTerrainEffects,
             List<SensorOption> loadedSensorOptions) {
         return filterOptions(selectedDisasterEffects, selectedTerrainEffects,
-                loadedSensorOptions);
+                             loadedSensorOptions);
     }
 
     /**
@@ -96,7 +96,7 @@ public class DRTSFilterer implements IDisasterResponseTradeStudyFilterer {
         for (final T loadedOption : loadedOptions) {
             if (testDisasterLimitations(loadedOption, selectedDisasterEffects)
                     || testTerrainLimitations(loadedOption,
-                            selectedTerrainEffects)) {
+                                              selectedTerrainEffects)) {
                 LOGGER.debug(
                         "Filtering out option: " + loadedOption.getLabel() + " of type: "
                         + loadedOption.getClass().getSimpleName());

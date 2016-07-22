@@ -121,7 +121,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     @FXML
     private void handleOptionButtonAction(ActionEvent event) {
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(
-                ScreenSwitchEvent.SCREEN_SELECTED));
+                        ScreenSwitchEvent.SCREEN_SELECTED));
     }
 
     // -------------------------------------------------------------------------
@@ -144,7 +144,7 @@ public class EnvironmentElementStatus extends AnchorPane {
      */
     public void connectToModel() {
         DRTSGUIModel.getInstance().addEes((TerrainEffect) this.getUserData(),
-                this);
+                                          this);
     }
 
     // -------------------------------------------------------------------------

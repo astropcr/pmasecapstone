@@ -127,7 +127,7 @@ public class DisasterResponseTradeStudyIT {
 
         final List<CommunicationOption> filteredComms = filterer.
                 filterCommunications(selectedDisasterEffects,
-                        selectedTerrainEffects, loadedCommOptions);
+                                     selectedTerrainEffects, loadedCommOptions);
         assertEquals(filteredComms.size(), 5);
 
         final List<SensorOption> filteredSensors = filterer.filterSensors(
@@ -147,8 +147,9 @@ public class DisasterResponseTradeStudyIT {
         final IDisasterResponseTradeStudyOptimator optimator = new AHPOptimator();
         final List<DRTSArchitectureResult> results = optimator.
                 generateOptimizedArchitectures(filteredPlatforms,
-                        filteredSensors, filteredComms, platformPriorities,
-                        sensorPriorities, commPriorities);
+                                               filteredSensors, filteredComms,
+                                               platformPriorities,
+                                               sensorPriorities, commPriorities);
         assertEquals(results.size(), 160);
 
         // sanity check
@@ -166,7 +167,8 @@ public class DisasterResponseTradeStudyIT {
         final DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
         try {
             LOGGER.debug(instance.createOutputFile(finalResults,
-                    selectedDisasterEffects, selectedTerrainEffects));
+                                                   selectedDisasterEffects,
+                                                   selectedTerrainEffects));
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Cannot write results out.", ex);
         }
@@ -195,7 +197,7 @@ public class DisasterResponseTradeStudyIT {
         }
 
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
-                priAttrs);
+                                                                     priAttrs);
     }
 
     /**
@@ -221,7 +223,7 @@ public class DisasterResponseTradeStudyIT {
         }
 
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
-                priAttrs);
+                                                                     priAttrs);
     }
 
     /**
@@ -247,7 +249,7 @@ public class DisasterResponseTradeStudyIT {
         }
 
         return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
-                priAttrs);
+                                                                     priAttrs);
     }
 
 }

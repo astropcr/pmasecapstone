@@ -71,11 +71,11 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
         // sort options based on prioritization
         final ComponentAHPOptimator compOptimator = new ComponentAHPOptimator();
         platformOptions = compOptimator.generateOptimizedOption(platformOptions,
-                platformPrioritizes);
+                                                                platformPrioritizes);
         sensorOptions = compOptimator.generateOptimizedOption(sensorOptions,
-                sensorPrioritizes);
+                                                              sensorPrioritizes);
         commOptions = compOptimator.generateOptimizedOption(commOptions,
-                commPrioritizes);
+                                                            commPrioritizes);
 
         LOGGER.info(
                 "Creating architecture combinations from: " + platformOptions.
@@ -88,8 +88,11 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
                 .filter(list -> list.size() == NUMBER_OF_COMPONENTS)
                 .map(list -> new DRTSArchitectureResult((PlatformOption) list.
                         get(PLAT_INDEX),
-                        (SensorOption) list.get(SENSOR_INDEX),
-                        (CommunicationOption) list.get(COMM_INDEX))).sorted().
+                                                        (SensorOption) list.get(
+                                                                SENSOR_INDEX),
+                                                        (CommunicationOption) list.
+                                                        get(COMM_INDEX))).
+                sorted().
                 collect(Collectors.toList());
 
         LOGGER.debug(

@@ -240,7 +240,8 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
         if (null != cell && cell.getCellType() != Cell.CELL_TYPE_BLANK) {
             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                 final String[] split = cell.getStringCellValue().replaceAll(" ",
-                        "").split(LIST_STRING_SPLIT_REGEX);
+                                                                            "").
+                        split(LIST_STRING_SPLIT_REGEX);
                 // check if single value
                 if (null != split && split.length > 0) {
                     result = Arrays.asList(split).stream().map(

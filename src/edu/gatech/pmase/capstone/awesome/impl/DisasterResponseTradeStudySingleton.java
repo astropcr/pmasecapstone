@@ -192,7 +192,7 @@ public class DisasterResponseTradeStudySingleton {
                 loadedPlatformOptions);
         final List<CommunicationOption> filteredComms = filterer.
                 filterCommunications(selectedDisasterEffects,
-                        selectedTerrainEffects, loadedCommOptions);
+                                     selectedTerrainEffects, loadedCommOptions);
         final List<SensorOption> filteredSensors = filterer.filterSensors(
                 selectedDisasterEffects, selectedTerrainEffects,
                 loadedSensorOptions);
@@ -200,23 +200,27 @@ public class DisasterResponseTradeStudySingleton {
         // get priorities from user input
         final List<ArchitectureOptionAttribute> commPriorities = PrioritizationUtil.
                 getPriorityWeightingsForAttributes(commWeightingChoice,
-                        DisasterResponseTradeStudySingleton.
-                        getPrioritizationAttributess(filteredComms));
+                                                   DisasterResponseTradeStudySingleton.
+                                                   getPrioritizationAttributess(
+                                                           filteredComms));
         final List<ArchitectureOptionAttribute> sensorPriorities = PrioritizationUtil.
                 getPriorityWeightingsForAttributes(sensorWeightingChoice,
-                        DisasterResponseTradeStudySingleton.
-                        getPrioritizationAttributess(filteredSensors));
+                                                   DisasterResponseTradeStudySingleton.
+                                                   getPrioritizationAttributess(
+                                                           filteredSensors));
         final List<ArchitectureOptionAttribute> platformPriorities = PrioritizationUtil.
                 getPriorityWeightingsForAttributes(platformWeightingChoice,
-                        DisasterResponseTradeStudySingleton.
-                        getPrioritizationAttributess(filteredPlatforms));
+                                                   DisasterResponseTradeStudySingleton.
+                                                   getPrioritizationAttributess(
+                                                           filteredPlatforms));
 
         // optimate
         final IDisasterResponseTradeStudyOptimator optimator = new AHPOptimator();
         final List<DRTSArchitectureResult> results = optimator.
                 generateOptimizedArchitectures(filteredPlatforms,
-                        filteredSensors, filteredComms, platformPriorities,
-                        sensorPriorities, commPriorities);
+                                               filteredSensors, filteredComms,
+                                               platformPriorities,
+                                               sensorPriorities, commPriorities);
 
         // sanity check
         final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
@@ -233,7 +237,8 @@ public class DisasterResponseTradeStudySingleton {
         String fileName = "";
         try {
             final Path resultFile = outputter.createOutputFile(finalResults,
-                    selectedDisasterEffects, selectedTerrainEffects);
+                                                               selectedDisasterEffects,
+                                                               selectedTerrainEffects);
             LOGGER.info("Architecture Results writen to file: " + resultFile.
                     toAbsolutePath());
             fileName = resultFile.getFileName().toString();

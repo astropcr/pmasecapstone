@@ -125,19 +125,19 @@ public class PrioritizationUtilTest {
         attrs.add(attr4);
 
         final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label,
-                0.2);
+                                                        0.2);
         final WeightingChoice op2 = new WeightingChoice(opt3Label, opt1Label,
-                0.2);
+                                                        0.2);
         final WeightingChoice op3 = new WeightingChoice(opt4Label, opt1Label,
-                1.0);
+                                                        1.0);
 
         final WeightingChoice op4 = new WeightingChoice(opt3Label, opt2Label,
-                0.1);
+                                                        0.1);
         final WeightingChoice op5 = new WeightingChoice(opt4Label, opt2Label,
-                0.2);
+                                                        0.2);
 
         final WeightingChoice op6 = new WeightingChoice(opt4Label, opt3Label,
-                5.0);
+                                                        5.0);
 
         final List<WeightingChoice> options = new ArrayList<>();
         options.addAll(Arrays.asList(op1, op2, op3, op4, op5, op6));

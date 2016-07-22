@@ -88,7 +88,7 @@ public class ComponentAHPOptimatorTest {
         List<ArchitectureOptionAttribute> prioritizes = PrioritizationUtil.
                 getPriorityWeightingsForAttributes(options, priAttrs);
         List<PlatformOption> result = instance.generateOptimizedOption(comms,
-                prioritizes);
+                                                                       prioritizes);
 
     }
 

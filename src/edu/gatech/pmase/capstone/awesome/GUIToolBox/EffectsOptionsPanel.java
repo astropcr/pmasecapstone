@@ -128,7 +128,7 @@ public class EffectsOptionsPanel extends AnchorPane {
         for (DisasterEffect de : DisasterEffect.values()) {
             if (!de.equals(DisasterEffect.UNKNOWN)) {
                 disasterEffects.add(new DisasterEffectCheckBoxData(de.label,
-                        false));
+                                                                   false));
             }
         }
     }

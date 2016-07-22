@@ -184,7 +184,7 @@ public class WeightingOptionQuestion extends AnchorPane {
         textOpt2.textProperty().bind(optionTwoProperty());
 
         this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2,
-                text3);
+                                             text3);
 
         wc = null;
     }

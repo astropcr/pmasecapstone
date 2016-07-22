@@ -223,23 +223,23 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
 
             // create disaster effect table
             this.createSelectedDisasterTable(selectedDisasterEffects, tables.
-                    get(SELECTED_DISASTER_TABLE_INDEX));
+                                             get(SELECTED_DISASTER_TABLE_INDEX));
 
             // create selected terrain table
             this.createSelectedTerrainTable(selectedTerrainEffects, tables.get(
-                    SELECTED_TERRAIN_TABLE_INDEX));
+                                            SELECTED_TERRAIN_TABLE_INDEX));
 
             // create platform weightings table
             this.createOptionWeightingTable(result.getPlatform(), tables.get(
-                    PLATFORM_WEIGHTING_TABLE_INDEX));
+                                            PLATFORM_WEIGHTING_TABLE_INDEX));
 
             // create comm weighting table
             this.createOptionWeightingTable(result.getComms(), tables.get(
-                    COMM_WEIGHTING_TABLE_INDEX));
+                                            COMM_WEIGHTING_TABLE_INDEX));
 
             // create sensor weighting table
             this.createOptionWeightingTable(result.getSensor(), tables.get(
-                    SENSOR_WEIGHTING_TABLE_INDEX));
+                                            SENSOR_WEIGHTING_TABLE_INDEX));
 
             // create details
             this.createReportDetails(xdoc);
@@ -269,7 +269,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell platDetails = table.getRow(1).getCell(2);
         platDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(platDetails, result.
-                getPlatform().getPrioritizationAttributess());
+                                                    getPlatform().
+                                                    getPrioritizationAttributess());
 
         final XWPFTableCell commLabel = table.getRow(2).getCell(0);
         commLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
@@ -278,7 +279,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell commDetails = table.getRow(2).getCell(2);
         commDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(commDetails, result.
-                getComms().getPrioritizationAttributess());
+                                                    getComms().
+                                                    getPrioritizationAttributess());
 
         final XWPFTableCell sensorLabel = table.getRow(3).getCell(0);
         sensorLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
@@ -287,7 +289,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell sensorDetails = table.getRow(3).getCell(2);
         sensorDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(sensorDetails, result.
-                getSensor().getPrioritizationAttributess());
+                                                    getSensor().
+                                                    getPrioritizationAttributess());
     }
 
     /**
