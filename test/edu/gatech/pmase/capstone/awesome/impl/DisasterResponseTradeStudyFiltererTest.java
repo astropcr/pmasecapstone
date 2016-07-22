@@ -40,12 +40,6 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * IT test of Filterer and DB Driver.
@@ -55,7 +49,8 @@ public class DisasterResponseTradeStudyFiltererTest {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyFiltererTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudyFiltererTest.class);
 
     /**
      * System Under Test.
@@ -65,8 +60,10 @@ public class DisasterResponseTradeStudyFiltererTest {
     /**
      * Test user inputs.
      */
-    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(4);
-    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(4);
+    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(
+            4);
+    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(
+            4);
     private static final List<PlatformOption> loadedPlatformOptions = new ArrayList<>();
     private static final List<CommunicationOption> loadedCommOptions = new ArrayList<>();
     private static final List<SensorOption> loadedSensorOptions = new ArrayList<>();
@@ -78,17 +75,22 @@ public class DisasterResponseTradeStudyFiltererTest {
     public static void setUp() {
         // get platforms
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();
-        loadedPlatformOptions.addAll(platformDb.getPlatformOptionsFromDatabase());
-        LOGGER.debug("Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
+        loadedPlatformOptions.
+                addAll(platformDb.getPlatformOptionsFromDatabase());
+        LOGGER.debug(
+                "Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
 
         // get comms
         final CommunicationsDatabaseDriver commDb = new CommunicationsDatabaseDriver();
-        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(loadedPlatformOptions));
-        LOGGER.debug("Loaded " + loadedCommOptions.size() + " CommunicationOption");
+        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(
+                loadedPlatformOptions));
+        LOGGER.debug(
+                "Loaded " + loadedCommOptions.size() + " CommunicationOption");
 
         // get sensors
         final SensorsDatabaseDriver sensorDb = new SensorsDatabaseDriver();
-        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(loadedPlatformOptions));
+        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(
+                loadedPlatformOptions));
         LOGGER.debug("Loaded " + loadedSensorOptions.size() + " SensorOption");
     }
 
@@ -117,7 +119,9 @@ public class DisasterResponseTradeStudyFiltererTest {
         selectedTerrainEffects.add(TerrainEffect.ELEVATION_3);  // ID 1
         selectedTerrainEffects.add(TerrainEffect.URBANIZATION_4);   // ID 12
 
-        final List<PlatformOption> results = instance.filterPlatforms(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
+        final List<PlatformOption> results = instance.filterPlatforms(
+                selectedDisasterEffects, selectedTerrainEffects,
+                loadedPlatformOptions);
         assertEquals(4, results.size());
 
         // test Ids
@@ -146,7 +150,8 @@ public class DisasterResponseTradeStudyFiltererTest {
         selectedTerrainEffects.add(TerrainEffect.RANGE_2); // ID 13
         selectedTerrainEffects.add(TerrainEffect.SLOPE_3); // ID 2
 
-        final List<CommunicationOption> results = instance.filterCommunications(selectedDisasterEffects,
+        final List<CommunicationOption> results = instance.filterCommunications(
+                selectedDisasterEffects,
                 selectedTerrainEffects, loadedCommOptions);
         assertEquals(2, results.size());
 
@@ -174,7 +179,9 @@ public class DisasterResponseTradeStudyFiltererTest {
         selectedTerrainEffects.add(TerrainEffect.PERSISTANCE_3); // ID 14
         selectedTerrainEffects.add(TerrainEffect.BRIDGES_1); // ID 5 -- shouldnt do anything
 
-        final List<SensorOption> results = instance.filterSensors(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
+        final List<SensorOption> results = instance.filterSensors(
+                selectedDisasterEffects, selectedTerrainEffects,
+                loadedSensorOptions);
         assertEquals(3, results.size());
 
         for (final SensorOption result : results) {

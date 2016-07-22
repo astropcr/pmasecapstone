@@ -60,9 +60,9 @@ public class EnvironmentElementStatus extends AnchorPane {
     private Tooltip ttDescription;
 
     // -------------------------------------------------------------------------
-    // These expose the controls that contain the questions and the related 
+    // These expose the controls that contain the questions and the related
     // user preferences
-    // -------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------
     // None needed
     // -------------------------------------------------------------------------
     // These values control what the user selection 'is'.  It should be mapped
@@ -84,12 +84,13 @@ public class EnvironmentElementStatus extends AnchorPane {
     public EnvironmentElementStatus() {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EnvironmentElementStatus.fxml"));
+                getClass().getResource(
+                        "/edu/gatech/pmase/capstone/awesome/GUIToolBox/EnvironmentElementStatus.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
-        // do not remove the following line if you're working with Scene Builder 2.0.  
+        // do not remove the following line if you're working with Scene Builder 2.0.
         // This fixes a known bug.
         // See http://stackoverflow.com/questions/24016229/cant-import-custom-components-with-custom-cell-factories
         fxmlLoader.setClassLoader(getClass().getClassLoader());
@@ -119,7 +120,8 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     @FXML
     private void handleOptionButtonAction(ActionEvent event) {
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(ScreenSwitchEvent.SCREEN_SELECTED));
+        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent(
+                ScreenSwitchEvent.SCREEN_SELECTED));
     }
 
     // -------------------------------------------------------------------------
@@ -141,13 +143,13 @@ public class EnvironmentElementStatus extends AnchorPane {
      * TerrainEffect enumeration.
      */
     public void connectToModel() {
-        DRTSGUIModel.getInstance().addEes((TerrainEffect) this.getUserData(), this);
+        DRTSGUIModel.getInstance().addEes((TerrainEffect) this.getUserData(),
+                this);
     }
 
     // -------------------------------------------------------------------------
     // This property sets the name on the button
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return
@@ -176,7 +178,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     // This property informs this controller of related Envrionment Option
     // Panel that it will open and bind to.
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return
@@ -204,7 +205,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     // This property informs this controller of the text needed for the tooltip.
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return
@@ -233,7 +233,6 @@ public class EnvironmentElementStatus extends AnchorPane {
     // This property informs this controller of the text needed for the
     // environment option weight.
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return

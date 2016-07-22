@@ -62,7 +62,8 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(AbstractDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            AbstractDatabaseDriver.class);
 
     /**
      * Column number for label attribute in custom column description.
@@ -114,18 +115,23 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * the value.
      *
      * @param row the row to read from
+     *
      * @return the created ArchitectureOptionAttribute
+     *
      * @throws ClassNotFoundException if cannot load the class needed.
      */
-    private static ArchitectureOptionAttribute getAttributeDescriptionFromRow(final Row row)
+    private static ArchitectureOptionAttribute getAttributeDescriptionFromRow(
+            final Row row)
             throws ClassNotFoundException {
         final ArchitectureOptionAttribute attr = new ArchitectureOptionAttribute();
 
         attr.setLabel(row.getCell(CUSTOM_LABEL_COL_NUM).getStringCellValue());
         attr.setColNum((int) row.getCell(COL_NUM_COL_NUM).getNumericCellValue());
         attr.setUnits(row.getCell(UNITS_COL_NUM).getStringCellValue());
-        attr.setSorting(SortOrderEnum.valueOf((row.getCell(SORTING_COL_NUM).getStringCellValue())));
-        attr.setType(Class.forName(row.getCell(TYPE_COL_NUM).getStringCellValue()));
+        attr.setSorting(SortOrderEnum.valueOf((row.getCell(SORTING_COL_NUM).
+                                               getStringCellValue())));
+        attr.setType(Class.forName(row.getCell(TYPE_COL_NUM).
+                getStringCellValue()));
 
         LOGGER.debug("Loaded custom attribute with name: " + attr.getLabel());
 
@@ -136,6 +142,7 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Creates a option from a row.
      *
      * @param row the row to transform
+     *
      * @return the created option, or null if cannot read the row.
      */
     protected abstract T getOptionFromRow(final Row row);
@@ -145,6 +152,7 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * directory specified in the project properties file.
      *
      * @param workbookName the file name of the workbook to load
+     *
      * @return the loaded workbook, or null if cannot load
      */
     protected List<T> loadOptionsFromDatabase(final String workbookName) {
@@ -154,22 +162,28 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
             LOGGER.debug("Reading options from filename: " + workbookName);
 
             final Path path = Paths.get(
-                    DisasterResponseTradeStudyPropertiesSingleton.getInstance().getWorkbookDirectory(), workbookName);
+                    DisasterResponseTradeStudyPropertiesSingleton.getInstance().
+                    getWorkbookDirectory(), workbookName);
             LOGGER.debug("Testing Workbok at " + path.toAbsolutePath());
             final File workbookFile = path.toFile();
 
-            if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.canRead()) {
+            if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.
+                    canRead()) {
                 LOGGER.debug("Loading Workbok at " + path.toAbsolutePath());
-                try (final Workbook workbook = WorkbookFactory.create(workbookFile)) {
+                try (final Workbook workbook = WorkbookFactory.create(
+                        workbookFile)) {
                     this.setCustomAttributes(workbook);
 
                     // get options from workbook
                     options.addAll(this.readOptionsFromWorkbook(workbook));
                 } catch (IOException | InvalidFormatException | EncryptedDocumentException ex) {
-                    LOGGER.error("Could not read Communication filename from properties.", ex);
+                    LOGGER.error(
+                            "Could not read Communication filename from properties.",
+                            ex);
                 }
             } else {
-                LOGGER.error("Unable to load Platform workbook with filename: " + workbookName);
+                LOGGER.error(
+                        "Unable to load Platform workbook with filename: " + workbookName);
             }
         } else {
             LOGGER.error("Could not read platform filename from properties.");
@@ -189,7 +203,9 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
 
         final Sheet customSheet = wb.getSheetAt(CUSTOM_ATTR_SHEET_NUM);
         if (null != customSheet) {
-            LOGGER.debug("Custom attribute list stored in sheet: " + customSheet.getSheetName());
+            LOGGER.debug(
+                    "Custom attribute list stored in sheet: " + customSheet.
+                    getSheetName());
 
             final int maxRows = customSheet.getPhysicalNumberOfRows();
             if (maxRows > 1) {
@@ -197,9 +213,12 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
                     final Row row = customSheet.getRow(rowIter);
                     if (null != row) {
                         try {
-                            customAttributes.add(AbstractDatabaseDriver.getAttributeDescriptionFromRow(row));
+                            customAttributes.add(AbstractDatabaseDriver.
+                                    getAttributeDescriptionFromRow(row));
                         } catch (ClassNotFoundException ex) {
-                            LOGGER.error("Could not load custom attribute for row: " + row.getRowNum(), ex);
+                            LOGGER.error(
+                                    "Could not load custom attribute for row: " + row.
+                                    getRowNum(), ex);
                         }
                     }
                 }
@@ -213,18 +232,24 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Reads in a List of IDs contained within a Cell.
      *
      * @param cell the Cell to read from
+     *
      * @return a List of ID's contained within the given Cell.
      */
     protected List<Long> getListFromCell(final Cell cell) {
         List<Long> result = new ArrayList<>(1);
         if (null != cell && cell.getCellType() != Cell.CELL_TYPE_BLANK) {
             if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
-                final String[] split = cell.getStringCellValue().replaceAll(" ", "").split(LIST_STRING_SPLIT_REGEX);
+                final String[] split = cell.getStringCellValue().replaceAll(" ",
+                        "").split(LIST_STRING_SPLIT_REGEX);
                 // check if single value
                 if (null != split && split.length > 0) {
-                    result = Arrays.asList(split).stream().map((String str) -> Long.parseLong(str)).collect(Collectors.toList());
+                    result = Arrays.asList(split).stream().map(
+                            (String str) -> Long.parseLong(str)).collect(
+                                    Collectors.toList());
                 } else {
-                    LOGGER.error("Invalid List of values found in DB in cell: [" + cell.getRowIndex() + "," + cell.getColumnIndex() + "]");
+                    LOGGER.error(
+                            "Invalid List of values found in DB in cell: [" + cell.
+                            getRowIndex() + "," + cell.getColumnIndex() + "]");
                 }
             } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                 result.add((long) cell.getNumericCellValue());
@@ -236,22 +261,28 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
     /**
      * Reads in the TerrainEffect list from a given Cell.
      *
-     * @param cell the cell to read from
+     * @param cell           the cell to read from
      * @param terrainCodeNum the terrain code of the given column for the Cell.
+     *
      * @return A List of TerrainEffects specified in the given Cell
      */
-    protected List<TerrainEffect> getTerrainEffectsFromCell(final Cell cell, final int terrainCodeNum) {
+    protected List<TerrainEffect> getTerrainEffectsFromCell(final Cell cell,
+                                                            final int terrainCodeNum) {
         final List<TerrainEffect> effects = new ArrayList<>();
         for (final Long terrainId : this.getListFromCell(cell)) {
-            final TerrainEffect effect = TerrainEffect.getEffectByIdAndCode(terrainId.intValue(), terrainCodeNum);
+            final TerrainEffect effect = TerrainEffect.getEffectByIdAndCode(
+                    terrainId.intValue(), terrainCodeNum);
             if (TerrainEffect.UNKNOWN == effect) {
-                LOGGER.error("Unknown TerrainEffect with id: " + terrainId + " and code: " + terrainCodeNum
-                        + " found in DB for cell: [" + cell.getRowIndex() + "," + cell.getColumnIndex() + "]");
+                LOGGER.error(
+                        "Unknown TerrainEffect with id: " + terrainId + " and code: " + terrainCodeNum
+                        + " found in DB for cell: [" + cell.getRowIndex() + "," + cell.
+                        getColumnIndex() + "]");
             } else {
                 effects.add(effect);
             }
         }
-        LOGGER.debug("Found " + effects.size() + " Terrian Effect Restrictions with code num: " + terrainCodeNum);
+        LOGGER.debug(
+                "Found " + effects.size() + " Terrian Effect Restrictions with code num: " + terrainCodeNum);
         return effects;
     }
 
@@ -259,9 +290,11 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Load the DisasterEffects listed in the given Cell.
      *
      * @param cell the Cell to read DisasterEffects from
+     *
      * @return a List of DisasterEffects contained in the given Cell
      */
-    protected List<DisasterEffect> getDisasterEffectRestrictFromCell(final Cell cell) {
+    protected List<DisasterEffect> getDisasterEffectRestrictFromCell(
+            final Cell cell) {
         final List<DisasterEffect> effects = new ArrayList<>();
         for (final Long effectId : this.getListFromCell(cell)) {
             effects.add(DisasterEffect.getEffectById(effectId.intValue()));
@@ -274,18 +307,21 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
     /**
      * Reads a list of Platforms from the given Cell.
      *
-     * @param cell the Cell to read the Platform list from.
+     * @param cell            the Cell to read the Platform list from.
      * @param platformOptions list of available PlatformOptions
+     *
      * @return a List of PlatformOptions specified in the given Cell.
      */
-    protected List<PlatformOption> getPlatFormRestrictFromCell(final Cell cell, final Map<Long, PlatformOption> platformOptions) {
+    protected List<PlatformOption> getPlatFormRestrictFromCell(final Cell cell,
+                                                               final Map<Long, PlatformOption> platformOptions) {
         final List<PlatformOption> platList = new ArrayList<>();
         for (final Long platId : this.getListFromCell(cell)) {
             final PlatformOption plat = platformOptions.get(platId);
             if (null != plat) {
                 platList.add(plat);
             } else {
-                LOGGER.warn("Could not find Platform with id: " + platId + " in DB.");
+                LOGGER.warn(
+                        "Could not find Platform with id: " + platId + " in DB.");
             }
         }
         LOGGER.debug("Found " + platList.size() + " platform restrictions.");
@@ -296,16 +332,20 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Gets the custom attributes from the given row.
      *
      * @param row the row to read from
+     *
      * @return the list of gathered custom attributes.
      */
-    protected List<ArchitectureOptionAttribute> getCustomAttributes(final Row row) {
-        final List<ArchitectureOptionAttribute> attrList = new ArrayList<>(customAttributes.size());
+    protected List<ArchitectureOptionAttribute> getCustomAttributes(
+            final Row row) {
+        final List<ArchitectureOptionAttribute> attrList = new ArrayList<>(
+                customAttributes.size());
         final StringBuilder attrLabels = new StringBuilder();
 
         for (final ArchitectureOptionAttribute attr : customAttributes) {
             final Cell cell = row.getCell(attr.getColNum());
             try {
-                final ArchitectureOptionAttribute cpy = new ArchitectureOptionAttribute(attr);
+                final ArchitectureOptionAttribute cpy = new ArchitectureOptionAttribute(
+                        attr);
 
                 if (cpy.getType().equals(String.class)) {
                     cpy.setValue(cell.getStringCellValue());
@@ -314,7 +354,9 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
                     cpy.setValue(cell.getNumericCellValue());
                     cpy.setOriginalValue(cell.getNumericCellValue());
                 } else {
-                    LOGGER.warn("Unable to read custom attributes for row: " + row.getRowNum()
+                    LOGGER.warn(
+                            "Unable to read custom attributes for row: " + row.
+                            getRowNum()
                             + ". Unknown cell type: " + cpy.getType().getName());
                 }
 
@@ -327,11 +369,14 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
                 }
                 attrLabels.append(cpy.getLabel());
             } catch (ClassNotFoundException ex) {
-                LOGGER.warn("Unable to read custom attributes for row: " + row.getRowNum(), ex);
+                LOGGER.warn("Unable to read custom attributes for row: " + row.
+                        getRowNum(), ex);
             }
         }
 
-        LOGGER.debug("Read " + attrList.size() + " custom attributes for row: " + row.getRowNum() + attrLabels.toString());
+        LOGGER.debug(
+                "Read " + attrList.size() + " custom attributes for row: " + row.
+                getRowNum() + attrLabels.toString());
         return attrList;
     }
 
@@ -339,6 +384,7 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
      * Reads the options from the workbook.
      *
      * @param workbook the workbook to read from
+     *
      * @return the List of options in the workbook
      */
     private List<T> readOptionsFromWorkbook(final Workbook workbook) {
@@ -357,14 +403,16 @@ public abstract class AbstractDatabaseDriver<T extends AbstractArchitectureOptio
                     if (null != opt) {
                         options.add(opt);
                     } else {
-                        LOGGER.trace("Could not make option from row " + rowIter);
+                        LOGGER.
+                                trace("Could not make option from row " + rowIter);
                     }
                 } else {
                     LOGGER.debug("Loaded Invalid Row: " + rowIter);
                 }
             }
         } else {
-            LOGGER.error("Database does not have the expected number of rows. Must have more than one row.");
+            LOGGER.error(
+                    "Database does not have the expected number of rows. Must have more than one row.");
         }
 
         return options;

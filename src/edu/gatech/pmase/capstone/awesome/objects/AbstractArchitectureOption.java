@@ -73,7 +73,8 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
     /**
      * List of custom attributes.
      */
-    private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(0);
+    private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(
+            0);
 
     /**
      * Base Prioritization Attributes.
@@ -155,7 +156,7 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
      * Sets the list of Terrain Limitations for the architecture option.
      *
      * @param terrainLimitation the list of Terrain Limitations for the
-     * architecture option.
+     *                          architecture option.
      */
     public void setTerrainLimitation(List<TerrainEffect> terrainLimitation) {
         this.terrainLimitation = terrainLimitation;
@@ -174,7 +175,7 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
      * Sets the disaster limitations for the architecture option.
      *
      * @param disasterLimitations the disaster limitations for the architecture
-     * option.
+     *                            option.
      */
     public void setDisasterLimitations(List<DisasterEffect> disasterLimitations) {
         this.disasterLimitations = disasterLimitations;
@@ -193,9 +194,10 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
      * Sets a list of custom attributes as defined in the database.
      *
      * @param customAttributes a list of custom attributes as defined in the
-     * database.
+     *                         database.
      */
-    public void setCustomAttributes(List<ArchitectureOptionAttribute> customAttributes) {
+    public void setCustomAttributes(
+            List<ArchitectureOptionAttribute> customAttributes) {
         this.customAttributes = customAttributes;
     }
 

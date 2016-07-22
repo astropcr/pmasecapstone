@@ -43,7 +43,8 @@ public class DisasterResponseTradeStudy extends Application {
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudy.class);
 
     /**
      * These setup the windows that will be shown. This is inspired by the
@@ -56,7 +57,6 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     // Main Screen
     //..........................................................................
-
     /**
      *
      */
@@ -70,7 +70,6 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     // Disaster Effects Screens
     //..........................................................................
-
     /**
      *
      */
@@ -102,8 +101,9 @@ public class DisasterResponseTradeStudy extends Application {
         //......................................................................
         //                         Main Screen
         //......................................................................
-        ((MainWindowController) mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID,
-                DisasterResponseTradeStudy.screenMainFile))
+        ((MainWindowController) mainContainer.loadScreen(
+         DisasterResponseTradeStudy.screenMainID,
+         DisasterResponseTradeStudy.screenMainFile))
                 .connectToModel();
 
         //......................................................................
@@ -118,9 +118,9 @@ public class DisasterResponseTradeStudy extends Application {
         Set<String> strTELabels = TerrainEffect.getEffectLabels();
         for (String label : strTELabels) {
             ((EnvironmentOptionsController) (mainContainer
-                    .loadScreen(label,
-                            classPath
-                            + "EnvironmentOptions.fxml")))
+                                             .loadScreen(label,
+                                             classPath
+                                             + "EnvironmentOptions.fxml")))
                     .setupEnvOpts(label);
         }
 
@@ -136,10 +136,11 @@ public class DisasterResponseTradeStudy extends Application {
 
         for (String label : strWCLabels) {
             ((WeightingOptionsController) (mainContainer
-                    .loadScreen(label,
-                            classPath
-                            + "WeightingOptions.fxml")))
-                    .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(label));
+                                           .loadScreen(label,
+                                           classPath
+                                           + "WeightingOptions.fxml")))
+                    .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(
+                            label));
         }
 
         // ---------------------------------------------------------------------
@@ -157,7 +158,8 @@ public class DisasterResponseTradeStudy extends Application {
 
         primaryStage.getIcons().add(
                 new Image(
-                        DisasterResponseTradeStudy.class.getResourceAsStream("icon.png")));
+                        DisasterResponseTradeStudy.class.getResourceAsStream(
+                                "icon.png")));
 
         primaryStage.show();
 

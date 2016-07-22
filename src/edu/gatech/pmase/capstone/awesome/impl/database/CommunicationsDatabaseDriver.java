@@ -44,7 +44,8 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(CommunicationsDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            CommunicationsDatabaseDriver.class);
 
     /**
      * Workbook cell numbers to load from.
@@ -70,11 +71,13 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
      * database.
      *
      * @param inPlatformOptions list of PlatformOptions. Must be generated
-     * before creating listing Communications options due to the Platform
-     * restrictions.
+     *                          before creating listing Communications options
+     *                          due to the Platform restrictions.
+     *
      * @return a List of CommunicationOption in the database.
      */
-    public List<CommunicationOption> getCommOptionsFromDatabase(final List<PlatformOption> inPlatformOptions) {
+    public List<CommunicationOption> getCommOptionsFromDatabase(
+            final List<PlatformOption> inPlatformOptions) {
         LOGGER.info("Reading CommunicationOption from database.");
 
         // map platforms
@@ -82,7 +85,8 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
 
         // get options
         return this.loadOptionsFromDatabase(
-                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getCommWorkbookFileName());
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().
+                getCommWorkbookFileName());
     }
 
     @Override
@@ -96,7 +100,8 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
         final Cell weightCell = row.getCell(WEIGHT_CELL_NUM);
 
         if (null == idCell || null == labelCell || null == costRankCell || null == weightCell) {
-            LOGGER.trace("Comm Database Row " + row.getRowNum() + " missing required CommunicationsOption information.");
+            LOGGER.trace(
+                    "Comm Database Row " + row.getRowNum() + " missing required CommunicationsOption information.");
         } else {
             option = new CommunicationOption();
             final long idNum = (long) idCell.getNumericCellValue();
@@ -112,21 +117,29 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
 
             // load optional info
             // platform restrictions
-            option.setPlatformLimitations(this.getPlatFormRestrictFromCell(row.getCell(PLAT_RESTRICT_CELL_NUM), platformOptions));
+            option.setPlatformLimitations(this.getPlatFormRestrictFromCell(row.
+                    getCell(PLAT_RESTRICT_CELL_NUM), platformOptions));
 
             // terrain effects
             final List<TerrainEffect> terrainLimitation = new ArrayList<>();
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
 
-            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for CommunicationsOption");
+            LOGGER.debug(
+                    "Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for CommunicationsOption");
 
             option.setTerrainLimitation(terrainLimitation);
 
             // disaster effect restrictions
-            option.setDisasterLimitations(this.getDisasterEffectRestrictFromCell(row.getCell(DISASTER_EFFECT_RESTRICT_CELL_NUM)));
+            option.setDisasterLimitations(this.
+                    getDisasterEffectRestrictFromCell(row.getCell(
+                            DISASTER_EFFECT_RESTRICT_CELL_NUM)));
         }
 
         return option;
@@ -136,7 +149,7 @@ public class CommunicationsDatabaseDriver extends AbstractDatabaseDriver {
      * Creates mapping of platform options for use in lookup.
      *
      * @param inPlatformOptions passed in list of PlatformOption loaded from
-     * Platform DB.
+     *                          Platform DB.
      */
     private void mapPlatformOptions(final List<PlatformOption> inPlatformOptions) {
         inPlatformOptions.stream().forEach((option) -> {

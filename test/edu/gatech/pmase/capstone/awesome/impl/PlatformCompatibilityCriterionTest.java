@@ -102,7 +102,8 @@ public class PlatformCompatibilityCriterionTest {
 
         final PlatformCompatibilityCriterion instance = new PlatformCompatibilityCriterion();
         final boolean expResult = true;
-        final boolean result = instance.checkArchitectureResultRemovedByFilter(arch);
+        final boolean result = instance.checkArchitectureResultRemovedByFilter(
+                arch);
         assertEquals(expResult, result);
     }
 
@@ -124,7 +125,8 @@ public class PlatformCompatibilityCriterionTest {
 
         final PlatformCompatibilityCriterion instance = new PlatformCompatibilityCriterion();
         final boolean expResult = false;
-        final boolean result = instance.checkArchitectureResultRemovedByFilter(arch);
+        final boolean result = instance.checkArchitectureResultRemovedByFilter(
+                arch);
         assertEquals(expResult, result);
     }
 

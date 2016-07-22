@@ -64,16 +64,18 @@ public class DRTSArchitectureResult implements Comparable<DRTSArchitectureResult
      * Overloaded Constructor.
      *
      * @param platform the platform to use
-     * @param sensor the sensor to use
-     * @param comms the communications option to use.
+     * @param sensor   the sensor to use
+     * @param comms    the communications option to use.
      */
-    public DRTSArchitectureResult(final PlatformOption platform, final SensorOption sensor,
-            final CommunicationOption comms) {
+    public DRTSArchitectureResult(final PlatformOption platform,
+                                  final SensorOption sensor,
+                                  final CommunicationOption comms) {
         this.platform = platform;
         this.sensor = sensor;
         this.comms = comms;
 
-        this.totalScore = platform.getScore() + sensor.getScore() + comms.getScore();
+        this.totalScore = platform.getScore() + sensor.getScore() + comms.
+                getScore();
     }
 
     /**
@@ -150,7 +152,8 @@ public class DRTSArchitectureResult implements Comparable<DRTSArchitectureResult
 
     @Override
     public String toString() {
-        return "DRTSArchitectureResult{" + "platform=" + platform.getLabel() + ", sensor=" + sensor.getLabel()
+        return "DRTSArchitectureResult{" + "platform=" + platform.getLabel() + ", sensor=" + sensor.
+                getLabel()
                 + ", comms=" + comms.getLabel() + '}';
     }
 

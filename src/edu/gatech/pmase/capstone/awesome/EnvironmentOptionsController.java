@@ -88,7 +88,8 @@ public class EnvironmentOptionsController implements ControlledScreen {
         environmentOptions.setCellFactory(
                 new Callback<ListView<TerrainEffect>, ListCell<TerrainEffect>>() {
             @Override
-            public ListCell<TerrainEffect> call(ListView<TerrainEffect> environmentOptions) {
+            public ListCell<TerrainEffect> call(
+                    ListView<TerrainEffect> environmentOptions) {
                 return new EnvOptCell(tg);
             }
         });
@@ -109,12 +110,15 @@ public class EnvironmentOptionsController implements ControlledScreen {
     private void doneButtonClicked(ActionEvent event) {
         if (tg.getSelectedToggle() != null) {
             // Update the backend
-            TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().getUserData();
-            DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(temp);
+            TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().
+                    getUserData();
+            DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(
+                    temp);
 
             // Update the status window
             DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
-            DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(temp.codeNum));
+            DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(
+                    temp.codeNum));
 
             // Now switch the window
             this.goToMain(event);

@@ -51,7 +51,8 @@ public class WeightingOptionQuestion extends AnchorPane {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(WeightingOptionQuestion.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            WeightingOptionQuestion.class);
 
     // -------------------------------------------------------------------------
     // These expose the controls to the FXML Loader and are used for the user
@@ -76,8 +77,8 @@ public class WeightingOptionQuestion extends AnchorPane {
     // These values control what the user selection 'is'.  It should be mapped
     // to some kind of value systems such "Least", "Less", "Equal", "More", "Most"
     // -------------------------------------------------------------------------
-    // Values are controlled by the WeightingCatagories enumeration.  Ensure 
-    // that the order of the labels in the higher control match the layouts and 
+    // Values are controlled by the WeightingCatagories enumeration.  Ensure
+    // that the order of the labels in the higher control match the layouts and
     // thus value assignements of the selectors (radio buttons) in this controller.
     // -------------------------------------------------------------------------
     // These variables ared used to build the question the user is being asked.
@@ -101,13 +102,14 @@ public class WeightingOptionQuestion extends AnchorPane {
      */
     public WeightingOptionQuestion() {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
+                getClass().getResource(
+                        "/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
         // .....................................................................
-        // do not remove the following line if you're working with Scene Builder 2.0.  
+        // do not remove the following line if you're working with Scene Builder 2.0.
         // This fixes a known bug.
         // See http://stackoverflow.com/questions/24016229/cant-import-custom-components-with-custom-cell-factories
         // .....................................................................
@@ -123,9 +125,10 @@ public class WeightingOptionQuestion extends AnchorPane {
         // Setup the toggle group that handles the radio buttons
         // .....................................................................
         questionSet = new ToggleGroup();
-        questionSet.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+        questionSet.selectedToggleProperty().addListener(
+                new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
-                    Toggle old_toggle, Toggle new_toggle) {
+                                Toggle old_toggle, Toggle new_toggle) {
                 if (questionSet.getSelectedToggle() != null) {
                     final Toggle tog = questionSet.getSelectedToggle();
                     LOGGER.debug("User Data: " + tog.getUserData().toString());
@@ -180,7 +183,8 @@ public class WeightingOptionQuestion extends AnchorPane {
         textOpt1.textProperty().bind(optionOneProperty());
         textOpt2.textProperty().bind(optionTwoProperty());
 
-        this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2, text3);
+        this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2,
+                text3);
 
         wc = null;
     }
@@ -189,7 +193,6 @@ public class WeightingOptionQuestion extends AnchorPane {
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return

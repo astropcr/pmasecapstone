@@ -36,7 +36,8 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(ScreenSwitchEventHandler.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            ScreenSwitchEventHandler.class);
 
     ScreensController sc;
     String switchTargetScreen;
@@ -56,7 +57,8 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
      * @param sc
      * @param switchTargetScreen
      */
-    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen) {
+    public ScreenSwitchEventHandler(ScreensController sc,
+                                    String switchTargetScreen) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
         this.msg = "No message has been set.";
@@ -68,7 +70,8 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
      * @param switchTargetScreen
      * @param msg
      */
-    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen, String msg) {
+    public ScreenSwitchEventHandler(ScreensController sc,
+                                    String switchTargetScreen, String msg) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
         this.msg = msg;
@@ -76,7 +79,8 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
 
     @Override
     public void handle(ScreenSwitchEvent event) {
-        LOGGER.debug("ScreenSwitchEventHandler(event) would like to say: " + msg);
+        LOGGER.
+                debug("ScreenSwitchEventHandler(event) would like to say: " + msg);
     }
 
     /**
@@ -85,8 +89,10 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
      * @param sc
      * @param switchTargetScreen
      */
-    public void handle(ScreenSwitchEvent event, ScreensController sc, String switchTargetScreen) {
-        LOGGER.debug("ScreenSwitchEventHandler(event, ScreensController, String) would like to say: " + msg);
+    public void handle(ScreenSwitchEvent event, ScreensController sc,
+                       String switchTargetScreen) {
+        LOGGER.debug(
+                "ScreenSwitchEventHandler(event, ScreensController, String) would like to say: " + msg);
         sc.setScreen(switchTargetScreen);
 
     }

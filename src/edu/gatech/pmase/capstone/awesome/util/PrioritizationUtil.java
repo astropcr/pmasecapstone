@@ -42,20 +42,24 @@ public class PrioritizationUtil {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(PrioritizationUtil.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            PrioritizationUtil.class);
 
     /**
      * Given a List of ArchitectureOptionAttribute returns the weighting option
      * comparisons for them.
      *
      * @param attrs list of attributes to compare and weight
+     *
      * @return list of weighting options.
      */
-    public static List<WeightingChoice> getWeightingChoice(final List<ArchitectureOptionAttribute> attrs) {
+    public static List<WeightingChoice> getWeightingChoice(
+            final List<ArchitectureOptionAttribute> attrs) {
         final List<WeightingChoice> opts = new ArrayList<>();
 
         final int size = attrs.size();
-        LOGGER.debug("Creating prioritization weighting options for " + size + " attributes.");
+        LOGGER.debug(
+                "Creating prioritization weighting options for " + size + " attributes.");
 
         for (int count = 0; count < size; count++) {
             final ArchitectureOptionAttribute attr = attrs.get(count);
@@ -69,13 +73,15 @@ public class PrioritizationUtil {
                 opt.setOptionTwoLabel(attr2.getLabel());
                 opt.setResult(Double.MIN_VALUE);
                 LOGGER.trace("Creating Weighting Options for Attribute: "
-                        + opt.getOptionOneLabel() + " versus " + opt.getOptionTwoLabel());
+                        + opt.getOptionOneLabel() + " versus " + opt.
+                        getOptionTwoLabel());
 
                 opts.add(opt);
             }
         }
 
-        LOGGER.debug("Created " + opts.size() + " weighting options for " + size + " attributes.");
+        LOGGER.debug(
+                "Created " + opts.size() + " weighting options for " + size + " attributes.");
         return opts;
     }
 
@@ -85,13 +91,16 @@ public class PrioritizationUtil {
      *
      * @param label the label to find
      * @param attrs the list of attributes
+     *
      * @return the found attribute or null if none found
      */
-    public static ArchitectureOptionAttribute getAttributeFromLabel(final String label,
+    public static ArchitectureOptionAttribute getAttributeFromLabel(
+            final String label,
             final List<ArchitectureOptionAttribute> attrs) {
         ArchitectureOptionAttribute found = null;
 
-        final Optional<ArchitectureOptionAttribute> result = attrs.stream().filter(attr -> attr.getLabel().equals(label)).findFirst();
+        final Optional<ArchitectureOptionAttribute> result = attrs.stream().
+                filter(attr -> attr.getLabel().equals(label)).findFirst();
         if (result.isPresent()) {
             found = result.get();
         } else {
@@ -108,12 +117,14 @@ public class PrioritizationUtil {
      * in the list of attributes.
      *
      * @param options list of weighting options, likely provided based upon user
-     * inputs.
-     * @param attrs list of attributes that had a set of prioritization
-     * questions asked to determine highest priority to user.
+     *                inputs.
+     * @param attrs   list of attributes that had a set of prioritization
+     *                questions asked to determine highest priority to user.
+     *
      * @return same provided list of attributes but with prioritizes added.
      */
-    public static List<ArchitectureOptionAttribute> getPriorityWeightingsForAttributes(final List<WeightingChoice> options,
+    public static List<ArchitectureOptionAttribute> getPriorityWeightingsForAttributes(
+            final List<WeightingChoice> options,
             final List<ArchitectureOptionAttribute> attrs) {
 
         // init and setup mapping of attr labels to values
@@ -134,11 +145,13 @@ public class PrioritizationUtil {
         }
 
         // get total sum down all rows
-        final double totalSum = priCalc.values().stream().collect(Collectors.summingDouble(d -> d));
+        final double totalSum = priCalc.values().stream().collect(Collectors.
+                summingDouble(d -> d));
 
         for (final ArchitectureOptionAttribute attr : attrs) {
             final double priority = (priCalc.get(attr.getLabel()) / totalSum);
-            LOGGER.debug("Setting priority for attribute: " + attr.getLabel() + " to: " + priority);
+            LOGGER.debug(
+                    "Setting priority for attribute: " + attr.getLabel() + " to: " + priority);
             attr.setPriority(priority);
         }
 

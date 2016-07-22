@@ -115,7 +115,7 @@ public class MainWindowController implements Initializable,
             }
         ;
         });
-        
+
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
@@ -126,7 +126,8 @@ public class MainWindowController implements Initializable,
         // the GridView with Environment Effect Stati
         // ---------------------------------------------------------------------
         Set<String> strTerrainEffectStatus = TerrainEffect.getEffectLabels();
-        ObservableList<TerrainEffect> tempObsList = FXCollections.observableArrayList();
+        ObservableList<TerrainEffect> tempObsList = FXCollections.
+                observableArrayList();
 
         int i = 1;  // needs to be one ordered since the 0 orderded is an "UNKNOWN" place holder
         for (String str : strTerrainEffectStatus) {
@@ -141,15 +142,16 @@ public class MainWindowController implements Initializable,
         envStatusGrid.setCellFactory(
                 new Callback<GridView<TerrainEffect>, GridCell<TerrainEffect>>() {
             @Override
-            public GridCell<TerrainEffect> call(GridView<TerrainEffect> environmentOptions) {
+            public GridCell<TerrainEffect> call(
+                    GridView<TerrainEffect> environmentOptions) {
                 return new EnvOptStatusCell();
             }
         });
 
         // ---------------------------------------------------------------------
         // And to connect them...
-        // The EES panels are connected to the model inside the cell factory 
-        // methods, specifically insde the EnvOptStatusCell class via the 
+        // The EES panels are connected to the model inside the cell factory
+        // methods, specifically insde the EnvOptStatusCell class via the
         // setInfo() call.  This is due to the EES being a custom controller.
         // ---------------------------------------------------------------------
     }
@@ -184,11 +186,13 @@ public class MainWindowController implements Initializable,
     private void goToEnvironmentOptions(ScreenSwitchEvent event) {
         String toSet = DisasterResponseTradeStudy.screenMainID; // the main screen is a graceful fall-through
 
-        // First, select the ID based on the caller (button)                
-        EnvironmentElementStatus eesTemp = (EnvironmentElementStatus) ((Node) event.getSource()).getScene().getFocusOwner().getParent();
+        // First, select the ID based on the caller (button)
+        EnvironmentElementStatus eesTemp = (EnvironmentElementStatus) ((Node) event.
+                                                                       getSource()).
+                getScene().getFocusOwner().getParent();
         toSet = ((TerrainEffect) eesTemp.getUserData()).terrainLabel;
 
-        // Now, let's set the screen       
+        // Now, let's set the screen
         myController.setScreen(toSet);
     }
 
@@ -229,9 +233,12 @@ public class MainWindowController implements Initializable,
         // ---------------------------------------------------------------------
         // Connect the Weighting Area check boxen controls to the model
         // ---------------------------------------------------------------------
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS, cbWeightingsPlatformsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS, cbWeightingsCommunicationsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS, cbWeightingsSensorsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS,
+                cbWeightingsPlatformsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,
+                cbWeightingsCommunicationsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,
+                cbWeightingsSensorsComplete);
     }
 
     /**

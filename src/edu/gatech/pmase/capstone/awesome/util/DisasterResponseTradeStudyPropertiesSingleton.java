@@ -37,7 +37,8 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyPropertiesSingleton.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudyPropertiesSingleton.class);
 
     /**
      * Name of the properties file.
@@ -78,7 +79,7 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
      * Static instance.
      */
     private static final DisasterResponseTradeStudyPropertiesSingleton instance
-            = new DisasterResponseTradeStudyPropertiesSingleton();
+                                                                       = new DisasterResponseTradeStudyPropertiesSingleton();
 
     /**
      * Properties file to load with file names.
@@ -123,11 +124,15 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
             props.load(new FileInputStream(PROPERTIES_FILE));
 
             final String dir = props.getProperty(WORKBOOK_DIR_PROPERTY_NAME);
-            final String resultsDir = props.getProperty(RESULTS_DIR_PROPERTY_NAME);
+            final String resultsDir = props.getProperty(
+                    RESULTS_DIR_PROPERTY_NAME);
             final String comms = props.getProperty(COMM_WORKBOOK_PROPERTY_NAME);
-            final String platform = props.getProperty(PLATFORM_WORKBOOK_PROPERTY_NAME);
-            final String sensors = props.getProperty(SENSOR_WORKBOOK_PROPERTY_NAME);
-            final String resultTemp = props.getProperty(RESULTS_TEMPLATE_FILE_NAME);
+            final String platform = props.getProperty(
+                    PLATFORM_WORKBOOK_PROPERTY_NAME);
+            final String sensors = props.getProperty(
+                    SENSOR_WORKBOOK_PROPERTY_NAME);
+            final String resultTemp = props.getProperty(
+                    RESULTS_TEMPLATE_FILE_NAME);
 
             LOGGER.debug("Workbook Base Directory set at: " + dir);
             workbookDirectory = dir;
@@ -165,7 +170,7 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
      * files are located.
      *
      * @return directory name of the workbook folder where the workbook database
-     * files are located.
+     *         files are located.
      */
     public String getWorkbookDirectory() {
         return workbookDirectory;
@@ -176,7 +181,7 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
      * workbook.
      *
      * @return the filename for the Communication options technology database
-     * workbook.
+     *         workbook.
      */
     public String getCommWorkbookFileName() {
         return commWorkbookFileName;
@@ -186,7 +191,7 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
      * Gets the filename for the Platform options technology database workbook.
      *
      * @return the filename for the Platform options technology database
-     * workbook.
+     *         workbook.
      */
     public String getPlatformWorkbookFileName() {
         return platformWorkbookFileName;

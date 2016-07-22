@@ -68,7 +68,8 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     // List of Effects the user can choose.
     // -------------------------------------------------------------------------
-    private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.observableArrayList();
+    private final ObservableList<DisasterEffectCheckBoxData> disasterEffects = FXCollections.
+            observableArrayList();
 
     // -------------------------------------------------------------------------
     // These are what set the properties from the FXML file.  They should be
@@ -81,7 +82,8 @@ public class EffectsOptionsPanel extends AnchorPane {
      */
     public EffectsOptionsPanel() {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
+                getClass().getResource(
+                        "/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
@@ -98,7 +100,8 @@ public class EffectsOptionsPanel extends AnchorPane {
 
         // Initialize the control allowing the user to select the effects that apply
         createTheDisasterEffectList();
-        lvChoices.setCellFactory(CheckBoxListCell.forListView(item -> item.onProperty()));
+        lvChoices.setCellFactory(CheckBoxListCell.forListView(item -> item.
+                onProperty()));
         lvChoices.setItems(disasterEffects);
 
         // Initialize the properties to read from the FXML file
@@ -124,7 +127,8 @@ public class EffectsOptionsPanel extends AnchorPane {
 
         for (DisasterEffect de : DisasterEffect.values()) {
             if (!de.equals(DisasterEffect.UNKNOWN)) {
-                disasterEffects.add(new DisasterEffectCheckBoxData(de.label, false));
+                disasterEffects.add(new DisasterEffectCheckBoxData(de.label,
+                        false));
             }
         }
     }
@@ -133,7 +137,6 @@ public class EffectsOptionsPanel extends AnchorPane {
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return
@@ -147,7 +150,8 @@ public class EffectsOptionsPanel extends AnchorPane {
      * @return
      */
     public List<DisasterEffect> getSelectionList() {
-        List<DisasterEffect> selectedDisasterEffects = FXCollections.observableArrayList();
+        List<DisasterEffect> selectedDisasterEffects = FXCollections.
+                observableArrayList();
 
         for (DisasterEffectCheckBoxData decbd : disasterEffects) {
             if (decbd.isOn()) {
@@ -184,7 +188,6 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     // Sets the title/question statement directiong the user's interaction.
     // -------------------------------------------------------------------------
-
     /**
      *
      * @return

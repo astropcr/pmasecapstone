@@ -42,7 +42,8 @@ public class GUIValuesUtilTest {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(GUIValuesUtilTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            GUIValuesUtilTest.class);
 
     /**
      * Platform options from db.
@@ -55,8 +56,10 @@ public class GUIValuesUtilTest {
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();
-        loadedPlatformOptions.addAll(platformDb.getPlatformOptionsFromDatabase());
-        LOGGER.debug("Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
+        loadedPlatformOptions.
+                addAll(platformDb.getPlatformOptionsFromDatabase());
+        LOGGER.debug(
+                "Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
     }
 
     /**
@@ -64,7 +67,8 @@ public class GUIValuesUtilTest {
      */
     @Test
     public void testGetComponentWeightingOptions() {
-        final List<WeightingChoice> result = GUIValuesUtil.getComponentWeightingOptions(loadedPlatformOptions);
+        final List<WeightingChoice> result = GUIValuesUtil.
+                getComponentWeightingOptions(loadedPlatformOptions);
         assertEquals(6, result.size());
         LOGGER.debug(result);
     }

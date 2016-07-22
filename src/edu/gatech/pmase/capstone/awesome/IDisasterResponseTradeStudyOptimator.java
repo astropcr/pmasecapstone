@@ -44,10 +44,14 @@ public interface IDisasterResponseTradeStudyOptimator {
      * @param platformPrioritizes
      * @param sensorPrioritizes
      * @param commPrioritizes
+     *
      * @return
      */
     List<DRTSArchitectureResult> generateOptimizedArchitectures(
-            final List<PlatformOption> platformOptions, final List<SensorOption> sensorOptions,
-            final List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> platformPrioritizes,
-            final List<ArchitectureOptionAttribute> sensorPrioritizes, final List<ArchitectureOptionAttribute> commPrioritizes);
+            final List<PlatformOption> platformOptions,
+            final List<SensorOption> sensorOptions,
+            final List<CommunicationOption> commOptions,
+            final List<ArchitectureOptionAttribute> platformPrioritizes,
+            final List<ArchitectureOptionAttribute> sensorPrioritizes,
+            final List<ArchitectureOptionAttribute> commPrioritizes);
 }

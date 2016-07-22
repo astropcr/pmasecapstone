@@ -57,7 +57,8 @@ class EnvOptData {
     private String strData;
 
     public EnvOptData(ToggleGroup tg) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptCellItem.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptCellItem.fxml"));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();

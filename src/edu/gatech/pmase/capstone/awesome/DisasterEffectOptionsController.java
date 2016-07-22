@@ -56,14 +56,14 @@ public class DisasterEffectOptionsController implements ControlledScreen {
 //     */
 //    @Override
 //    public void initialize(URL url, ResourceBundle rb) {
-//        // TODO  
+//        // TODO
 //    }
-
     /**
      *
      */
     public void initialize() {
-        this.eopDisasterEffects.setQuestion("Select all disaster effects that apply.");
+        this.eopDisasterEffects.setQuestion(
+                "Select all disaster effects that apply.");
     }
 
     /**

@@ -37,8 +37,11 @@ public interface IDisasterResponseTradeStudyComponentOptimator {
      * @param <T>
      * @param options
      * @param prioritizes
+     *
      * @return
      */
-    <T extends AbstractArchitectureOption> List generateOptimizedOption(final List<T> options, final List<ArchitectureOptionAttribute> prioritizes);
+    <T extends AbstractArchitectureOption> List generateOptimizedOption(
+            final List<T> options,
+            final List<ArchitectureOptionAttribute> prioritizes);
 
 }

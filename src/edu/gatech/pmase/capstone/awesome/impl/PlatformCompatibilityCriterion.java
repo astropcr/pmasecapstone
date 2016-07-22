@@ -23,10 +23,10 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
+import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
 
 /**
  * Checks the given architecture to ensure that the selected Platform are
@@ -35,8 +35,10 @@ import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterio
 public class PlatformCompatibilityCriterion implements IDisasterResponseFinalSelectionCriterion {
 
     @Override
-    public boolean checkArchitectureResultRemovedByFilter(final DRTSArchitectureResult arch) {
-        return Stream.concat(arch.getComms().getPlatformLimitations().stream(), arch.getSensor().getPlatformLimitations().stream())
+    public boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult arch) {
+        return Stream.concat(arch.getComms().getPlatformLimitations().stream(),
+                arch.getSensor().getPlatformLimitations().stream())
                 .collect(Collectors.toList())
                 .stream()
                 .anyMatch(opt -> opt.getId() == arch.getPlatform().getId());

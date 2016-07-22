@@ -37,7 +37,9 @@ public interface IDisasterResponseTradeStudyFinalSelector {
      * (totalScore).
      *
      * @param archResults the list of generated architectures
+     *
      * @return the top three selected architecture from the list.
      */
-    List<DRTSArchitectureResult> selectFinalArchitecture(final List<DRTSArchitectureResult> archResults);
+    List<DRTSArchitectureResult> selectFinalArchitecture(
+            final List<DRTSArchitectureResult> archResults);
 }

@@ -72,7 +72,7 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
      * used on.
      *
      * @return list of {@link PlatformOption}'s that the architecture cannot be
-     * used on.
+     *         used on.
      */
     public List<PlatformOption> getPlatformLimitations() {
         return platformLimitations;
@@ -83,7 +83,7 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
      * used on.
      *
      * @param platformLimitations list of {@link PlatformOption}'s that the
-     * architecture cannot be used on.
+     *                            architecture cannot be used on.
      */
     public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
         this.platformLimitations = platformLimitations;
@@ -92,7 +92,8 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
     @Override
     protected List<ArchitectureOptionAttribute> getBasePrioritizationAttributes() {
         if (null == prioritizationAttributes) {
-            final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+            final List<ArchitectureOptionAttribute> attrs = super.
+                    getBasePrioritizationAttributes();
 
             final ArchitectureOptionAttribute weightAttr = new ArchitectureOptionAttribute();
             weightAttr.setColNum(-1);

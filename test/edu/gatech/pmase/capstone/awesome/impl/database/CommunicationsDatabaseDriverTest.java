@@ -79,7 +79,8 @@ public class CommunicationsDatabaseDriverTest {
         platformOptions.add(nine);
 
         final CommunicationsDatabaseDriver instance = new CommunicationsDatabaseDriver();
-        List<CommunicationOption> result = instance.getCommOptionsFromDatabase(platformOptions);
+        List<CommunicationOption> result = instance.getCommOptionsFromDatabase(
+                platformOptions);
 
         assertEquals(9, result.size());
 

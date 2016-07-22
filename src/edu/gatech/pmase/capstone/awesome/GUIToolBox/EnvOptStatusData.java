@@ -42,7 +42,8 @@ class EnvOptStatusData {
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(EnvOptStatusData.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            EnvOptStatusData.class);
 
     @FXML
     private HBox hBox;
@@ -52,7 +53,8 @@ class EnvOptStatusData {
     private String strData;
 
     public EnvOptStatusData(ToggleGroup tg) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptStatusCellItem.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptStatusCellItem.fxml"));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();

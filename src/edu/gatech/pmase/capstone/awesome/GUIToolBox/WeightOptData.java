@@ -47,7 +47,8 @@ public class WeightOptData {
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudy.class);
 
     @FXML
     private HBox hBox;
@@ -61,7 +62,8 @@ public class WeightOptData {
      *
      */
     public WeightOptData() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();

@@ -42,7 +42,8 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(PlatformDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            PlatformDatabaseDriver.class);
 
     /**
      * Workbook cell numbers to load from.
@@ -66,13 +67,15 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
     public List<PlatformOption> getPlatformOptionsFromDatabase() {
         LOGGER.info("Reading PlatformOptions from database.");
         return this.loadOptionsFromDatabase(
-                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getPlatformWorkbookFileName());
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().
+                getPlatformWorkbookFileName());
     }
 
     /**
      * Creates a PlatformOption from a row.
      *
      * @param row the row to transform
+     *
      * @return the created PlatformOption, or null if cannot read the row.
      */
     @Override
@@ -88,7 +91,8 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
 
         if (null == idCell || null == labelCell || null == typeCell || null == costRankCell || null == payloadCell
                 || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
-            LOGGER.trace("Platform Database Row " + row.getRowNum() + " missing required PlatformOption information.");
+            LOGGER.trace(
+                    "Platform Database Row " + row.getRowNum() + " missing required PlatformOption information.");
         } else {
             option = new PlatformOption();
             final long idNum = (long) idCell.getNumericCellValue();
@@ -100,7 +104,8 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
             option.setPayload(payloadCell.getNumericCellValue());
 
             // set Platform Type
-            option.setPlatformType(PlatformDatabaseDriver.getPlatformType(typeCell));
+            option.setPlatformType(PlatformDatabaseDriver.getPlatformType(
+                    typeCell));
 
             // set custom attributes
             option.setCustomAttributes(this.getCustomAttributes(row));
@@ -108,17 +113,24 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
             // load optional info
             // terrain effects
             final List<TerrainEffect> terrainLimitation = new ArrayList<>();
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
 
-            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for PlatformOption");
+            LOGGER.debug(
+                    "Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for PlatformOption");
 
             option.setTerrainLimitation(terrainLimitation);
 
             // disaster effect restrictions
-            option.setDisasterLimitations(this.getDisasterEffectRestrictFromCell(row.getCell(DISASTER_EFFECT_RESTRICT_CELL_NUM)));
+            option.setDisasterLimitations(this.
+                    getDisasterEffectRestrictFromCell(row.getCell(
+                            DISASTER_EFFECT_RESTRICT_CELL_NUM)));
         }
 
         return option;
@@ -128,6 +140,7 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
      * Gets the Platform type from the typeCell
      *
      * @param typeCell theCell to get the Platform Type from
+     *
      * @return the Platform Type
      */
     private static PlatformType getPlatformType(final Cell typeCell) {
@@ -151,7 +164,9 @@ public class PlatformDatabaseDriver extends AbstractDatabaseDriver<PlatformOptio
                         t = PlatformType.UNKNOWN;
                 }
             } else {
-                LOGGER.warn("Could not read platform type for cell: [" + typeCell.getRowIndex() + ","
+                LOGGER.warn(
+                        "Could not read platform type for cell: [" + typeCell.
+                        getRowIndex() + ","
                         + typeCell.getColumnIndex() + "]");
                 t = PlatformType.UNKNOWN;
             }

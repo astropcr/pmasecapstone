@@ -37,17 +37,14 @@ public enum WeightingAreasOfConcern {
      *
      */
     UNKNOWN("Unknown", 0),
-
     /**
      *
      */
     PLATFORMS("Platforms", 1),
-
     /**
      *
      */
     COMMS("Communications", 2),
-
     /**
      *
      */
@@ -67,7 +64,7 @@ public enum WeightingAreasOfConcern {
      * Constructor
      *
      * @param inLabel the reader friendly label to use
-     * @param inId the id of the disaster effect
+     * @param inId    the id of the disaster effect
      */
     private WeightingAreasOfConcern(final String inLabel, final int inId) {
         this.label = inLabel;
@@ -78,13 +75,15 @@ public enum WeightingAreasOfConcern {
      * Given the ID, returns the associated WeightingAreasOfConcern.
      *
      * @param inId the ID to find by
+     *
      * @return the given Disaster Effect. If none found to match ID, returns
-     * {@link WeightingAreasOfConcern#UNKNOWN}.
+     *         {@link WeightingAreasOfConcern#UNKNOWN}.
      */
     public static WeightingAreasOfConcern getCategoriesById(final int inId) {
         WeightingAreasOfConcern effect = WeightingAreasOfConcern.UNKNOWN;
 
-        final Optional<WeightingAreasOfConcern> result = Arrays.asList(WeightingAreasOfConcern.values())
+        final Optional<WeightingAreasOfConcern> result = Arrays.asList(
+                WeightingAreasOfConcern.values())
                 .stream()
                 .filter(eff -> (eff.id == inId))
                 .findFirst();
@@ -99,13 +98,16 @@ public enum WeightingAreasOfConcern {
      * Given the label, returns the associated WeightingAreasOfConcern.
      *
      * @param inLabel the label to find by
+     *
      * @return the given Disaster Effect. If none found to match label, returns
-     * {@link WeightingAreasOfConcern#UNKNOWN}.
+     *         {@link WeightingAreasOfConcern#UNKNOWN}.
      */
-    public static WeightingAreasOfConcern getCategoriesByLabel(final String inLabel) {
+    public static WeightingAreasOfConcern getCategoriesByLabel(
+            final String inLabel) {
         WeightingAreasOfConcern effect = WeightingAreasOfConcern.UNKNOWN;
 
-        final Optional<WeightingAreasOfConcern> result = Arrays.asList(WeightingAreasOfConcern.values())
+        final Optional<WeightingAreasOfConcern> result = Arrays.asList(
+                WeightingAreasOfConcern.values())
                 .stream()
                 .filter(eff -> eff.label.equals(inLabel))
                 .findFirst();
@@ -123,7 +125,8 @@ public enum WeightingAreasOfConcern {
      */
     public static Set<String> getCategoryLabels() {
         return Arrays.asList(WeightingAreasOfConcern.values())
-                .stream().filter(eff -> eff.id != WeightingAreasOfConcern.UNKNOWN.id)
+                .stream().filter(
+                        eff -> eff.id != WeightingAreasOfConcern.UNKNOWN.id)
                 .map(eff -> eff.label)
                 .collect(Collectors.toSet());
     }

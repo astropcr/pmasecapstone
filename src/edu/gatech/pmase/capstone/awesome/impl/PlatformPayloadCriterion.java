@@ -23,8 +23,8 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
-import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 
 /**
  * Checks the given architecture to ensure that the selected Platform can carry
@@ -33,11 +33,13 @@ import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterio
 public class PlatformPayloadCriterion implements IDisasterResponseFinalSelectionCriterion {
 
     @Override
-    public boolean checkArchitectureResultRemovedByFilter(final DRTSArchitectureResult arch) {
+    public boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult arch) {
         boolean result = false;
 
         final double platformPayload = arch.getPlatform().getPayload();
-        final double payloadWeight = (arch.getComms().getWeight() + arch.getSensor().getWeight());
+        final double payloadWeight = (arch.getComms().getWeight() + arch.
+                                      getSensor().getWeight());
 
         if (platformPayload < payloadWeight) {
             result = true;

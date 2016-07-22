@@ -86,7 +86,8 @@ public class PlatformOption extends AbstractArchitectureOption {
     @Override
     public List<ArchitectureOptionAttribute> getPrioritizationAttributess() {
         if (null == prioritizationAttributes) {
-            final List<ArchitectureOptionAttribute> attrs = super.getBasePrioritizationAttributes();
+            final List<ArchitectureOptionAttribute> attrs = super.
+                    getBasePrioritizationAttributes();
 
             // get payload
             final ArchitectureOptionAttribute payloadAttr = new ArchitectureOptionAttribute();

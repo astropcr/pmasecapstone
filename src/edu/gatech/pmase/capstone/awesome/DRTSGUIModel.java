@@ -48,7 +48,8 @@ public class DRTSGUIModel {
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(DRTSGUIModel.class);
+    private static final Logger LOGGER = LogManager.
+            getLogger(DRTSGUIModel.class);
 
     private final static DRTSGUIModel instance = new DRTSGUIModel();
 
@@ -80,7 +81,6 @@ public class DRTSGUIModel {
     // -------------------------------------------------------------------------
     // Disaster Effect controllers and viewers
     // -------------------------------------------------------------------------
-
     /**
      *
      * @param lblDisasterEffectsToSet
@@ -120,7 +120,8 @@ public class DRTSGUIModel {
      * @param update
      */
     public void updateWoccb(WeightingAreasOfConcern waoc, Boolean update) {
-        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(waoc.label);
+        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(
+                waoc.label);
         if (cbTemp != null) {
             cbTemp.setSelected(update);
         } else {
@@ -133,7 +134,8 @@ public class DRTSGUIModel {
      * @param waoc
      * @param complete
      */
-    public Boolean determineIfAllWaocSelectionsHaveBeenMade(WeightingAreasOfConcern waoc, Boolean complete) {
+    public Boolean determineIfAllWaocSelectionsHaveBeenMade(
+            WeightingAreasOfConcern waoc, Boolean complete) {
         Boolean determination = true;
 
         // .....................................................................
@@ -158,7 +160,8 @@ public class DRTSGUIModel {
                 .stream()
                 .filter((cb) -> (cb != null))
                 .map((cb) -> cb.isSelected())
-                .reduce(determination, (accumulator, _item) -> accumulator & _item);
+                .reduce(determination,
+                        (accumulator, _item) -> accumulator & _item);
 
         return determination;
     }
@@ -166,7 +169,6 @@ public class DRTSGUIModel {
     // -------------------------------------------------------------------------
     // Environment Effect Status controllers and viewers
     // -------------------------------------------------------------------------
-
     /**
      *
      * @param te
@@ -182,7 +184,8 @@ public class DRTSGUIModel {
      * @param toolTip
      */
     public void updateEesTooltip(TerrainEffect te, String toolTip) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(
+                te.terrainLabel);
         if (eesTemp != null) {
             eesTemp.setToolTip(toolTip);
         } else {
@@ -196,7 +199,8 @@ public class DRTSGUIModel {
      * @param weight
      */
     public void updateEesStatus(TerrainEffect te, String weight) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(
+                te.terrainLabel);
         if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
         } else {

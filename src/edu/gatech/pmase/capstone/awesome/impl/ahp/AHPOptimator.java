@@ -55,32 +55,46 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(AHPOptimator.class);
+    private static final Logger LOGGER = LogManager.
+            getLogger(AHPOptimator.class);
 
     @Override
     public List<DRTSArchitectureResult> generateOptimizedArchitectures(
-            List<PlatformOption> platformOptions, List<SensorOption> sensorOptions,
-            List<CommunicationOption> commOptions, final List<ArchitectureOptionAttribute> platformPrioritizes,
-            final List<ArchitectureOptionAttribute> sensorPrioritizes, final List<ArchitectureOptionAttribute> commPrioritizes) {
+            List<PlatformOption> platformOptions,
+            List<SensorOption> sensorOptions,
+            List<CommunicationOption> commOptions,
+            final List<ArchitectureOptionAttribute> platformPrioritizes,
+            final List<ArchitectureOptionAttribute> sensorPrioritizes,
+            final List<ArchitectureOptionAttribute> commPrioritizes) {
         LOGGER.debug("Prioritizing architecture components");
 
         // sort options based on prioritization
         final ComponentAHPOptimator compOptimator = new ComponentAHPOptimator();
-        platformOptions = compOptimator.generateOptimizedOption(platformOptions, platformPrioritizes);
-        sensorOptions = compOptimator.generateOptimizedOption(sensorOptions, sensorPrioritizes);
-        commOptions = compOptimator.generateOptimizedOption(commOptions, commPrioritizes);
+        platformOptions = compOptimator.generateOptimizedOption(platformOptions,
+                platformPrioritizes);
+        sensorOptions = compOptimator.generateOptimizedOption(sensorOptions,
+                sensorPrioritizes);
+        commOptions = compOptimator.generateOptimizedOption(commOptions,
+                commPrioritizes);
 
-        LOGGER.info("Creating architecture combinations from: " + platformOptions.size() + " platforms, "
+        LOGGER.info(
+                "Creating architecture combinations from: " + platformOptions.
+                size() + " platforms, "
                 + sensorOptions.size() + " sensors, and " + commOptions.size() + " communication options.");
 
         // create, score, and sort architectures
-        final List<DRTSArchitectureResult> results = Lists.cartesianProduct(platformOptions, sensorOptions, commOptions).parallelStream()
+        final List<DRTSArchitectureResult> results = Lists.cartesianProduct(
+                platformOptions, sensorOptions, commOptions).parallelStream()
                 .filter(list -> list.size() == NUMBER_OF_COMPONENTS)
-                .map(list -> new DRTSArchitectureResult((PlatformOption) list.get(PLAT_INDEX),
+                .map(list -> new DRTSArchitectureResult((PlatformOption) list.
+                        get(PLAT_INDEX),
                         (SensorOption) list.get(SENSOR_INDEX),
-                        (CommunicationOption) list.get(COMM_INDEX))).sorted().collect(Collectors.toList());
+                        (CommunicationOption) list.get(COMM_INDEX))).sorted().
+                collect(Collectors.toList());
 
-        LOGGER.debug("Best Score: " + results.get(0).getTotalScore() + " to Worst Score: " + results.get(results.size() - 1).getTotalScore());
+        LOGGER.debug(
+                "Best Score: " + results.get(0).getTotalScore() + " to Worst Score: " + results.
+                get(results.size() - 1).getTotalScore());
         LOGGER.info("Created " + results.size() + " architecture combinations.");
         return results;
     }
