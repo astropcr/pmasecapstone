@@ -23,40 +23,31 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
-import edu.gatech.pmase.capstone.awesome.objects.enums.*;
-
 import javafx.scene.control.ListCell;
-import javafx.scene.control.ToggleGroup;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class WeightOptCell extends ListCell<WeightingChoice> {
-    
-            
-    public  WeightOptCell()
-    {
+
+    public WeightOptCell() {
         this.getStyleClass().add("list-cell");
     }
 
     @Override
-    public void updateItem(WeightingChoice wc, boolean empty)
-    {
+    public void updateItem(WeightingChoice wc, boolean empty) {
         super.updateItem(wc, empty);
-        if(wc != null)
-        {
+        if (wc != null) {
 //            wc.setResult(wod.getSelection().value);
-            
+
             WeightOptData wod = new WeightOptData();
             wod.setInfo(wc);
-            
+
             setGraphic(wod.getBox());
         }
-        
-        
+
     }
-    
+
 }

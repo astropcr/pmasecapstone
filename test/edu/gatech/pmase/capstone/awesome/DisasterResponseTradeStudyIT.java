@@ -139,7 +139,7 @@ public class DisasterResponseTradeStudyIT {
         LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
 
         // write file
-       final  DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
+        final DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
         try {
             LOGGER.debug(instance.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects));
         } catch (IOException | InvalidFormatException ex) {

@@ -128,7 +128,6 @@ public class PrioritizationUtil {
             final String opt1Label = option.getOptionOneLabel();
             final String opt2Label = option.getOptionTwoLabel();
             LOGGER.debug("opt1Label ", opt1Label + ", opt2Label" + opt2Label);
-            
 
             priCalc.put(opt1Label, (priCalc.get(opt1Label) + value));
             priCalc.put(opt2Label, (priCalc.get(opt2Label) + (1 / value)));

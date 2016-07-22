@@ -36,7 +36,8 @@ import org.junit.Test;
 public class SensorsDatabaseDriverTest {
 
     /**
-     * Test of getSensorOptionsFromDatabase method, of class SensorsDatabaseDriver.
+     * Test of getSensorOptionsFromDatabase method, of class
+     * SensorsDatabaseDriver.
      */
     @Test
     public void testGetSensorOptions() {

@@ -58,24 +58,34 @@ public class WeightingOptionsController implements ControlledScreen {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(WeightingOptionsController.class);
-    
+
     ScreensController myController;
-            
-    @FXML   private ToggleGroup             tg;
-    @FXML   private Button                  btnWopClose;
-    @FXML   private ListView                weightingOptions;
-    @FXML   private Label                   titleLabel;
-    @FXML   private Label                   lblInstructions;
-    
+
+    @FXML
+    private ToggleGroup tg;
+    @FXML
+    private Button btnWopClose;
+    @FXML
+    private ListView weightingOptions;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label lblInstructions;
+
     // -------------------------------------------------------------------------
     // These are part of the labels the 5 criteria for weighting
     // -------------------------------------------------------------------------
-    @FXML   private TextFlow tfWeightingOption1;
-    @FXML   private TextFlow tfWeightingOption2;
-    @FXML   private TextFlow tfWeightingOption3;
-    @FXML   private TextFlow tfWeightingOption4;
-    @FXML   private TextFlow tfWeightingOption5;
-    
+    @FXML
+    private TextFlow tfWeightingOption1;
+    @FXML
+    private TextFlow tfWeightingOption2;
+    @FXML
+    private TextFlow tfWeightingOption3;
+    @FXML
+    private TextFlow tfWeightingOption4;
+    @FXML
+    private TextFlow tfWeightingOption5;
+
     private final Text tWeightingOption1;
     private final Text tWeightingOption2;
     private final Text tWeightingOption3;
@@ -87,11 +97,9 @@ public class WeightingOptionsController implements ControlledScreen {
             + "please answer the following questions by selecting the desired radio "
             + "button next to each question:";
     private static final String STR_WARNING = "(Please select an option before continuing)";
-    
-    
-    
-    private ObservableList<WeightingChoice>   wcObsList;
-    
+
+    private ObservableList<WeightingChoice> wcObsList;
+
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
 
@@ -154,13 +162,13 @@ public class WeightingOptionsController implements ControlledScreen {
         }
 
         LOGGER.debug("Num Weight Opts: " + weightingOptList.size());
-        
+
         wcObsList.clear();
         wcObsList.addAll(weightingOptList);
         LOGGER.debug("Num Observe Opts: " + wcObsList.size());
-        
+
         weightingOptions.setItems(wcObsList);
-        
+
         weightingOptions.setCellFactory(
                 new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
             @Override
@@ -181,10 +189,9 @@ public class WeightingOptionsController implements ControlledScreen {
 
     private Boolean determineIfSelectionsHaveBeenMade() {
         Boolean determination = true;
-        
-        for (WeightingChoice wc : wcObsList)
-        {
-            if(wc.getResult() != Double.MIN_VALUE ){
+
+        for (WeightingChoice wc : wcObsList) {
+            if (wc.getResult() != Double.MIN_VALUE) {
                 determination &= true;
             } else {
                 determination = false;
@@ -224,15 +231,15 @@ public class WeightingOptionsController implements ControlledScreen {
             // Update the model
             switch (weightingOpt) {
                 case PLATFORMS:
-                     DRTSS.setPlatformWeightingChoice(wcObsList);
+                    DRTSS.setPlatformWeightingChoice(wcObsList);
                     break;
 
                 case COMMS:
-                     DRTSS.setCommWeightingChoice(wcObsList);
+                    DRTSS.setCommWeightingChoice(wcObsList);
                     break;
 
                 case SENSORS:
-                     DRTSS.setSensorWeightingChoice(wcObsList);
+                    DRTSS.setSensorWeightingChoice(wcObsList);
                     break;
             }
 

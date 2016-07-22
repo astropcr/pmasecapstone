@@ -28,14 +28,14 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * This class is intended to capture all of the properties necessary to describe
- * a disaster effect.  It's source was inspired by a code example on Stack Overflow.
- * Please see the following URL for more information:
+ * a disaster effect. It's source was inspired by a code example on Stack
+ * Overflow. Please see the following URL for more information:
  * http://stackoverflow.com/questions/28843858/javafx-8-listview-with-checkboxes
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class DisasterEffectCheckBoxData {
-//public static class DisasterEffect {
+
     private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleBooleanProperty on = new SimpleBooleanProperty();
 

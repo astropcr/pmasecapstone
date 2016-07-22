@@ -48,7 +48,6 @@ public enum TerrainEffect {
     /**
      * Slope Options. - Terrain ID 2
      */
-    
     SLOPE_0(2, "Slope", 0, "No Factor"),
     SLOPE_1(2, "Slope", 1, "Level Terrain (≤ 10° )"),
     SLOPE_2(2, "Slope", 2, "Medium Terrain (10° < slope ≤ 45° )"),

@@ -95,8 +95,7 @@ public class DisasterResponseTradeStudyFiltererTest {
     }
 
     /**
-     * Test of filterPlatforms method, of class
- DRTSFilterer.
+     * Test of filterPlatforms method, of class DRTSFilterer.
      */
     @Test
     public void testFilterPlatforms() {
@@ -126,8 +125,7 @@ public class DisasterResponseTradeStudyFiltererTest {
     }
 
     /**
-     * Test of filterCommunications method, of class
- DRTSFilterer.
+     * Test of filterCommunications method, of class DRTSFilterer.
      */
     @Test
     public void testFilterCommunications() {
@@ -155,8 +153,7 @@ public class DisasterResponseTradeStudyFiltererTest {
     }
 
     /**
-     * Test of filterSensors method, of class
- DRTSFilterer.
+     * Test of filterSensors method, of class DRTSFilterer.
      */
     @Test
     public void testFilterSensors() {

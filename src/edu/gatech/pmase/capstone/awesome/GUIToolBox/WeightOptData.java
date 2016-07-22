@@ -29,57 +29,52 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 
-
 /**
- * This class creates the set of UI controls that implement the environmental 
- * selections for the user.  It's designed to be paired with the EnvOptCell 
- * class for ultimate inclusion in some type of iterative container, such as
- * a list view or grid view.
+ * This class creates the set of UI controls that implement the environmental
+ * selections for the user. It's designed to be paired with the EnvOptCell class
+ * for ultimate inclusion in some type of iterative container, such as a list
+ * view or grid view.
+ *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class WeightOptData {
-    @FXML   private HBox hBox;
-    @FXML   private WeightingOptionQuestion woq;
-    
+
+    @FXML
+    private HBox hBox;
+    @FXML
+    private WeightingOptionQuestion woq;
+
     private String strData;
     private WeightingChoice wc;
-    
-    public WeightOptData()
-    {
+
+    public WeightOptData() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
         fxmlLoader.setController(this);
-        try
-        {
+        try {
             fxmlLoader.load();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void setInfo(WeightingChoice wc)
-    {
+    public void setInfo(WeightingChoice wc) {
         this.wc = wc;
         woq.setComparisonOptions(wc.getOptionOneLabel(), wc.getOptionTwoLabel());
         woq.setWeightingChoice(wc);
     }
-    
+
     public WeightingCategory getSelection() {
         return woq.getSelection();
     }
-    
+
     @FXML
-    public void handleToggleButton(ActionEvent event)
-    {
-         System.out.println("The " + strData + " was selected.");
+    public void handleToggleButton(ActionEvent event) {
+        System.out.println("The " + strData + " was selected.");
     }
 
-    public HBox getBox()
-    {
+    public HBox getBox() {
         return hBox;
     }
 }

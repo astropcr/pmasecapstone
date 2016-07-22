@@ -44,9 +44,9 @@ THE SOFTWARE.
             <center>
                 <ListView fx:id="lvChoices" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="750.0" styleClass="listOfOptions" BorderPane.alignment="CENTER" />
             </center>
-         <bottom>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
-         </bottom>
+            <bottom>
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
+            </bottom>
         </BorderPane>
     </children>
 </fx:root>

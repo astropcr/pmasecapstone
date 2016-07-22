@@ -257,7 +257,7 @@ public class ArchitectureOptionAttribute {
 
     @Override
     public String toString() {
-        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + ", priority=" +         priority + ", originalValue=" + originalValue + '}';
+        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + ", priority=" + priority + ", originalValue=" + originalValue + '}';
     }
 
     /**

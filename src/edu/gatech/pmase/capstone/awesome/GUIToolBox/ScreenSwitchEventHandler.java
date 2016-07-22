@@ -34,38 +34,34 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
     ScreensController sc;
     String switchTargetScreen;
     String msg;
-    
-    
-    public ScreenSwitchEventHandler()
-    {
+
+    public ScreenSwitchEventHandler() {
         this.sc = null;
         this.switchTargetScreen = "";
         this.msg = "No message has been set.";
     }
-    
-    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen)
-    {
+
+    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
         this.msg = "No message has been set.";
     }
-    
-    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen, String msg)
-    {
+
+    public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen, String msg) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
         this.msg = msg;
     }
-    
+
     @Override
     public void handle(ScreenSwitchEvent event) {
         System.out.println("ScreenSwitchEventHandler would like to say: " + msg);
         //sc.setScreen(switchTargetScreen);
     }
-    
+
     public void handle(ScreenSwitchEvent event, ScreensController sc, String switchTargetScreen) {
         System.out.println("ScreenSwitchEventHandler would like to say: " + msg);
         sc.setScreen(switchTargetScreen);
     }
-    
+
 }
