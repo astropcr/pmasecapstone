@@ -30,6 +30,7 @@ import java.util.Set;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,35 +41,33 @@ import org.apache.logging.log4j.Logger;
 public class DisasterResponseTradeStudy extends Application {
 
     /**
-     * These setup the windows that will be shown.
-     * This is inspired by the ScreenController example found at the following site:
+     * These setup the windows that will be shown. This is inspired by the
+     * ScreenController example found at the following site:
      * https://blogs.oracle.com/acaicedo/entry/managing_multiple_screens_in_javafx1
-     * 
+     *
      */
     public static String classPath = "/edu/gatech/pmase/capstone/awesome/";
-    
+
     //..........................................................................
     // Main Screen
     //..........................................................................
-    public static String screenMainID                   = classPath + "MainWindow";
-    public static String screenMainFile                 = classPath + "MainWindow.fxml";
-    
+    public static String screenMainID = classPath + "MainWindow";
+    public static String screenMainFile = classPath + "MainWindow.fxml";
+
     //..........................................................................
     // Disaster Effects Screens
     //..........................................................................
-    public static String screenEffectsOptID             = classPath + "DisasterEffectsOptions";
-    public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
-    
+    public static String screenEffectsOptID = classPath + "DisasterEffectsOptions";
+    public static String screenEffectsFile = classPath + "DisasterEffectsOptions.fxml";
+
     //..........................................................................
     // Environment Option Screens
     // None needed...generated automagically based on enumerations.
     //..........................................................................
-    
     //..........................................................................
     // Solution Creiteria Weighting Screens
     // None needed...generated automagically based on enumerations.
     //..........................................................................
-    
     /**
      * Logger. Use to log all things
      */
@@ -80,79 +79,73 @@ public class DisasterResponseTradeStudy extends Application {
         LOGGER.debug("Testing Logger");
 
         ScreensController mainContainer = new ScreensController();
-        
+
         // ---------------------------------------------------------------------
         // Load the screens
         // ---------------------------------------------------------------------
-        
         //......................................................................
         //                         Main Screen
         //......................................................................
-        ((MainWindowController)mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID,
-                                                        DisasterResponseTradeStudy.screenMainFile))
-                               .connectToModel();
-            
-        
+        ((MainWindowController) mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID,
+                DisasterResponseTradeStudy.screenMainFile))
+                .connectToModel();
+
         //......................................................................
         //                  Disaster Effect Screen
         //......................................................................
-        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID, 
-                                 DisasterResponseTradeStudy.screenEffectsFile);
-        
-        
+        mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID,
+                DisasterResponseTradeStudy.screenEffectsFile);
+
         //......................................................................
         //          Environment Options/Factors Screens
         //......................................................................
         Set<String> strTELabels = TerrainEffect.getEffectLabels();
-        for(String label : strTELabels)
-        {
-            ((EnvironmentOptionsController)(mainContainer
-                                                .loadScreen(label, 
-                                                            classPath + 
-                                                            "EnvironmentOptions.fxml")))
-                                           .setupEnvOpts(label);
+        for (String label : strTELabels) {
+            ((EnvironmentOptionsController) (mainContainer
+                    .loadScreen(label,
+                            classPath
+                            + "EnvironmentOptions.fxml")))
+                    .setupEnvOpts(label);
         }
-        
-        
+
         //......................................................................
         //              Environment Options/Factors Screens
         //......................................................................
         // These elements are created inside the Main window controller and thus
         // don't have a separate screen to be loaded
-
-        
         //......................................................................
         //                  Weighting Criteria Screens
         //......................................................................
         Set<String> strWCLabels = WeightingAreasOfConcern.getCategoryLabels();
-        
-        for(String label : strWCLabels)
-        {
-            ((WeightingOptionsController)(mainContainer
-                                            .loadScreen(label, 
-                                                        classPath + 
-                                                        "WeightingOptions.fxml")))
-                                         .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(label));
+
+        for (String label : strWCLabels) {
+            ((WeightingOptionsController) (mainContainer
+                    .loadScreen(label,
+                            classPath
+                            + "WeightingOptions.fxml")))
+                    .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(label));
         }
 
         // ---------------------------------------------------------------------
         // Now let's start the show
         // ---------------------------------------------------------------------
         mainContainer.setScreen(DisasterResponseTradeStudy.screenMainID);
-        
+
         Group root = new Group();
-        root.getChildren().addAll(mainContainer);      
-        
+        root.getChildren().addAll(mainContainer);
+
         Scene scene = new Scene(root);
-        
+
         primaryStage.setTitle("Disaster Response Trade Study Tool");
         primaryStage.setScene(scene);
+
+        primaryStage.getIcons().add(
+                new Image(
+                        DisasterResponseTradeStudy.class.getResourceAsStream("icon.png")));
+
         primaryStage.show();
-        
 
-        
     }
-
 
     /**
      * @param args the command line arguments
