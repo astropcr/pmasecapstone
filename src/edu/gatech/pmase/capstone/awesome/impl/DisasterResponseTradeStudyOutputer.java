@@ -166,7 +166,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
     }
 
     @Override
-    public String createOutputFile(final List<DRTSArchitectureResult> results,
+    public Path createOutputFile(final List<DRTSArchitectureResult> results,
             final List<DisasterEffect> selectedDisasterEffects, final List<TerrainEffect> selectedTerrainEffects)
             throws IOException, InvalidFormatException {
         LOGGER.info("Creating results architecture file.");
@@ -220,7 +220,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             }
         }
 
-        return resultPath.toString();
+        return resultPath;
     }
 
     /**

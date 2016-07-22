@@ -81,11 +81,11 @@ public class WeightingOptionsController implements ControlledScreen {
     private final Text tWeightingOption3;
     private final Text tWeightingOption4;
     private final Text tWeightingOption5;
-    
-    private static final String STR_INSTRUCTIONS = 
-            "In order to generate weighting criteria based on user preferences, " + 
-            "please answer the following questions by selecting the desired radio " +
-            "button next to each question:";
+
+    private static final String STR_INSTRUCTIONS
+            = "In order to generate weighting criteria based on user preferences, "
+            + "please answer the following questions by selecting the desired radio "
+            + "button next to each question:";
     private static final String STR_WARNING = "(Please select an option before continuing)";
     
     
@@ -94,7 +94,7 @@ public class WeightingOptionsController implements ControlledScreen {
     
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
-    
+
     public WeightingOptionsController() {
         wcObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
@@ -115,7 +115,7 @@ public class WeightingOptionsController implements ControlledScreen {
         tWeightingOption4 = new Text(WeightingCategory.SIGNIFICANTLY_LESS.label);
         tWeightingOption5 = new Text(WeightingCategory.EXTREMELY_LESS.label);
     }
-    
+
     void setupEnvOpts(WeightingAreasOfConcern weightingOpt) {
         this.weightingOpt = weightingOpt;
 
@@ -134,7 +134,7 @@ public class WeightingOptionsController implements ControlledScreen {
         // ---------------------------------------------------------------------
         titleLabel.setText(weightingOpt.label);
         lblInstructions.textProperty().setValue(STR_INSTRUCTIONS);
-        
+
         // ---------------------------------------------------------------------
         // Create the choices
         // ---------------------------------------------------------------------
@@ -143,16 +143,16 @@ public class WeightingOptionsController implements ControlledScreen {
             case PLATFORMS:
                 weightingOptList.addAll(DRTSS.getPlatformWeightingChoice());
                 break;
-            
+
             case COMMS:
                 weightingOptList.addAll(DRTSS.getCommWeightingChoice());
                 break;
-            
+
             case SENSORS:
                 weightingOptList.addAll(DRTSS.getCommWeightingChoice());
                 break;
         }
-        
+
         LOGGER.debug("Num Weight Opts: " + weightingOptList.size());
         
         wcObsList.clear();
@@ -162,11 +162,11 @@ public class WeightingOptionsController implements ControlledScreen {
         weightingOptions.setItems(wcObsList);
         
         weightingOptions.setCellFactory(
-            new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
-                @Override
-                public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
-                   return new WeightOptCell();
-                }
+                new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
+            @Override
+            public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
+                return new WeightOptCell();
+            }
         });
 //        weightingOptions.setEditable(true);
     }
@@ -178,18 +178,15 @@ public class WeightingOptionsController implements ControlledScreen {
     void initialize() {
         // TODO  
     }
-    
-    
-    private Boolean determineIfSelectionsHaveBeenMade()
-    {
+
+    private Boolean determineIfSelectionsHaveBeenMade() {
         Boolean determination = true;
         
         for (WeightingChoice wc : wcObsList)
         {
             if(wc.getResult() != Double.MIN_VALUE ){
                 determination &= true;
-            }
-            else {
+            } else {
                 determination = false;
             }
         }
@@ -206,14 +203,13 @@ public class WeightingOptionsController implements ControlledScreen {
 //                        .filter((cb) -> (cb != null))
 //                                .map((cb) -> cb.isSelected())
 //                                .reduce(determination, (accumulator, _item) -> accumulator & _item);
-        
+
         return determination;
     }
-    
+
     // -------------------------------------------------------------------------
     // Event Handlers
     // -------------------------------------------------------------------------
-    
     /**
      * This function will trigger a data update event for the Disaster Effects
      * and trigger a screen switch event for the main controller.
@@ -221,11 +217,10 @@ public class WeightingOptionsController implements ControlledScreen {
      * @param event
      */
     @FXML
-    private void doneButtonClicked(ActionEvent event)
-    {
+    private void doneButtonClicked(ActionEvent event) {
         Boolean allQuestionsAnswered = determineIfSelectionsHaveBeenMade();
-        
-        if(allQuestionsAnswered) {
+
+        if (allQuestionsAnswered) {
             // Update the model
             switch (weightingOpt) {
                 case PLATFORMS:
@@ -246,13 +241,12 @@ public class WeightingOptionsController implements ControlledScreen {
 
             // Now switch the window
             this.goToMain(event);
-            
+
             // Clear the warning from the label text
             this.lblInstructions.textProperty().setValue(STR_INSTRUCTIONS);
             lblInstructions.getStyleClass().add("questionOnPanel"); // could be weightingCriteriaPanelText
             lblInstructions.getStyleClass().remove("warning");
-        }
-        else {
+        } else {
             this.lblInstructions.textProperty().setValue(STR_WARNING);// inform the user!!!
             lblInstructions.getStyleClass().remove("questionOnPanel");
             lblInstructions.getStyleClass().add("warning");
@@ -266,12 +260,12 @@ public class WeightingOptionsController implements ControlledScreen {
     private void goToMain(ActionEvent event) {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
-    
+
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
-    
+
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.
