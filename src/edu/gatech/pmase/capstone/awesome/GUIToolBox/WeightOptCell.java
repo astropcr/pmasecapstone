@@ -35,12 +35,10 @@ import javafx.scene.control.ToggleGroup;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class WeightOptCell extends ListCell<WeightingChoice> {
-
-    ToggleGroup tg;
     
-    public  WeightOptCell(ToggleGroup tg)
+            
+    public  WeightOptCell()
     {
-        this.tg = tg;
         this.getStyleClass().add("list-cell");
     }
 
@@ -50,10 +48,14 @@ public class WeightOptCell extends ListCell<WeightingChoice> {
         super.updateItem(wc, empty);
         if(wc != null)
         {
-            WeightOptData wod = new WeightOptData(this.tg);
+//            wc.setResult(wod.getSelection().value);
+            
+            WeightOptData wod = new WeightOptData();
             wod.setInfo(wc);
             setGraphic(wod.getBox());
         }
+        
+        
     }
     
 }

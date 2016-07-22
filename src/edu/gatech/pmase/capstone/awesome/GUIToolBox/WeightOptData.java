@@ -24,15 +24,13 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
-import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 
 
 /**
@@ -42,14 +40,14 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
  * a list view or grid view.
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-class WeightOptData {
+public class WeightOptData {
     @FXML   private HBox hBox;
     @FXML   private WeightingOptionQuestion woq;
     
     private String strData;
     private WeightingChoice wc;
     
-    public WeightOptData(ToggleGroup tg)
+    public WeightOptData()
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
         fxmlLoader.setController(this);
@@ -67,6 +65,10 @@ class WeightOptData {
     {
         this.wc = wc;
         woq.setComparisonOptions(wc.getOptionOneLabel(), wc.getOptionTwoLabel());
+    }
+    
+    public WeightingCategory getSelection() {
+        return woq.getSelection();
     }
     
     @FXML

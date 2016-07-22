@@ -26,8 +26,8 @@ package edu.gatech.pmase.capstone.awesome;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptCell2;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptCell;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptData;
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
@@ -40,6 +40,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -63,7 +64,11 @@ public class WeightingOptionsController implements ControlledScreen {
      */
     private static final Logger LOGGER = LogManager.getLogger(WeightingOptionsController.class);
     
-    ScreensController myController;
+    @FXML   private ToggleGroup             tg;
+    @FXML   private Button                  btnWopClose;
+    @FXML   private ListView                weightingOptions;
+    @FXML   private Label                   titleLabel;
+    @FXML   private Label                   lblInstructions;
     
     @FXML
     private WeightingOptionPanel wop; // this is going to be broken apart
@@ -96,7 +101,15 @@ public class WeightingOptionsController implements ControlledScreen {
     private final Text tWeightingOption4;
     private final Text tWeightingOption5;
     
-    private ObservableList<WeightingChoice> tempObsList;
+    private static final String STR_INSTRUCTIONS = 
+            "In order to generate weighting criteria based on user preferences, " + 
+            "please answer the following questions by selecting the desired radio " +
+            "button next to each question:";
+    private static final String STR_WARNING = "(Please select an option before continuing)";
+    
+    
+    
+    private ObservableList<WeightingChoice>   tempObsList;
     
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
@@ -136,10 +149,11 @@ public class WeightingOptionsController implements ControlledScreen {
         tfWeightingOption5.getChildren().setAll(tWeightingOption5);
 
         // ---------------------------------------------------------------------
-        // Set the title label.
+        // Set the title and instruction labels.
         // ---------------------------------------------------------------------
         titleLabel.setText(weightingOpt.label);
-
+        lblInstructions.textProperty().setValue(STR_INSTRUCTIONS);
+        
         // ---------------------------------------------------------------------
         // Create the choices
         // ---------------------------------------------------------------------
@@ -167,12 +181,13 @@ public class WeightingOptionsController implements ControlledScreen {
         weightingOptions.setItems(tempObsList);
         
         weightingOptions.setCellFactory(
-                new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
-            @Override
-            public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
-                return new WeightOptCell2();
-            }
+            new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
+                @Override
+                public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
+                   return new WeightOptCell();
+                }
         });
+//        weightingOptions.setEditable(true);
     }
 
     /**
@@ -182,7 +197,47 @@ public class WeightingOptionsController implements ControlledScreen {
     void initialize() {
         // TODO  
     }
-
+    
+    
+    private Boolean determineIfSelectionsHaveBeenMade()
+    {
+        Boolean determination = true;
+        WeightingCategory wc = WeightingCategory.UNKNOWN;
+        WeightingChoice wtf;
+        
+        for (Object obj : weightingOptions.getItems())
+        {
+            //wc = ((WeightOptData)obj).getSelection();
+            wtf = (WeightingChoice)obj;
+            
+            if(wc != WeightingCategory.UNKNOWN){
+                determination &= true;
+            }
+            else {
+                determination = false;
+            }
+        }
+        // .....................................................................
+        // peforms the following operation more efficiently 
+        //
+        //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
+        //      if (cb != null) { determination &= cb.isSelected(); }
+        //  }
+        // .....................................................................
+//        determination = weightingsOptionsCheckBoxenCollection
+//                        .values()
+//                        .stream()
+//                        .filter((cb) -> (cb != null))
+//                                .map((cb) -> cb.isSelected())
+//                                .reduce(determination, (accumulator, _item) -> accumulator & _item);
+        
+        return determination;
+    }
+    
+    // -------------------------------------------------------------------------
+    // Event Handlers
+    // -------------------------------------------------------------------------
+    
     /**
      * This function will trigger a data update event for the Disaster Effects
      * and trigger a screen switch event for the main controller.
@@ -190,16 +245,32 @@ public class WeightingOptionsController implements ControlledScreen {
      * @param event
      */
     @FXML
-    private void doneButtonClicked(ActionEvent event) {
-        LOGGER.debug("Done");
-        // Fire event for data update
-        if (tempObsList != null) {
-            LOGGER.debug(tempObsList.get(0).getResult());
-        }
+    private void doneButtonClicked(ActionEvent event)
+    {
+        Boolean allQuestionsAnswered = determineIfSelectionsHaveBeenMade();
+        
+        if(allQuestionsAnswered) {
+            // Update the model
+            
 
-        // Now switch the window
-        Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
-        this.goToMain(event);
+            // Update the view
+            DRTSGUIModel.getInstance().updateWoccb(weightingOpt, allQuestionsAnswered);
+
+
+            // Now switch the window
+//            Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
+            this.goToMain(event);
+            
+            // Clear the warning from the label text
+            this.lblInstructions.textProperty().setValue(STR_INSTRUCTIONS);
+            lblInstructions.getStyleClass().add("questionOnPanel"); // could be weightingCriteriaPanelText
+            lblInstructions.getStyleClass().remove("warning");
+        }
+        else {
+            this.lblInstructions.textProperty().setValue(STR_WARNING);// inform the user!!!
+            lblInstructions.getStyleClass().remove("questionOnPanel");
+            lblInstructions.getStyleClass().add("warning");
+        }
     }
 
     // -------------------------------------------------------------------------

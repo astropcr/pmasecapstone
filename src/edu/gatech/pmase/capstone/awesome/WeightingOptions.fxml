@@ -41,7 +41,7 @@
         </GridPane>
 
 
-        <Label layoutX="137" layoutY="60.0" prefHeight="93.0" prefWidth="750.0" styleClass="weightingCriteriaPanelText" text="In order to generate weighting criteria based on user preferences, please answer the following questions by selecting the desired radial button next to each question:" wrapText="true" />
+        <Label fx:id="lblInstructions" layoutX="137" layoutY="60.0" prefHeight="93.0" prefWidth="750.0" styleClass="questionOnPanel" wrapText="true" />
         <Label fx:id="titleLabel" layoutX="0" layoutY="35.0" minWidth="1024.0" alignment="CENTER" contentDisplay="CENTER" textAlignment="CENTER" styleClass="titleLabel" text="Title" />
         <Button fx:id="btnWopClose" layoutX="412.0" layoutY="701.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
     </children>

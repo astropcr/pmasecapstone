@@ -41,7 +41,7 @@ public enum WeightingCategory {
     EXTREMELY_MORE(     5, "Extremely More Important",      10.0);
 
     /**
-     * The ID of the Weighting Criteria.
+     * The ID of the Weighting Category.
      */
     public int id;
 

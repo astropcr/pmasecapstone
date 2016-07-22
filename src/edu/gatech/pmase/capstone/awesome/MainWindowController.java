@@ -30,7 +30,6 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
@@ -72,22 +71,6 @@ public class MainWindowController implements Initializable,
     @FXML    private Label lblSubTitleDisasterEffects;
     @FXML    private Label lblSubTitleEnvironmentOptions;
     
-    @FXML    private WeightingOptionQuestion woqc1;    
-    @FXML    private WeightingOptionQuestion woqc2;    
-    @FXML    private WeightingOptionQuestion woqc3;    
-    @FXML    private WeightingOptionQuestion woqc4;    
-    @FXML    private WeightingOptionQuestion woqc5;    
-    @FXML    private WeightingOptionQuestion woqc6;
-    
-    
-    @FXML    private TextFlow tfWeightingOption1;    
-    @FXML    private TextFlow tfWeightingOption2;    
-    @FXML    private TextFlow tfWeightingOption3;    
-    @FXML    private TextFlow tfWeightingOption4;    
-    @FXML    private TextFlow tfWeightingOption5;
-    
-    @FXML    private WeightingOptionPanel wop1;
-    
     @FXML   private EffectsOptionsPanel eopDisasterEffects;
     @FXML   private Label lblDisasterEffects;
     @FXML   private Button btnDepClose;
@@ -101,11 +84,6 @@ public class MainWindowController implements Initializable,
     
     @FXML   private Button btnEopClose;                     // this could be used for them all?
     
-    private Text weightingOption1;
-    private Text weightingOption2;
-    private Text weightingOption3;
-    private Text weightingOption4;
-    private Text weightingOption5;
     
     @FXML   private Button button = null;
     
@@ -122,14 +100,11 @@ public class MainWindowController implements Initializable,
                                   goToEnvironmentOptions(event);
                               };    
                           });
-          
-          
+        
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
-        
-        
         
         
         // ---------------------------------------------------------------------
@@ -137,7 +112,7 @@ public class MainWindowController implements Initializable,
         // the GridView with Environment Effect Stati
         // ---------------------------------------------------------------------
         Set<String> strTerrainEffectStatus = TerrainEffect.getEffectLabels();
-        ObservableList<TerrainEffect>   tempObsList = FXCollections.observableArrayList();
+        ObservableList<TerrainEffect> tempObsList = FXCollections.observableArrayList();
         
         int i = 1;  // needs to be one ordered since the 0 orderded is an "UNKNOWN" place holder
         for(String str : strTerrainEffectStatus)
@@ -165,20 +140,6 @@ public class MainWindowController implements Initializable,
         // setInfo() call.  This is due to the EES being a custom controller.
         // ---------------------------------------------------------------------
     }
-    
-    /**
-     * This function handles the opening and closing of subpanels.
-     * @param event
-     * @throws IOException 
-     */
-    
-    @FXML
-    private void handlePanelSwitchButtonAction(ActionEvent event) throws IOException {
-        System.out.println("You clicked me!");
-        
-    }
-    
-    
     
     
     // -------------------------------------------------------------------------
