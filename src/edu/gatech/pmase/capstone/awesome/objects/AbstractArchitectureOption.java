@@ -88,112 +88,130 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
     public abstract List<ArchitectureOptionAttribute> getPrioritizationAttributess();
 
     /**
+     * Gets the ranking of cost. Ranked from value 1 to 5 with 1 being lowest
+     * and 5 highest cost.
      *
-     * @return
+     * @return the ranking of cost.
      */
     public int getCostRanking() {
         return costRanking;
     }
 
     /**
+     * Sets the ranking of cost.
      *
-     * @param costRanking
+     * @param costRanking the ranking of cost.
      */
     public void setCostRanking(int costRanking) {
         this.costRanking = costRanking;
     }
 
     /**
+     * Gets the label, must be unique.
      *
-     * @return
+     * @return the label, must be unique.
      */
     public String getLabel() {
         return label;
     }
 
     /**
+     * Sets the label, must be unique.
      *
-     * @param label
+     * @param label the label, must be unique.
      */
     public void setLabel(String label) {
         this.label = label;
     }
 
     /**
+     * Gets the ID, must be unique.
      *
-     * @return
+     * @return the ID, must be unique.
      */
     public long getId() {
         return id;
     }
 
     /**
+     * Sets the ID, must be unique.
      *
-     * @param id
+     * @param id the ID, must be unique.
      */
     public void setId(long id) {
         this.id = id;
     }
 
     /**
+     * Gets the list of Terrain Limitations for the architecture option.
      *
-     * @return
+     * @return the list of Terrain Limitations for the architecture option.
      */
     public List<TerrainEffect> getTerrainLimitation() {
         return terrainLimitation;
     }
 
     /**
+     * Sets the list of Terrain Limitations for the architecture option.
      *
-     * @param terrainLimitation
+     * @param terrainLimitation the list of Terrain Limitations for the
+     * architecture option.
      */
     public void setTerrainLimitation(List<TerrainEffect> terrainLimitation) {
         this.terrainLimitation = terrainLimitation;
     }
 
     /**
+     * Gets the disaster limitations for the architecture option.
      *
-     * @return
+     * @return the disaster limitations for the architecture option.
      */
     public List<DisasterEffect> getDisasterLimitations() {
         return disasterLimitations;
     }
 
     /**
+     * Sets the disaster limitations for the architecture option.
      *
-     * @param disasterLimitations
+     * @param disasterLimitations the disaster limitations for the architecture
+     * option.
      */
     public void setDisasterLimitations(List<DisasterEffect> disasterLimitations) {
         this.disasterLimitations = disasterLimitations;
     }
 
     /**
+     * Gets a list of custom attributes as defined in the database.
      *
-     * @return
+     * @return a list of custom attributes as defined in the database.
      */
     public List<ArchitectureOptionAttribute> getCustomAttributes() {
         return customAttributes;
     }
 
     /**
+     * Sets a list of custom attributes as defined in the database.
      *
-     * @param customAttributes
+     * @param customAttributes a list of custom attributes as defined in the
+     * database.
      */
     public void setCustomAttributes(List<ArchitectureOptionAttribute> customAttributes) {
         this.customAttributes = customAttributes;
     }
 
     /**
+     * Gets the calculated score for the architecture option.
      *
-     * @return
+     * @return the calculated score for the architecture option.
      */
     public double getScore() {
         return score;
     }
 
     /**
+     * Set the calculated score for the architecture option.
      *
-     * @param score
+     * @param score the calculated score for the architecture option.
      */
     public void setScore(double score) {
         this.score = score;

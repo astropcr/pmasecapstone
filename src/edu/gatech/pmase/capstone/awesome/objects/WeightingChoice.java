@@ -24,77 +24,94 @@
 package edu.gatech.pmase.capstone.awesome.objects;
 
 /**
- *
+ * Represents a question given to the user to weight option and option.
  */
 public class WeightingChoice {
 
     /**
-     *
+     * The label of the first option.
      */
     private String optionOneLabel;
 
     /**
-     *
+     * The label of the second option.
      */
     private String optionTwoLabel;
 
     /**
-     *
+     * The result of the weighting from the user.
      */
     private double result;
 
+    /**
+     * Default Constructor.
+     */
     public WeightingChoice() {
+        // Do nothing.
     }
 
-    public WeightingChoice(String optionOneLabel, String optionTwoLabel, double result) {
+    /**
+     * Overloaded Constructor.
+     *
+     * @param optionOneLabel label of the first option.
+     * @param optionTwoLabel label of the second option.
+     * @param result result of the weighting from the user.
+     */
+    public WeightingChoice(final String optionOneLabel, final String optionTwoLabel, final double result) {
         this.optionOneLabel = optionOneLabel;
         this.optionTwoLabel = optionTwoLabel;
         this.result = result;
     }
 
     /**
+     * Gets the label of the first option.
      *
-     * @return
+     * @return label of the first option.
      */
     public String getOptionOneLabel() {
         return optionOneLabel;
     }
 
     /**
+     * Sets the label of the first option.
      *
-     * @param optionOneLabel
+     * @param optionOneLabel label of the first option.
      */
     public void setOptionOneLabel(String optionOneLabel) {
         this.optionOneLabel = optionOneLabel;
     }
 
     /**
+     * Gets the label of the second option.
      *
-     * @return
+     * @return the label of the second option.
      */
     public String getOptionTwoLabel() {
         return optionTwoLabel;
     }
 
     /**
+     * Sets the label of the second option.
      *
-     * @param optionTwoLabel
+     * @param optionTwoLabel the label of the second option.
      */
     public void setOptionTwoLabel(String optionTwoLabel) {
         this.optionTwoLabel = optionTwoLabel;
     }
 
     /**
+     * Get the result of the weighting from the user.
      *
-     * @return
+     * @return result of the weighting from the user.
      */
     public double getResult() {
         return result;
     }
 
     /**
+     * Sets the result of the weighting from the user.
      *
-     * @param result
+     * @param result result of the weighting from the user.
      */
     public void setResult(double result) {
         this.result = result;

@@ -116,11 +116,12 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
     private String resultsTemplate;
 
     /**
-     * Private constructor
+     * Private constructor.
      */
     private DisasterResponseTradeStudyPropertiesSingleton() {
         try {
             props.load(new FileInputStream(PROPERTIES_FILE));
+
             final String dir = props.getProperty(WORKBOOK_DIR_PROPERTY_NAME);
             final String resultsDir = props.getProperty(RESULTS_DIR_PROPERTY_NAME);
             final String comms = props.getProperty(COMM_WORKBOOK_PROPERTY_NAME);
@@ -153,55 +154,66 @@ public class DisasterResponseTradeStudyPropertiesSingleton {
     /**
      * Returns the one instance of Singleton
      *
-     * @return
+     * @return the static instance of the singleton.
      */
     public static DisasterResponseTradeStudyPropertiesSingleton getInstance() {
         return instance;
     }
 
     /**
+     * The directory name of the workbook folder where the workbook database
+     * files are located.
      *
-     * @return
+     * @return directory name of the workbook folder where the workbook database
+     * files are located.
      */
     public String getWorkbookDirectory() {
         return workbookDirectory;
     }
 
     /**
+     * Gets the filename for the Communication options technology database
+     * workbook.
      *
-     * @return
+     * @return the filename for the Communication options technology database
+     * workbook.
      */
     public String getCommWorkbookFileName() {
         return commWorkbookFileName;
     }
 
     /**
+     * Gets the filename for the Platform options technology database workbook.
      *
-     * @return
+     * @return the filename for the Platform options technology database
+     * workbook.
      */
     public String getPlatformWorkbookFileName() {
         return platformWorkbookFileName;
     }
 
     /**
+     * Gets the filename for the Sensor options technology database workbook.
      *
-     * @return
+     * @return the filename for the Sensor options technology database workbook.
      */
     public String getSensorsWorkbookFileName() {
         return sensorsWorkbookFileName;
     }
 
     /**
+     * Gets the directory to store the result files within.
      *
-     * @return
+     * @return the directory to store the result files within.
      */
     public String getResultsDirectory() {
         return resultsDirectory;
     }
 
     /**
+     * Gets the filename for the result template file.
      *
-     * @return
+     * @return the filename for the result template file.
      */
     public String getResultsTemplate() {
         return resultsTemplate;

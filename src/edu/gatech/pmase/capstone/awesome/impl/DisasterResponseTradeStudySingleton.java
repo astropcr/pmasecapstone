@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -271,76 +272,98 @@ public class DisasterResponseTradeStudySingleton {
      * @param eff the effect to add
      */
     public void addDisasterEffect(final DisasterEffect eff) {
-        this.selectedDisasterEffects.add(eff);
+        if (!selectedDisasterEffects.contains(eff)) {
+            this.selectedDisasterEffects.add(eff);
+        }
     }
 
     /**
+     * Adds a terrain effect to user selected list of effects
      *
-     * @param eff
+     * @param eff the effect to add
      */
     public void addTerrainEffect(final TerrainEffect eff) {
+        final int id = eff.terrainId;
+
+        final Iterator<TerrainEffect> iter = selectedTerrainEffects.iterator();
+        while (iter.hasNext()) {
+            final TerrainEffect next = iter.next();
+            if (next.terrainId == id) {
+                iter.remove();
+                break;
+            }
+        }
+
         this.selectedTerrainEffects.add(eff);
     }
 
     /**
+     * Gets list of selected terrain effects.
      *
-     * @return
+     * @return list of selected terrain effects.
      */
     public List<TerrainEffect> getSelectedTerrainEffects() {
         return selectedTerrainEffects;
     }
 
     /**
+     * Set list of selected terrain effects.
      *
-     * @param selectedTerrainEffects
+     * @param selectedTerrainEffects list of selected terrain effects.
      */
     public void setSelectedTerrainEffects(final List<TerrainEffect> selectedTerrainEffects) {
         this.selectedTerrainEffects = selectedTerrainEffects;
     }
 
     /**
+     * Get selected Platform Weighting Choices
      *
-     * @return
+     * @return selected Platform Weighting Choices
      */
     public List<WeightingChoice> getPlatformWeightingChoice() {
         return platformWeightingChoice;
     }
 
     /**
+     * Set selected Platform Weighting Choices
      *
-     * @param platformWeightingChoice
+     * @param platformWeightingChoice selected Platform Weighting Choices
      */
     public void setPlatformWeightingChoice(List<WeightingChoice> platformWeightingChoice) {
         this.platformWeightingChoice = platformWeightingChoice;
     }
 
     /**
+     * Get selected Communications Weighting Choices
      *
-     * @return
+     * @return selected Communications Weighting Choices
      */
     public List<WeightingChoice> getCommWeightingChoice() {
         return commWeightingChoice;
     }
 
     /**
+     * Sets selected Communications Weighting Choices
      *
-     * @param commWeightingChoice
+     * @param commWeightingChoice selected Communications Weighting Choices
      */
     public void setCommWeightingChoice(List<WeightingChoice> commWeightingChoice) {
         this.commWeightingChoice = commWeightingChoice;
     }
 
     /**
+     * Gets selected Sensor Weighting Choices
      *
-     * @return
+     * @return selected Sensor Weighting Choices
      */
     public List<WeightingChoice> getSensorWeightingChoice() {
         return sensorWeightingChoice;
     }
 
     /**
+     * Set selected Sensor Weighting Choices
      *
-     * @param sensorWeightingChoice
+     * @param sensorWeightingChoice selected Sensor Weighting Choices
      */
     public void setSensorWeightingChoice(List<WeightingChoice> sensorWeightingChoice) {
         this.sensorWeightingChoice = sensorWeightingChoice;
