@@ -42,7 +42,7 @@ THE SOFTWARE.
         <Logger name="edu.gatech.pmase.capstone.awesome" level="error"  additivity="false">
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
-        <Logger name="edu.gatech.pmase.capstone.awesome" level="info"  additivity="false">
+        <Logger name="edu.gatech.pmase.capstone.awesome" level="debug"  additivity="false">
             <AppenderRef ref="FileAppender"/>
         </Logger>
         <Root level="error">

@@ -107,6 +107,11 @@
             <fileset dir="${workbook.dir}"/>
         </copy>
         
+        <!-- Copies result templater from project root into dist folder -->
+        <copy todir="${dist.dir}${file.separator}${result.dir}">
+            <fileset dir="${result.dir}"/>
+        </copy>
+        
         <!-- Copies properties file to dist folder -->
         <copy todir="${dist.dir}" file="${prop.file}"/>
     </target>
