@@ -30,7 +30,11 @@
               </Label>
            </top>
            <bottom>
-               <Button fx:id="btnEopClose" BorderPane.alignment="CENTER" layoutX="413.0" layoutY="701.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
+               <Button fx:id="btnEopClose" BorderPane.alignment="CENTER" layoutX="413.0" layoutY="676.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done">
+                    <BorderPane.margin>
+                        <Insets bottom="25.0" left="0" right="0.0" top="0.0" />
+                    </BorderPane.margin>
+               </Button>
            </bottom>
            <left></left>
            <right></right>

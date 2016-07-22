@@ -40,8 +40,7 @@ import javafx.scene.control.Label;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class DisasterEffectOptionsController implements Initializable,
-                                             ControlledScreen {
+public class DisasterEffectOptionsController implements ControlledScreen {
 
     ScreensController myController;
     
@@ -52,14 +51,19 @@ public class DisasterEffectOptionsController implements Initializable,
     @FXML   private Button button = null;
     
     
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
-    }
+//    /**
+//     * Initializes the controller class.
+//     */
+//    @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//        // TODO  
+//    }
    
+    
+    public void initialize()
+    {
+        this.eopDisasterEffects.setQuestion("Select all disaster effects that apply.");
+    }
     
     /**
      * This function will trigger a data update event for the Disaster Effects
@@ -84,6 +88,8 @@ public class DisasterEffectOptionsController implements Initializable,
         // Now switch the window
         goToMain(event);
     }
+    
+
     
     // -------------------------------------------------------------------------
     // These functions are what switch between windows.
