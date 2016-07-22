@@ -40,7 +40,9 @@ import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.util.PrioritizationUtil;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -105,6 +107,7 @@ public class DisasterResponseTradeStudySingleton {
 
     /**
      * Get the platform options loaded from the database (set by the user).
+     *
      * @return
      */
     public List<PlatformOption> getLoadedPlatformOptions() {
@@ -113,6 +116,7 @@ public class DisasterResponseTradeStudySingleton {
 
     /**
      * Get the comms options loaded from the database (set by the user).
+     *
      * @return
      */
     public List<CommunicationOption> getLoadedCommOptions() {
@@ -121,6 +125,7 @@ public class DisasterResponseTradeStudySingleton {
 
     /**
      * Get the sensor options loaded from the database (set by the user).
+     *
      * @return
      */
     public List<SensorOption> getLoadedSensorOptions() {
@@ -194,16 +199,26 @@ public class DisasterResponseTradeStudySingleton {
 
         // write file
         final DisasterResponseTradeStudyOutputer outputter = new DisasterResponseTradeStudyOutputer();
-        String resultFile;
+        String fileName = "";
         try {
-            resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects);
-            LOGGER.info("Architecture Results writen to file: " + resultFile);
+            final Path resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects);
+            LOGGER.info("Architecture Results writen to file: " + resultFile.toAbsolutePath());
+            fileName = resultFile.getFileName().toString();
+
+            try {
+                if (Desktop.isDesktopSupported()) {
+                    Desktop.getDesktop().open(resultFile.toFile());
+                } else {
+                    LOGGER.warn("Computer does not support Desktop to open files.");
+                }
+            } catch (IOException ex) {
+                LOGGER.warn("Could not open created file in Desktop", ex);
+            }
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Cannot write architecture results out.", ex);
-            resultFile = "";
         }
 
-        return resultFile;
+        return fileName;
     }
 
     /**
@@ -233,22 +248,26 @@ public class DisasterResponseTradeStudySingleton {
 
     /**
      * Gets a list of all selected disaster effect.
+     *
      * @return list of all selected disaster effect.
-     */ 
+     */
     public List<DisasterEffect> getSelectedDisasterEffects() {
         return selectedDisasterEffects;
     }
 
     /**
-     * Sets a list of all selected disaster effect. Will replace any previous disaster effects set.
-     * @param selectedDisasterEffects  list of all selected disaster effect.
+     * Sets a list of all selected disaster effect. Will replace any previous
+     * disaster effects set.
+     *
+     * @param selectedDisasterEffects list of all selected disaster effect.
      */
     public void setSelectedDisasterEffects(final List<DisasterEffect> selectedDisasterEffects) {
         this.selectedDisasterEffects = selectedDisasterEffects;
     }
 
     /**
-     * Adds a disaster effect to the user selected list of effects. 
+     * Adds a disaster effect to the user selected list of effects.
+     *
      * @param eff the effect to add
      */
     public void addDisasterEffect(final DisasterEffect eff) {
