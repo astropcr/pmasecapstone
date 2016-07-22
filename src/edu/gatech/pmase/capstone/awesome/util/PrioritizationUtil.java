@@ -67,7 +67,7 @@ public class PrioritizationUtil {
                 final WeightingChoice opt = new WeightingChoice();
                 opt.setOptionOneLabel(opt1Label);
                 opt.setOptionTwoLabel(attr2.getLabel());
-                opt.setResult(-1);
+                opt.setResult(Double.MIN_VALUE);
                 LOGGER.trace("Creating Weighting Options for Attribute: "
                         + opt.getOptionOneLabel() + " versus " + opt.getOptionTwoLabel());
 

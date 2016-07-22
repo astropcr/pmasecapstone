@@ -58,34 +58,24 @@ public class WeightingOptionsController implements ControlledScreen {
      * Logger.
      */
     private static final Logger LOGGER = LogManager.getLogger(WeightingOptionsController.class);
-
+    
     ScreensController myController;
-
-    @FXML
-    private ToggleGroup tg;
-    @FXML
-    private Button btnWopClose;
-    @FXML
-    private ListView weightingOptions;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label lblInstructions;
-
+            
+    @FXML   private ToggleGroup             tg;
+    @FXML   private Button                  btnWopClose;
+    @FXML   private ListView                weightingOptions;
+    @FXML   private Label                   titleLabel;
+    @FXML   private Label                   lblInstructions;
+    
     // -------------------------------------------------------------------------
     // These are part of the labels the 5 criteria for weighting
     // -------------------------------------------------------------------------
-    @FXML
-    private TextFlow tfWeightingOption1;
-    @FXML
-    private TextFlow tfWeightingOption2;
-    @FXML
-    private TextFlow tfWeightingOption3;
-    @FXML
-    private TextFlow tfWeightingOption4;
-    @FXML
-    private TextFlow tfWeightingOption5;
-
+    @FXML   private TextFlow tfWeightingOption1;
+    @FXML   private TextFlow tfWeightingOption2;
+    @FXML   private TextFlow tfWeightingOption3;
+    @FXML   private TextFlow tfWeightingOption4;
+    @FXML   private TextFlow tfWeightingOption5;
+    
     private final Text tWeightingOption1;
     private final Text tWeightingOption2;
     private final Text tWeightingOption3;
@@ -97,14 +87,16 @@ public class WeightingOptionsController implements ControlledScreen {
             + "please answer the following questions by selecting the desired radio "
             + "button next to each question:";
     private static final String STR_WARNING = "(Please select an option before continuing)";
-
-    private ObservableList<WeightingChoice> tempObsList;
-
+    
+    
+    
+    private ObservableList<WeightingChoice>   wcObsList;
+    
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
 
     public WeightingOptionsController() {
-        tempObsList = FXCollections.observableArrayList();
+        wcObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
 
@@ -162,13 +154,13 @@ public class WeightingOptionsController implements ControlledScreen {
         }
 
         LOGGER.debug("Num Weight Opts: " + weightingOptList.size());
-
-        tempObsList.clear();
-        tempObsList.addAll(weightingOptList);
-        LOGGER.debug("Num Observe Opts: " + tempObsList.size());
-
-        weightingOptions.setItems(tempObsList);
-
+        
+        wcObsList.clear();
+        wcObsList.addAll(weightingOptList);
+        LOGGER.debug("Num Observe Opts: " + wcObsList.size());
+        
+        weightingOptions.setItems(wcObsList);
+        
         weightingOptions.setCellFactory(
                 new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
             @Override
@@ -189,14 +181,10 @@ public class WeightingOptionsController implements ControlledScreen {
 
     private Boolean determineIfSelectionsHaveBeenMade() {
         Boolean determination = true;
-        WeightingCategory wc = WeightingCategory.UNKNOWN;
-        WeightingChoice wtf;
-
-        for (WeightingChoice obj : tempObsList) {
-            //wc = ((WeightOptData)obj).getSelection();
-            wtf = (WeightingChoice) obj;
-
-            if (wc != WeightingCategory.UNKNOWN) {
+        
+        for (WeightingChoice wc : wcObsList)
+        {
+            if(wc.getResult() != Double.MIN_VALUE ){
                 determination &= true;
             } else {
                 determination = false;
@@ -234,12 +222,24 @@ public class WeightingOptionsController implements ControlledScreen {
 
         if (allQuestionsAnswered) {
             // Update the model
+            switch (weightingOpt) {
+                case PLATFORMS:
+                     DRTSS.setPlatformWeightingChoice(wcObsList);
+                    break;
+
+                case COMMS:
+                     DRTSS.setCommWeightingChoice(wcObsList);
+                    break;
+
+                case SENSORS:
+                     DRTSS.setSensorWeightingChoice(wcObsList);
+                    break;
+            }
 
             // Update the view
             DRTSGUIModel.getInstance().updateWoccb(weightingOpt, allQuestionsAnswered);
 
             // Now switch the window
-//            Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
             this.goToMain(event);
 
             // Clear the warning from the label text
