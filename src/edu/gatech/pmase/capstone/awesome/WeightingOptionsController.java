@@ -101,7 +101,7 @@ public class WeightingOptionsController implements ControlledScreen {
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
 
         // ---------------------------------------------------------------------
-        // Set the weighting criteria category labes
+        // Set the weighting criteria category labels
         // ---------------------------------------------------------------------
         // Future work will set these automagically (possibly
         //for (String wcLabels : WeightingCategory.getCategoryLabels()) {
@@ -149,7 +149,7 @@ public class WeightingOptionsController implements ControlledScreen {
                 break;
 
             case SENSORS:
-                weightingOptList.addAll(DRTSS.getCommWeightingChoice());
+                weightingOptList.addAll(DRTSS.getSensorWeightingChoice());
                 break;
         }
 
