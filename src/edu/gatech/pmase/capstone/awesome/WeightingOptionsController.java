@@ -24,27 +24,22 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptCell;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightOptCell2;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
-import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -53,6 +48,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * FXML Controller class
@@ -61,22 +58,37 @@ import javafx.util.Callback;
  */
 public class WeightingOptionsController implements ControlledScreen {
 
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(WeightingOptionsController.class);
+    
     ScreensController myController;
     
-    @FXML   private WeightingOptionPanel    wop; // this is going to be broken apart
-    @FXML   private ToggleGroup             tg;
-    @FXML   private Button                  btnWopClose;
-    @FXML   private ListView                weightingOptions;
-    @FXML   private Label                   titleLabel;
-    
+    @FXML
+    private WeightingOptionPanel wop; // this is going to be broken apart
+    @FXML
+    private ToggleGroup tg;
+    @FXML
+    private Button btnWopClose;
+    @FXML
+    private ListView weightingOptions;
+    @FXML
+    private Label titleLabel;
+
     // -------------------------------------------------------------------------
     // These are part of the labels the 5 criteria for weighting
     // -------------------------------------------------------------------------
-    @FXML   private TextFlow tfWeightingOption1;
-    @FXML   private TextFlow tfWeightingOption2;
-    @FXML   private TextFlow tfWeightingOption3;
-    @FXML   private TextFlow tfWeightingOption4;
-    @FXML   private TextFlow tfWeightingOption5;
+    @FXML
+    private TextFlow tfWeightingOption1;
+    @FXML
+    private TextFlow tfWeightingOption2;
+    @FXML
+    private TextFlow tfWeightingOption3;
+    @FXML
+    private TextFlow tfWeightingOption4;
+    @FXML
+    private TextFlow tfWeightingOption5;
     
     private final Text tWeightingOption1;
     private final Text tWeightingOption2;
@@ -84,27 +96,25 @@ public class WeightingOptionsController implements ControlledScreen {
     private final Text tWeightingOption4;
     private final Text tWeightingOption5;
     
-    private ObservableList<WeightingChoice>   tempObsList;
+    private ObservableList<WeightingChoice> tempObsList;
     
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
     
-    public WeightingOptionsController(){
+    public WeightingOptionsController() {
         tempObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
-        
-        
+
         // ---------------------------------------------------------------------
         // Set the weighting criteria category labes
         // ---------------------------------------------------------------------
         // Future work will set these automagically (possibly
         //for (String wcLabels : WeightingCategory.getCategoryLabels()) {
-            //1. create a new TextFlow and related Text field
-            //2. add them to the grid...might need to switch to a GridFlow
-            //3. set the Text field 
+        //1. create a new TextFlow and related Text field
+        //2. add them to the grid...might need to switch to a GridFlow
+        //3. set the Text field 
         //}
-        
         tWeightingOption1 = new Text(WeightingCategory.EXTREMELY_MORE.label);
         tWeightingOption2 = new Text(WeightingCategory.SIGNIFICANTLY_MORE.label);
         tWeightingOption3 = new Text(WeightingCategory.EQUALLY.label);
@@ -112,10 +122,9 @@ public class WeightingOptionsController implements ControlledScreen {
         tWeightingOption5 = new Text(WeightingCategory.EXTREMELY_LESS.label);
     }
     
-    
-    void setupEnvOpts(WeightingAreasOfConcern weightingOpt){
+    void setupEnvOpts(WeightingAreasOfConcern weightingOpt) {
         this.weightingOpt = weightingOpt;
-        
+
         // ---------------------------------------------------------------------
         // Attach the Text properties to the Text Flow now that the TextFlows
         // are constructed by the FXML loader.
@@ -130,13 +139,12 @@ public class WeightingOptionsController implements ControlledScreen {
         // Set the title label.
         // ---------------------------------------------------------------------
         titleLabel.setText(weightingOpt.label);
-        
+
         // ---------------------------------------------------------------------
         // Create the choices
         // ---------------------------------------------------------------------
         List<WeightingChoice> weightingOptList = new ArrayList<>();
-        switch(weightingOpt)
-        {
+        switch (weightingOpt) {
             case PLATFORMS:
                 weightingOptList.addAll(DRTSS.getPlatformWeightingChoice());
                 break;
@@ -144,24 +152,29 @@ public class WeightingOptionsController implements ControlledScreen {
             case COMMS:
                 weightingOptList.addAll(DRTSS.getCommWeightingChoice());
                 break;
-                
+            
             case SENSORS:
                 weightingOptList.addAll(DRTSS.getCommWeightingChoice());
                 break;
         }
-
+        
+        LOGGER.debug("Num Weight Opts: " + weightingOptList.size());
+        
+        tempObsList.clear();
         tempObsList.addAll(weightingOptList);
+        LOGGER.debug("Num Observe Opts: " + tempObsList.size());
+        
         weightingOptions.setItems(tempObsList);
         
         weightingOptions.setCellFactory(
-            new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
-                @Override
-                public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
-                   return new WeightOptCell(tg);
-                }
+                new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
+            @Override
+            public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
+                return new WeightOptCell2();
+            }
         });
     }
-    
+
     /**
      * Initializes the controller class.
      */
@@ -169,38 +182,39 @@ public class WeightingOptionsController implements ControlledScreen {
     void initialize() {
         // TODO  
     }
-    
-    
+
     /**
      * This function will trigger a data update event for the Disaster Effects
      * and trigger a screen switch event for the main controller.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    private void doneButtonClicked(ActionEvent event)
-    {
+    private void doneButtonClicked(ActionEvent event) {
+        LOGGER.debug("Done");
         // Fire event for data update
-        
+        if (tempObsList != null) {
+            LOGGER.debug(tempObsList.get(0).getResult());
+        }
+
         // Now switch the window
         Event.fireEvent((EventTarget) event.getSource(), new ScreenSwitchEvent()); // this should use the custom event to switch windows
         this.goToMain(event);
     }
-    
+
     // -------------------------------------------------------------------------
     // These functions are what switch between windows.
     // -------------------------------------------------------------------------
-    
     @FXML
-    private void goToMain(ActionEvent event)  {
+    private void goToMain(ActionEvent event) {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
     
-
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
-
+    
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.
