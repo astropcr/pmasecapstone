@@ -65,6 +65,7 @@ public class WeightOptData {
     {
         this.wc = wc;
         woq.setComparisonOptions(wc.getOptionOneLabel(), wc.getOptionTwoLabel());
+        woq.setWeightingChoice(wc);
     }
     
     public WeightingCategory getSelection() {

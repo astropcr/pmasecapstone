@@ -35,7 +35,7 @@
                      <children>
                         <Label fx:id="lblSubTitleDisasterEffects" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="1. Select Disaster Effects" textAlignment="CENTER" />
                         <Button fx:id="btnDepOpen" layoutX="22.0" layoutY="98.0" mnemonicParsing="false" onAction="#goToEffects" styleClass="userSelectionButton" text="Disaster Effects" />
-                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="173.0" prefWidth="457.0" styleClass="userStatusLabel" wrapText="true" />
+                        <Label fx:id="lblDisasterEffects" layoutX="22.0" layoutY="175.0" prefHeight="173.0" prefWidth="457.0" styleClass="envOptStatusLabel" wrapText="true" />
                         <Label fx:id="lblSubTitleDisasterEffects1" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="379.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="400.0" styleClass="mainSubTitleLabel" text="2. Define Environment" textAlignment="CENTER" />
                      </children>
                   </AnchorPane>
@@ -48,6 +48,7 @@
                         <CheckBox fx:id="cbWeightingsPlatformsComplete" disable="true" layoutX="32.0" layoutY="115.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
                         <CheckBox fx:id="cbWeightingsCommunicationsComplete" disable="true" layoutX="95.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
                         <CheckBox fx:id="cbWeightingsSensorsComplete" disable="true" layoutX="157.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
+                        <Button fx:id="btnDepOpen131" layoutX="14.0" layoutY="404.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calculateResults" prefHeight="50.0" prefWidth="300.0" styleClass="calculationButton" text="Calculate" />
                      </children>
                   </AnchorPane>
                </children>
@@ -57,7 +58,7 @@
             <Pane prefHeight="468.0" prefWidth="12.0" />
          </left>
          <bottom>
-            <GridView fx:id="envStatusGrid" layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1024.0" BorderPane.alignment="CENTER" verticalCellSpacing="5" horizontalCellSpacing="2" cellWidth="195" cellHeight="50"  />
+            <GridView fx:id="envStatusGrid" cellHeight="50" cellWidth="195" horizontalCellSpacing="2" layoutY="568.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1024.0" verticalCellSpacing="5" BorderPane.alignment="CENTER" />
          </bottom>
          <top>
             <Label fx:id="lblTitleMain" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="75.0" prefWidth="750.0" styleClass="mainTitleLabel" text="Disaster Response Trade Study Tool" textAlignment="CENTER" BorderPane.alignment="CENTER">

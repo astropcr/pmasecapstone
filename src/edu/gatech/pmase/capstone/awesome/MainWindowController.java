@@ -30,10 +30,9 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -47,8 +46,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.util.Callback;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
@@ -75,6 +72,7 @@ public class MainWindowController implements Initializable,
     @FXML   private Label lblDisasterEffects;
     @FXML   private Button btnDepClose;
     @FXML   private Button btnDepOpen;
+    @FXML   private Button btnCalculate;
     
     @FXML   private GridView envStatusGrid;
     
@@ -84,8 +82,7 @@ public class MainWindowController implements Initializable,
     
     @FXML   private Button btnEopClose;                     // this could be used for them all?
     
-    
-    @FXML   private Button button = null;
+    private DisasterResponseTradeStudySingleton DRTSS;
     
     
     /**
@@ -94,6 +91,8 @@ public class MainWindowController implements Initializable,
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        DRTSS = DisasterResponseTradeStudySingleton.getInstance();
+        
         apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
                           new ScreenSwitchEventHandler() {
                               public void handle(ScreenSwitchEvent event) {
@@ -155,6 +154,11 @@ public class MainWindowController implements Initializable,
         myController.setScreen(DisasterResponseTradeStudy.screenEffectsOptID);
     }
     
+    @FXML
+    private void calculateResults(ActionEvent event) {
+        DRTSS.calculate();
+    }
+    
     // -------------------------------------------------------------------------
     // Environment Status
     // -------------------------------------------------------------------------
@@ -209,6 +213,13 @@ public class MainWindowController implements Initializable,
                     .addEes((TerrainEffect)ees.getUserData(),
                             (EnvironmentElementStatus)ees);
         });
+        
+        // ---------------------------------------------------------------------
+        // Connect the Weighting Area check boxen controls to the model
+        // ---------------------------------------------------------------------
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS, cbWeightingsPlatformsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,     cbWeightingsCommunicationsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,   cbWeightingsSensorsComplete);
     }
 
     @Override

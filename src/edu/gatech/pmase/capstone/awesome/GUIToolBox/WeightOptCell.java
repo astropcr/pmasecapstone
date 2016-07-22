@@ -52,6 +52,7 @@ public class WeightOptCell extends ListCell<WeightingChoice> {
             
             WeightOptData wod = new WeightOptData();
             wod.setInfo(wc);
+            
             setGraphic(wod.getBox());
         }
         

@@ -23,9 +23,11 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
 import java.io.IOException;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,6 +38,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * FXML Controller class
@@ -44,6 +48,11 @@ import javafx.scene.text.TextFlow;
  */
 
 public class WeightingOptionQuestion extends AnchorPane {
+    
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LogManager.getLogger(WeightingOptionQuestion.class);
 
     // -------------------------------------------------------------------------
     // These expose the controls to the FXML Loader and are used for the user
@@ -80,12 +89,10 @@ public class WeightingOptionQuestion extends AnchorPane {
     // be set there.
     private final SimpleStringProperty optionOne;
     private final SimpleStringProperty optionTwo;
+    private WeightingChoice wc;
    
     
     public WeightingOptionQuestion() {
-        
-        
-        
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
 
@@ -109,11 +116,15 @@ public class WeightingOptionQuestion extends AnchorPane {
         // Setup the toggle group that handles the radio buttons
         // .....................................................................
         questionSet = new ToggleGroup();
-        questionSet.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) -> {
-            if (questionSet.getSelectedToggle() != null) {
-                System.out.println(questionSet.getSelectedToggle().getUserData().toString());
-                // Do something here with the userData of newly selected radioButton
-            } 
+        questionSet.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ov,
+                    Toggle old_toggle, Toggle new_toggle) {
+                if (questionSet.getSelectedToggle() != null) {
+                    final Toggle tog = questionSet.getSelectedToggle();
+                    LOGGER.debug("User Data: " + tog.getUserData().toString());
+                    wc.setResult((double) tog.getUserData());
+                }
+            }
         });
         
         // .....................................................................
@@ -163,6 +174,8 @@ public class WeightingOptionQuestion extends AnchorPane {
         textOpt2.textProperty().bind(optionTwoProperty());
         
         this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2, text3);
+        
+        wc = null;
     }
     
     // -------------------------------------------------------------------------
@@ -187,6 +200,11 @@ public class WeightingOptionQuestion extends AnchorPane {
     {
         this.setOptionOne(opt1);
         this.setOptionTwo(opt2);
+    }
+    
+    public void setWeightingChoice(WeightingChoice wcIn)
+    {
+        wc = wcIn;
     }
     
     

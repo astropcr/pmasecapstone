@@ -33,6 +33,35 @@
     
     -fx-border-color: Gold;
 }
+.calculationButton {
+    -fx-background-color: crimson;
+    -fx-background-radius: 5;
+    
+    -fx-border-color: GoldenRod;
+    -fx-border-radius: 5;
+    
+    -fx-effect: innershadow( one-pass-box , #DAA520 , 8 , 0.5 , 0 , 0  );
+    
+    -fx-text-fill: gold;
+    
+    -fx-font-family: "Agency FB";
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+}
+
+.calculationButton:pressed {
+    -fx-background-color: #d2143a;
+}
+
+.calculationButton:selected {
+    /* #ee4466 - Crimson @60% */
+    /* #e1b137 - Crimson @55% */
+    /* #e91640 - Crimson @50%*/
+    -fx-background-color: #bb1133;
+    /* #dc143c - Crimson @47%*/
+    /* #d2143a - Crimson @45% */
+    /* #bb1133 - Crimson @40% */
+}
 
 .userStatusLabel {
     -fx-background-color: DarkSeaGreen;
@@ -57,7 +86,7 @@
     -fx-text-alignment: center;
     
     -fx-font-family: "Trebuchet MS Bold";
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     
 }
 
