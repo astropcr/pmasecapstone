@@ -24,10 +24,9 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionPanel;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
@@ -50,9 +49,8 @@ public class DRTSGUIModel {
     // Collections of Enumeration to GUI Objects (both views and controllers)
     // -------------------------------------------------------------------------
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
-    private final HashMap<String, WeightingOptionPanel> weightingsOptionsCollection = new HashMap<>();
     private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
-    private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
+    private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>(); 
 
 
     // -------------------------------------------------------------------------
@@ -76,42 +74,83 @@ public class DRTSGUIModel {
     
     
     // -------------------------------------------------------------------------
-    // Weighting Options controllers and viewers
+    // Disaster Effect controllers and viewers
     // -------------------------------------------------------------------------
-    public void addWeightingOptionPanel(String ID, WeightingOptionPanel wopToAdd)
-    {
-        this.weightingsOptionsCollection.put(ID, wopToAdd);
+    public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
+        this.lblDisasterEffects = lblDisasterEffectsToSet;
     }
-    
-    public void addWeightingOptionCompletedCheckBox(String weightOptID, CheckBox cbToAdd)
-    {
-        this.weightingsOptionsCheckBoxenCollection.put(weightOptID, cbToAdd);
-    }
-    
-    public void setWeightingOptionComplete(String weightOptID, Boolean complete)
-    {
-        Boolean temp = this.weightingsCompletedCollection.get(weightOptID);
-        
-        if (temp != null) {
-            temp = complete;
-        }
-        
-        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(weightOptID);
-        
-        if (cbTemp != null) {
-            cbTemp.selectedProperty().setValue(complete);
-        }
-    }
-    
-    public void updateWopChecked(String wopToUpdate, Boolean checkedVal) {
-        Boolean temp = this.weightingsCompletedCollection.get(wopToUpdate);
-        
 
-        if (temp != null) {
-            temp = checkedVal;
-            
+    public void updateDisasterEffectsStatus(String status) {
+        this.lblDisasterEffects.setText(status);
+    }
+
+    // -------------------------------------------------------------------------
+    // Weighting Criteria controllers and viewers
+    // -------------------------------------------------------------------------
+    
+    /**
+     * Adds a checkbox for an Weighting Area of Concern.  The checkbox is meant
+     * to indicate to the user that they have finished selecting their weighting
+     * preferences for the Weighting Area of Concern.
+     * @param waoc
+     * @param cbToAdd
+     */
+    public void addWaoccb(WeightingAreasOfConcern waoc, CheckBox cbToAdd){
+        this.weightingsOptionsCheckBoxenCollection.put(waoc.label, cbToAdd);
+    }
+    
+    /**
+     * Updates the checkbox for the a Weighting Area of Concern
+     * to indicate that the WAOC has been set.
+     * @param waoc
+     * @param update
+     */
+    public void updateWoccb(WeightingAreasOfConcern waoc, Boolean update) {
+        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(waoc.label);
+        if(cbTemp != null) {
+            cbTemp.setSelected(update);
+        } else {
+            System.out.println("Weighting Area of Concern CheckBox not found update!");
         }
     }
+    
+    /**
+     * 
+     * @param waoc
+     * @param complete
+     */
+    public Boolean determineIfAllWaocSelectionsHaveBeenMade(WeightingAreasOfConcern waoc, Boolean complete)
+    {
+        Boolean determination = true;
+        
+        // .....................................................................
+        // The decision to use the CheckBox collection vs the 
+        // WeightingAreasOfConceren enumeration is predicated on the logic that 
+        // if the program fails to load a CheckBox collection, it's a logic
+        // error on the part programmer and not necessarily the user (assuming
+        // the user can defined the number of areas of concern). The validity of
+        // the user's inputs for defining the areas of concern should have
+        // already been checked prior to this function being reached. The
+        // {@link updateWoccb} function does warn for null pointers to checkboxen.
+        // .....................................................................
+        
+        // .....................................................................
+        // peforms the following operation more efficiently 
+        //
+        //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
+        //      if (cb != null) { determination &= cb.isSelected(); }
+        //  }
+        // .....................................................................
+        determination = weightingsOptionsCheckBoxenCollection
+                        .values()
+                        .stream()
+                        .filter((cb) -> (cb != null))
+                                .map((cb) -> cb.isSelected())
+                                .reduce(determination, (accumulator, _item) -> accumulator & _item);
+        
+        return determination;
+    }
+    
     
     // -------------------------------------------------------------------------
     // Environment Effect Status controllers and viewers
@@ -137,21 +176,5 @@ public class DRTSGUIModel {
         } else {
             System.out.println("EES not found for status update!");
         }
-    }
-    
-
-    
-    
-// -------------------------------------------------------------------------
-    // Disaster Effect controllers and viewers
-    // -------------------------------------------------------------------------
-    
-    
-    public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
-        this.lblDisasterEffects = lblDisasterEffectsToSet;
-    }
-
-    public void updateDisasterEffectsStatus(String status) {
-        this.lblDisasterEffects.setText(status);
     }
 }

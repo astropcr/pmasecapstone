@@ -47,24 +47,27 @@ public class DisasterResponseTradeStudy extends Application {
      */
     public static String classPath = "/edu/gatech/pmase/capstone/awesome/";
     
+    //..........................................................................
     // Main Screen
+    //..........................................................................
     public static String screenMainID                   = classPath + "MainWindow";
     public static String screenMainFile                 = classPath + "MainWindow.fxml";
     
+    //..........................................................................
     // Disaster Effects Screens
+    //..........................................................................
     public static String screenEffectsOptID             = classPath + "DisasterEffectsOptions";
     public static String screenEffectsFile              = classPath + "DisasterEffectsOptions.fxml";
     
+    //..........................................................................
     // Environment Option Screens
     // None needed...generated automagically based on enumerations.
+    //..........................................................................
     
+    //..........................................................................
     // Solution Creiteria Weighting Screens
-    public static String screenPlatformWeightingID      = classPath + "WeightingOptionsPlatforms";
-    public static String screenPlatformsWeightingFile   = classPath + "WeightingOptionsPlatforms.fxml";
-    public static String screenCommsWeightingID         = classPath + "WeightingOptionsComms";
-    public static String screenCommsWeightingFile       = classPath + "WeightingOptionsComms.fxml";
-    public static String screenSensorsWeightingID       = classPath + "WeightingOptionsSensors";
-    public static String screenSensorsWeightingFile     = classPath + "WeightingOptionsSensors.fxml";
+    // None needed...generated automagically based on enumerations.
+    //..........................................................................
     
     /**
      * Logger. Use to log all things

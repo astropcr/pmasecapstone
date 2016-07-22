@@ -170,9 +170,11 @@ public class WeightingOptionQuestion extends AnchorPane {
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
     
-    public String getSelection()
+    public WeightingCategory getSelection()
     {
-        return questionSet.getSelectedToggle().getUserData().toString();
+        return WeightingCategory.getCategoriesByValue(
+                (double) questionSet.getSelectedToggle().getUserData()
+        );
     }
     
     public void setQuestion(ObservableList<Text>questionText)

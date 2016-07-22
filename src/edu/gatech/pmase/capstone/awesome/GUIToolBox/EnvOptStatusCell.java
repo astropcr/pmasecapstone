@@ -26,7 +26,6 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.*;
 
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ToggleGroup;
 import org.controlsfx.control.GridCell;
 
