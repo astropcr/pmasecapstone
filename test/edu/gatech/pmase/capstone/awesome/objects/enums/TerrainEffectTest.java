@@ -95,6 +95,9 @@ public class TerrainEffectTest {
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testLabelList() {
         final Set<String> val = TerrainEffect.getEffectLabels();

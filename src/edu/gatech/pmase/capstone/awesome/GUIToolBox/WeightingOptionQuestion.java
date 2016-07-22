@@ -96,6 +96,9 @@ public class WeightingOptionQuestion extends AnchorPane {
     private final SimpleStringProperty optionTwo;
     private WeightingChoice wc;
 
+    /**
+     *
+     */
     public WeightingOptionQuestion() {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
@@ -186,46 +189,88 @@ public class WeightingOptionQuestion extends AnchorPane {
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public WeightingCategory getSelection() {
         return WeightingCategory.getCategoriesByValue(
                 (double) questionSet.getSelectedToggle().getUserData()
         );
     }
 
+    /**
+     *
+     * @param questionText
+     */
     public void setQuestion(ObservableList<Text> questionText) {
         // TODO: allow for formatted text
         this.tfQuestion.getChildren().setAll(questionText);
     }
 
+    /**
+     *
+     * @param opt1
+     * @param opt2
+     */
     public void setComparisonOptions(String opt1, String opt2) {
         this.setOptionOne(opt1);
         this.setOptionTwo(opt2);
     }
 
+    /**
+     *
+     * @param wcIn
+     */
     public void setWeightingChoice(WeightingChoice wcIn) {
         wc = wcIn;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOptionOne() {
         return optionOneProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setOptionOne(String fName) {
         optionOneProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty optionOneProperty() {
         return optionOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOptionTwo() {
         return optionTwo.get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setOptionTwo(String fName) {
         optionTwo.set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty optionTwoProperty() {
         return optionTwo;
     }

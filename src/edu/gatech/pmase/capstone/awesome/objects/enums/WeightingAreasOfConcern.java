@@ -33,9 +33,24 @@ import java.util.stream.Collectors;
  */
 public enum WeightingAreasOfConcern {
 
+    /**
+     *
+     */
     UNKNOWN("Unknown", 0),
+
+    /**
+     *
+     */
     PLATFORMS("Platforms", 1),
+
+    /**
+     *
+     */
     COMMS("Communications", 2),
+
+    /**
+     *
+     */
     SENSORS("Sensors", 3);
 
     /**

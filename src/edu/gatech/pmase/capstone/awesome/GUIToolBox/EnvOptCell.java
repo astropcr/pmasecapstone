@@ -36,6 +36,10 @@ public class EnvOptCell extends ListCell<TerrainEffect> {
 
     ToggleGroup tg;
 
+    /**
+     *
+     * @param tg
+     */
     public EnvOptCell(ToggleGroup tg) {
         this.tg = tg;
         this.getStyleClass().add("list-cell");

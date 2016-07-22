@@ -76,6 +76,9 @@ public class DisasterResponseTradeStudyIT {
     private static final List<CommunicationOption> loadedCommOptions = new ArrayList<>();
     private static final List<SensorOption> loadedSensorOptions = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setupBefore() {
         // add disasters - MIKE: Need these from UI
@@ -87,6 +90,9 @@ public class DisasterResponseTradeStudyIT {
         selectedTerrainEffects.add(TerrainEffect.URBANIZATION_4);   // ID 12
     }
 
+    /**
+     *
+     */
     @Test
     public void testTradeStudy() {
         // get platforms

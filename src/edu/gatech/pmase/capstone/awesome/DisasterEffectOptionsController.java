@@ -58,6 +58,10 @@ public class DisasterEffectOptionsController implements ControlledScreen {
 //    public void initialize(URL url, ResourceBundle rb) {
 //        // TODO  
 //    }
+
+    /**
+     *
+     */
     public void initialize() {
         this.eopDisasterEffects.setQuestion("Select all disaster effects that apply.");
     }
@@ -93,11 +97,19 @@ public class DisasterEffectOptionsController implements ControlledScreen {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

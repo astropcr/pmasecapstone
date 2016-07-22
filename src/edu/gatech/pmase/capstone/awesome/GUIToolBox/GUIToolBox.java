@@ -33,6 +33,10 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ *
+ * @author mshearin3
+ */
 public class GUIToolBox extends Application {
 
     /**
@@ -62,6 +66,10 @@ public class GUIToolBox extends Application {
         primaryStage.show();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

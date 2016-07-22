@@ -56,13 +56,29 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     // Main Screen
     //..........................................................................
+
+    /**
+     *
+     */
     public static String screenMainID = classPath + "MainWindow";
+
+    /**
+     *
+     */
     public static String screenMainFile = classPath + "MainWindow.fxml";
 
     //..........................................................................
     // Disaster Effects Screens
     //..........................................................................
+
+    /**
+     *
+     */
     public static String screenEffectsOptID = classPath + "DisasterEffectsOptions";
+
+    /**
+     *
+     */
     public static String screenEffectsFile = classPath + "DisasterEffectsOptions.fxml";
 
     //..........................................................................

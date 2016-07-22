@@ -78,6 +78,9 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty toolTip;
     private final SimpleStringProperty envOptWeight;
 
+    /**
+     *
+     */
     public EnvironmentElementStatus() {
 
         FXMLLoader fxmlLoader = new FXMLLoader(
@@ -130,7 +133,7 @@ public class EnvironmentElementStatus extends AnchorPane {
      */
     public Integer getSelection() {
         // TODO: return the selection?
-        return (Integer) 0;
+        return 0;
     }
 
     /**
@@ -144,14 +147,27 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     // This property sets the name on the button
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public String getEnvironmentOption() {
         return environmentOptionProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setEnvironmentOption(String fName) {
         environmentOptionProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty environmentOptionProperty() {
         return environmentOption;
     }
@@ -160,14 +176,27 @@ public class EnvironmentElementStatus extends AnchorPane {
     // This property informs this controller of related Envrionment Option
     // Panel that it will open and bind to.
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public String getEnvironmentOptionPanel() {
         return environmentOptionPanelProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setEnvironmentOptionPanel(String fName) {
         environmentOptionPanelProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty environmentOptionPanelProperty() {
         return environmentOptionPanel;
     }
@@ -175,14 +204,27 @@ public class EnvironmentElementStatus extends AnchorPane {
     // -------------------------------------------------------------------------
     // This property informs this controller of the text needed for the tooltip.
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public String getToolTip() {
         return toolTipProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setToolTip(String fName) {
         toolTipProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty toolTipProperty() {
         return toolTip;
     }
@@ -191,14 +233,27 @@ public class EnvironmentElementStatus extends AnchorPane {
     // This property informs this controller of the text needed for the
     // environment option weight.
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public String getEnvOptWeight() {
         return envOptWeightProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setEnvOptWeight(String fName) {
         envOptWeightProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty envOptWeightProperty() {
         return envOptWeight;
     }

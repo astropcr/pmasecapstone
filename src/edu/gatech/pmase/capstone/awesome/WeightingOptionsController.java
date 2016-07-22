@@ -103,6 +103,9 @@ public class WeightingOptionsController implements ControlledScreen {
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
 
+    /**
+     *
+     */
     public WeightingOptionsController() {
         wcObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
@@ -268,11 +271,19 @@ public class WeightingOptionsController implements ControlledScreen {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

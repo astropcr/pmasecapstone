@@ -46,8 +46,18 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 public interface ControlledScreen {
 
     //This method will allow the injection of the Parent ScreenPane
+
+    /**
+     *
+     * @param screenParent
+     */
     public void setScreenParent(ScreensController screenParent);
 
     // This method will return the injection of the Parent ScreenPane
+
+    /**
+     *
+     * @return
+     */
     public ScreensController getScreenParent();
 }

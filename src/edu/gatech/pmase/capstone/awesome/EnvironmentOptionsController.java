@@ -67,6 +67,9 @@ public class EnvironmentOptionsController implements ControlledScreen {
     private static final String STR_WARNING = "(Please select an option before continuing)";
     private String envOpt = "";
 
+    /**
+     *
+     */
     public EnvironmentOptionsController() {
         tempObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
@@ -135,11 +138,19 @@ public class EnvironmentOptionsController implements ControlledScreen {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

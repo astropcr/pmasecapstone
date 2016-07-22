@@ -31,20 +31,79 @@ import java.util.Optional;
  */
 public enum DisasterEffect {
 
+    /**
+     *
+     */
     UNKNOWN("Unknown", 0),
+
+    /**
+     *
+     */
     FIRE("Fire", 1),
+
+    /**
+     *
+     */
     FLOOD("Flood", 2),
+
+    /**
+     *
+     */
     DEBRIS("Debris", 3),
+
+    /**
+     *
+     */
     SMOKE_DUST("Smoke and Dust", 4),
+
+    /**
+     *
+     */
     GROUND_INSTABILITY("Gound Instabilitiy", 5),
+
+    /**
+     *
+     */
     LAND_SLIDE("Land Slide", 6),
+
+    /**
+     *
+     */
     MUD_SLIDE("Mud Slide", 7),
+
+    /**
+     *
+     */
     STRUCTURAL_DAMAGE("Structural Damage", 8),
+
+    /**
+     *
+     */
     HIGH_WIND("High Wind", 9),
+
+    /**
+     *
+     */
     HAZARDOUS_MATERIAL_SPILL("Hazardous Material Spill", 10),
+
+    /**
+     *
+     */
     RADIOLOGICAL_SPILL("Radiological Spill", 11),
+
+    /**
+     *
+     */
     LAVA("Lava", 12),
+
+    /**
+     *
+     */
     ASH("Ash", 13),
+
+    /**
+     *
+     */
     INFRASTRUCTURE_BREAKDOWN("Infrastructure Breakdown", 14);
 
     /**

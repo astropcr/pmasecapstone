@@ -68,16 +68,31 @@ public class ScreensController extends StackPane {
 
     private HashMap<String, Node> screens = new HashMap<>();
 
+    /**
+     *
+     */
     public ScreensController() {
         super();
     }
 
     //Add the screen to the collection
+
+    /**
+     *
+     * @param name
+     * @param screen
+     */
     public void addScreen(String name, Node screen) {
         screens.put(name, screen);
     }
 
     //Returns the Node with the appropriate name
+
+    /**
+     *
+     * @param name
+     * @return
+     */
     public Node getScreen(String name) {
         return screens.get(name);
     }
@@ -85,6 +100,13 @@ public class ScreensController extends StackPane {
     //Loads the fxml file, add the screen to the screens collection and
     //finally injects the screenPane to the controller.
     //public boolean loadScreen(String name, String resource) {
+
+    /**
+     *
+     * @param name
+     * @param resource
+     * @return
+     */
     public ControlledScreen loadScreen(String name, String resource) {
         try {
             FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
@@ -103,6 +125,12 @@ public class ScreensController extends StackPane {
     //First it makes sure the screen has been already loaded.  Then if there is more than
     //one screen the new screen is been added second, and then the current screen is removed.
     // If there isn't any screen being displayed, the new screen is just added to the root.
+
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean setScreen(final String name) {
         if (screens.get(name) != null) {   //screen loaded
             final DoubleProperty opacity = opacityProperty();
@@ -155,6 +183,12 @@ public class ScreensController extends StackPane {
     }
 
     //This method will remove the screen with the given name from the collection of screens
+
+    /**
+     *
+     * @param name
+     * @return
+     */
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             LOGGER.debug("Screen didn't exist");

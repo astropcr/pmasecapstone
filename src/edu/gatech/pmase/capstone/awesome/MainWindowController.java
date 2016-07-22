@@ -234,11 +234,19 @@ public class MainWindowController implements Initializable,
         DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS, cbWeightingsSensorsComplete);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

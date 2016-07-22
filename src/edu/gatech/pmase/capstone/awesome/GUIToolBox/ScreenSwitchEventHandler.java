@@ -42,18 +42,32 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
     String switchTargetScreen;
     String msg;
 
+    /**
+     *
+     */
     public ScreenSwitchEventHandler() {
         this.sc = null;
         this.switchTargetScreen = "";
         this.msg = "No message has been set.";
     }
 
+    /**
+     *
+     * @param sc
+     * @param switchTargetScreen
+     */
     public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
         this.msg = "No message has been set.";
     }
 
+    /**
+     *
+     * @param sc
+     * @param switchTargetScreen
+     * @param msg
+     */
     public ScreenSwitchEventHandler(ScreensController sc, String switchTargetScreen, String msg) {
         this.sc = sc;
         this.switchTargetScreen = switchTargetScreen;
@@ -65,6 +79,12 @@ public class ScreenSwitchEventHandler implements EventHandler<ScreenSwitchEvent>
         LOGGER.debug("ScreenSwitchEventHandler(event) would like to say: " + msg);
     }
 
+    /**
+     *
+     * @param event
+     * @param sc
+     * @param switchTargetScreen
+     */
     public void handle(ScreenSwitchEvent event, ScreensController sc, String switchTargetScreen) {
         LOGGER.debug("ScreenSwitchEventHandler(event, ScreensController, String) would like to say: " + msg);
         sc.setScreen(switchTargetScreen);

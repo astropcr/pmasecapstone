@@ -39,31 +39,60 @@ public class DisasterEffectCheckBoxData {
     private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleBooleanProperty on = new SimpleBooleanProperty();
 
+    /**
+     *
+     * @param name
+     * @param on
+     */
     public DisasterEffectCheckBoxData(String name, boolean on) {
         setName(name);
         setOn(on);
     }
 
+    /**
+     *
+     * @return
+     */
     public final SimpleStringProperty nameProperty() {
         return this.name;
     }
 
+    /**
+     *
+     * @return
+     */
     public final String getName() {
         return this.nameProperty().get();
     }
 
+    /**
+     *
+     * @param name
+     */
     public final void setName(final String name) {
         this.nameProperty().set(name);
     }
 
+    /**
+     *
+     * @return
+     */
     public final SimpleBooleanProperty onProperty() {
         return this.on;
     }
 
+    /**
+     *
+     * @return
+     */
     public final boolean isOn() {
         return this.onProperty().get();
     }
 
+    /**
+     *
+     * @param on
+     */
     public final void setOn(final boolean on) {
         this.onProperty().set(on);
     }

@@ -57,6 +57,9 @@ public class PrioritizationUtilTest {
     private static final List<SensorOption> sensors = new ArrayList<>();
     private static final List<CommunicationOption> comms = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platDriver = new PlatformDatabaseDriver();

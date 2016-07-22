@@ -33,11 +33,34 @@ import java.util.stream.Collectors;
  */
 public enum WeightingCategory {
 
+    /**
+     *
+     */
     UNKNOWN(0, "Unknown", 0.0),
+
+    /**
+     *
+     */
     EXTREMELY_LESS(1, "Extremely Less Important", 0.1),
+
+    /**
+     *
+     */
     SIGNIFICANTLY_LESS(2, "Significantly Less Important", 0.5),
+
+    /**
+     *
+     */
     EQUALLY(3, "Equally Important", 1.0),
+
+    /**
+     *
+     */
     SIGNIFICANTLY_MORE(4, "Significantly More Important", 5.0),
+
+    /**
+     *
+     */
     EXTREMELY_MORE(5, "Extremely More Important", 10.0);
 
     /**

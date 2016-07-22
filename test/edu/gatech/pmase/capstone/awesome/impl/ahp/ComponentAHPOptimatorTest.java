@@ -52,6 +52,9 @@ public class ComponentAHPOptimatorTest {
      */
     private static final List<CommunicationOption> comms = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platDriver = new PlatformDatabaseDriver();

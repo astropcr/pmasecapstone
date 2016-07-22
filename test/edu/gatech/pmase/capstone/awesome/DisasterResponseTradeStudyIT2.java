@@ -55,6 +55,9 @@ public class DisasterResponseTradeStudyIT2 {
     private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(4);
     private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(4);
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setupBefore() {
         // add disasters - MIKE: Need these from UI
@@ -67,6 +70,9 @@ public class DisasterResponseTradeStudyIT2 {
         selectedTerrainEffects.add(TerrainEffect.SLOPE_2);   // ID 2
     }
 
+    /**
+     *
+     */
     @Test
     public void testTradeStudy() {
         final DisasterResponseTradeStudySingleton drts = DisasterResponseTradeStudySingleton.getInstance();

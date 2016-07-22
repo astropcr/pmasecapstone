@@ -24,7 +24,6 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.*;
-
 import javafx.scene.control.ToggleGroup;
 import org.controlsfx.control.GridCell;
 
@@ -36,8 +35,11 @@ public class EnvOptStatusCell extends GridCell<TerrainEffect> {
 
     ToggleGroup tg;
 
+    /**
+     *
+     */
     public EnvOptStatusCell() {
-        ; // could apply styles here
+        // could apply styles here
     }
 
     @Override

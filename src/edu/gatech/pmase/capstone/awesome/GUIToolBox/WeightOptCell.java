@@ -32,6 +32,9 @@ import javafx.scene.control.ListCell;
  */
 public class WeightOptCell extends ListCell<WeightingChoice> {
 
+    /**
+     *
+     */
     public WeightOptCell() {
         this.getStyleClass().add("list-cell");
     }

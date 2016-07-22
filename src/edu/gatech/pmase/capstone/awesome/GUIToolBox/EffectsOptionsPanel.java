@@ -60,9 +60,9 @@ public class EffectsOptionsPanel extends AnchorPane {
     private ScreensController myController;
 
     // -------------------------------------------------------------------------
-    // These expose the controls that contain the questions and the related 
+    // These expose the controls that contain the questions and the related
     // user preferences
-    // -------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------
     // None, they are generated automatically by code below.  This control
     // consists of a ListView containing Check Boxen.
     // -------------------------------------------------------------------------
@@ -76,13 +76,16 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     private final SimpleStringProperty question;
 
+    /**
+     *
+     */
     public EffectsOptionsPanel() {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/EffectsOptionsPanel.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
 
-        // do not remove the following line if you're working with Scene Builder 2.0.  
+        // do not remove the following line if you're working with Scene Builder 2.0.
         // This fixes a known bug.
         // See http://stackoverflow.com/questions/24016229/cant-import-custom-components-with-custom-cell-factories
         fxmlLoader.setClassLoader(getClass().getClassLoader());
@@ -111,7 +114,7 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     @FXML
     private void handleOptionButtonAction(ActionEvent event) {
-        ; // currently a place holder for possible future events
+        // currently a place holder for possible future events
     }
 
     // ---------------------------------------------------------------------
@@ -130,10 +133,19 @@ public class EffectsOptionsPanel extends AnchorPane {
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public ObservableList<DisasterEffectCheckBoxData> getSelection() {
         return disasterEffects;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DisasterEffect> getSelectionList() {
         List<DisasterEffect> selectedDisasterEffects = FXCollections.observableArrayList();
 
@@ -172,14 +184,27 @@ public class EffectsOptionsPanel extends AnchorPane {
     // -------------------------------------------------------------------------
     // Sets the title/question statement directiong the user's interaction.
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @return
+     */
     public String getQuestion() {
         return questionProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setQuestion(String fName) {
         questionProperty().set(fName);
     }
 
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty questionProperty() {
         return question;
     }

@@ -49,6 +49,9 @@ public class GUIValuesUtilTest {
      */
     private static final List<PlatformOption> loadedPlatformOptions = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();

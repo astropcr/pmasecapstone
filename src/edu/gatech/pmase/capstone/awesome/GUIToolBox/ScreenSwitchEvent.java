@@ -33,21 +33,46 @@ import javafx.event.EventType;
  */
 public class ScreenSwitchEvent extends Event {
 
+    /**
+     *
+     */
     public static final EventType<ScreenSwitchEvent> SCREEN_SELECTED = new EventType<>(Event.ANY, "SCREEN_SELECTED");
+
+    /**
+     *
+     */
     public static final EventType<ScreenSwitchEvent> SCREEN2_SELECTED = new EventType<>(Event.ANY, "SCREEN2_SELECTED");
 
+    /**
+     *
+     */
     public ScreenSwitchEvent() {
         this(SCREEN_SELECTED);
     }
 
+    /**
+     *
+     * @param eventType
+     */
     public ScreenSwitchEvent(EventType<? extends Event> eventType) {
         super(eventType);
     }
 
+    /**
+     *
+     * @param source
+     * @param target
+     * @param eventType
+     */
     public ScreenSwitchEvent(Object source, EventTarget target, EventType<? extends Event> eventType) {
         super(source, target, eventType);
     }
 
+    /**
+     *
+     * @param source
+     * @param target
+     */
     public ScreenSwitchEvent(Object source, EventTarget target) {
         super(source, target, SCREEN_SELECTED);
     }

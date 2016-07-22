@@ -71,6 +71,9 @@ public class DisasterResponseTradeStudyFiltererTest {
     private static final List<CommunicationOption> loadedCommOptions = new ArrayList<>();
     private static final List<SensorOption> loadedSensorOptions = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUp() {
         // get platforms
@@ -89,6 +92,9 @@ public class DisasterResponseTradeStudyFiltererTest {
         LOGGER.debug("Loaded " + loadedSensorOptions.size() + " SensorOption");
     }
 
+    /**
+     *
+     */
     @Before
     public void beforeEach() {
         instance = new DRTSFilterer();

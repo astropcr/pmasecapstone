@@ -64,6 +64,9 @@ public class PlatformCompatibilityCriterionTest {
     private final PlatformOption option5 = new PlatformOption();
     private final PlatformOption option6 = new PlatformOption();
 
+    /**
+     *
+     */
     @Before
     public void setup() {
         option1.setId(ID_ONE);

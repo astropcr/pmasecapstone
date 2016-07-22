@@ -80,10 +80,19 @@ public class DRTSGUIModel {
     // -------------------------------------------------------------------------
     // Disaster Effect controllers and viewers
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @param lblDisasterEffectsToSet
+     */
     public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
         this.lblDisasterEffects = lblDisasterEffectsToSet;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void updateDisasterEffectsStatus(String status) {
         this.lblDisasterEffects.setText(status);
     }
@@ -157,10 +166,21 @@ public class DRTSGUIModel {
     // -------------------------------------------------------------------------
     // Environment Effect Status controllers and viewers
     // -------------------------------------------------------------------------
+
+    /**
+     *
+     * @param te
+     * @param eesToAdd
+     */
     public void addEes(TerrainEffect te, EnvironmentElementStatus eesToAdd) {
         this.eesCollection.put(te.terrainLabel, eesToAdd);
     }
 
+    /**
+     *
+     * @param te
+     * @param toolTip
+     */
     public void updateEesTooltip(TerrainEffect te, String toolTip) {
         EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
         if (eesTemp != null) {
@@ -170,6 +190,11 @@ public class DRTSGUIModel {
         }
     }
 
+    /**
+     *
+     * @param te
+     * @param weight
+     */
     public void updateEesStatus(TerrainEffect te, String weight) {
         EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
         if (eesTemp != null) {

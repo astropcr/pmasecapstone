@@ -57,6 +57,9 @@ public class WeightOptData {
     private String strData;
     private WeightingChoice wc;
 
+    /**
+     *
+     */
     public WeightOptData() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
         fxmlLoader.setController(this);
@@ -67,21 +70,37 @@ public class WeightOptData {
         }
     }
 
+    /**
+     *
+     * @param wc
+     */
     public void setInfo(WeightingChoice wc) {
         this.wc = wc;
         woq.setComparisonOptions(wc.getOptionOneLabel(), wc.getOptionTwoLabel());
         woq.setWeightingChoice(wc);
     }
 
+    /**
+     *
+     * @return
+     */
     public WeightingCategory getSelection() {
         return woq.getSelection();
     }
 
+    /**
+     *
+     * @param event
+     */
     @FXML
     public void handleToggleButton(ActionEvent event) {
         LOGGER.info("The " + strData + " was selected.");
     }
 
+    /**
+     *
+     * @return
+     */
     public HBox getBox() {
         return hBox;
     }
