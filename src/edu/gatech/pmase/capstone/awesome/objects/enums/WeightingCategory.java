@@ -66,7 +66,7 @@ public enum WeightingCategory {
         this.label = inLabel;
         this.id = inId;
         this.value = inValue;
-        
+
     }
 
     /**
@@ -89,13 +89,13 @@ public enum WeightingCategory {
 
         return effect;
     }
-    
+
     /**
-     * Given the ID, returns the associated WeightingCategory.
+     * Given the label, returns the associated WeightingCategory.
      *
-     * @param inId the ID to find by
-     * @return the given Weighting Category. If none found to match ID, returns
-     * {@link WeightingCategory#UNKNOWN}.
+     * @param inLabel the label to find by
+     * @return the given Weighting Category. If none found to match label,
+     * returns {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesByLabel(final String inLabel) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
@@ -110,14 +110,13 @@ public enum WeightingCategory {
 
         return effect;
     }
-    
-    
+
     /**
      * Given the Value, returns the associated WeightingCategory.
      *
-     * @param inVal the ID to find by
-     * @return the given Weighting Category. If none found to match ID, returns
-     * {@link WeightingCategory#UNKNOWN}.
+     * @param inValue the value to find by
+     * @return the given Weighting Category. If none found to match value,
+     * returns {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesByValue(final double inValue) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
@@ -132,6 +131,7 @@ public enum WeightingCategory {
 
         return effect;
     }
+
     /**
      * Returns a Set labels.
      *

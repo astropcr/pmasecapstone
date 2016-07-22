@@ -41,39 +41,43 @@ public class PlatformOption extends AbstractArchitectureOption {
      * Type of the platform.
      */
     private PlatformType platformType = PlatformType.UNKNOWN;
-    
-      /**
+
+    /**
      * Prioritization Attributes.
      */
     private List<ArchitectureOptionAttribute> prioritizationAttributes = null;
 
     /**
+     * Gets the Payload option can carry (in kilograms - kg).
      *
-     * @return
+     * @return the Payload option can carry (in kilograms - kg).
      */
     public double getPayload() {
         return payload;
     }
 
     /**
+     * Sets the Payload option can carry (in kilograms - kg).
      *
-     * @param payload
+     * @param payload Payload option can carry (in kilograms - kg).
      */
     public void setPayload(double payload) {
         this.payload = payload;
     }
 
     /**
+     * Gets the Type of the platform.
      *
-     * @return
+     * @return Type of the platform.
      */
     public PlatformType getPlatformType() {
         return platformType;
     }
 
     /**
+     * Sets the Type of the platform.
      *
-     * @param platformType
+     * @param platformType Type of the platform.
      */
     public void setPlatformType(PlatformType platformType) {
         this.platformType = platformType;

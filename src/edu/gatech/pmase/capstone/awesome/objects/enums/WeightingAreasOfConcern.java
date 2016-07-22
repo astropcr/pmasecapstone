@@ -79,12 +79,12 @@ public enum WeightingAreasOfConcern {
 
         return effect;
     }
-    
+
     /**
-     * Given the ID, returns the associated WeightingAreasOfConcern.
+     * Given the label, returns the associated WeightingAreasOfConcern.
      *
-     * @param inId the ID to find by
-     * @return the given Disaster Effect. If none found to match ID, returns
+     * @param inLabel the label to find by
+     * @return the given Disaster Effect. If none found to match label, returns
      * {@link WeightingAreasOfConcern#UNKNOWN}.
      */
     public static WeightingAreasOfConcern getCategoriesByLabel(final String inLabel) {
@@ -100,7 +100,7 @@ public enum WeightingAreasOfConcern {
 
         return effect;
     }
-    
+
     /**
      * Returns a Set labels.
      *

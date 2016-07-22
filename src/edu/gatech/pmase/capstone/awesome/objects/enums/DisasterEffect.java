@@ -88,12 +88,12 @@ public enum DisasterEffect {
 
         return effect;
     }
-    
+
     /**
-     * Given the ID, returns the associated DisasterEffect.
+     * Given the label, returns the associated DisasterEffect.
      *
-     * @param inId the ID to find by
-     * @return the given Disaster Effect. If none found to match ID, returns
+     * @param inLabel the label
+     * @return the given Disaster Effect. If none found to match label, returns
      * {@link DisasterEffect#UNKNOWN}.
      */
     public static DisasterEffect getEffectByLabel(final String inLabel) {

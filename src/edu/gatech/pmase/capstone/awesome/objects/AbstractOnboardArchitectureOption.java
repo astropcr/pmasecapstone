@@ -50,32 +50,40 @@ public abstract class AbstractOnboardArchitectureOption extends AbstractArchitec
     private List<ArchitectureOptionAttribute> prioritizationAttributes = null;
 
     /**
+     * Gets the weight of the architecture option.
      *
-     * @return
+     * @return the weight of the architecture option.
      */
     public double getWeight() {
         return weight;
     }
 
     /**
+     * Sets the weight of the architecture option.
      *
-     * @param weight
+     * @param weight the weight of the architecture option.
      */
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
     /**
+     * Sets a list of {@link PlatformOption}'s that the architecture cannot be
+     * used on.
      *
-     * @return
+     * @return list of {@link PlatformOption}'s that the architecture cannot be
+     * used on.
      */
     public List<PlatformOption> getPlatformLimitations() {
         return platformLimitations;
     }
 
     /**
+     * Sets list of {@link PlatformOption}'s that the architecture cannot be
+     * used on.
      *
-     * @param platformLimitations
+     * @param platformLimitations list of {@link PlatformOption}'s that the
+     * architecture cannot be used on.
      */
     public void setPlatformLimitations(List<PlatformOption> platformLimitations) {
         this.platformLimitations = platformLimitations;

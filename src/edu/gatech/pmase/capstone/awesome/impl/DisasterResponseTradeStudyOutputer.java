@@ -116,7 +116,12 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
     /**
      * Date formatter to print the report generated date with.
      */
-    private static final DateTimeFormatter formater = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL);
+    private static final DateTimeFormatter fileNameFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-kk-mm-ss-A");
+
+    /**
+     * Date formatter to add time and date to output filename. fileNameFormatter
+     */
+    private static final DateTimeFormatter outputFileFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL);
 
     /**
      * Mapping of disaster effects to the table column index in the disaster
@@ -129,6 +134,11 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * effects table.
      */
     private static final Map<String, Integer> terEffectColsMap = new HashMap<>();
+
+    /**
+     * Time and date the calculation was started.
+     */
+    private ZonedDateTime now;
 
     /**
      * Populate map with col indices.
@@ -169,8 +179,11 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
     public Path createOutputFile(final List<DRTSArchitectureResult> results,
             final List<DisasterEffect> selectedDisasterEffects, final List<TerrainEffect> selectedTerrainEffects)
             throws IOException, InvalidFormatException {
+        // set time        
+        now = ZonedDateTime.now();
+
         LOGGER.info("Creating results architecture file.");
-        final String filename = "DRTS-Results-" + System.currentTimeMillis() + ".docx";
+        final String filename = "DRTS-Results-" + fileNameFormatter.format(now) + ".docx";
 
         // create paths
         final Path templatePath = Paths.get(
@@ -343,7 +356,6 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * @param xdoc the document to create the paragraph in
      */
     private void createReportDetails(final XWPFDocument xdoc) {
-        final ZonedDateTime now = ZonedDateTime.now();
         final Locale currentLocale = Locale.getDefault();
 
         final XWPFParagraph para = xdoc.getParagraphs().get(REPORT_DETAILS_ROW_INDEX);
@@ -353,7 +365,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
 
         final XWPFRun run2 = para.createRun();
         run2.setBold(false);
-        run2.setText(formater.format(now));
+        run2.setText(outputFileFormatter.format(now));
         run2.addBreak();
 
         final XWPFRun run3 = para.createRun();
