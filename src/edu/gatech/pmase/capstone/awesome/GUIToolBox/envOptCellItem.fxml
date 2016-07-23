@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 
 <HBox fx:id="hBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<children>
-    <ToggleButton fx:id="btn1" contentDisplay="CENTER" onAction="#handleToggleButton" prefHeight="50.0" prefWidth="450.0" styleClass="userSelectionButton" textAlignment="CENTER" />
-</children>
+    <children>
+        <ToggleButton fx:id="btn1" contentDisplay="CENTER" onAction="#handleToggleButton" prefHeight="50.0" prefWidth="716.0" styleClass="userSelectionButton" textAlignment="CENTER" />
+    </children>
 </HBox>

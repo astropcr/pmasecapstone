@@ -31,6 +31,8 @@ import java.util.HashMap;
 import javafx.collections.ObservableList;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This file is meant to keep the model that drives the GUI and allows all of
@@ -42,16 +44,21 @@ import javafx.scene.control.Label;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class DRTSGUIModel {
-    
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.
+            getLogger(DRTSGUIModel.class);
+
     private final static DRTSGUIModel instance = new DRTSGUIModel();
-    
+
     // -------------------------------------------------------------------------
     // Collections of Enumeration to GUI Objects (both views and controllers)
     // -------------------------------------------------------------------------
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
     private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
-    private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>(); 
-
+    private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
 
     // -------------------------------------------------------------------------
     // Temp variables used by the methods below for each functional GUI area
@@ -59,27 +66,33 @@ public class DRTSGUIModel {
     // Disaster Effects
     Label lblDisasterEffects;
     ObservableList<DisasterEffectCheckBoxData> disasterEffects;
-    
+
     /**
-     * Grabs the singleton instance of the model.  Is meant to be seen by all
-     * members of the top level package.  This is effectively the glue that ties
-     * the MVC components together.  Quite literally, this is the rug.
-     * @return 
+     * Grabs the singleton instance of the model. Is meant to be seen by all
+     * members of the top level package. This is effectively the glue that ties
+     * the MVC components together. Quite literally, this is the rug.
+     *
+     * @return
      */
-    public static DRTSGUIModel getInstance()
-    {
+    public static DRTSGUIModel getInstance() {
         return instance;
     }
-    
-    
-    
+
     // -------------------------------------------------------------------------
     // Disaster Effect controllers and viewers
     // -------------------------------------------------------------------------
+    /**
+     *
+     * @param lblDisasterEffectsToSet
+     */
     public void setDisasterEffectsStatus(Label lblDisasterEffectsToSet) {
         this.lblDisasterEffects = lblDisasterEffectsToSet;
     }
 
+    /**
+     *
+     * @param status
+     */
     public void updateDisasterEffectsStatus(String status) {
         this.lblDisasterEffects.setText(status);
     }
@@ -87,45 +100,47 @@ public class DRTSGUIModel {
     // -------------------------------------------------------------------------
     // Weighting Criteria controllers and viewers
     // -------------------------------------------------------------------------
-    
     /**
-     * Adds a checkbox for an Weighting Area of Concern.  The checkbox is meant
+     * Adds a checkbox for an Weighting Area of Concern. The checkbox is meant
      * to indicate to the user that they have finished selecting their weighting
      * preferences for the Weighting Area of Concern.
+     *
      * @param waoc
      * @param cbToAdd
      */
-    public void addWaoccb(WeightingAreasOfConcern waoc, CheckBox cbToAdd){
+    public void addWaoccb(WeightingAreasOfConcern waoc, CheckBox cbToAdd) {
         this.weightingsOptionsCheckBoxenCollection.put(waoc.label, cbToAdd);
     }
-    
+
     /**
-     * Updates the checkbox for the a Weighting Area of Concern
-     * to indicate that the WAOC has been set.
+     * Updates the checkbox for the a Weighting Area of Concern to indicate that
+     * the WAOC has been set.
+     *
      * @param waoc
      * @param update
      */
     public void updateWoccb(WeightingAreasOfConcern waoc, Boolean update) {
-        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(waoc.label);
-        if(cbTemp != null) {
+        CheckBox cbTemp = this.weightingsOptionsCheckBoxenCollection.get(
+                waoc.label);
+        if (cbTemp != null) {
             cbTemp.setSelected(update);
         } else {
-            System.out.println("Weighting Area of Concern CheckBox not found update!");
+            LOGGER.debug("Weighting Area of Concern CheckBox not found update!");
         }
     }
-    
+
     /**
-     * 
+     *
      * @param waoc
      * @param complete
      */
-    public Boolean determineIfAllWaocSelectionsHaveBeenMade(WeightingAreasOfConcern waoc, Boolean complete)
-    {
+    public Boolean determineIfAllWaocSelectionsHaveBeenMade(
+            WeightingAreasOfConcern waoc, Boolean complete) {
         Boolean determination = true;
-        
+
         // .....................................................................
-        // The decision to use the CheckBox collection vs the 
-        // WeightingAreasOfConceren enumeration is predicated on the logic that 
+        // The decision to use the CheckBox collection vs the
+        // WeightingAreasOfConceren enumeration is predicated on the logic that
         // if the program fails to load a CheckBox collection, it's a logic
         // error on the part programmer and not necessarily the user (assuming
         // the user can defined the number of areas of concern). The validity of
@@ -133,48 +148,63 @@ public class DRTSGUIModel {
         // already been checked prior to this function being reached. The
         // {@link updateWoccb} function does warn for null pointers to checkboxen.
         // .....................................................................
-        
         // .....................................................................
-        // peforms the following operation more efficiently 
+        // peforms the following operation more efficiently
         //
         //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
         //      if (cb != null) { determination &= cb.isSelected(); }
         //  }
         // .....................................................................
         determination = weightingsOptionsCheckBoxenCollection
-                        .values()
-                        .stream()
-                        .filter((cb) -> (cb != null))
-                                .map((cb) -> cb.isSelected())
-                                .reduce(determination, (accumulator, _item) -> accumulator & _item);
-        
+                .values()
+                .stream()
+                .filter((cb) -> (cb != null))
+                .map((cb) -> cb.isSelected())
+                .reduce(determination,
+                        (accumulator, _item) -> accumulator & _item);
+
         return determination;
     }
-    
-    
+
     // -------------------------------------------------------------------------
     // Environment Effect Status controllers and viewers
     // -------------------------------------------------------------------------
-    
-    public void addEes(TerrainEffect te, EnvironmentElementStatus eesToAdd){
+    /**
+     *
+     * @param te
+     * @param eesToAdd
+     */
+    public void addEes(TerrainEffect te, EnvironmentElementStatus eesToAdd) {
         this.eesCollection.put(te.terrainLabel, eesToAdd);
     }
-    
+
+    /**
+     *
+     * @param te
+     * @param toolTip
+     */
     public void updateEesTooltip(TerrainEffect te, String toolTip) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
-        if(eesTemp != null) {
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(
+                te.terrainLabel);
+        if (eesTemp != null) {
             eesTemp.setToolTip(toolTip);
         } else {
-            System.out.println("EES not found for tooltip update!");
+            LOGGER.debug("EES not found for tooltip update!");
         }
     }
-    
+
+    /**
+     *
+     * @param te
+     * @param weight
+     */
     public void updateEesStatus(TerrainEffect te, String weight) {
-        EnvironmentElementStatus eesTemp = this.eesCollection.get(te.terrainLabel);
-        if(eesTemp != null) { 
+        EnvironmentElementStatus eesTemp = this.eesCollection.get(
+                te.terrainLabel);
+        if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
         } else {
-            System.out.println("EES not found for status update!");
+            LOGGER.debug("EES not found for status update!");
         }
     }
 }

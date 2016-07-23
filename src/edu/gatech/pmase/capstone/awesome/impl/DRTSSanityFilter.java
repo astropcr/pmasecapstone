@@ -43,7 +43,8 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DRTSSanityFilter.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DRTSSanityFilter.class);
 
     /**
      * Property name for the number of final results properties.
@@ -64,7 +65,8 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
      * List of criteria that need to be passed to be added to final architecture
      * list.
      */
-    private final static List<IDisasterResponseFinalSelectionCriterion> SELECTION_CRITERIA = new ArrayList<>(3);
+    private final static List<IDisasterResponseFinalSelectionCriterion> SELECTION_CRITERIA = new ArrayList<>(
+            3);
 
     /**
      * Load property from property file.
@@ -73,9 +75,11 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
         try {
             final Properties props = new Properties();
             props.load(new FileInputStream(PROPERTIES_FILE));
-            final String numResultsTemp = props.getProperty(NUM_FINAL_RESULTS_PROPERTY_NAME);
+            final String numResultsTemp = props.getProperty(
+                    NUM_FINAL_RESULTS_PROPERTY_NAME);
 
-            LOGGER.debug("Number of final architecture results to return: " + numResultsTemp);
+            LOGGER.debug(
+                    "Number of final architecture results to return: " + numResultsTemp);
             NUM_FINAL_RESULTS = Integer.parseInt(numResultsTemp);
 
             // Add any new sanity checks that are made to list
@@ -87,19 +91,26 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
     }
 
     @Override
-    public List<DRTSArchitectureResult> selectFinalArchitecture(final List<DRTSArchitectureResult> archResults) {
-        final List< DRTSArchitectureResult> finalResult = new ArrayList<>(NUM_FINAL_RESULTS);
+    public List<DRTSArchitectureResult> selectFinalArchitecture(
+            final List<DRTSArchitectureResult> archResults) {
+        final List< DRTSArchitectureResult> finalResult = new ArrayList<>(
+                NUM_FINAL_RESULTS);
 
         if (null != archResults && archResults.size() > 0) {
-            LOGGER.debug("Filting through: " + archResults.size() + " architectures");
+            LOGGER.debug(
+                    "Filting through: " + archResults.size() + " architectures");
             int filterCount = 0;
 
             for (final DRTSArchitectureResult architectureResult : archResults) {
                 if (DRTSSanityFilter.filterOutArch(architectureResult)) {
-                    LOGGER.debug("Architecture Result: " + architectureResult.toString() + " filtered out.");
+                    LOGGER.debug("Architecture Result: " + architectureResult.
+                            toString() + " filtered out.");
                     filterCount++;
                 } else {
-                    LOGGER.info("Found final architecture result " + (finalResult.size() + 1) + " : " + architectureResult.toString());
+                    LOGGER.info(
+                            "Found final architecture result " + (finalResult.
+                                                                  size() + 1) + " : " + architectureResult.
+                            toString());
                     finalResult.add(architectureResult);
 
                     if (finalResult.size() == NUM_FINAL_RESULTS) {
@@ -107,9 +118,11 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
                     }
                 }
             }
-            LOGGER.debug("Filtered out " + filterCount + " architecture selections before finding " + NUM_FINAL_RESULTS);
+            LOGGER.debug(
+                    "Filtered out " + filterCount + " architecture selections before finding " + NUM_FINAL_RESULTS);
         } else {
-            LOGGER.error("List of architectures provided is invalid, cannot select final architecture(s).");
+            LOGGER.error(
+                    "List of architectures provided is invalid, cannot select final architecture(s).");
         }
 
         return finalResult;
@@ -119,11 +132,13 @@ public class DRTSSanityFilter implements IDisasterResponseTradeStudyFinalSelecto
      * Determines if the given architecture should be filtered out.
      *
      * @param arch the architecture to check
+     *
      * @return true if should be filtered out (not included in final results),
-     * false otherwise.
+     *         false otherwise.
      */
     private static boolean filterOutArch(final DRTSArchitectureResult arch) {
-        return SELECTION_CRITERIA.parallelStream().anyMatch(crit -> crit.checkArchitectureResultRemovedByFilter(arch));
+        return SELECTION_CRITERIA.parallelStream().anyMatch(crit -> crit.
+                checkArchitectureResultRemovedByFilter(arch));
     }
 
 }

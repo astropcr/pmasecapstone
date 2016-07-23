@@ -39,14 +39,24 @@ public interface IDisasterResponseTradeStudyOutputter {
     /**
      * Creates the output file from the results of the Trade Study.
      *
-     * @param results the resulting architectures
+     * @param results                 the resulting architectures
      * @param selectedDisasterEffects the selected disaster effects
-     * @param selectedTerrainEffects the values set for terrain effects
+     * @param selectedTerrainEffects  the values set for terrain effects
+     *
      * @return Path to the file created
-     * @throws IOException if cannot create new file or read old file
+     *
+     * @throws IOException                                                if
+     *                                                                    cannot
+     *                                                                    create
+     *                                                                    new
+     *                                                                    file
+     *                                                                    or
+     *                                                                    read
+     *                                                                    old
+     *                                                                    file
      * @throws org.apache.poi.openxml4j.exceptions.InvalidFormatException
      */
     Path createOutputFile(final List<DRTSArchitectureResult> results,
-            final List<DisasterEffect> selectedDisasterEffects,
-            final List<TerrainEffect> selectedTerrainEffects) throws IOException, InvalidFormatException;
+                          final List<DisasterEffect> selectedDisasterEffects,
+                          final List<TerrainEffect> selectedTerrainEffects) throws IOException, InvalidFormatException;
 }

@@ -36,8 +36,10 @@ public interface IDisasterResponseFinalSelectionCriterion {
      * selection.
      *
      * @param result the result to check
+     *
      * @return true if should be filtered out (not included in final results),
-     * false otherwise.
+     *         false otherwise.
      */
-    boolean checkArchitectureResultRemovedByFilter(final DRTSArchitectureResult result);
+    boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult result);
 }

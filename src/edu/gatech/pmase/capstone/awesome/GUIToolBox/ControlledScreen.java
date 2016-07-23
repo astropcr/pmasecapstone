@@ -36,7 +36,7 @@
  * and therefore, elected the GPL Version 2 license, then the option applies
  * only if the new code is made subject to such option by the copyright
  * holder.
- */ 
+ */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 /**
@@ -44,10 +44,18 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
  * @author Angie
  */
 public interface ControlledScreen {
-    
+
     //This method will allow the injection of the Parent ScreenPane
+    /**
+     *
+     * @param screenParent
+     */
     public void setScreenParent(ScreensController screenParent);
-    
+
     // This method will return the injection of the Parent ScreenPane
+    /**
+     *
+     * @return
+     */
     public ScreensController getScreenParent();
 }

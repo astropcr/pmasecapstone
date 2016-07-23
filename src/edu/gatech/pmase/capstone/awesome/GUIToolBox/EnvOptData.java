@@ -24,60 +24,63 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
-
+import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class creates the set of UI controls that implement the environmental 
- * selections for the user.  It's designed to be paired with the EnvOptCell 
- * class for ultimate inclusion in some type of iterative container, such as
- * a list view or grid view.
+ * This class creates the set of UI controls that implement the environmental
+ * selections for the user. It's designed to be paired with the EnvOptCell class
+ * for ultimate inclusion in some type of iterative container, such as a list
+ * view or grid view.
+ *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 class EnvOptData {
-    @FXML   private HBox hBox;
-    @FXML   private ToggleButton btn1;
-    
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(EnvOptData.class);
+
+    @FXML
+    private HBox hBox;
+    @FXML
+    private ToggleButton btn1;
+
     private String strData;
-    
-    
-    public EnvOptData(ToggleGroup tg)
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptCellItem.fxml"));
+
+    public EnvOptData(ToggleGroup tg) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptCellItem.fxml"));
         fxmlLoader.setController(this);
-        try
-        {
+        try {
             fxmlLoader.load();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        
+
         btn1.setToggleGroup(tg);
     }
 
-    public void setInfo(TerrainEffect te)
-    {
+    public void setInfo(TerrainEffect te) {
         strData = Integer.toString(te.codeNum) + " - " + te.codeMeaning;
         btn1.setText(strData);
         btn1.setUserData(te);
     }
-    
+
     @FXML
-    public void handleToggleButton(ActionEvent event)
-    {
-         System.out.println("The " + strData + " was selected.");
+    public void handleToggleButton(ActionEvent event) {
+        LOGGER.info("The " + strData + " was selected.");
     }
 
-    public HBox getBox()
-    {
+    public HBox getBox() {
         return hBox;
     }
 }

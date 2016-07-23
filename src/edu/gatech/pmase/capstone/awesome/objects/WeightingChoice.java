@@ -55,9 +55,10 @@ public class WeightingChoice {
      *
      * @param optionOneLabel label of the first option.
      * @param optionTwoLabel label of the second option.
-     * @param result result of the weighting from the user.
+     * @param result         result of the weighting from the user.
      */
-    public WeightingChoice(final String optionOneLabel, final String optionTwoLabel, final double result) {
+    public WeightingChoice(final String optionOneLabel,
+                           final String optionTwoLabel, final double result) {
         this.optionOneLabel = optionOneLabel;
         this.optionTwoLabel = optionTwoLabel;
         this.result = result;

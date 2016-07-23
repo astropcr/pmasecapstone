@@ -5,14 +5,14 @@
 .userSelectionButton {
     -fx-background-color: Gold;
     -fx-background-radius: 5;
-    
+
     -fx-border-color: GoldenRod;
     -fx-border-radius: 5;
-    
+
     -fx-effect: innershadow( one-pass-box , #DAA520 , 8 , 0.5 , 0 , 0  );
-    
+
     -fx-text-fill: #7f6000;
-    
+
     -fx-font-family: "Agency FB";
     -fx-font-size: 20pt;
     -fx-font-weight: bold;
@@ -30,20 +30,20 @@
     /* #daa520 - goldenrod @49%*/
     /* #c8981e - goldenrod @45% */
     /* #b1871b - goldenrod @40% */
-    
+
     -fx-border-color: Gold;
 }
 .calculationButton {
     -fx-background-color: crimson;
     -fx-background-radius: 5;
-    
+
     -fx-border-color: GoldenRod;
     -fx-border-radius: 5;
-    
+
     -fx-effect: innershadow( one-pass-box , #DAA520 , 8 , 0.5 , 0 , 0  );
-    
+
     -fx-text-fill: gold;
-    
+
     -fx-font-family: "Agency FB";
     -fx-font-size: 20pt;
     -fx-font-weight: bold;
@@ -69,10 +69,10 @@
     -fx-effect: dropshadow( three-pass-box , #556B2F , 10 , 0.5 , 0 , 0  );
     -fx-border-color: DarkOliveGreen;
     -fx-border-radius: 5;
-    
+
     -fx-font-family: "Trebuchet MS Bold";
     -fx-font-size: 18pt;
-    
+
 }
 
 .envOptStatusLabel {
@@ -81,13 +81,12 @@
     -fx-effect: dropshadow( three-pass-box , #556B2F , 10 , 0.5 , 0 , 0  );
     -fx-border-color: DarkOliveGreen;
     -fx-border-radius: 5;
-    
+
     -fx-padding: 0;
     -fx-text-alignment: center;
-    
+
     -fx-font-family: "Trebuchet MS Bold";
-    -fx-font-size: 12pt;
-    
+    -fx-font-size: 16pt;
 }
 
 #ToolTip {
@@ -189,15 +188,15 @@
     -fx-background-radius: 5;
     -fx-border-color: darkblue;
     -fx-border-radius: 5;
-    
+
     -fx-font-size: 40pt;
     -fx-font-weight: bold;
     -fx-font-family: "Agency FB";
-    
+
     -fx-text-fill: #7f6000;
     -fx-text-alignment: center;
     -fx-text-origin:top;
-    
+
 }
 
 .mainSubTitleLabel {
@@ -205,10 +204,10 @@
     -fx-background-radius: 5;
     -fx-border-color: darkblue;
     -fx-border-radius: 5;
-    
+
     -fx-font-size: 32pt;
     -fx-font-weight: bold;
     -fx-font-family: "Agency FB";
-    
+
     -fx-text-fill: #7f6000;
 }

@@ -23,7 +23,6 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-
 import edu.gatech.pmase.capstone.awesome.objects.enums.*;
 
 import javafx.scene.control.ListCell;
@@ -36,23 +35,24 @@ import javafx.scene.control.ToggleGroup;
 public class EnvOptCell extends ListCell<TerrainEffect> {
 
     ToggleGroup tg;
-    
-    public  EnvOptCell(ToggleGroup tg)
-    {
+
+    /**
+     *
+     * @param tg
+     */
+    public EnvOptCell(ToggleGroup tg) {
         this.tg = tg;
         this.getStyleClass().add("list-cell");
     }
 
     @Override
-    public void updateItem(TerrainEffect te, boolean empty)
-    {
+    public void updateItem(TerrainEffect te, boolean empty) {
         super.updateItem(te, empty);
-        if(te != null)
-        {
+        if (te != null) {
             EnvOptData eod = new EnvOptData(this.tg);
             eod.setInfo(te);
             setGraphic(eod.getBox());
         }
     }
-    
+
 }

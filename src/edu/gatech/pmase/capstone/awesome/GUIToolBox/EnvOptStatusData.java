@@ -24,57 +24,59 @@
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 import java.io.IOException;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ToggleButton;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
-
+import javafx.scene.layout.HBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 class EnvOptStatusData {
-    @FXML   private HBox hBox;
-    @FXML   private EnvironmentElementStatus ees;
-    
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            EnvOptStatusData.class);
+
+    @FXML
+    private HBox hBox;
+    @FXML
+    private EnvironmentElementStatus ees;
+
     private String strData;
-    
-    
-    public EnvOptStatusData(ToggleGroup tg)
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptStatusCellItem.fxml"));
+
+    public EnvOptStatusData(ToggleGroup tg) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/envOptStatusCellItem.fxml"));
         fxmlLoader.setController(this);
-        try
-        {
+        try {
             fxmlLoader.load();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    
-    public void setInfo(TerrainEffect te)
-    {
+
+    public void setInfo(TerrainEffect te) {
         ees.setUserData(te);
         ees.setEnvironmentOption(te.terrainLabel);
-        
+
         // We have to connect the EES custom controller to the model here since we have easy access to it.
-        ees.connectToModel();                       
-    }
-    
-    @FXML
-    public void handleToggleButton(ActionEvent event)
-    {
-         System.out.println("The " + strData + " was selected.");
+        ees.connectToModel();
     }
 
-    public HBox getBox()
-    {
+    @FXML
+    public void handleToggleButton(ActionEvent event) {
+        LOGGER.info("The " + strData + " was selected.");
+    }
+
+    public HBox getBox() {
         return hBox;
     }
 }

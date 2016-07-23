@@ -33,12 +33,15 @@ import java.util.List;
 public interface IDisasterResponseTradeStudyComponentOptimator {
 
     /**
-     * 
+     *
      * @param <T>
      * @param options
      * @param prioritizes
-     * @return 
+     *
+     * @return
      */
-    <T extends AbstractArchitectureOption> List generateOptimizedOption(final List<T> options, final List<ArchitectureOptionAttribute> prioritizes);
+    <T extends AbstractArchitectureOption> List generateOptimizedOption(
+            final List<T> options,
+            final List<ArchitectureOptionAttribute> prioritizes);
 
 }

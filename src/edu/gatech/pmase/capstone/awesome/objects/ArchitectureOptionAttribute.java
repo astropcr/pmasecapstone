@@ -36,7 +36,8 @@ public class ArchitectureOptionAttribute {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(ArchitectureOptionAttribute.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            ArchitectureOptionAttribute.class);
 
     /**
      * Label for the attribute.
@@ -90,11 +91,13 @@ public class ArchitectureOptionAttribute {
      * Copy Constructor. Used for the copy pattern.
      *
      * @param original the original attribute that this attribute should be a
-     * copy of.
+     *                 copy of.
+     *
      * @throws ClassNotFoundException if cannot find the class of the value that
-     * is specified in type.
+     *                                is specified in type.
      */
-    public ArchitectureOptionAttribute(final ArchitectureOptionAttribute original) throws ClassNotFoundException {
+    public ArchitectureOptionAttribute(
+            final ArchitectureOptionAttribute original) throws ClassNotFoundException {
         this.colNum = original.colNum;
         this.label = original.label;
         this.type = original.type;
@@ -180,7 +183,7 @@ public class ArchitectureOptionAttribute {
      * best result.
      *
      * @return Order the attribute should be sorted in when looking for the best
-     * result.
+     *         result.
      */
     public SortOrderEnum getSorting() {
         return sorting;
@@ -191,7 +194,7 @@ public class ArchitectureOptionAttribute {
      * best result.
      *
      * @param sorting Order the attribute should be sorted in when looking for
-     * the best result.
+     *                the best result.
      */
     public void setSorting(SortOrderEnum sorting) {
         this.sorting = sorting;
@@ -238,7 +241,7 @@ public class ArchitectureOptionAttribute {
      * is normalized. Starts out the same value as value.
      *
      * @return Original value of the attribute. Not updated when the attribute
-     * is normalized. Starts out the same value as value.
+     *         is normalized. Starts out the same value as value.
      */
     public Object getOriginalValue() {
         return originalValue;
@@ -249,7 +252,8 @@ public class ArchitectureOptionAttribute {
      * is normalized. Starts out the same value as value.
      *
      * @param originalValue Original value of the attribute. Not updated when
-     * the attribute is normalized. Starts out the same value as value.
+     *                      the attribute is normalized. Starts out the same
+     *                      value as value.
      */
     public void setOriginalValue(Object originalValue) {
         this.originalValue = originalValue;
@@ -257,16 +261,18 @@ public class ArchitectureOptionAttribute {
 
     @Override
     public String toString() {
-        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + ", priority=" +         priority + ", originalValue=" + originalValue + '}';
+        return "ArchitectureOptionAttribute{" + "label=" + label + ", units=" + units + ", colNum=" + colNum + ", type=" + type + ", value=" + value + ", sorting=" + sorting + ", priority=" + priority + ", originalValue=" + originalValue + '}';
     }
 
     /**
      * Gets the value of the attribute as a double if the value is numerical.
      *
      * @param attr the attribute to get the value of
+     *
      * @return the value as a double
      */
-    public static Double getAttributeNumericalValue(final ArchitectureOptionAttribute attr) {
+    public static Double getAttributeNumericalValue(
+            final ArchitectureOptionAttribute attr) {
         Double value = 0.0;
 
         final Class clazz = attr.getType();

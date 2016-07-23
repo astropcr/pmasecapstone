@@ -36,7 +36,8 @@ import org.junit.Test;
 public class SensorsDatabaseDriverTest {
 
     /**
-     * Test of getSensorOptionsFromDatabase method, of class SensorsDatabaseDriver.
+     * Test of getSensorOptionsFromDatabase method, of class
+     * SensorsDatabaseDriver.
      */
     @Test
     public void testGetSensorOptions() {
@@ -79,7 +80,8 @@ public class SensorsDatabaseDriverTest {
         platformOptions.add(nine);
 
         final SensorsDatabaseDriver instance = new SensorsDatabaseDriver();
-        final List<SensorOption> result = instance.getSensorOptionsFromDatabase(platformOptions);
+        final List<SensorOption> result = instance.getSensorOptionsFromDatabase(
+                platformOptions);
 
         assertEquals(8, result.size());
     }

@@ -64,6 +64,9 @@ public class PlatformCompatibilityCriterionTest {
     private final PlatformOption option5 = new PlatformOption();
     private final PlatformOption option6 = new PlatformOption();
 
+    /**
+     *
+     */
     @Before
     public void setup() {
         option1.setId(ID_ONE);
@@ -99,7 +102,8 @@ public class PlatformCompatibilityCriterionTest {
 
         final PlatformCompatibilityCriterion instance = new PlatformCompatibilityCriterion();
         final boolean expResult = true;
-        final boolean result = instance.checkArchitectureResultRemovedByFilter(arch);
+        final boolean result = instance.checkArchitectureResultRemovedByFilter(
+                arch);
         assertEquals(expResult, result);
     }
 
@@ -121,7 +125,8 @@ public class PlatformCompatibilityCriterionTest {
 
         final PlatformCompatibilityCriterion instance = new PlatformCompatibilityCriterion();
         final boolean expResult = false;
-        final boolean result = instance.checkArchitectureResultRemovedByFilter(arch);
+        final boolean result = instance.checkArchitectureResultRemovedByFilter(
+                arch);
         assertEquals(expResult, result);
     }
 

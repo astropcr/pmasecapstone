@@ -46,34 +46,40 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-
 public class WeightingOptionQuestion extends AnchorPane {
-    
+
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(WeightingOptionQuestion.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            WeightingOptionQuestion.class);
 
     // -------------------------------------------------------------------------
     // These expose the controls to the FXML Loader and are used for the user
     // to select thier preferences.
     // -------------------------------------------------------------------------
-    @FXML    ToggleGroup questionSet;
-    @FXML    RadioButton rb1;
-    @FXML    RadioButton rb2;
-    @FXML    RadioButton rb3;
-    @FXML    RadioButton rb4;
-    @FXML    RadioButton rb5;
-    @FXML    TextFlow tfQuestion;
-    
+    @FXML
+    ToggleGroup questionSet;
+    @FXML
+    RadioButton rb1;
+    @FXML
+    RadioButton rb2;
+    @FXML
+    RadioButton rb3;
+    @FXML
+    RadioButton rb4;
+    @FXML
+    RadioButton rb5;
+    @FXML
+    TextFlow tfQuestion;
+
     // -------------------------------------------------------------------------
     // These values control what the user selection 'is'.  It should be mapped
     // to some kind of value systems such "Least", "Less", "Equal", "More", "Most"
     // -------------------------------------------------------------------------
-    // Values are controlled by the WeightingCatagories enumeration.  Ensure 
-    // that the order of the labels in the higher control match the layouts and 
+    // Values are controlled by the WeightingCatagories enumeration.  Ensure
+    // that the order of the labels in the higher control match the layouts and
     // thus value assignements of the selectors (radio buttons) in this controller.
-    
     // -------------------------------------------------------------------------
     // These variables ared used to build the question the user is being asked.
     // The template is: Is option2 more important than option2?
@@ -84,23 +90,26 @@ public class WeightingOptionQuestion extends AnchorPane {
     private final Text text2;
     private final Text textOpt2;
     private final Text text3;
-       
+
     // These are what set the properties from the FXML file.  They should be
     // be set there.
     private final SimpleStringProperty optionOne;
     private final SimpleStringProperty optionTwo;
     private WeightingChoice wc;
-   
-    
+
+    /**
+     *
+     */
     public WeightingOptionQuestion() {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
+                getClass().getResource(
+                        "/edu/gatech/pmase/capstone/awesome/GUIToolBox/WeightingOptionQuestion.fxml"));
 
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        
+
         // .....................................................................
-        // do not remove the following line if you're working with Scene Builder 2.0.  
+        // do not remove the following line if you're working with Scene Builder 2.0.
         // This fixes a known bug.
         // See http://stackoverflow.com/questions/24016229/cant-import-custom-components-with-custom-cell-factories
         // .....................................................................
@@ -111,14 +120,15 @@ public class WeightingOptionQuestion extends AnchorPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        
+
         // .....................................................................
         // Setup the toggle group that handles the radio buttons
         // .....................................................................
         questionSet = new ToggleGroup();
-        questionSet.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+        questionSet.selectedToggleProperty().addListener(
+                new ChangeListener<Toggle>() {
             public void changed(ObservableValue<? extends Toggle> ov,
-                    Toggle old_toggle, Toggle new_toggle) {
+                                Toggle old_toggle, Toggle new_toggle) {
                 if (questionSet.getSelectedToggle() != null) {
                     final Toggle tog = questionSet.getSelectedToggle();
                     LOGGER.debug("User Data: " + tog.getUserData().toString());
@@ -126,7 +136,7 @@ public class WeightingOptionQuestion extends AnchorPane {
                 }
             }
         });
-        
+
         // .....................................................................
         // Setup the radio buttons
         // Remember, assignment of values is determined by the higher level
@@ -138,107 +148,139 @@ public class WeightingOptionQuestion extends AnchorPane {
         rb2.setToggleGroup(questionSet);
         rb3.setToggleGroup(questionSet);
         rb4.setToggleGroup(questionSet);
-        rb5.setToggleGroup(questionSet);        
-        
+        rb5.setToggleGroup(questionSet);
+
         rb1.setUserData(WeightingCategory.EXTREMELY_MORE.value);
         rb2.setUserData(WeightingCategory.SIGNIFICANTLY_MORE.value);
         rb3.setUserData(WeightingCategory.EQUALLY.value);
         rb4.setUserData(WeightingCategory.SIGNIFICANTLY_LESS.value);
         rb5.setUserData(WeightingCategory.SIGNIFICANTLY_MORE.value);
-        
-        
+
         // ---------------------------------------------------------------------
         // Now let's set up the question
         // The template is: Is option2 more important than option2?
         // ---------------------------------------------------------------------
-        
         // .....................................................................
         // Initialize the properties to read from the FXML file
         // .....................................................................
         this.optionOne = new SimpleStringProperty("option1");
         this.optionTwo = new SimpleStringProperty("option2");
-        
+
         // .....................................................................
         // Now set up the internal variables to build the question in the TextFlow
         // .....................................................................
-        text1    = new Text("Is ");
-        textOpt1 = new Text(this.getOptionOne()); textOpt1.setStyle("-fx-font-weight: bold");
-        text2    = new Text(" more important than ");
-        textOpt2 = new Text(this.getOptionTwo()); textOpt2.setStyle("-fx-font-weight: bold");
-        text3    = new Text("?");
-        
+        text1 = new Text("Is ");
+        textOpt1 = new Text(this.getOptionOne());
+        textOpt1.setStyle("-fx-font-weight: bold");
+        text2 = new Text(" more important than ");
+        textOpt2 = new Text(this.getOptionTwo());
+        textOpt2.setStyle("-fx-font-weight: bold");
+        text3 = new Text("?");
+
         // .....................................................................
         // bind the properties to the text properties
         // .....................................................................
         textOpt1.textProperty().bind(optionOneProperty());
         textOpt2.textProperty().bind(optionTwoProperty());
-        
-        this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2, text3);
-        
+
+        this.tfQuestion.getChildren().setAll(text1, textOpt1, text2, textOpt2,
+                                             text3);
+
         wc = null;
     }
-    
+
     // -------------------------------------------------------------------------
     // Getters and setters
     // Includes some exposed to the FXML file through NetBeans
     // -------------------------------------------------------------------------
-    
-    public WeightingCategory getSelection()
-    {
+    /**
+     *
+     * @return
+     */
+    public WeightingCategory getSelection() {
         return WeightingCategory.getCategoriesByValue(
                 (double) questionSet.getSelectedToggle().getUserData()
         );
     }
-    
-    public void setQuestion(ObservableList<Text>questionText)
-    {
+
+    /**
+     *
+     * @param questionText
+     */
+    public void setQuestion(ObservableList<Text> questionText) {
         // TODO: allow for formatted text
         this.tfQuestion.getChildren().setAll(questionText);
     }
-    
-    public void setComparisonOptions(String opt1, String opt2)
-    {
+
+    /**
+     *
+     * @param opt1
+     * @param opt2
+     */
+    public void setComparisonOptions(String opt1, String opt2) {
         this.setOptionOne(opt1);
         this.setOptionTwo(opt2);
     }
-    
-    public void setWeightingChoice(WeightingChoice wcIn)
-    {
+
+    /**
+     *
+     * @param wcIn
+     */
+    public void setWeightingChoice(WeightingChoice wcIn) {
         wc = wcIn;
     }
-    
-    
+
+    /**
+     *
+     * @return
+     */
     public String getOptionOne() {
         return optionOneProperty().get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setOptionOne(String fName) {
         optionOneProperty().set(fName);
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty optionOneProperty() {
         return optionOne;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getOptionTwo() {
         return optionTwo.get();
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setOptionTwo(String fName) {
         optionTwo.set(fName);
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public SimpleStringProperty optionTwoProperty() {
         return optionTwo;
     }
-    
-    
 
-    
     @FXML
     void initialize() {
 
     }
 
 }
-

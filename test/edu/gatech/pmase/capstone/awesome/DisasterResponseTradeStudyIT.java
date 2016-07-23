@@ -48,9 +48,6 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the overall flow of the calculation side of the disaster response trade
@@ -65,17 +62,23 @@ public class DisasterResponseTradeStudyIT {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyIT.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudyIT.class);
 
     /**
      * Test user inputs.
      */
-    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(4);
-    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(4);
+    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(
+            4);
+    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(
+            4);
     private static final List<PlatformOption> loadedPlatformOptions = new ArrayList<>();
     private static final List<CommunicationOption> loadedCommOptions = new ArrayList<>();
     private static final List<SensorOption> loadedSensorOptions = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setupBefore() {
         // add disasters - MIKE: Need these from UI
@@ -87,61 +90,85 @@ public class DisasterResponseTradeStudyIT {
         selectedTerrainEffects.add(TerrainEffect.URBANIZATION_4);   // ID 12
     }
 
+    /**
+     *
+     */
     @Test
     public void testTradeStudy() {
         // get platforms
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();
-        loadedPlatformOptions.addAll(platformDb.getPlatformOptionsFromDatabase());
-        LOGGER.debug("Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
+        loadedPlatformOptions.
+                addAll(platformDb.getPlatformOptionsFromDatabase());
+        LOGGER.debug(
+                "Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
         assertEquals(loadedPlatformOptions.size(), 14);
 
         // get comms
         final CommunicationsDatabaseDriver commDb = new CommunicationsDatabaseDriver();
-        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(loadedPlatformOptions));
-        LOGGER.debug("Loaded " + loadedCommOptions.size() + " CommunicationOption");
+        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(
+                loadedPlatformOptions));
+        LOGGER.debug(
+                "Loaded " + loadedCommOptions.size() + " CommunicationOption");
         assertEquals(loadedCommOptions.size(), 9);
 
         // get sensors
         final SensorsDatabaseDriver sensorDb = new SensorsDatabaseDriver();
-        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(loadedPlatformOptions));
+        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(
+                loadedPlatformOptions));
         LOGGER.debug("Loaded " + loadedSensorOptions.size() + " SensorOption");
         assertEquals(loadedSensorOptions.size(), 8);
 
         // filter results
         final IDisasterResponseTradeStudyFilterer filterer = new DRTSFilterer();
-        final List<PlatformOption> filteredPlatforms = filterer.filterPlatforms(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
+        final List<PlatformOption> filteredPlatforms = filterer.filterPlatforms(
+                selectedDisasterEffects, selectedTerrainEffects,
+                loadedPlatformOptions);
         assertEquals(filteredPlatforms.size(), 4);
 
-        final List<CommunicationOption> filteredComms = filterer.filterCommunications(selectedDisasterEffects, selectedTerrainEffects, loadedCommOptions);
+        final List<CommunicationOption> filteredComms = filterer.
+                filterCommunications(selectedDisasterEffects,
+                                     selectedTerrainEffects, loadedCommOptions);
         assertEquals(filteredComms.size(), 5);
 
-        final List<SensorOption> filteredSensors = filterer.filterSensors(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
+        final List<SensorOption> filteredSensors = filterer.filterSensors(
+                selectedDisasterEffects, selectedTerrainEffects,
+                loadedSensorOptions);
         assertEquals(filteredSensors.size(), 8);
 
         // get priorities from user input
-        final List<ArchitectureOptionAttribute> commPriorities = this.getCommPriorities(filteredComms);
-        final List<ArchitectureOptionAttribute> sensorPriorities = this.getSensorPriorities(filteredSensors);
-        final List<ArchitectureOptionAttribute> platformPriorities = this.getPlatformPriorities(filteredPlatforms);
+        final List<ArchitectureOptionAttribute> commPriorities = this.
+                getCommPriorities(filteredComms);
+        final List<ArchitectureOptionAttribute> sensorPriorities = this.
+                getSensorPriorities(filteredSensors);
+        final List<ArchitectureOptionAttribute> platformPriorities = this.
+                getPlatformPriorities(filteredPlatforms);
 
         // optimate
         final IDisasterResponseTradeStudyOptimator optimator = new AHPOptimator();
-        final List<DRTSArchitectureResult> results = optimator.generateOptimizedArchitectures(filteredPlatforms,
-                filteredSensors, filteredComms, platformPriorities, sensorPriorities, commPriorities);
+        final List<DRTSArchitectureResult> results = optimator.
+                generateOptimizedArchitectures(filteredPlatforms,
+                                               filteredSensors, filteredComms,
+                                               platformPriorities,
+                                               sensorPriorities, commPriorities);
         assertEquals(results.size(), 160);
 
         // sanity check
         final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
-        final List<DRTSArchitectureResult> finalResults = sanity.selectFinalArchitecture(results);
+        final List<DRTSArchitectureResult> finalResults = sanity.
+                selectFinalArchitecture(results);
         LOGGER.info(finalResults.size() + " final results returned");
         assertEquals(finalResults.size(), 3);
 
         final DRTSArchitectureResult topResult = finalResults.get(0);
-        LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+        LOGGER.info("Final Architecture Selected with a score of: " + topResult.
+                getTotalScore() + ": " + topResult.toString());
 
         // write file
-       final  DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
+        final DisasterResponseTradeStudyOutputer instance = new DisasterResponseTradeStudyOutputer();
         try {
-            LOGGER.debug(instance.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects));
+            LOGGER.debug(instance.createOutputFile(finalResults,
+                                                   selectedDisasterEffects,
+                                                   selectedTerrainEffects));
         } catch (IOException | InvalidFormatException ex) {
             LOGGER.error("Cannot write results out.", ex);
         }
@@ -150,58 +177,79 @@ public class DisasterResponseTradeStudyIT {
     /**
      *
      * @param comms
+     *
      * @return
      */
-    private List<ArchitectureOptionAttribute> getCommPriorities(List<CommunicationOption> comms) {
-        final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
+    private List<ArchitectureOptionAttribute> getCommPriorities(
+            List<CommunicationOption> comms) {
+        final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).
+                getPrioritizationAttributess();
+        final List<WeightingChoice> options = PrioritizationUtil.
+                getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
-            LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
+            LOGGER.debug(
+                    "Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.
+                    getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
 
-        return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
+        return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
+                                                                     priAttrs);
     }
 
     /**
      *
      * @param sensors
+     *
      * @return
      */
-    private List<ArchitectureOptionAttribute> getSensorPriorities(List<SensorOption> sensors) {
-        final List<ArchitectureOptionAttribute> priAttrs = sensors.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
+    private List<ArchitectureOptionAttribute> getSensorPriorities(
+            List<SensorOption> sensors) {
+        final List<ArchitectureOptionAttribute> priAttrs = sensors.get(0).
+                getPrioritizationAttributess();
+        final List<WeightingChoice> options = PrioritizationUtil.
+                getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
-            LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
+            LOGGER.debug(
+                    "Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.
+                    getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
 
-        return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
+        return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
+                                                                     priAttrs);
     }
 
     /**
      *
      * @param platforms
+     *
      * @return
      */
-    private List<ArchitectureOptionAttribute> getPlatformPriorities(List<PlatformOption> platforms) {
-        final List<ArchitectureOptionAttribute> priAttrs = platforms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
+    private List<ArchitectureOptionAttribute> getPlatformPriorities(
+            List<PlatformOption> platforms) {
+        final List<ArchitectureOptionAttribute> priAttrs = platforms.get(0).
+                getPrioritizationAttributess();
+        final List<WeightingChoice> options = PrioritizationUtil.
+                getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
-            LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
+            LOGGER.debug(
+                    "Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.
+                    getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
 
-        return PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
+        return PrioritizationUtil.getPriorityWeightingsForAttributes(options,
+                                                                     priAttrs);
     }
 
 }

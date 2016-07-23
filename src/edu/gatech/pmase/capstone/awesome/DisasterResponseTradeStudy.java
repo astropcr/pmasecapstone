@@ -41,6 +41,12 @@ import org.apache.logging.log4j.Logger;
 public class DisasterResponseTradeStudy extends Application {
 
     /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudy.class);
+
+    /**
      * These setup the windows that will be shown. This is inspired by the
      * ScreenController example found at the following site:
      * https://blogs.oracle.com/acaicedo/entry/managing_multiple_screens_in_javafx1
@@ -51,13 +57,27 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     // Main Screen
     //..........................................................................
+    /**
+     *
+     */
     public static String screenMainID = classPath + "MainWindow";
+
+    /**
+     *
+     */
     public static String screenMainFile = classPath + "MainWindow.fxml";
 
     //..........................................................................
     // Disaster Effects Screens
     //..........................................................................
+    /**
+     *
+     */
     public static String screenEffectsOptID = classPath + "DisasterEffectsOptions";
+
+    /**
+     *
+     */
     public static String screenEffectsFile = classPath + "DisasterEffectsOptions.fxml";
 
     //..........................................................................
@@ -68,11 +88,6 @@ public class DisasterResponseTradeStudy extends Application {
     // Solution Creiteria Weighting Screens
     // None needed...generated automagically based on enumerations.
     //..........................................................................
-    /**
-     * Logger. Use to log all things
-     */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudy.class);
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         LOGGER.info("Hello World!");
@@ -86,15 +101,16 @@ public class DisasterResponseTradeStudy extends Application {
         //......................................................................
         //                         Main Screen
         //......................................................................
-        ((MainWindowController) mainContainer.loadScreen(DisasterResponseTradeStudy.screenMainID,
-                DisasterResponseTradeStudy.screenMainFile))
+        ((MainWindowController) mainContainer.loadScreen(
+         DisasterResponseTradeStudy.screenMainID,
+         DisasterResponseTradeStudy.screenMainFile))
                 .connectToModel();
 
         //......................................................................
         //                  Disaster Effect Screen
         //......................................................................
         mainContainer.loadScreen(DisasterResponseTradeStudy.screenEffectsOptID,
-                DisasterResponseTradeStudy.screenEffectsFile);
+                                 DisasterResponseTradeStudy.screenEffectsFile);
 
         //......................................................................
         //          Environment Options/Factors Screens
@@ -102,10 +118,10 @@ public class DisasterResponseTradeStudy extends Application {
         Set<String> strTELabels = TerrainEffect.getEffectLabels();
         for (String label : strTELabels) {
             ((EnvironmentOptionsController) (mainContainer
-                    .loadScreen(label,
-                            classPath
-                            + "EnvironmentOptions.fxml")))
-                    .setupEnvOpts(label);
+                                             .loadScreen(label,
+                                                         classPath
+                                                         + "EnvironmentOptions.fxml"))).
+                    setupEnvOpts(label);
         }
 
         //......................................................................
@@ -120,10 +136,11 @@ public class DisasterResponseTradeStudy extends Application {
 
         for (String label : strWCLabels) {
             ((WeightingOptionsController) (mainContainer
-                    .loadScreen(label,
-                            classPath
-                            + "WeightingOptions.fxml")))
-                    .setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(label));
+                                           .loadScreen(label,
+                                                       classPath
+                                                       + "WeightingOptions.fxml"))).
+                    setupEnvOpts(WeightingAreasOfConcern.getCategoriesByLabel(
+                            label));
         }
 
         // ---------------------------------------------------------------------
@@ -141,7 +158,8 @@ public class DisasterResponseTradeStudy extends Application {
 
         primaryStage.getIcons().add(
                 new Image(
-                        DisasterResponseTradeStudy.class.getResourceAsStream("icon.png")));
+                        DisasterResponseTradeStudy.class.getResourceAsStream(
+                                "icon.png")));
 
         primaryStage.show();
 

@@ -30,8 +30,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+/**
+ *
+ * @author mshearin3
+ */
 public class GUIToolBox extends Application {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(GUIToolBox.class);
 
     @Override
     public void start(Stage primaryStage) {
@@ -41,7 +52,7 @@ public class GUIToolBox extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                LOGGER.info("Hello World!");
             }
         });
 
@@ -50,11 +61,15 @@ public class GUIToolBox extends Application {
 
         Scene scene = new Scene(root, 300, 250);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("GUI Tool Box main");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

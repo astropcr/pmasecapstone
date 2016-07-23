@@ -23,63 +23,87 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import edu.gatech.pmase.capstone.awesome.objects.WeightingChoice;
+import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
+import java.io.IOException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
-import java.io.IOException;
-import javafx.event.ActionEvent;
-import edu.gatech.pmase.capstone.awesome.GUIToolBox.WeightingOptionQuestion;
-import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingCategory;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
- * This class creates the set of UI controls that implement the environmental 
- * selections for the user.  It's designed to be paired with the EnvOptCell 
- * class for ultimate inclusion in some type of iterative container, such as
- * a list view or grid view.
+ * This class creates the set of UI controls that implement the environmental
+ * selections for the user. It's designed to be paired with the EnvOptCell class
+ * for ultimate inclusion in some type of iterative container, such as a list
+ * view or grid view.
+ *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class WeightOptData {
-    @FXML   private HBox hBox;
-    @FXML   private WeightingOptionQuestion woq;
-    
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudy.class);
+
+    @FXML
+    private HBox hBox;
+    @FXML
+    private WeightingOptionQuestion woq;
+
     private String strData;
     private WeightingChoice wc;
-    
-    public WeightOptData()
-    {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
+
+    /**
+     *
+     */
+    public WeightOptData() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                "/edu/gatech/pmase/capstone/awesome/GUIToolBox/weightOptCellItem.fxml"));
         fxmlLoader.setController(this);
-        try
-        {
+        try {
             fxmlLoader.load();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void setInfo(WeightingChoice wc)
-    {
+    /**
+     *
+     * @param wc
+     */
+    public void setInfo(WeightingChoice wc) {
         this.wc = wc;
         woq.setComparisonOptions(wc.getOptionOneLabel(), wc.getOptionTwoLabel());
         woq.setWeightingChoice(wc);
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public WeightingCategory getSelection() {
         return woq.getSelection();
     }
-    
+
+    /**
+     *
+     * @param event
+     */
     @FXML
-    public void handleToggleButton(ActionEvent event)
-    {
-         System.out.println("The " + strData + " was selected.");
+    public void handleToggleButton(ActionEvent event) {
+        LOGGER.info("The " + strData + " was selected.");
     }
 
-    public HBox getBox()
-    {
+    /**
+     *
+     * @return
+     */
+    public HBox getBox() {
         return hBox;
     }
 }

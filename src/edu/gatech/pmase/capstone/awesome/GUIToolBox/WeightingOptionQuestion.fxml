@@ -36,27 +36,27 @@ THE SOFTWARE.
     <stylesheets>
         <URL value="@guitoolbox.css" />
     </stylesheets>
-   <children>
-      <GridPane layoutY="3.0" prefHeight="17.0" prefWidth="980.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <TextFlow fx:id="tfQuestion" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0"/>
-            <RadioButton fx:id="rb1" layoutX="0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="1" />
-            <RadioButton fx:id="rb2" layoutX="108.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="2" />
-            <RadioButton fx:id="rb3" layoutX="225.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="3" />
-            <RadioButton fx:id="rb4" layoutX="352.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="4" />
-            <RadioButton fx:id="rb5" layoutX="471.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="5" />
-         </children>
-      </GridPane>
-   </children>
+    <children>
+        <GridPane layoutY="3.0" prefHeight="17.0" prefWidth="980.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="150.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextFlow fx:id="tfQuestion" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0"/>
+                <RadioButton fx:id="rb1" layoutX="0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="1" />
+                <RadioButton fx:id="rb2" layoutX="108.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="2" />
+                <RadioButton fx:id="rb3" layoutX="225.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="3" />
+                <RadioButton fx:id="rb4" layoutX="352.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="4" />
+                <RadioButton fx:id="rb5" layoutX="471.0" layoutY="3.0" mnemonicParsing="false" text="" toggleGroup="$questionSet" GridPane.columnIndex="5" />
+            </children>
+        </GridPane>
+    </children>
 </fx:root>

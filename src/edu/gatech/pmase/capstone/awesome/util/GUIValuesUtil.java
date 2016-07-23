@@ -41,17 +41,20 @@ public class GUIValuesUtil {
      * and weighted.
      *
      * @param loadedOptions a list of options (rows) loaded from the database
+     *
      * @return list of choices the user must make as to how to weight things in
-     * an architecture
+     *         an architecture
      */
     public static List<WeightingChoice> getComponentWeightingOptions(
             final List<? extends AbstractArchitectureOption> loadedOptions) {
         final List<WeightingChoice> results = new ArrayList<>();
 
         if (loadedOptions.isEmpty()) {
-            throw new IllegalArgumentException("Cannot create weighting options as no values loaded from database");
+            throw new IllegalArgumentException(
+                    "Cannot create weighting options as no values loaded from database");
         } else {
-            results.addAll(PrioritizationUtil.getWeightingChoice(loadedOptions.get(0).getPrioritizationAttributess()));
+            results.addAll(PrioritizationUtil.getWeightingChoice(loadedOptions.
+                    get(0).getPrioritizationAttributess()));
         }
 
         return results;

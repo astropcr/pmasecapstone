@@ -47,14 +47,20 @@ public class DisasterResponseTradeStudyIT2 {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudyIT2.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudyIT2.class);
 
     /**
      * Test user inputs.
      */
-    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(4);
-    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(4);
+    private static final List<DisasterEffect> selectedDisasterEffects = new ArrayList<>(
+            4);
+    private static final List<TerrainEffect> selectedTerrainEffects = new ArrayList<>(
+            4);
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setupBefore() {
         // add disasters - MIKE: Need these from UI
@@ -67,17 +73,24 @@ public class DisasterResponseTradeStudyIT2 {
         selectedTerrainEffects.add(TerrainEffect.SLOPE_2);   // ID 2
     }
 
+    /**
+     *
+     */
     @Test
     public void testTradeStudy() {
-        final DisasterResponseTradeStudySingleton drts = DisasterResponseTradeStudySingleton.getInstance();
+        final DisasterResponseTradeStudySingleton drts = DisasterResponseTradeStudySingleton.
+                getInstance();
 
         // set Disaster
         drts.setSelectedDisasterEffects(selectedDisasterEffects);
 
-        // set weighting choices       
-        drts.setCommWeightingChoice(getWeightingOptions(drts.getCommWeightingChoice()));
-        drts.setSensorWeightingChoice(getWeightingOptions(drts.getSensorWeightingChoice()));
-        drts.setPlatformWeightingChoice(getWeightingOptions(drts.getPlatformWeightingChoice()));
+        // set weighting choices
+        drts.setCommWeightingChoice(getWeightingOptions(drts.
+                getCommWeightingChoice()));
+        drts.setSensorWeightingChoice(getWeightingOptions(drts.
+                getSensorWeightingChoice()));
+        drts.setPlatformWeightingChoice(getWeightingOptions(drts.
+                getPlatformWeightingChoice()));
 
         // set terrain
         drts.setSelectedTerrainEffects(selectedTerrainEffects);
@@ -90,12 +103,16 @@ public class DisasterResponseTradeStudyIT2 {
      * Set WeightingOptions
      *
      * @param options opts to set
+     *
      * @return options with values set
      */
-    private static List<WeightingChoice> getWeightingOptions(List<WeightingChoice> options) {
+    private static List<WeightingChoice> getWeightingOptions(
+            List<WeightingChoice> options) {
         int size = options.size();
         for (WeightingChoice opt : options) {
-            LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
+            LOGGER.debug(
+                    "Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.
+                    getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }

@@ -44,7 +44,8 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(SensorsDatabaseDriver.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            SensorsDatabaseDriver.class);
 
     /**
      * Workbook cell numbers to load from.
@@ -69,11 +70,13 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
      * Gets all the Sensor Options specified in the Sensor database.
      *
      * @param inPlatformOptions list of PlatformOptions. Must be generated
-     * before creating listing of Sensor options due to the Platform
-     * restrictions.
+     *                          before creating listing of Sensor options due to
+     *                          the Platform restrictions.
+     *
      * @return a List of SensorOption in the database.
      */
-    public List<SensorOption> getSensorOptionsFromDatabase(final List<PlatformOption> inPlatformOptions) {
+    public List<SensorOption> getSensorOptionsFromDatabase(
+            final List<PlatformOption> inPlatformOptions) {
         LOGGER.info("Reading SensorOption from database.");
 
         // map platforms
@@ -81,13 +84,15 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
 
         // get options
         return this.loadOptionsFromDatabase(
-                DisasterResponseTradeStudyPropertiesSingleton.getInstance().getSensorsWorkbookFileName());
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().
+                getSensorsWorkbookFileName());
     }
 
     /**
      * Creates a SensorOption from a row.
      *
      * @param row the row to transform
+     *
      * @return the created SensorOption, or null if cannot read the row.
      */
     @Override
@@ -102,7 +107,8 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
 
         if (null == idCell || null == labelCell || null == costRankCell
                 || null == weightCell || idCell.getCellType() == Cell.CELL_TYPE_BLANK) {
-            LOGGER.trace("Sensor Database Row " + row.getRowNum() + " missing required SensorOption information.");
+            LOGGER.trace(
+                    "Sensor Database Row " + row.getRowNum() + " missing required SensorOption information.");
         } else {
             option = new SensorOption();
             final long idNum = (long) idCell.getNumericCellValue();
@@ -118,21 +124,29 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
 
             // load optional info
             // platform restrictions
-            option.setPlatformLimitations(this.getPlatFormRestrictFromCell(row.getCell(PLAT_RESTRICT_CELL_NUM), platformOptions));
+            option.setPlatformLimitations(this.getPlatFormRestrictFromCell(row.
+                    getCell(PLAT_RESTRICT_CELL_NUM), platformOptions));
 
             // terrain effects
             final List<TerrainEffect> terrainLimitation = new ArrayList<>();
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
-            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_ONE_RESTRICT_CELL_NUM), 1));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_TWO_RESTRICT_CELL_NUM), 2));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_THREE_RESTRICT_CELL_NUM), 3));
+            terrainLimitation.addAll(this.getTerrainEffectsFromCell(row.getCell(
+                    TERRAIN_FOUR_RESTRICT_CELL_NUM), 4));
 
-            LOGGER.debug("Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for SensorOption");
+            LOGGER.debug(
+                    "Found " + terrainLimitation.size() + " total Terrian Effect Restrictions for SensorOption");
 
             option.setTerrainLimitation(terrainLimitation);
 
             // disaster effect restrictions
-            option.setDisasterLimitations(this.getDisasterEffectRestrictFromCell(row.getCell(DISASTER_EFFECT_RESTRICT_CELL_NUM)));
+            option.setDisasterLimitations(this.
+                    getDisasterEffectRestrictFromCell(row.getCell(
+                            DISASTER_EFFECT_RESTRICT_CELL_NUM)));
         }
 
         return option;
@@ -142,7 +156,7 @@ public class SensorsDatabaseDriver extends AbstractDatabaseDriver {
      * Creates mapping of platform options for use in lookup.
      *
      * @param inPlatformOptions passed in list of PlatformOption loaded from
-     * Platform DB.
+     *                          Platform DB.
      */
     private void mapPlatformOptions(final List<PlatformOption> inPlatformOptions) {
         inPlatformOptions.stream().forEach((option) -> {

@@ -57,25 +57,36 @@ public class WeightingOptionsController implements ControlledScreen {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(WeightingOptionsController.class);
-    
+    private static final Logger LOGGER = LogManager.getLogger(
+            WeightingOptionsController.class);
+
     ScreensController myController;
-            
-    @FXML   private ToggleGroup             tg;
-    @FXML   private Button                  btnWopClose;
-    @FXML   private ListView                weightingOptions;
-    @FXML   private Label                   titleLabel;
-    @FXML   private Label                   lblInstructions;
-    
+
+    @FXML
+    private ToggleGroup tg;
+    @FXML
+    private Button btnWopClose;
+    @FXML
+    private ListView weightingOptions;
+    @FXML
+    private Label titleLabel;
+    @FXML
+    private Label lblInstructions;
+
     // -------------------------------------------------------------------------
     // These are part of the labels the 5 criteria for weighting
     // -------------------------------------------------------------------------
-    @FXML   private TextFlow tfWeightingOption1;
-    @FXML   private TextFlow tfWeightingOption2;
-    @FXML   private TextFlow tfWeightingOption3;
-    @FXML   private TextFlow tfWeightingOption4;
-    @FXML   private TextFlow tfWeightingOption5;
-    
+    @FXML
+    private TextFlow tfWeightingOption1;
+    @FXML
+    private TextFlow tfWeightingOption2;
+    @FXML
+    private TextFlow tfWeightingOption3;
+    @FXML
+    private TextFlow tfWeightingOption4;
+    @FXML
+    private TextFlow tfWeightingOption5;
+
     private final Text tWeightingOption1;
     private final Text tWeightingOption2;
     private final Text tWeightingOption3;
@@ -83,18 +94,19 @@ public class WeightingOptionsController implements ControlledScreen {
     private final Text tWeightingOption5;
 
     private static final String STR_INSTRUCTIONS
-            = "In order to generate weighting criteria based on user preferences, "
+                                = "In order to generate weighting criteria based on user preferences, "
             + "please answer the following questions by selecting the desired radio "
             + "button next to each question:";
     private static final String STR_WARNING = "(Please select an option before continuing)";
-    
-    
-    
-    private ObservableList<WeightingChoice>   wcObsList;
-    
+
+    private ObservableList<WeightingChoice> wcObsList;
+
     private WeightingAreasOfConcern weightingOpt = WeightingAreasOfConcern.UNKNOWN;
     private DisasterResponseTradeStudySingleton DRTSS;
 
+    /**
+     *
+     */
     public WeightingOptionsController() {
         wcObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
@@ -107,7 +119,7 @@ public class WeightingOptionsController implements ControlledScreen {
         //for (String wcLabels : WeightingCategory.getCategoryLabels()) {
         //1. create a new TextFlow and related Text field
         //2. add them to the grid...might need to switch to a GridFlow
-        //3. set the Text field 
+        //3. set the Text field
         //}
         tWeightingOption1 = new Text(WeightingCategory.EXTREMELY_MORE.label);
         tWeightingOption2 = new Text(WeightingCategory.SIGNIFICANTLY_MORE.label);
@@ -154,17 +166,18 @@ public class WeightingOptionsController implements ControlledScreen {
         }
 
         LOGGER.debug("Num Weight Opts: " + weightingOptList.size());
-        
+
         wcObsList.clear();
         wcObsList.addAll(weightingOptList);
         LOGGER.debug("Num Observe Opts: " + wcObsList.size());
-        
+
         weightingOptions.setItems(wcObsList);
-        
+
         weightingOptions.setCellFactory(
                 new Callback<ListView<WeightingChoice>, ListCell<WeightingChoice>>() {
             @Override
-            public ListCell<WeightingChoice> call(ListView<WeightingChoice> weightingOptions) {
+            public ListCell<WeightingChoice> call(
+                    ListView<WeightingChoice> weightingOptions) {
                 return new WeightOptCell();
             }
         });
@@ -176,22 +189,21 @@ public class WeightingOptionsController implements ControlledScreen {
      */
     @FXML
     void initialize() {
-        // TODO  
+        // TODO
     }
 
     private Boolean determineIfSelectionsHaveBeenMade() {
         Boolean determination = true;
-        
-        for (WeightingChoice wc : wcObsList)
-        {
-            if(wc.getResult() != Double.MIN_VALUE ){
+
+        for (WeightingChoice wc : wcObsList) {
+            if (wc.getResult() != Double.MIN_VALUE) {
                 determination &= true;
             } else {
                 determination = false;
             }
         }
         // .....................................................................
-        // peforms the following operation more efficiently 
+        // peforms the following operation more efficiently
         //
         //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
         //      if (cb != null) { determination &= cb.isSelected(); }
@@ -224,20 +236,21 @@ public class WeightingOptionsController implements ControlledScreen {
             // Update the model
             switch (weightingOpt) {
                 case PLATFORMS:
-                     DRTSS.setPlatformWeightingChoice(wcObsList);
+                    DRTSS.setPlatformWeightingChoice(wcObsList);
                     break;
 
                 case COMMS:
-                     DRTSS.setCommWeightingChoice(wcObsList);
+                    DRTSS.setCommWeightingChoice(wcObsList);
                     break;
 
                 case SENSORS:
-                     DRTSS.setSensorWeightingChoice(wcObsList);
+                    DRTSS.setSensorWeightingChoice(wcObsList);
                     break;
             }
 
             // Update the view
-            DRTSGUIModel.getInstance().updateWoccb(weightingOpt, allQuestionsAnswered);
+            DRTSGUIModel.getInstance().updateWoccb(weightingOpt,
+                                                   allQuestionsAnswered);
 
             // Now switch the window
             this.goToMain(event);
@@ -261,11 +274,19 @@ public class WeightingOptionsController implements ControlledScreen {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

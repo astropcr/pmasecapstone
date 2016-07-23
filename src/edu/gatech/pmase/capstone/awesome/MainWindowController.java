@@ -56,35 +56,50 @@ import org.controlsfx.control.GridView;
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class MainWindowController implements Initializable,
-                                             ControlledScreen {
+        ControlledScreen {
 
     ScreensController myController;
 
-    @FXML    private AnchorPane apMainWindow;
-    
-    @FXML    private Label label;    
-    @FXML    private Label lblTitleMain;
-    @FXML    private Label lblSubTitleWeightingCriteria;
-    @FXML    private Label lblSubTitleDisasterEffects;
-    @FXML    private Label lblSubTitleEnvironmentOptions;
-    
-    @FXML   private EffectsOptionsPanel eopDisasterEffects;
-    @FXML   private Label lblDisasterEffects;
-    @FXML   private Button btnDepClose;
-    @FXML   private Button btnDepOpen;
-    @FXML   private Button btnCalculate;
-    
-    @FXML   private GridView envStatusGrid;
-    
-    @FXML   private CheckBox cbWeightingsPlatformsComplete;
-    @FXML   private CheckBox cbWeightingsCommunicationsComplete;
-    @FXML   private CheckBox cbWeightingsSensorsComplete;
-    
-    @FXML   private Button btnEopClose;                     // this could be used for them all?
-    
+    @FXML
+    private AnchorPane apMainWindow;
+
+    @FXML
+    private Label label;
+    @FXML
+    private Label lblTitleMain;
+    @FXML
+    private Label lblSubTitleWeightingCriteria;
+    @FXML
+    private Label lblSubTitleDisasterEffects;
+    @FXML
+    private Label lblSubTitleEnvironmentOptions;
+
+    @FXML
+    private EffectsOptionsPanel eopDisasterEffects;
+    @FXML
+    private Label lblDisasterEffects;
+    @FXML
+    private Button btnDepClose;
+    @FXML
+    private Button btnDepOpen;
+    @FXML
+    private Button btnCalculate;
+
+    @FXML
+    private GridView envStatusGrid;
+
+    @FXML
+    private CheckBox cbWeightingsPlatformsComplete;
+    @FXML
+    private CheckBox cbWeightingsCommunicationsComplete;
+    @FXML
+    private CheckBox cbWeightingsSensorsComplete;
+
+    @FXML
+    private Button btnEopClose;                     // this could be used for them all?
+
     private DisasterResponseTradeStudySingleton DRTSS;
-    
-    
+
     /**
      * Initializes the controller class.
      */
@@ -92,145 +107,156 @@ public class MainWindowController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
 
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
-        
+
         apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
-                          new ScreenSwitchEventHandler() {
-                              public void handle(ScreenSwitchEvent event) {
-                                  goToEnvironmentOptions(event);
-                              };    
-                          });
-        
+                                     new ScreenSwitchEventHandler() {
+                                 public void handle(ScreenSwitchEvent event) {
+                                     goToEnvironmentOptions(event);
+                                 }
+                             ;
+        });
+
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
         DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
-        
-        
+
         // ---------------------------------------------------------------------
         // First, create a list of Disaster Effects that will be used to populate
         // the GridView with Environment Effect Stati
         // ---------------------------------------------------------------------
         Set<String> strTerrainEffectStatus = TerrainEffect.getEffectLabels();
-        ObservableList<TerrainEffect> tempObsList = FXCollections.observableArrayList();
-        
+        ObservableList<TerrainEffect> tempObsList = FXCollections.
+                observableArrayList();
+
         int i = 1;  // needs to be one ordered since the 0 orderded is an "UNKNOWN" place holder
-        for(String str : strTerrainEffectStatus)
-        {
+        for (String str : strTerrainEffectStatus) {
             tempObsList.add(TerrainEffect.getEffectByIdAndCode(i, 0));
             i++;
         }
         envStatusGrid.setItems(tempObsList);
-        
+
         // ---------------------------------------------------------------------
         // Now let's create them
         // ---------------------------------------------------------------------
         envStatusGrid.setCellFactory(
-            new Callback<GridView<TerrainEffect>, GridCell<TerrainEffect>>() {
-                @Override
-                public GridCell<TerrainEffect> call(GridView<TerrainEffect> environmentOptions) {
-                   return new EnvOptStatusCell();
-                }
+                new Callback<GridView<TerrainEffect>, GridCell<TerrainEffect>>() {
+            @Override
+            public GridCell<TerrainEffect> call(
+                    GridView<TerrainEffect> environmentOptions) {
+                return new EnvOptStatusCell();
+            }
         });
-        
+
         // ---------------------------------------------------------------------
         // And to connect them...
-        // The EES panels are connected to the model inside the cell factory 
-        // methods, specifically insde the EnvOptStatusCell class via the 
+        // The EES panels are connected to the model inside the cell factory
+        // methods, specifically insde the EnvOptStatusCell class via the
         // setInfo() call.  This is due to the EES being a custom controller.
         // ---------------------------------------------------------------------
     }
-    
-    
+
     // -------------------------------------------------------------------------
     // These functions are what switch between windows.
     // -------------------------------------------------------------------------
     @FXML
-    private void goToMain(ActionEvent event)  {
+    private void goToMain(ActionEvent event) {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
-    
+
     @FXML
-    private void goToEffects(ActionEvent event)  {
+    private void goToEffects(ActionEvent event) {
         myController.setScreen(DisasterResponseTradeStudy.screenEffectsOptID);
     }
-    
+
     @FXML
     private void calculateResults(ActionEvent event) {
         DRTSS.calculate();
     }
-    
+
     // -------------------------------------------------------------------------
     // Environment Status
     // -------------------------------------------------------------------------
-    
     /**
      * This event handler will switch to the correct Environment Option window
      * selected by the user.
-     * @param event 
+     *
+     * @param event
      */
-    private void goToEnvironmentOptions(ScreenSwitchEvent event)  {
+    private void goToEnvironmentOptions(ScreenSwitchEvent event) {
         String toSet = DisasterResponseTradeStudy.screenMainID; // the main screen is a graceful fall-through
 
-        // First, select the ID based on the caller (button)                
-        EnvironmentElementStatus eesTemp = (EnvironmentElementStatus)((Node)event.getSource()).getScene().getFocusOwner().getParent();        
-        toSet = ((TerrainEffect)eesTemp.getUserData()).terrainLabel;
-        
-        // Now, let's set the screen       
+        // First, select the ID based on the caller (button)
+        EnvironmentElementStatus eesTemp = (EnvironmentElementStatus) ((Node) event.
+                                                                       getSource()).
+                getScene().getFocusOwner().getParent();
+        toSet = ((TerrainEffect) eesTemp.getUserData()).terrainLabel;
+
+        // Now, let's set the screen
         myController.setScreen(toSet);
     }
-    
+
     // -------------------------------------------------------------------------
     // Weighting Criteria
     // -------------------------------------------------------------------------
     @FXML
-    private void goToPlatformsWeightingCriteria(ActionEvent event)  {
+    private void goToPlatformsWeightingCriteria(ActionEvent event) {
         myController.setScreen(WeightingAreasOfConcern.PLATFORMS.label);//DisasterResponseTradeStudy.screenPlatformWeightingID);
     }
-    
+
     @FXML
-    private void goToCommsWeightingCriteria(ActionEvent event)  {
+    private void goToCommsWeightingCriteria(ActionEvent event) {
         myController.setScreen(WeightingAreasOfConcern.COMMS.label);
     }
-    
+
     @FXML
-    private void goToSensorsWeightingCriteria(ActionEvent event)  {
+    private void goToSensorsWeightingCriteria(ActionEvent event) {
         myController.setScreen(WeightingAreasOfConcern.SENSORS.label);//DisasterResponseTradeStudy.screenSensorsWeightingID);
     }
-    
-    
+
     /**
      * Connects all of the GUI element created in the control/view to the model
      */
     void connectToModel() {
-        
+
         // ---------------------------------------------------------------------
         // Connect the Environmental Effect Status controls to the model
         // ---------------------------------------------------------------------
         ObservableList<Node> nTemp = envStatusGrid.getChildrenUnmodifiable();
-        
+
         nTemp.stream().forEach((ees) -> {
             DRTSGUIModel.getInstance()
-                    .addEes((TerrainEffect)ees.getUserData(),
-                            (EnvironmentElementStatus)ees);
+                    .addEes((TerrainEffect) ees.getUserData(),
+                            (EnvironmentElementStatus) ees);
         });
-        
+
         // ---------------------------------------------------------------------
         // Connect the Weighting Area check boxen controls to the model
         // ---------------------------------------------------------------------
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS, cbWeightingsPlatformsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,     cbWeightingsCommunicationsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,   cbWeightingsSensorsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS,
+                                             cbWeightingsPlatformsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,
+                                             cbWeightingsCommunicationsComplete);
+        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,
+                                             cbWeightingsSensorsComplete);
     }
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.
     }
-
 
 }

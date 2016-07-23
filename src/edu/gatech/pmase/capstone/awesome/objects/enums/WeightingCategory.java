@@ -33,12 +33,30 @@ import java.util.stream.Collectors;
  */
 public enum WeightingCategory {
 
-    UNKNOWN(            0, "Unknown",                       0.0),
-    EXTREMELY_LESS(     1, "Extremely Less Important",      0.1),
-    SIGNIFICANTLY_LESS( 2, "Significantly Less Important",  0.5),
-    EQUALLY(            3, "Equally Important",             1.0),
-    SIGNIFICANTLY_MORE( 4, "Significantly More Important",  5.0),
-    EXTREMELY_MORE(     5, "Extremely More Important",      10.0);
+    /**
+     *
+     */
+    UNKNOWN(0, "Unknown", 0.0),
+    /**
+     *
+     */
+    EXTREMELY_LESS(1, "Extremely Less Important", 0.1),
+    /**
+     *
+     */
+    SIGNIFICANTLY_LESS(2, "Significantly Less Important", 0.5),
+    /**
+     *
+     */
+    EQUALLY(3, "Equally Important", 1.0),
+    /**
+     *
+     */
+    SIGNIFICANTLY_MORE(4, "Significantly More Important", 5.0),
+    /**
+     *
+     */
+    EXTREMELY_MORE(5, "Extremely More Important", 10.0);
 
     /**
      * The ID of the Weighting Category.
@@ -58,11 +76,12 @@ public enum WeightingCategory {
     /**
      * Constructor
      *
-     * @param inId the id of the disaster effect
+     * @param inId    the id of the disaster effect
      * @param inLabel the reader friendly label to use
      * @param inValue the value of the weighting category
      */
-    private WeightingCategory(final int inId, final String inLabel, final double inValue) {
+    private WeightingCategory(final int inId, final String inLabel,
+                              final double inValue) {
         this.label = inLabel;
         this.id = inId;
         this.value = inValue;
@@ -73,13 +92,15 @@ public enum WeightingCategory {
      * Given the ID, returns the associated WeightingCategory.
      *
      * @param inId the ID to find by
+     *
      * @return the given Weighting Category. If none found to match ID, returns
-     * {@link WeightingCategory#UNKNOWN}.
+     *         {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesById(final int inId) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
 
-        final Optional<WeightingCategory> result = Arrays.asList(WeightingCategory.values())
+        final Optional<WeightingCategory> result = Arrays.asList(
+                WeightingCategory.values())
                 .stream()
                 .filter(eff -> (eff.id == inId))
                 .findFirst();
@@ -94,13 +115,15 @@ public enum WeightingCategory {
      * Given the label, returns the associated WeightingCategory.
      *
      * @param inLabel the label to find by
+     *
      * @return the given Weighting Category. If none found to match label,
-     * returns {@link WeightingCategory#UNKNOWN}.
+     *         returns {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesByLabel(final String inLabel) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
 
-        final Optional<WeightingCategory> result = Arrays.asList(WeightingCategory.values())
+        final Optional<WeightingCategory> result = Arrays.asList(
+                WeightingCategory.values())
                 .stream()
                 .filter(eff -> eff.label.equals(inLabel))
                 .findFirst();
@@ -115,13 +138,15 @@ public enum WeightingCategory {
      * Given the Value, returns the associated WeightingCategory.
      *
      * @param inValue the value to find by
+     *
      * @return the given Weighting Category. If none found to match value,
-     * returns {@link WeightingCategory#UNKNOWN}.
+     *         returns {@link WeightingCategory#UNKNOWN}.
      */
     public static WeightingCategory getCategoriesByValue(final double inValue) {
         WeightingCategory effect = WeightingCategory.UNKNOWN;
 
-        final Optional<WeightingCategory> result = Arrays.asList(WeightingCategory.values())
+        final Optional<WeightingCategory> result = Arrays.asList(
+                WeightingCategory.values())
                 .stream()
                 .filter(eff -> eff.value == inValue)
                 .findFirst();

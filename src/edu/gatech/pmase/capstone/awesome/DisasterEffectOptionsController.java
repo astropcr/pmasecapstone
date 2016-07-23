@@ -27,11 +27,8 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -40,66 +37,79 @@ import javafx.scene.control.Label;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class DisasterEffectOptionsController implements Initializable,
-                                             ControlledScreen {
+public class DisasterEffectOptionsController implements ControlledScreen {
 
     ScreensController myController;
-    
-    @FXML   private EffectsOptionsPanel eopDisasterEffects;
-    @FXML   private Label lblDisasterEffects;
-    @FXML   private Button btnDepClose;
-    
-    @FXML   private Button button = null;
-    
-    
+
+    @FXML
+    private EffectsOptionsPanel eopDisasterEffects;
+    @FXML
+    private Label lblDisasterEffects;
+    @FXML
+    private Button btnDepClose;
+
+    @FXML
+    private Button button = null;
+
+//    /**
+//     * Initializes the controller class.
+//     */
+//    @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//        // TODO
+//    }
     /**
-     * Initializes the controller class.
+     *
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO  
+    public void initialize() {
+        this.eopDisasterEffects.setQuestion(
+                "Select all disaster effects that apply.");
     }
-   
-    
+
     /**
      * This function will trigger a data update event for the Disaster Effects
      * and trigger a screen switch event for the main controller.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
-    private void doneButtonClicked(ActionEvent event)
-    {
+    private void doneButtonClicked(ActionEvent event) {
         // Update the model and the view
         DisasterResponseTradeStudySingleton.getInstance()
-                                           .setSelectedDisasterEffects(
-                                                   eopDisasterEffects.getSelectionList()
-                                           );
-        
+                .setSelectedDisasterEffects(
+                        eopDisasterEffects.getSelectionList()
+                );
+
         DRTSGUIModel.getInstance()
-                    .updateDisasterEffectsStatus(
-                            eopDisasterEffects.getSelectionStringized()
-                    );
-        
-        
+                .updateDisasterEffectsStatus(
+                        eopDisasterEffects.getSelectionStringized()
+                );
+
         // Now switch the window
         goToMain(event);
     }
-    
+
     // -------------------------------------------------------------------------
     // These functions are what switch between windows.
     // -------------------------------------------------------------------------
-    
     @FXML
-    private void goToMain(ActionEvent event)  {
+    private void goToMain(ActionEvent event) {
         myController.setScreen(DisasterResponseTradeStudy.screenMainID);
     }
-    
 
+    /**
+     *
+     * @param screenParent
+     */
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.

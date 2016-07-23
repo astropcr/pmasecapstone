@@ -28,42 +28,71 @@ import javafx.beans.property.SimpleStringProperty;
 
 /**
  * This class is intended to capture all of the properties necessary to describe
- * a disaster effect.  It's source was inspired by a code example on Stack Overflow.
- * Please see the following URL for more information:
+ * a disaster effect. It's source was inspired by a code example on Stack
+ * Overflow. Please see the following URL for more information:
  * http://stackoverflow.com/questions/28843858/javafx-8-listview-with-checkboxes
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
 public class DisasterEffectCheckBoxData {
-//public static class DisasterEffect {
+
     private final SimpleStringProperty name = new SimpleStringProperty();
     private final SimpleBooleanProperty on = new SimpleBooleanProperty();
 
+    /**
+     *
+     * @param name
+     * @param on
+     */
     public DisasterEffectCheckBoxData(String name, boolean on) {
         setName(name);
         setOn(on);
     }
 
+    /**
+     *
+     * @return
+     */
     public final SimpleStringProperty nameProperty() {
         return this.name;
     }
 
+    /**
+     *
+     * @return
+     */
     public final String getName() {
         return this.nameProperty().get();
     }
 
+    /**
+     *
+     * @param name
+     */
     public final void setName(final String name) {
         this.nameProperty().set(name);
     }
 
+    /**
+     *
+     * @return
+     */
     public final SimpleBooleanProperty onProperty() {
         return this.on;
     }
 
+    /**
+     *
+     * @return
+     */
     public final boolean isOn() {
         return this.onProperty().get();
     }
 
+    /**
+     *
+     * @param on
+     */
     public final void setOn(final boolean on) {
         this.onProperty().set(on);
     }

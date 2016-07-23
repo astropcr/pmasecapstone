@@ -17,9 +17,9 @@
     
     <children>
       
-      <EffectsOptionsPanel fx:id="eopDisasterEffects" layoutX="132.0" />
+        <EffectsOptionsPanel fx:id="eopDisasterEffects" layoutX="132.0" layoutY="17.0" />
       
-                  <Button id="depClose" fx:id="btnDepClose" layoutX="412.0" layoutY="701.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done">
-      </Button>      
+        <Button id="depClose" fx:id="btnDepClose" layoutX="412.0" layoutY="701.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done">
+        </Button>      
     </children>
 </AnchorPane>

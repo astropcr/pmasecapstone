@@ -28,7 +28,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Tests the TerrainEffect class.
@@ -38,7 +37,8 @@ public class TerrainEffectTest {
     /**
      * Logger. Use to log all things
      */
-    private static final Logger LOGGER = LogManager.getLogger(TerrainEffectTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            TerrainEffectTest.class);
 
     /**
      * Test of getEffectById method, of class TerrainEffect.
@@ -49,52 +49,62 @@ public class TerrainEffectTest {
         int inCode = 0;
         TerrainEffect expResult = TerrainEffect.ELEVATION_0;
         TerrainEffect result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = 2;
         inCode = 2;
         expResult = TerrainEffect.SLOPE_2;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = 3;
         inCode = 3;
         expResult = TerrainEffect.ROADS_3;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = 4;
         inCode = 1;
         expResult = TerrainEffect.TRAFFICABILITY_1;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = 6;
         inCode = 4;
         expResult = TerrainEffect.FOLIAGE_4;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = 50;
         inCode = 0;
         expResult = TerrainEffect.UNKNOWN;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
 
         inId = -1;
         inCode = -1;
         expResult = TerrainEffect.UNKNOWN;
         result = TerrainEffect.getEffectByIdAndCode(inId, inCode);
-        LOGGER.info("Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
+        LOGGER.info(
+                "Found terrain effect: " + result.terrainLabel + " with code: " + result.codeNum);
         assertEquals(expResult, result);
     }
 
+    /**
+     *
+     */
     @Test
     public void testLabelList() {
         final Set<String> val = TerrainEffect.getEffectLabels();

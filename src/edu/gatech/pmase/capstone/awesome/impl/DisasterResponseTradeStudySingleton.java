@@ -14,7 +14,7 @@
  * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
@@ -59,7 +59,8 @@ public class DisasterResponseTradeStudySingleton {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(DisasterResponseTradeStudySingleton.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            DisasterResponseTradeStudySingleton.class);
 
     /**
      * The Singleton Instance.
@@ -87,23 +88,34 @@ public class DisasterResponseTradeStudySingleton {
      */
     private DisasterResponseTradeStudySingleton() {
         final PlatformDatabaseDriver platformDb = new PlatformDatabaseDriver();
-        loadedPlatformOptions.addAll(platformDb.getPlatformOptionsFromDatabase());
-        LOGGER.debug("Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
+        loadedPlatformOptions.
+                addAll(platformDb.getPlatformOptionsFromDatabase());
+        LOGGER.debug(
+                "Loaded " + loadedPlatformOptions.size() + " PlatformOptions.");
 
         // get comms
         final CommunicationsDatabaseDriver commDb = new CommunicationsDatabaseDriver();
-        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(loadedPlatformOptions));
-        LOGGER.debug("Loaded " + loadedCommOptions.size() + " CommunicationOption");
+        loadedCommOptions.addAll(commDb.getCommOptionsFromDatabase(
+                loadedPlatformOptions));
+        LOGGER.debug(
+                "Loaded " + loadedCommOptions.size() + " CommunicationOption");
 
         // get sensors
         final SensorsDatabaseDriver sensorDb = new SensorsDatabaseDriver();
-        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(loadedPlatformOptions));
+        loadedSensorOptions.addAll(sensorDb.getSensorOptionsFromDatabase(
+                loadedPlatformOptions));
         LOGGER.debug("Loaded " + loadedSensorOptions.size() + " SensorOption");
 
         // get weighting choices
-        commWeightingChoice = PrioritizationUtil.getWeightingChoice(DisasterResponseTradeStudySingleton.getPrioritizationAttributess(loadedCommOptions));
-        platformWeightingChoice = PrioritizationUtil.getWeightingChoice(DisasterResponseTradeStudySingleton.getPrioritizationAttributess(loadedPlatformOptions));
-        sensorWeightingChoice = PrioritizationUtil.getWeightingChoice(DisasterResponseTradeStudySingleton.getPrioritizationAttributess(loadedSensorOptions));
+        commWeightingChoice = PrioritizationUtil.getWeightingChoice(
+                DisasterResponseTradeStudySingleton.
+                getPrioritizationAttributess(loadedCommOptions));
+        platformWeightingChoice = PrioritizationUtil.getWeightingChoice(
+                DisasterResponseTradeStudySingleton.
+                getPrioritizationAttributess(loadedPlatformOptions));
+        sensorWeightingChoice = PrioritizationUtil.getWeightingChoice(
+                DisasterResponseTradeStudySingleton.
+                getPrioritizationAttributess(loadedSensorOptions));
     }
 
     /**
@@ -147,6 +159,7 @@ public class DisasterResponseTradeStudySingleton {
      * Gets the options to prioritize and weight upon.
      *
      * @param opts the options loaded from the db
+     *
      * @return the attributes of those options to weight and prioritize upon
      */
     private static List<ArchitectureOptionAttribute> getPrioritizationAttributess(
@@ -248,6 +261,7 @@ public class DisasterResponseTradeStudySingleton {
      * none found with label, returns empty List.s
      *
      * @param type the label to look by
+     *
      * @return List of TerrainEffects with the label, or empty list
      */
     public List<TerrainEffect> getAllTerrainEffectsByType(final String type) {
@@ -283,7 +297,8 @@ public class DisasterResponseTradeStudySingleton {
      *
      * @param selectedDisasterEffects list of all selected disaster effect.
      */
-    public void setSelectedDisasterEffects(final List<DisasterEffect> selectedDisasterEffects) {
+    public void setSelectedDisasterEffects(
+            final List<DisasterEffect> selectedDisasterEffects) {
         this.selectedDisasterEffects = selectedDisasterEffects;
     }
 
@@ -332,7 +347,8 @@ public class DisasterResponseTradeStudySingleton {
      *
      * @param selectedTerrainEffects list of selected terrain effects.
      */
-    public void setSelectedTerrainEffects(final List<TerrainEffect> selectedTerrainEffects) {
+    public void setSelectedTerrainEffects(
+            final List<TerrainEffect> selectedTerrainEffects) {
         this.selectedTerrainEffects = selectedTerrainEffects;
     }
 
@@ -350,7 +366,8 @@ public class DisasterResponseTradeStudySingleton {
      *
      * @param platformWeightingChoice selected Platform Weighting Choices
      */
-    public void setPlatformWeightingChoice(List<WeightingChoice> platformWeightingChoice) {
+    public void setPlatformWeightingChoice(
+            List<WeightingChoice> platformWeightingChoice) {
         this.platformWeightingChoice = platformWeightingChoice;
     }
 
@@ -386,7 +403,8 @@ public class DisasterResponseTradeStudySingleton {
      *
      * @param sensorWeightingChoice selected Sensor Weighting Choices
      */
-    public void setSensorWeightingChoice(List<WeightingChoice> sensorWeightingChoice) {
+    public void setSensorWeightingChoice(
+            List<WeightingChoice> sensorWeightingChoice) {
         this.sensorWeightingChoice = sensorWeightingChoice;
     }
 

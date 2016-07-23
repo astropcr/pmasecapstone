@@ -17,23 +17,27 @@
     
     <children>
         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="760.0" layoutX="132.0" layoutY="0.0" styleClass="environmentOptionPanel">
-           <center>
+            <center>
 
-              <ListView fx:id="environmentOptions" layoutX="132.0" prefHeight="650.0" prefWidth="740.0"  minWidth="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER" styleClass="listOfOptions" />
+                <ListView fx:id="environmentOptions" layoutX="132.0" prefHeight="650.0" prefWidth="740.0"  minWidth="-Infinity" maxWidth="-Infinity" BorderPane.alignment="CENTER" styleClass="listOfOptions" />
 
-           </center>
-           <top>
-              <Label fx:id="questionLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="480.0" style="-fx-font-weight: bold; -fx-underline: true;" text="Label" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
-                 <font>
-                    <Font name="Agency FB Bold" size="20.0" />
-                 </font>
-              </Label>
-           </top>
-           <bottom>
-               <Button fx:id="btnEopClose" BorderPane.alignment="CENTER" layoutX="413.0" layoutY="701.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done" /> 
-           </bottom>
-           <left></left>
-           <right></right>
+            </center>
+            <top>
+                <Label fx:id="questionLabel" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="480.0" style="-fx-font-weight: bold; -fx-underline: true;" text="Label" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font name="Agency FB Bold" size="20.0" />
+                    </font>
+                </Label>
+            </top>
+            <bottom>
+                <Button fx:id="btnEopClose" BorderPane.alignment="CENTER" layoutX="413.0" layoutY="676.0" onAction="#doneButtonClicked" prefHeight="50.0" prefWidth="200.0" styleClass="userSelectionButton" text="Done">
+                    <BorderPane.margin>
+                        <Insets bottom="25.0" left="0" right="0.0" top="0.0" />
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+            <left></left>
+            <right></right>
         </BorderPane>
         
       

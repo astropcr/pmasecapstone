@@ -45,19 +45,24 @@ public class ComponentAHPOptimatorTest {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(ComponentAHPOptimatorTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            ComponentAHPOptimatorTest.class);
 
     /**
      * Test attributes.
      */
     private static final List<CommunicationOption> comms = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platDriver = new PlatformDatabaseDriver();
         final CommunicationsDatabaseDriver commDriver = new CommunicationsDatabaseDriver();
 
-        comms.addAll(commDriver.getCommOptionsFromDatabase(platDriver.getPlatformOptionsFromDatabase()));
+        comms.addAll(commDriver.getCommOptionsFromDatabase(platDriver.
+                getPlatformOptionsFromDatabase()));
     }
 
     /**
@@ -65,19 +70,25 @@ public class ComponentAHPOptimatorTest {
      */
     @Test
     public void testGenerateOptimizedOption() {
-        final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).getPrioritizationAttributess();
-        final List<WeightingChoice> options = PrioritizationUtil.getWeightingChoice(priAttrs);
+        final List<ArchitectureOptionAttribute> priAttrs = comms.get(0).
+                getPrioritizationAttributess();
+        final List<WeightingChoice> options = PrioritizationUtil.
+                getWeightingChoice(priAttrs);
 
         int size = options.size();
         for (WeightingChoice opt : options) {
-            LOGGER.debug("Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.getOptionTwoLabel() + " = " + size);
+            LOGGER.debug(
+                    "Weighting Option: " + opt.getOptionOneLabel() + "---" + opt.
+                    getOptionTwoLabel() + " = " + size);
             opt.setResult(size);
             size--;
         }
 
         ComponentAHPOptimator instance = new ComponentAHPOptimator();
-        List<ArchitectureOptionAttribute> prioritizes = PrioritizationUtil.getPriorityWeightingsForAttributes(options, priAttrs);
-        List<PlatformOption> result = instance.generateOptimizedOption(comms, prioritizes);
+        List<ArchitectureOptionAttribute> prioritizes = PrioritizationUtil.
+                getPriorityWeightingsForAttributes(options, priAttrs);
+        List<PlatformOption> result = instance.generateOptimizedOption(comms,
+                                                                       prioritizes);
 
     }
 

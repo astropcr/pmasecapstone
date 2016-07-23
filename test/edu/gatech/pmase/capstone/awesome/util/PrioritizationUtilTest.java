@@ -48,7 +48,8 @@ public class PrioritizationUtilTest {
     /**
      * Logger.
      */
-    private static final Logger LOGGER = LogManager.getLogger(PrioritizationUtilTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(
+            PrioritizationUtilTest.class);
 
     /**
      * Test attributes.
@@ -57,6 +58,9 @@ public class PrioritizationUtilTest {
     private static final List<SensorOption> sensors = new ArrayList<>();
     private static final List<CommunicationOption> comms = new ArrayList<>();
 
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
         final PlatformDatabaseDriver platDriver = new PlatformDatabaseDriver();
@@ -76,13 +80,17 @@ public class PrioritizationUtilTest {
         if (plats.isEmpty()) {
             fail("Could not load platforms from database.");
         } else {
-            List<WeightingChoice> result = PrioritizationUtil.getWeightingChoice(plats.get(0).getPrioritizationAttributess());
+            List<WeightingChoice> result = PrioritizationUtil.
+                    getWeightingChoice(plats.get(0).
+                            getPrioritizationAttributess());
             LOGGER.debug(result);
 
-            result = PrioritizationUtil.getWeightingChoice(sensors.get(0).getPrioritizationAttributess());
+            result = PrioritizationUtil.getWeightingChoice(sensors.get(0).
+                    getPrioritizationAttributess());
             LOGGER.debug(result);
 
-            result = PrioritizationUtil.getWeightingChoice(comms.get(0).getPrioritizationAttributess());
+            result = PrioritizationUtil.getWeightingChoice(comms.get(0).
+                    getPrioritizationAttributess());
             LOGGER.debug(result);
         }
     }
@@ -116,19 +124,26 @@ public class PrioritizationUtilTest {
         attrs.add(attr3);
         attrs.add(attr4);
 
-        final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label, 0.2); 
-        final WeightingChoice op2 = new WeightingChoice(opt3Label, opt1Label, 0.2);
-        final WeightingChoice op3 = new WeightingChoice(opt4Label, opt1Label, 1.0);
+        final WeightingChoice op1 = new WeightingChoice(opt2Label, opt1Label,
+                                                        0.2);
+        final WeightingChoice op2 = new WeightingChoice(opt3Label, opt1Label,
+                                                        0.2);
+        final WeightingChoice op3 = new WeightingChoice(opt4Label, opt1Label,
+                                                        1.0);
 
-        final WeightingChoice op4 = new WeightingChoice(opt3Label, opt2Label, 0.1);
-        final WeightingChoice op5 = new WeightingChoice(opt4Label, opt2Label, 0.2);
+        final WeightingChoice op4 = new WeightingChoice(opt3Label, opt2Label,
+                                                        0.1);
+        final WeightingChoice op5 = new WeightingChoice(opt4Label, opt2Label,
+                                                        0.2);
 
-        final WeightingChoice op6 = new WeightingChoice(opt4Label, opt3Label, 5.0);
+        final WeightingChoice op6 = new WeightingChoice(opt4Label, opt3Label,
+                                                        5.0);
 
         final List<WeightingChoice> options = new ArrayList<>();
         options.addAll(Arrays.asList(op1, op2, op3, op4, op5, op6));
 
-        final List<ArchitectureOptionAttribute> results = PrioritizationUtil.getPriorityWeightingsForAttributes(options, attrs);
+        final List<ArchitectureOptionAttribute> results = PrioritizationUtil.
+                getPriorityWeightingsForAttributes(options, attrs);
         for (final ArchitectureOptionAttribute result : results) {
             LOGGER.debug(result.getLabel() + " : " + result.getPriority());
         }
