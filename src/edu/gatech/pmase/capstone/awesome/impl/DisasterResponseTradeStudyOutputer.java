@@ -210,10 +210,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         // copy template file
         final File workbookFile = templatePath.toFile();
 
-        if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.
-                canRead()) {
-            LOGGER.debug("Using results template file: " + templatePath.
-                    toAbsolutePath());
+        if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.canRead()) {
+            LOGGER.debug("Using results template file: " + workbookFile.getAbsolutePath());
             final XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(
                     workbookFile));
 
@@ -251,7 +249,11 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
 
             // get result file
             final File resultFile = resultPath.toFile();
+            LOGGER.debug("Trying to use result file: " + resultFile.getAbsolutePath());
+            LOGGER.debug("Result file is in result directory: " + resultsDir.toAbsolutePath());
+
             if (!resultFile.isDirectory() && Files.isDirectory(resultsDir) && Files.isWritable(resultsDir)) {
+                LOGGER.debug("Creating result file: " + resultFile.getAbsolutePath());
                 // write out result
                 try (final FileOutputStream outStream = new FileOutputStream(resultFile)) {
                     xdoc.write(outStream);

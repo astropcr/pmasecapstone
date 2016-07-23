@@ -90,9 +90,6 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LOGGER.info("Hello World!");
-        LOGGER.debug("Testing Logger");
-
         ScreensController mainContainer = new ScreensController();
 
         // ---------------------------------------------------------------------

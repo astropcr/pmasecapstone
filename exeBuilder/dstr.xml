@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\Users\Peter\Documents\Disaster-Response-Trade-Study-Tool\DisasterResponseTradeStudy.jar</jar>
+  <jar>C:\Users\Peter\Documents\NetBeansProjects\DisasterResponseTradeStudy\dist\DisasterResponseTradeStudy.jar</jar>
   <outfile>C:\Users\Peter\Documents\NetBeansProjects\DisasterResponseTradeStudy\dist\Disaster-Response-Trade-Study-Tool.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -23,4 +23,18 @@
     <jdkPreference>preferJre</jdkPreference>
     <runtimeBits>64/32</runtimeBits>
   </jre>
+  <versionInfo>
+    <fileVersion>0.5.0.0</fileVersion>
+    <txtFileVersion>v0.5</txtFileVersion>
+    <fileDescription>Disaster Response Trade Study Tool</fileDescription>
+    <copyright>Copyright 2016 Georgia Tech PMASE 2014 Cohort Team Awesome</copyright>
+    <productVersion>0.5.0.0</productVersion>
+    <txtProductVersion>v0.5</txtProductVersion>
+    <productName>Disaster Response Trade Study Tool</productName>
+    <companyName>Team Awesome</companyName>
+    <internalName>DRTST</internalName>
+    <originalFilename>Disaster-Response-Trade-Study-Tool.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
 </launch4jConfig>
