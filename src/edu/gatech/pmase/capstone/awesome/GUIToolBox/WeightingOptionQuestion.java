@@ -131,7 +131,6 @@ public class WeightingOptionQuestion extends AnchorPane {
                                 Toggle old_toggle, Toggle new_toggle) {
                 if (questionSet.getSelectedToggle() != null) {
                     final Toggle tog = questionSet.getSelectedToggle();
-                    LOGGER.debug("User Data: " + tog.getUserData().toString());
                     wc.setResult((double) tog.getUserData());
                 }
             }

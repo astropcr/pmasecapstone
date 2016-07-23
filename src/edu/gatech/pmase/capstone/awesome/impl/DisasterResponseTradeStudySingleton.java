@@ -41,6 +41,7 @@ import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.util.PrioritizationUtil;
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -234,23 +235,31 @@ public class DisasterResponseTradeStudySingleton {
 
             try {
                 final Path resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects);
-                LOGGER.info("Architecture Results writen to file: " + resultFile.toAbsolutePath());
-                fileName = resultFile.getFileName().toString();
-
-                try {
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().open(resultFile.toFile());
-                    } else {
-                        LOGGER.warn("Computer does not support Desktop to open files.");
+                if (null != resultFile) {
+                    LOGGER.info("Architecture Results writen to file: " + resultFile.toAbsolutePath());
+                    fileName = resultFile.getFileName().toString();
+                    try {
+                        if (Desktop.isDesktopSupported()) {
+                            final File file = resultFile.toFile();
+                            if (file.exists() && file.canRead()) {
+                                Desktop.getDesktop().open(file);
+                            } else {
+                                LOGGER.error("Cannot open result file at path: " + resultFile.toString());
+                            }
+                        } else {
+                            LOGGER.warn("Computer does not support Desktop to open files.");
+                        }
+                    } catch (IOException ex) {
+                        LOGGER.warn("Could not open created file in Desktop", ex);
                     }
-                } catch (IOException ex) {
-                    LOGGER.warn("Could not open created file in Desktop", ex);
+                } else {
+                    LOGGER.error("Results file was not created.");
                 }
             } catch (IOException | InvalidFormatException ex) {
                 LOGGER.error("Cannot write architecture results out.", ex);
             }
         } catch (Exception e) {
-            LOGGER.error("Found an exception while trying to calculate result: " + e);
+            LOGGER.error("Found an exception while trying to calculate result: ", e);
         }
 
         return fileName;

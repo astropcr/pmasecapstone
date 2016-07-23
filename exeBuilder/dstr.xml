@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>C:\Users\Peter\Documents\Disaster-Response-Trade-Study-Tool\DisasterResponseTradeStudy.jar</jar>
-  <outfile>C:\Users\Peter\Documents\Disaster-Response-Trade-Study-Tool\Disaster-Response-Trade-Study-Tool.exe</outfile>
+  <outfile>C:\Users\Peter\Documents\NetBeansProjects\DisasterResponseTradeStudy\dist\Disaster-Response-Trade-Study-Tool.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -12,8 +12,8 @@
   <supportUrl></supportUrl>
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
-  <manifest>C:\Users\Peter\Documents\Disaster-Response-Trade-Study-Tool\Disaster-Response-Trade-Study-Tool.manifest</manifest>
-  <icon>C:\Users\Peter\Documents\Disaster-Response-Trade-Study-Tool\icon.ico</icon>
+  <manifest>C:\Users\Peter\Documents\NetBeansProjects\DisasterResponseTradeStudy\exeBuilder\Disaster-Response-Trade-Study-Tool.manifest</manifest>
+  <icon>C:\Users\Peter\Documents\NetBeansProjects\DisasterResponseTradeStudy\exeBuilder\icon.ico</icon>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>
