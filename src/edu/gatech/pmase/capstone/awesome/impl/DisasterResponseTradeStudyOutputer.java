@@ -33,6 +33,7 @@ import edu.gatech.pmase.capstone.awesome.util.DisasterResponseTradeStudyProperti
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
@@ -113,7 +114,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Decimal format to print the attribute weighting results with.
      */
     private static final DecimalFormat weightingFormat = new DecimalFormat(
-            "#.##");
+            "#.###");
 
     /**
      * Date formatter to print the report generated date with.
@@ -161,6 +162,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         disEffectColsMap.put(DisasterEffect.RADIOLOGICAL_SPILL, 10);
         disEffectColsMap.put(DisasterEffect.LAVA, 11);
         disEffectColsMap.put(DisasterEffect.ASH, 12);
+        disEffectColsMap.put(DisasterEffect.FIRE, 13);
+        disEffectColsMap.put(DisasterEffect.INFRASTRUCTURE_BREAKDOWN, 14);
 
         // map terrain effects
         terEffectColsMap.put("Elevation", 1);
@@ -181,8 +184,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
 
     @Override
     public Path createOutputFile(final List<DRTSArchitectureResult> results,
-                                 final List<DisasterEffect> selectedDisasterEffects,
-                                 final List<TerrainEffect> selectedTerrainEffects)
+            final List<DisasterEffect> selectedDisasterEffects,
+            final List<TerrainEffect> selectedTerrainEffects)
             throws IOException, InvalidFormatException {
         // set time
         now = ZonedDateTime.now();
@@ -197,7 +200,11 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
                 DisasterResponseTradeStudyPropertiesSingleton.getInstance().
                 getResultsTemplate());
 
-        final Path resultPath = Paths.get(
+        final Path resultsDir = Paths.get(
+                DisasterResponseTradeStudyPropertiesSingleton.getInstance().
+                getResultsDirectory());
+
+        Path resultPath = Paths.get(
                 DisasterResponseTradeStudyPropertiesSingleton.getInstance().
                 getResultsDirectory(),
                 filename);
@@ -205,10 +212,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         // copy template file
         final File workbookFile = templatePath.toFile();
 
-        if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.
-                canRead()) {
-            LOGGER.debug("Using results template file: " + templatePath.
-                    toAbsolutePath());
+        if (workbookFile.exists() && !workbookFile.isDirectory() && workbookFile.canRead()) {
+            LOGGER.debug("Using results template file: " + workbookFile.getAbsolutePath());
             final XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(
                     workbookFile));
 
@@ -223,39 +228,45 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
 
             // create disaster effect table
             this.createSelectedDisasterTable(selectedDisasterEffects, tables.
-                                             get(SELECTED_DISASTER_TABLE_INDEX));
+                    get(SELECTED_DISASTER_TABLE_INDEX));
 
             // create selected terrain table
             this.createSelectedTerrainTable(selectedTerrainEffects, tables.get(
-                                            SELECTED_TERRAIN_TABLE_INDEX));
+                    SELECTED_TERRAIN_TABLE_INDEX));
 
             // create platform weightings table
             this.createOptionWeightingTable(result.getPlatform(), tables.get(
-                                            PLATFORM_WEIGHTING_TABLE_INDEX));
+                    PLATFORM_WEIGHTING_TABLE_INDEX));
 
             // create comm weighting table
             this.createOptionWeightingTable(result.getComms(), tables.get(
-                                            COMM_WEIGHTING_TABLE_INDEX));
+                    COMM_WEIGHTING_TABLE_INDEX));
 
             // create sensor weighting table
             this.createOptionWeightingTable(result.getSensor(), tables.get(
-                                            SENSOR_WEIGHTING_TABLE_INDEX));
+                    SENSOR_WEIGHTING_TABLE_INDEX));
 
             // create details
             this.createReportDetails(xdoc);
 
             // get result file
             final File resultFile = resultPath.toFile();
-            if (resultFile.exists() && !resultFile.isDirectory() && resultFile.canWrite()) {
+            LOGGER.debug("Trying to use result file: " + resultFile.getAbsolutePath());
+            LOGGER.debug("Result file is in result directory: " + resultsDir.toAbsolutePath());
+
+            if (!resultFile.isDirectory() && Files.isDirectory(resultsDir) && Files.isWritable(resultsDir)) {
+                LOGGER.debug("Creating result file: " + resultFile.getAbsolutePath());
                 // write out result
                 try (final FileOutputStream outStream = new FileOutputStream(resultFile)) {
                     xdoc.write(outStream);
                 }
             } else {
                 LOGGER.error("Cannot create output result file at path: " + resultFile.getAbsolutePath());
+                resultPath = null;
             }
         } else {
             LOGGER.error("Cannot read input workbook file at path: " + templatePath.toString());
+            resultPath = null;
         }
 
         return resultPath;
@@ -265,10 +276,12 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Creates the architecture result table.
      *
      * @param result the top architecture result.
-     * @param table  the table to create the architecture in
+     * @param table the table to create the architecture in
      */
     private void createArchTable(final DRTSArchitectureResult result,
-                                 final XWPFTable table) {
+            final XWPFTable table) {
+        LOGGER.debug("Adding architecture result to output file: " + result.toString());
+
         final XWPFTableCell platLabel = table.getRow(1).getCell(0);
         platLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         platLabel.setText(result.getPlatform().getLabel());
@@ -276,8 +289,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell platDetails = table.getRow(1).getCell(2);
         platDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(platDetails, result.
-                                                    getPlatform().
-                                                    getPrioritizationAttributess());
+                getPlatform().
+                getPrioritizationAttributess());
 
         final XWPFTableCell commLabel = table.getRow(2).getCell(0);
         commLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
@@ -286,8 +299,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell commDetails = table.getRow(2).getCell(2);
         commDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(commDetails, result.
-                                                    getComms().
-                                                    getPrioritizationAttributess());
+                getComms().
+                getPrioritizationAttributess());
 
         final XWPFTableCell sensorLabel = table.getRow(3).getCell(0);
         sensorLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
@@ -296,16 +309,15 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFTableCell sensorDetails = table.getRow(3).getCell(2);
         sensorDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         this.createArchitectureAttributeDescription(sensorDetails, result.
-                                                    getSensor().
-                                                    getPrioritizationAttributess());
+                getSensor().
+                getPrioritizationAttributess());
     }
 
     /**
      * Creates the selected disaster effects table.
      *
      * @param selectedDisasterEffects the disaster effects selected by the user.
-     * @param table                   the table to write the selected disaster
-     *                                effects to
+     * @param table the table to write the selected disaster effects to
      */
     private void createSelectedDisasterTable(
             final List<DisasterEffect> selectedDisasterEffects,
@@ -313,11 +325,17 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         for (final DisasterEffect effect : selectedDisasterEffects) {
             final Integer index = disEffectColsMap.get(effect);
 
-            final XWPFTableCell effectIndicatorCell = table.getRow(index).
-                    getCell(1);
-            effectIndicatorCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectIndicatorCell.setText(CHECKMARK_UNICODE);
+            if (null != index) {
+                LOGGER.debug("Adding DisasterEffect " + effect.name() + " to result document at table index: " + index);
+                final XWPFTableCell effectIndicatorCell = table.getRow(index).
+                        getCell(1);
+                effectIndicatorCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectIndicatorCell.setText(CHECKMARK_UNICODE);
+            } else {
+                LOGGER.warn("Could not find index to place DisasterEffect: " + effect.name() + " in output file.");
+            }
+
         }
     }
 
@@ -325,7 +343,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Creates the terrain effects table.
      *
      * @param selectedTerrainEffects the terrain effects selected but the user
-     * @param table                  the table to write the terrain effects in.
+     * @param table the table to write the terrain effects in.
      */
     private void createSelectedTerrainTable(
             final List<TerrainEffect> selectedTerrainEffects,
@@ -333,15 +351,22 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         for (final TerrainEffect eff : selectedTerrainEffects) {
             final Integer index = terEffectColsMap.get(eff.terrainLabel);
 
-            final XWPFTableCell effectValueCell = table.getRow(index).getCell(1);
-            effectValueCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectValueCell.setText(Integer.toString(eff.codeNum));
+            if (null != index) {
+                LOGGER.debug("Adding TerrainEffect " + eff.name() + " to result document at table index: " + index);
 
-            final XWPFTableCell effectDescCell = table.getRow(index).getCell(2);
-            effectDescCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectDescCell.setText(eff.codeMeaning);
+                final XWPFTableCell effectValueCell = table.getRow(index).getCell(1);
+                effectValueCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectValueCell.setText(Integer.toString(eff.codeNum));
+
+                final XWPFTableCell effectDescCell = table.getRow(index).getCell(2);
+                effectDescCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectDescCell.setText(eff.codeMeaning);
+            } else {
+                LOGGER.warn("Could not find index to place TerrainEffect: " + eff.name() + " in output file.");
+            }
+
         }
     }
 
@@ -349,12 +374,17 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Creates an options weighting table for the provided option.
      *
      * @param option the option to create the table for
-     * @param table  the table to create the option in
+     * @param table the table to create the option in
      */
     private void createOptionWeightingTable(
             final AbstractArchitectureOption option, final XWPFTable table) {
+        LOGGER.debug("Adding architeacture option weighting table for option: " + option.getLabel());
         for (final ArchitectureOptionAttribute attr : option.
                 getPrioritizationAttributess()) {
+            LOGGER.debug("Adding architeacture option weighting value: " + attr.getLabel() + " with priority value: "
+                    + Double.toString(attr.getPriority()));
+            LOGGER.debug(attr.toString());
+
             final XWPFTableRow row = table.createRow();
 
             final XWPFTableCell attrLabel = row.getCell(0);
@@ -365,7 +395,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             attrWeighting.setVerticalAlignment(
                     XWPFTableCell.XWPFVertAlign.CENTER);
             attrWeighting.setText(weightingFormat.format(
-                    attr.getPriority() * 100) + "%");
+                    attr.getPriority() * 100.00) + "%");
             final CTTcPr pr = attrWeighting.getCTTc().addNewTcPr();
             final CTVerticalJc alng = pr.addNewVAlign();
             alng.setVal(STVerticalJc.BOTH);
@@ -376,13 +406,15 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Creates the architecture attribute description cell.
      *
      * @param detailsCell the cell to create the description in
-     * @param attrs       the attributes to put into the description
+     * @param attrs the attributes to put into the description
      */
     private void createArchitectureAttributeDescription(
             final XWPFTableCell detailsCell,
             final List<ArchitectureOptionAttribute> attrs) {
+
         for (int x = 0; x < attrs.size(); x++) {
             final ArchitectureOptionAttribute attr = attrs.get(x);
+            LOGGER.debug("Creating architecture option description for attribute: " + attr.getLabel());
 
             final XWPFParagraph para;
             if (x == 0) {
@@ -405,6 +437,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      */
     private void createReportDetails(final XWPFDocument xdoc) {
         final Locale currentLocale = Locale.getDefault();
+        LOGGER.debug("Creating report details");
 
         final XWPFParagraph para = xdoc.getParagraphs().get(
                 REPORT_DETAILS_ROW_INDEX);

@@ -96,9 +96,6 @@ public class DisasterResponseTradeStudy extends Application {
     //..........................................................................
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LOGGER.info("Hello World!");
-        LOGGER.debug("Testing Logger");
-
         DRTSGM = DRTSGUIModel.getInstance();
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
 

@@ -57,7 +57,7 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
      */
     private static final Logger LOGGER = LogManager.
             getLogger(AHPOptimator.class);
-
+    
     @Override
     public List<DRTSArchitectureResult> generateOptimizedArchitectures(
             List<PlatformOption> platformOptions,
@@ -71,12 +71,12 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
         // sort options based on prioritization
         final ComponentAHPOptimator compOptimator = new ComponentAHPOptimator();
         platformOptions = compOptimator.generateOptimizedOption(platformOptions,
-                                                                platformPrioritizes);
+                platformPrioritizes);
         sensorOptions = compOptimator.generateOptimizedOption(sensorOptions,
-                                                              sensorPrioritizes);
+                sensorPrioritizes);
         commOptions = compOptimator.generateOptimizedOption(commOptions,
-                                                            commPrioritizes);
-
+                commPrioritizes);
+        
         LOGGER.info(
                 "Creating architecture combinations from: " + platformOptions.
                 size() + " platforms, "
@@ -88,18 +88,36 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
                 .filter(list -> list.size() == NUMBER_OF_COMPONENTS)
                 .map(list -> new DRTSArchitectureResult((PlatformOption) list.
                         get(PLAT_INDEX),
-                                                        (SensorOption) list.get(
-                                                                SENSOR_INDEX),
-                                                        (CommunicationOption) list.
-                                                        get(COMM_INDEX))).
+                        (SensorOption) list.get(
+                                SENSOR_INDEX),
+                        (CommunicationOption) list.
+                        get(COMM_INDEX))).
                 sorted().
                 collect(Collectors.toList());
-
+        
+        if (LOGGER.isTraceEnabled()) {
+            int count = 0;
+            for (final DRTSArchitectureResult arch : results) {
+                count++;
+                final StringBuilder sb = new StringBuilder();
+                sb.append("Architecture: ")
+                        .append(count)
+                        .append("\nArch Score: ")
+                        .append(arch.getTotalScore())
+                        .append("\nPlatform: ")
+                        .append(arch.getPlatform().getPrioritizationAttributess().toString())
+                        .append("\nComms: ")
+                        .append(arch.getComms().getPrioritizationAttributess().toString())
+                        .append("\nSensors: ")
+                        .append(arch.getSensor().getPrioritizationAttributess().toString());
+                LOGGER.trace(sb.toString());
+            }
+        }
         LOGGER.debug(
                 "Best Score: " + results.get(0).getTotalScore() + " to Worst Score: " + results.
                 get(results.size() - 1).getTotalScore());
         LOGGER.info("Created " + results.size() + " architecture combinations.");
         return results;
     }
-
+    
 }
