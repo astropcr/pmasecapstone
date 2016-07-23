@@ -64,7 +64,7 @@
                                         </Label>
                                         <CheckBox fx:id="cbUseDefaults" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDefaults" prefHeight="50.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0">
                                             <tooltip>
-                                                <Tooltip fx:id="ttUseDefaults" text="Sets defaults values for those values not yet set." />
+                                                <Tooltip fx:id="ttUseDefaults"  styleClass="ToolTip" text="Sets defaults values for those values not yet set." />
                                             </tooltip>
                                             <HBox.margin>
                                                 <Insets left="25.0" />

@@ -114,15 +114,18 @@
     -fx-border-radius: 5;
 
     -fx-padding: 0;
-    -fx-text-alignment: center;
+    -fx-text-alignment:justify;
+    -fx-alignment:top-center;
+    -fx-content-display:text-only;
+    -fx-label-padding:0;
 
-    -fx-font-family: "Agency FB"; /*Trebuchet MS Bold";*/
+    -fx-font-family: "Agency FB"; /*"Trebuchet MS Bold";*/
     -fx-font-size: 16pt;
 }
 
-#ToolTip {
+.ToolTip {
     -fx-effect: dropshadow( three-pass-box , #333333 , 10 , 0.5 , 0 , 0  );
-    -fx-font-family: "Agency FB"; /*Trebuchet MS Bold";*/
+    -fx-font-family: Trebuchet MS Bold;
     -fx-font-size: 16pt;
 }
 
