@@ -227,10 +227,18 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             // create details
             this.createReportDetails(xdoc);
 
-            // write out result
-            try (final FileOutputStream outStream = new FileOutputStream(resultPath.toFile())) {
-                xdoc.write(outStream);
+            // get result file
+            final File resultFile = resultPath.toFile();
+            if (resultFile.exists() && !resultFile.isDirectory() && resultFile.canWrite()) {
+                // write out result
+                try (final FileOutputStream outStream = new FileOutputStream(resultFile)) {
+                    xdoc.write(outStream);
+                }
+            } else {
+                LOGGER.error("Cannot create output result file at path: " + resultFile.getAbsolutePath());
             }
+        } else {
+            LOGGER.error("Cannot read input workbook file at path: " + templatePath.toString());
         }
 
         return resultPath;
