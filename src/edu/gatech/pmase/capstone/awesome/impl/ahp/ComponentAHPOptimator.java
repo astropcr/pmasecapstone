@@ -48,13 +48,13 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ComponentAHPOptimator.class);
-
+    
     @Override
     public <T extends AbstractArchitectureOption> List generateOptimizedOption(
             final List<T> options,
             final List<ArchitectureOptionAttribute> prioritizes) {
         final List<T> optionResults = new ArrayList<>(options.size());
-
+        
         LOGGER.
                 debug("Will prioritize on " + prioritizes.size() + " attributes.");
         // create mapping of attribute to priority
@@ -86,10 +86,10 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             optionAttr.stream().forEach((attr) -> {
                 final Double value = ComponentAHPOptimator.
                         normalizeAndPrioritizeValue(attr,
-                                                    attrMinAndMax.get(attr.
-                                                            getLabel()),
-                                                    priorityMap);
-
+                                attrMinAndMax.get(attr.
+                                        getLabel()),
+                                priorityMap);
+                
                 if (null != value) {
                     attr.setValue(value);
                     attr.setType(Double.class);
@@ -105,7 +105,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             final T option = entry.getKey();
             option.setScore(entry.getValue().stream().collect(Collectors.
                     summingDouble(attr -> attr.getPriority())));
-
+            
             optionResults.add(option);
         }
 
@@ -120,12 +120,11 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
      * Normalizes and prioritizes the given attributes value based upon user
      * inputs and the min and max values for the attribute.
      *
-     * @param attr               the attribute to normalize
+     * @param attr the attribute to normalize
      * @param attrMinAndMaxarray of doubles. The first double is the min value
-     *                           for that attribute. The second double is the
-     *                           max value for that
-     * @param priorityMap        mapping and attribute label to it's priority as
-     *                           decided by the user
+     * for that attribute. The second double is the max value for that
+     * @param priorityMap mapping and attribute label to it's priority as
+     * decided by the user
      *
      * @return the resulting priority or null if cannot be found
      */
@@ -144,15 +143,20 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             }
 
             // prioritize value
-            newValue = (newValue * priorityMap.get(attr.getLabel()));
-
+            final double pri = priorityMap.get(attr.getLabel());
+            LOGGER.trace(
+                    attr.getLabel() + " priority is: " + pri);
+            attr.setPriority(pri);
+            
+            newValue = (newValue * pri);
+            
             LOGGER.debug(
                     attr.getLabel() + " scored: " + value + " to " + newValue);
             return newValue;
         } else {
             return value;
         }
-
+        
     }
 
     /**
@@ -163,33 +167,33 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
      * @param optionAttributes the matrix of attributes
      *
      * @return mapping of the label of the attribute as the key and and array
-     *         with the min value in index 0 and the max value in index 1.
+     * with the min value in index 0 and the max value in index 1.
      */
     private static Map<String, Double[]> getMinAndMaxOfEachColumn(
             final Collection<List<ArchitectureOptionAttribute>> optionAttributes) {
         final Map<String, Double[]> attributeMinAndMax = new HashMap<>();
-
+        
         for (final List<ArchitectureOptionAttribute> optionAttr : optionAttributes) {
             for (final ArchitectureOptionAttribute attr : optionAttr) {
                 final String key = attr.getLabel();
-
+                
                 final Double value = ArchitectureOptionAttribute.
                         getAttributeNumericalValue(attr);
                 if (null != value) {
-
+                    
                     Double[] minAndMax = attributeMinAndMax.get(key);
                     if (null == minAndMax || minAndMax.length < 2) {
                         minAndMax = new Double[]{Double.MAX_VALUE, Double.MIN_VALUE};
                     }
-
+                    
                     if (value < minAndMax[0]) {
                         minAndMax[0] = value;
                     }
-
+                    
                     if (value > minAndMax[1]) {
                         minAndMax[1] = value;
                     }
-
+                    
                     attributeMinAndMax.put(key, minAndMax);
                 } else {
                     LOGGER.warn(
@@ -197,7 +201,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
                 }
             }
         }
-
+        
         if (LOGGER.isTraceEnabled()) {
             final StringBuilder sb = new StringBuilder();
             attributeMinAndMax.entrySet().stream().forEach((entry) -> {
@@ -207,7 +211,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             });
             LOGGER.trace("Attribute Min and Max:" + sb.toString());
         }
-
+        
         return attributeMinAndMax;
     }
 
@@ -215,25 +219,25 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
      * Gets the normalized value given the original value, the min and max for
      * that attribute.
      *
-     * @param origValue     the original value to normalize
+     * @param origValue the original value to normalize
      * @param attrMinAndMax array of doubles. The first double is the min value
-     *                      for that attribute. The second double is the max
-     *                      value for that attribute.
+     * for that attribute. The second double is the max value for that
+     * attribute.
      *
      * @return the normalized value
      */
     private static double getNormalizedValue(final double origValue,
-                                             final Double[] attrMinAndMax) {
+            final Double[] attrMinAndMax) {
         double normalValue = 0;
         final double bottom = (attrMinAndMax[1] - attrMinAndMax[0]);
         final double top = (origValue - attrMinAndMax[0]);
-
+        
         if (bottom != 0) {
             normalValue = (top / bottom);
         }
-
+        
         LOGGER.trace("Normalized " + origValue + " to " + normalValue);
         return normalValue;
     }
-
+    
 }

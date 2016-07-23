@@ -114,7 +114,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      * Decimal format to print the attribute weighting results with.
      */
     private static final DecimalFormat weightingFormat = new DecimalFormat(
-            "#.##");
+            "#.###");
 
     /**
      * Date formatter to print the report generated date with.
@@ -162,6 +162,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         disEffectColsMap.put(DisasterEffect.RADIOLOGICAL_SPILL, 10);
         disEffectColsMap.put(DisasterEffect.LAVA, 11);
         disEffectColsMap.put(DisasterEffect.ASH, 12);
+        disEffectColsMap.put(DisasterEffect.FIRE, 13);
+        disEffectColsMap.put(DisasterEffect.INFRASTRUCTURE_BREAKDOWN, 14);
 
         // map terrain effects
         terEffectColsMap.put("Elevation", 1);
@@ -278,6 +280,8 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      */
     private void createArchTable(final DRTSArchitectureResult result,
             final XWPFTable table) {
+        LOGGER.debug("Adding architecture result to output file: " + result.toString());
+
         final XWPFTableCell platLabel = table.getRow(1).getCell(0);
         platLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
         platLabel.setText(result.getPlatform().getLabel());
@@ -321,11 +325,17 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         for (final DisasterEffect effect : selectedDisasterEffects) {
             final Integer index = disEffectColsMap.get(effect);
 
-            final XWPFTableCell effectIndicatorCell = table.getRow(index).
-                    getCell(1);
-            effectIndicatorCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectIndicatorCell.setText(CHECKMARK_UNICODE);
+            if (null != index) {
+                LOGGER.debug("Adding DisasterEffect " + effect.name() + " to result document at table index: " + index);
+                final XWPFTableCell effectIndicatorCell = table.getRow(index).
+                        getCell(1);
+                effectIndicatorCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectIndicatorCell.setText(CHECKMARK_UNICODE);
+            } else {
+                LOGGER.warn("Could not find index to place DisasterEffect: " + effect.name() + " in output file.");
+            }
+
         }
     }
 
@@ -341,15 +351,22 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         for (final TerrainEffect eff : selectedTerrainEffects) {
             final Integer index = terEffectColsMap.get(eff.terrainLabel);
 
-            final XWPFTableCell effectValueCell = table.getRow(index).getCell(1);
-            effectValueCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectValueCell.setText(Integer.toString(eff.codeNum));
+            if (null != index) {
+                LOGGER.debug("Adding TerrainEffect " + eff.name() + " to result document at table index: " + index);
 
-            final XWPFTableCell effectDescCell = table.getRow(index).getCell(2);
-            effectDescCell.setVerticalAlignment(
-                    XWPFTableCell.XWPFVertAlign.CENTER);
-            effectDescCell.setText(eff.codeMeaning);
+                final XWPFTableCell effectValueCell = table.getRow(index).getCell(1);
+                effectValueCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectValueCell.setText(Integer.toString(eff.codeNum));
+
+                final XWPFTableCell effectDescCell = table.getRow(index).getCell(2);
+                effectDescCell.setVerticalAlignment(
+                        XWPFTableCell.XWPFVertAlign.CENTER);
+                effectDescCell.setText(eff.codeMeaning);
+            } else {
+                LOGGER.warn("Could not find index to place TerrainEffect: " + eff.name() + " in output file.");
+            }
+
         }
     }
 
@@ -361,8 +378,13 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      */
     private void createOptionWeightingTable(
             final AbstractArchitectureOption option, final XWPFTable table) {
+        LOGGER.debug("Adding architeacture option weighting table for option: " + option.getLabel());
         for (final ArchitectureOptionAttribute attr : option.
                 getPrioritizationAttributess()) {
+            LOGGER.debug("Adding architeacture option weighting value: " + attr.getLabel() + " with priority value: "
+                    + Double.toString(attr.getPriority()));
+            LOGGER.debug(attr.toString());
+
             final XWPFTableRow row = table.createRow();
 
             final XWPFTableCell attrLabel = row.getCell(0);
@@ -373,7 +395,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             attrWeighting.setVerticalAlignment(
                     XWPFTableCell.XWPFVertAlign.CENTER);
             attrWeighting.setText(weightingFormat.format(
-                    attr.getPriority() * 100) + "%");
+                    attr.getPriority() * 100.00) + "%");
             final CTTcPr pr = attrWeighting.getCTTc().addNewTcPr();
             final CTVerticalJc alng = pr.addNewVAlign();
             alng.setVal(STVerticalJc.BOTH);
@@ -389,8 +411,10 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
     private void createArchitectureAttributeDescription(
             final XWPFTableCell detailsCell,
             final List<ArchitectureOptionAttribute> attrs) {
+
         for (int x = 0; x < attrs.size(); x++) {
             final ArchitectureOptionAttribute attr = attrs.get(x);
+            LOGGER.debug("Creating architecture option description for attribute: " + attr.getLabel());
 
             final XWPFParagraph para;
             if (x == 0) {
@@ -413,6 +437,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      */
     private void createReportDetails(final XWPFDocument xdoc) {
         final Locale currentLocale = Locale.getDefault();
+        LOGGER.debug("Creating report details");
 
         final XWPFParagraph para = xdoc.getParagraphs().get(
                 REPORT_DETAILS_ROW_INDEX);

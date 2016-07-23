@@ -73,8 +73,7 @@ public abstract class AbstractArchitectureOption implements Comparable<AbstractA
     /**
      * List of custom attributes.
      */
-    private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(
-            0);
+    private List<ArchitectureOptionAttribute> customAttributes = new ArrayList<>(0);
 
     /**
      * Base Prioritization Attributes.
