@@ -254,23 +254,23 @@ public enum TerrainEffect {
      */
     RANGE_3(13, "Range", 3, "Distance from staging area to disaster > 100 nm"),
     /**
-     * Persistance Options. - Terrain ID 14
+     * Persistence Options. - Terrain ID 14
      */
-    PERSISTANCE_0(14, "Persistance", 0, "No Factor"),
+    PERSISTENCE_0(14, "Persistence", 0, "No Factor"),
     /**
      *
      */
-    PERSISTANCE_1(14, "Persistance", 1,
+    PERSISTENCE_1(14, "Persistence", 1,
                   "Short duration persistence over/at disaster area"),
     /**
      *
      */
-    PERSISTANCE_2(14, "Persistance", 2,
+    PERSISTENCE_2(14, "Persistence", 2,
                   "Medium duration persistence over/at disaster area"),
     /**
      *
      */
-    PERSISTANCE_3(14, "Persistance", 3,
+    PERSISTENCE_3(14, "Persistence", 3,
                   "Long duration persistence overhead/at disaster area");
 
     /**

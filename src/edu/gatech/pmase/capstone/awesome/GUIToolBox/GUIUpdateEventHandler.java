@@ -23,38 +23,44 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import edu.gatech.pmase.capstone.awesome.objects.enums.*;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ToggleGroup;
+import javafx.event.EventHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvOptCell extends ListCell<TerrainEffect> {
+public class GUIUpdateEventHandler implements EventHandler<GUIUpdateEvent> {
 
-    ToggleGroup tg;
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            GUIUpdateEventHandler.class);
+
+    String msg;
 
     /**
      *
-     * @param tg
      */
-    public EnvOptCell(ToggleGroup tg) {
-        this.tg = tg;
-        this.getStyleClass().add("list-cell");
+    public GUIUpdateEventHandler() {
+        this.msg = "No message has been set.";
+    }
 
-
+    /**
+     *
+     * @param sc
+     * @param switchTargetScreen
+     */
+    public GUIUpdateEventHandler(String msg) {
+        this.msg = msg;
     }
 
     @Override
-    public void updateItem(TerrainEffect te, boolean empty) {
-
-
-        super.updateItem(te, empty);
-        if (te != null) {
-            EnvOptData eod = new EnvOptData(this.tg);
-            eod.setInfo(te);
-            setGraphic(eod.getBox());
-        }
+    public void handle(GUIUpdateEvent event) {
+        LOGGER.
+                debug("GUIUpdateEventHandler(event) would like to say: " + msg);
     }
+
 }

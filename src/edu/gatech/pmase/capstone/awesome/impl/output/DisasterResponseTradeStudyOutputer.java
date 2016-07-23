@@ -181,7 +181,7 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         terEffectColsMap.put("Urbanization", 9);
         terEffectColsMap.put("Range", 10);
         terEffectColsMap.put("Population", 11);
-        terEffectColsMap.put("Persistance", 12);
+        terEffectColsMap.put("Persistence", 12);
         terEffectColsMap.put("Trafficability", 13);
         terEffectColsMap.put("Slope", 14);
     }

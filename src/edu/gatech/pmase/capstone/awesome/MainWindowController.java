@@ -27,6 +27,7 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptStatusCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.GUIUpdateEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEvent;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreenSwitchEventHandler;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
@@ -39,12 +40,14 @@ import java.util.Set;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 import org.apache.logging.log4j.LogManager;
@@ -104,7 +107,13 @@ public class MainWindowController implements Initializable,
     private CheckBox cbWeightingsSensorsComplete;
 
     @FXML
+    private CheckBox cbUseDefaults;
+
+    @FXML
     private Button btnEopClose;                     // this could be used for them all?
+
+    @FXML
+    private Tooltip ttUseDefaults;
 
     private DisasterResponseTradeStudySingleton DRTSS;
     private DRTSGUIModel DRTSGM;
@@ -118,6 +127,9 @@ public class MainWindowController implements Initializable,
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
         DRTSGM = DRTSGUIModel.getInstance();
 
+        // ---------------------------------------------------------------------
+        // Attach event handlers not attached by FXML controller
+        // ---------------------------------------------------------------------
         apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
                                      new ScreenSwitchEventHandler() {
                                  public void handle(ScreenSwitchEvent event) {
@@ -126,17 +138,25 @@ public class MainWindowController implements Initializable,
                              ;
         });
 
+        apMainWindow.addEventHandler(GUIUpdateEvent.SELECTION_UPDATED,
+                                     new EventHandler<GUIUpdateEvent>() {
+                                 public void handle(GUIUpdateEvent event) {
+                                     determineCalculateButtonMode(event);
+                                 }
+                             ;
+
+        });
+
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
-
         // ---------------------------------------------------------------------
         //                     Disaster Effects
         // ---------------------------------------------------------------------
         // .....................................................................
         // Initialize connect them to the model and initialize.
         // .....................................................................
-        DRTSGM.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
+        DRTSGM.setDisasterEffectsStatus(lblDisasterEffects);
         DRTSGM.setDisasterEffectHasBeenSelected(false);
 
         // ---------------------------------------------------------------------
@@ -199,6 +219,20 @@ public class MainWindowController implements Initializable,
     }
 
     @FXML
+    private void setDefaults() {
+        // set the defaults
+        //1. Disaster Effects
+        DRTSGM.setDisasterEffectHasBeenSelected(Boolean.TRUE);
+
+        //2. Environment Factors
+        DRTSGM.setAllEesSelectionsToDefaults();
+
+        //3. Weighting Criteria
+        // set the calculate button to 'ret to go'
+        setCalculateButtonMode();
+    }
+
+    @FXML
     private void calculateResults(ActionEvent event) {
         // ---------------------------------------------------------------------
         // 1. Check to see if all fields have been assigned.
@@ -212,6 +246,33 @@ public class MainWindowController implements Initializable,
 
         determineIfAllSelectionsHaveBeenMade();
 
+    }
+
+    /**
+     * A catch all event handler that is meant to update the calculate button
+     * when the user uses any control on the main screen.
+     */
+    private void determineCalculateButtonMode(GUIUpdateEvent event) {
+        setCalculateButtonMode();
+
+        LOGGER.debug(
+                "determineCalculateButtonMode(GUIUpdateEvent) has been called due to event " + event.
+                getEventType() + " fired by " + event.getSource().toString());
+    }
+
+    /**
+     * This function will change the appearance of the calculated mode based on
+     * whether or not the model is in an executable state.
+     */
+    private void setCalculateButtonMode() {
+        if (determineIfAllSelectionsHaveBeenMade()) {
+            this.btnCalculate.getStyleClass().
+                    remove("calculationButtonNotReady");
+            this.btnCalculate.getStyleClass().add("calculationButtonReady");
+        } else {
+            this.btnCalculate.getStyleClass().remove("calculationButtonReady");
+            this.btnCalculate.getStyleClass().add("calculationButtonNotReady");
+        }
     }
 
     // -------------------------------------------------------------------------
@@ -278,20 +339,19 @@ public class MainWindowController implements Initializable,
         ObservableList<Node> nTemp = envStatusGrid.getChildrenUnmodifiable();
 
         nTemp.stream().forEach((ees) -> {
-            DRTSGUIModel.getInstance()
-                    .addEes((TerrainEffect) ees.getUserData(),
-                            (EnvironmentElementStatus) ees);
+            DRTSGM.addEes((TerrainEffect) ees.getUserData(),
+                          (EnvironmentElementStatus) ees);
         });
 
         // ---------------------------------------------------------------------
         // Connect the Weighting Area check boxen controls to the model
         // ---------------------------------------------------------------------
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.PLATFORMS,
-                                             cbWeightingsPlatformsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.COMMS,
-                                             cbWeightingsCommunicationsComplete);
-        DRTSGUIModel.getInstance().addWaoccb(WeightingAreasOfConcern.SENSORS,
-                                             cbWeightingsSensorsComplete);
+        DRTSGM.addWaoccb(WeightingAreasOfConcern.PLATFORMS,
+                         cbWeightingsPlatformsComplete);
+        DRTSGM.addWaoccb(WeightingAreasOfConcern.COMMS,
+                         cbWeightingsCommunicationsComplete);
+        DRTSGM.addWaoccb(WeightingAreasOfConcern.SENSORS,
+                         cbWeightingsSensorsComplete);
     }
 
     /**

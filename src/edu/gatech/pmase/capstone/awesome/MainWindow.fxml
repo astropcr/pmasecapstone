@@ -15,7 +15,7 @@
     <stylesheets>
         <URL value="@GUIToolBox/guitoolbox.css" />
     </stylesheets>
-    
+
     <children>
         <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0">
             <center>
@@ -56,7 +56,22 @@
                                 <CheckBox fx:id="cbWeightingsPlatformsComplete" disable="true" layoutX="133.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
                                 <CheckBox fx:id="cbWeightingsCommunicationsComplete" disable="true" layoutX="133.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
                                 <CheckBox fx:id="cbWeightingsSensorsComplete" disable="true" layoutX="133.0" layoutY="314.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0" />
-                                <Button fx:id="btnDepOpen131" layoutX="168.0" layoutY="404.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calculateResults" prefHeight="50.0" prefWidth="300.0" styleClass="calculationButton" text="Calculate" />
+                                <Button fx:id="btnCalculate" layoutX="162.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#calculateResults" prefHeight="50.0" prefWidth="300.0" styleClass="calculationButtonNotReady" text="Calculate" />
+                                <HBox fillHeight="false" layoutY="405.0" prefHeight="50.0" prefWidth="170.0">
+                                    <children>
+                                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="50.0" prefWidth="125.0" styleClass="useDefaultsLabel" text="Use defaults" textAlignment="RIGHT" wrapText="true">
+
+                                        </Label>
+                                        <CheckBox fx:id="cbUseDefaults" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#setDefaults" prefHeight="50.0" prefWidth="35.0" scaleX="2.0" scaleY="2.0">
+                                            <tooltip>
+                                                <Tooltip fx:id="ttUseDefaults" text="Sets defaults values for those values not yet set." />
+                                            </tooltip>
+                                            <HBox.margin>
+                                                <Insets left="25.0" />
+                                            </HBox.margin>
+                                        </CheckBox>
+                                    </children>
+                                </HBox>
                             </children>
                         </AnchorPane>
                     </children>

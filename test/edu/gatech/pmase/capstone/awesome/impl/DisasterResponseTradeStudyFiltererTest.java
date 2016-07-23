@@ -177,7 +177,7 @@ public class DisasterResponseTradeStudyFiltererTest {
         selectedDisasterEffects.add(DisasterEffect.ASH); //ID 13
 
         // add terrain
-        selectedTerrainEffects.add(TerrainEffect.PERSISTANCE_3); // ID 14
+        selectedTerrainEffects.add(TerrainEffect.PERSISTENCE_3); // ID 14
         selectedTerrainEffects.add(TerrainEffect.BRIDGES_1); // ID 5 -- shouldnt do anything
 
         final List<SensorOption> results = instance.filterSensors(

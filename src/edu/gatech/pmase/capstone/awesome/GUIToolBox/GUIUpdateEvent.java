@@ -23,38 +23,60 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import edu.gatech.pmase.capstone.awesome.objects.enums.*;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ToggleGroup;
+import javafx.event.Event;
+import javafx.event.EventTarget;
+import javafx.event.EventType;
 
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvOptCell extends ListCell<TerrainEffect> {
-
-    ToggleGroup tg;
+public class GUIUpdateEvent extends Event {
 
     /**
      *
-     * @param tg
      */
-    public EnvOptCell(ToggleGroup tg) {
-        this.tg = tg;
-        this.getStyleClass().add("list-cell");
+    public static final EventType<GUIUpdateEvent> SELECTION_UPDATED = new EventType<>(
+            Event.ANY, "SELECTION_UPDATED");
 
+    /**
+     *
+     */
+    public GUIUpdateEvent() {
+        this(SELECTION_UPDATED);
+    }
 
+    /**
+     *
+     * @param eventType
+     */
+    public GUIUpdateEvent(EventType<? extends Event> eventType) {
+        super(eventType);
+    }
+
+    /**
+     *
+     * @param source
+     * @param target
+     * @param eventType
+     */
+    public GUIUpdateEvent(Object source, EventTarget target,
+                          EventType<? extends Event> eventType) {
+        super(source, target, eventType);
+    }
+
+    /**
+     *
+     * @param source
+     * @param target
+     */
+    public GUIUpdateEvent(Object source, EventTarget target) {
+        super(source, target, SELECTION_UPDATED);
     }
 
     @Override
-    public void updateItem(TerrainEffect te, boolean empty) {
-
-
-        super.updateItem(te, empty);
-        if (te != null) {
-            EnvOptData eod = new EnvOptData(this.tg);
-            eod.setInfo(te);
-            setGraphic(eod.getBox());
-        }
+    public EventType<? extends GUIUpdateEvent> getEventType() {
+        return (EventType<? extends GUIUpdateEvent>) super.getEventType();
     }
+
 }

@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvOptCell;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.SelectionDefault;
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.util.List;
@@ -46,7 +47,8 @@ import javafx.util.Callback;
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvironmentOptionsController implements ControlledScreen {
+public class EnvironmentOptionsController implements ControlledScreen,
+        SelectionDefault {
 
     ScreensController myController;
 
@@ -67,15 +69,22 @@ public class EnvironmentOptionsController implements ControlledScreen {
     private static final String STR_WARNING = "(Please select an option before continuing)";
     private String envOpt = "";
 
+    DRTSGUIModel DRTSGM;
+
     /**
      *
      */
     public EnvironmentOptionsController() {
         tempObsList = FXCollections.observableArrayList();
         tg = new ToggleGroup();
+        DRTSGM = DRTSGUIModel.getInstance();
+
+
     }
 
     void setupEnvOpts(String envOpt) {
+
+
         List<TerrainEffect> envOptList = TerrainEffect.getEffectByLabel(envOpt);
         this.envOpt = envOpt;
 
@@ -97,7 +106,6 @@ public class EnvironmentOptionsController implements ControlledScreen {
 
     @FXML
     void initialize() {
-
     }
 
     /**
@@ -109,16 +117,8 @@ public class EnvironmentOptionsController implements ControlledScreen {
     @FXML
     private void doneButtonClicked(ActionEvent event) {
         if (tg.getSelectedToggle() != null) {
-            // Update the backend
-            TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().
-                    getUserData();
-            DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(
-                    temp);
-
-            // Update the status window
-            DRTSGUIModel.getInstance().updateEesTooltip(temp, temp.codeMeaning);
-            DRTSGUIModel.getInstance().updateEesStatus(temp, Integer.toString(
-                                                       temp.codeNum));
+            // Update the backend and controller
+            updateController();
 
             // Now switch the window
             this.goToMain(event);
@@ -158,5 +158,30 @@ public class EnvironmentOptionsController implements ControlledScreen {
     @Override
     public ScreensController getScreenParent() {
         return myController; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    // -------------------------------------------------------------------------
+    // Utility Functions
+    // -------------------------------------------------------------------------
+    @Override
+    public void setDefaults() {
+        this.tg.getToggles().get(0).setSelected(true);
+        updateController();
+    }
+
+    /**
+     * Updates the controller based on the current toggle selection (user
+     * selection or by setting the default)
+     */
+    public void updateController() {
+        // Update the backend
+        TerrainEffect temp = (TerrainEffect) tg.getSelectedToggle().
+                getUserData();
+        DisasterResponseTradeStudySingleton.getInstance().addTerrainEffect(
+                temp);
+
+        // Update the status window
+        DRTSGM.updateEesTooltip(temp, temp.codeMeaning);
+        DRTSGM.updateEesStatus(temp, Integer.toString(temp.codeNum));
     }
 }
