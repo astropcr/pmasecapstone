@@ -26,6 +26,7 @@ package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 import edu.gatech.pmase.capstone.awesome.DRTSGUIModel;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import java.io.IOException;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -77,6 +78,7 @@ public class EnvironmentElementStatus extends AnchorPane {
     private final SimpleStringProperty environmentOptionPanel;
     private final SimpleStringProperty toolTip;
     private final SimpleStringProperty envOptWeight;
+    private final SimpleBooleanProperty bHasBeenSet;
 
     /**
      *
@@ -108,6 +110,7 @@ public class EnvironmentElementStatus extends AnchorPane {
         this.environmentOptionPanel = new SimpleStringProperty("");
         this.toolTip = new SimpleStringProperty("");
         this.envOptWeight = new SimpleStringProperty("");
+        this.bHasBeenSet = new SimpleBooleanProperty(false);
 
         // bind the XML properties to the text properties
         btnEnvOpt.textProperty().bind(environmentOptionProperty());
@@ -255,6 +258,34 @@ public class EnvironmentElementStatus extends AnchorPane {
      */
     public SimpleStringProperty envOptWeightProperty() {
         return envOptWeight;
+    }
+
+    // -------------------------------------------------------------------------
+    // This property informs this controller of the text needed for the
+    // environment option weight.
+    // -------------------------------------------------------------------------
+    /**
+     *
+     * @return
+     */
+    public Boolean getHasBeenSet() {
+        return hasBeenSetProperty().get();
+    }
+
+    /**
+     *
+     * @param fName
+     */
+    public void setHasBeenSet(Boolean bHasBeenSelected) {
+        hasBeenSetProperty().set(bHasBeenSelected);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public SimpleBooleanProperty hasBeenSetProperty() {
+        return bHasBeenSet;
     }
 
     @FXML

@@ -51,19 +51,17 @@ public class DisasterEffectOptionsController implements ControlledScreen {
     @FXML
     private Button button = null;
 
-//    /**
-//     * Initializes the controller class.
-//     */
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        // TODO
-//    }
+    private DisasterResponseTradeStudySingleton DRTSS;
+    private DRTSGUIModel DRTSGM;
+
     /**
-     *
+     * Initializes some things.
      */
     public void initialize() {
         this.eopDisasterEffects.setQuestion(
                 "Select all disaster effects that apply.");
+        DRTSGM = DRTSGUIModel.getInstance();
+        DRTSS = DisasterResponseTradeStudySingleton.getInstance();
     }
 
     /**
@@ -74,16 +72,16 @@ public class DisasterEffectOptionsController implements ControlledScreen {
      */
     @FXML
     private void doneButtonClicked(ActionEvent event) {
-        // Update the model and the view
-        DisasterResponseTradeStudySingleton.getInstance()
-                .setSelectedDisasterEffects(
-                        eopDisasterEffects.getSelectionList()
-                );
+        // Update the model
+        DRTSGM.setDisasterEffectHasBeenSelected(true);
+        DRTSS.setSelectedDisasterEffects(
+                eopDisasterEffects.getSelectionList()
+        );
 
-        DRTSGUIModel.getInstance()
-                .updateDisasterEffectsStatus(
-                        eopDisasterEffects.getSelectionStringized()
-                );
+        // Update the view
+        DRTSGM.updateDisasterEffectsStatus(
+                eopDisasterEffects.getSelectionStringized()
+        );
 
         // Now switch the window
         goToMain(event);

@@ -47,6 +47,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.controlsfx.control.GridCell;
 import org.controlsfx.control.GridView;
 
@@ -57,6 +59,12 @@ import org.controlsfx.control.GridView;
  */
 public class MainWindowController implements Initializable,
         ControlledScreen {
+
+    /**
+     * Logger. Use to log all things
+     */
+    private static final Logger LOGGER = LogManager.getLogger(
+            MainWindowController.class);
 
     ScreensController myController;
 
@@ -99,6 +107,7 @@ public class MainWindowController implements Initializable,
     private Button btnEopClose;                     // this could be used for them all?
 
     private DisasterResponseTradeStudySingleton DRTSS;
+    private DRTSGUIModel DRTSGM;
 
     /**
      * Initializes the controller class.
@@ -107,6 +116,7 @@ public class MainWindowController implements Initializable,
     public void initialize(URL url, ResourceBundle rb) {
 
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
+        DRTSGM = DRTSGUIModel.getInstance();
 
         apMainWindow.addEventHandler(ScreenSwitchEvent.SCREEN_SELECTED,
                                      new ScreenSwitchEventHandler() {
@@ -119,12 +129,23 @@ public class MainWindowController implements Initializable,
         // ---------------------------------------------------------------------
         // Now attach all of the controllers to the model
         // ---------------------------------------------------------------------
-        DRTSGUIModel.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
 
         // ---------------------------------------------------------------------
-        // First, create a list of Disaster Effects that will be used to populate
-        // the GridView with Environment Effect Stati
+        //                     Disaster Effects
         // ---------------------------------------------------------------------
+        // .....................................................................
+        // Initialize connect them to the model and initialize.
+        // .....................................................................
+        DRTSGM.getInstance().setDisasterEffectsStatus(lblDisasterEffects);
+        DRTSGM.setDisasterEffectHasBeenSelected(false);
+
+        // ---------------------------------------------------------------------
+        //                Environment/Terran Effects
+        // ---------------------------------------------------------------------
+        // .....................................................................
+        // First, create a list of Environment/Terrain Effects that will be used
+        // to populate the GridView with Environment Effect Stati
+        // .....................................................................
         Set<String> strTerrainEffectStatus = TerrainEffect.getEffectLabels();
         ObservableList<TerrainEffect> tempObsList = FXCollections.
                 observableArrayList();
@@ -136,9 +157,9 @@ public class MainWindowController implements Initializable,
         }
         envStatusGrid.setItems(tempObsList);
 
-        // ---------------------------------------------------------------------
+        // .....................................................................
         // Now let's create them
-        // ---------------------------------------------------------------------
+        // .....................................................................
         envStatusGrid.setCellFactory(
                 new Callback<GridView<TerrainEffect>, GridCell<TerrainEffect>>() {
             @Override
@@ -148,12 +169,49 @@ public class MainWindowController implements Initializable,
             }
         });
 
-        // ---------------------------------------------------------------------
-        // And to connect them...
+        // .....................................................................
+        // Initialize connect them to the model and initialize.
         // The EES panels are connected to the model inside the cell factory
         // methods, specifically insde the EnvOptStatusCell class via the
         // setInfo() call.  This is due to the EES being a custom controller.
+        // .....................................................................
+    }
+
+    // -------------------------------------------------------------------------
+    //                        Utility Functions
+    // -------------------------------------------------------------------------
+    private Boolean determineIfAllSelectionsHaveBeenMade() {
+        Boolean determination;
+
+        determination = (Boolean) (DRTSGM /* Weightings */
+                                   .determineIfAllWaocSelectionsHaveBeenMade()
+                                   && DRTSGM /* Environmental Factors */
+                                   .determineIfAllEesSelectionsHaveBeenMade()
+                                   && DRTSGM /* Disaster Effect */
+                                   .determineIfAllDisEffectsSelectionsHaveBeenMade());
+
+        LOGGER.debug(
+                "determineIfAllSelectionsHaveBeenMade() has returned " + determination.
+                toString()
+        );
+
+        return determination;
+    }
+
+    @FXML
+    private void calculateResults(ActionEvent event) {
         // ---------------------------------------------------------------------
+        // 1. Check to see if all fields have been assigned.
+        // ---------------------------------------------------------------------
+        if (determineIfAllSelectionsHaveBeenMade() == true) // 2. If so, run the calculation
+        {
+            DRTSS.calculate();
+        } else {
+            // don't allow it
+        }
+
+        determineIfAllSelectionsHaveBeenMade();
+
     }
 
     // -------------------------------------------------------------------------
@@ -169,13 +227,8 @@ public class MainWindowController implements Initializable,
         myController.setScreen(DisasterResponseTradeStudy.screenEffectsOptID);
     }
 
-    @FXML
-    private void calculateResults(ActionEvent event) {
-        DRTSS.calculate();
-    }
-
     // -------------------------------------------------------------------------
-    // Environment Status
+    //                      Environment Status
     // -------------------------------------------------------------------------
     /**
      * This event handler will switch to the correct Environment Option window
@@ -197,7 +250,7 @@ public class MainWindowController implements Initializable,
     }
 
     // -------------------------------------------------------------------------
-    // Weighting Criteria
+    //                      Weighting Criteria
     // -------------------------------------------------------------------------
     @FXML
     private void goToPlatformsWeightingCriteria(ActionEvent event) {
@@ -256,7 +309,7 @@ public class MainWindowController implements Initializable,
      */
     @Override
     public ScreensController getScreenParent() {
-        return myController; //To change body of generated methods, choose Tools | Templates.
+        return myController;
     }
 
 }

@@ -233,7 +233,9 @@ public class WeightingOptionsController implements ControlledScreen {
         Boolean allQuestionsAnswered = determineIfSelectionsHaveBeenMade();
 
         if (allQuestionsAnswered) {
+            // -----------------------------------------------------------------
             // Update the model
+            // -----------------------------------------------------------------
             switch (weightingOpt) {
                 case PLATFORMS:
                     DRTSS.setPlatformWeightingChoice(wcObsList);
@@ -248,18 +250,27 @@ public class WeightingOptionsController implements ControlledScreen {
                     break;
             }
 
+            // -----------------------------------------------------------------
             // Update the view
+            // -----------------------------------------------------------------
             DRTSGUIModel.getInstance().updateWoccb(weightingOpt,
                                                    allQuestionsAnswered);
 
+            // -----------------------------------------------------------------
             // Now switch the window
+            // -----------------------------------------------------------------
             this.goToMain(event);
 
+            // -----------------------------------------------------------------
             // Clear the warning from the label text
+            // -----------------------------------------------------------------
             this.lblInstructions.textProperty().setValue(STR_INSTRUCTIONS);
             lblInstructions.getStyleClass().add("questionOnPanel"); // could be weightingCriteriaPanelText
             lblInstructions.getStyleClass().remove("warning");
         } else {
+            // -----------------------------------------------------------------
+            // Set the warning in the label text
+            // -----------------------------------------------------------------
             this.lblInstructions.textProperty().setValue(STR_WARNING);// inform the user!!!
             lblInstructions.getStyleClass().remove("questionOnPanel");
             lblInstructions.getStyleClass().add("warning");

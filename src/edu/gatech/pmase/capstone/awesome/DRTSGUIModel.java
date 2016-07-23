@@ -64,8 +64,9 @@ public class DRTSGUIModel {
     // Temp variables used by the methods below for each functional GUI area
     // -------------------------------------------------------------------------
     // Disaster Effects
-    Label lblDisasterEffects;
-    ObservableList<DisasterEffectCheckBoxData> disasterEffects;
+    private Label lblDisasterEffects;
+    private ObservableList<DisasterEffectCheckBoxData> disasterEffects;
+    private Boolean haveDisasterEffectsBeenSet;
 
     /**
      * Grabs the singleton instance of the model. Is meant to be seen by all
@@ -79,7 +80,7 @@ public class DRTSGUIModel {
     }
 
     // -------------------------------------------------------------------------
-    // Disaster Effect controllers and viewers
+    //              Disaster Effect controllers and viewers
     // -------------------------------------------------------------------------
     /**
      *
@@ -97,8 +98,28 @@ public class DRTSGUIModel {
         this.lblDisasterEffects.setText(status);
     }
 
+    /**
+     * Sets the variable that indicates the the disaster effects have been
+     * chosen.
+     *
+     * @param beenSet
+     */
+    public void setDisasterEffectHasBeenSelected(Boolean beenSet) {
+        haveDisasterEffectsBeenSet = beenSet;
+    }
+
+    /**
+     * Checks to see if the user has made decisions on all of the Disaster
+     * Effects.
+     *
+     * @return Boolean indicating if disaster effects have been chosen
+     */
+    public Boolean determineIfAllDisEffectsSelectionsHaveBeenMade() {
+        return haveDisasterEffectsBeenSet;
+    }
+
     // -------------------------------------------------------------------------
-    // Weighting Criteria controllers and viewers
+    //              Weighting Criteria controllers and viewers
     // -------------------------------------------------------------------------
     /**
      * Adds a checkbox for an Weighting Area of Concern. The checkbox is meant
@@ -130,12 +151,10 @@ public class DRTSGUIModel {
     }
 
     /**
+     * Checks to see if the user has made decisions on all of the weightings.
      *
-     * @param waoc
-     * @param complete
      */
-    public Boolean determineIfAllWaocSelectionsHaveBeenMade(
-            WeightingAreasOfConcern waoc, Boolean complete) {
+    public Boolean determineIfAllWaocSelectionsHaveBeenMade() {
         Boolean determination = true;
 
         // .....................................................................
@@ -167,7 +186,7 @@ public class DRTSGUIModel {
     }
 
     // -------------------------------------------------------------------------
-    // Environment Effect Status controllers and viewers
+    //         Environment Effect Status controllers and viewers
     // -------------------------------------------------------------------------
     /**
      *
@@ -203,8 +222,44 @@ public class DRTSGUIModel {
                 te.terrainLabel);
         if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
+            eesTemp.setHasBeenSet(true);
         } else {
             LOGGER.debug("EES not found for status update!");
         }
+    }
+
+    /**
+     * Checks to see if the user has made decisions on all of the weightings.
+     *
+     */
+    public Boolean determineIfAllEesSelectionsHaveBeenMade() {
+        Boolean determination = true;
+
+        // .....................................................................
+        // The decision to use the CheckBox collection vs the
+        // WeightingAreasOfConceren enumeration is predicated on the logic that
+        // if the program fails to load a CheckBox collection, it's a logic
+        // error on the part programmer and not necessarily the user (assuming
+        // the user can defined the number of areas of concern). The validity of
+        // the user's inputs for defining the areas of concern should have
+        // already been checked prior to this function being reached. The
+        // {@link updateWoccb} function does warn for null pointers to checkboxen.
+        // .....................................................................
+        // .....................................................................
+        // peforms the following operation more efficiently
+        //
+        //  for(CheckBox cb : this.weightingsOptionsCheckBoxenCollection.values()){
+        //      if (cb != null) { determination &= cb.isSelected(); }
+        //  }
+        // .....................................................................
+        determination = eesCollection
+                .values()
+                .stream()
+                .filter((ees) -> (ees != null))
+                .map((ees) -> ees.getHasBeenSet())
+                .reduce(determination,
+                        (accumulator, _item) -> accumulator & _item);
+
+        return determination;
     }
 }
