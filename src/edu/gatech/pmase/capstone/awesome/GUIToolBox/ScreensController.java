@@ -39,17 +39,20 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
+import edu.gatech.pmase.capstone.awesome.DisasterResponseTradeStudy;
 import java.util.HashMap;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -68,6 +71,21 @@ public class ScreensController extends StackPane {
             ScreensController.class);
 
     private HashMap<String, Node> screens = new HashMap<>();
+
+    private static final int FADE_OUT_TIME_DURING_INIT = 5;
+    private static final int FADE_IN_TIME_DURING_INIT = 5;
+    private static final double FADE_OUT_OPACITY_DURING_INIT = 0.01;
+    private static final double FADE_IN_OPACITY_DURING_INIT = 0.01;
+
+    private static final int FADE_OUT_TIME = 500;
+    private static final int FADE_IN_TIME = 400;
+    private static final double FADE_OUT_OPACITY = 1.0;
+    private static final double FADE_IN_OPACITY = 1.0;
+
+    private static int fadeOutLeadTime = FADE_OUT_TIME_DURING_INIT;
+    private static int fadeInLeadTime = FADE_IN_TIME_DURING_INIT;
+    private static double fadeInOpacity = FADE_IN_OPACITY_DURING_INIT;
+    private static double fadeOutOpacity = FADE_OUT_OPACITY_DURING_INIT;
 
     /**
      *
@@ -139,8 +157,9 @@ public class ScreensController extends StackPane {
 
             if (!getChildren().isEmpty()) {    //if there is more than one screen
                 Timeline fade = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(500),
+                        new KeyFrame(Duration.ZERO, new KeyValue(opacity,
+                                                                 fadeOutOpacity)), //1.0
+                        new KeyFrame(new Duration(fadeOutLeadTime), //500
                                      new EventHandler<ActionEvent>() {
                                  @Override
                                  public void handle(ActionEvent t) {
@@ -150,9 +169,10 @@ public class ScreensController extends StackPane {
                                              new KeyFrame(Duration.ZERO,
                                                           new KeyValue(opacity,
                                                                        0.0)),
-                                             new KeyFrame(new Duration(400),
+                                             new KeyFrame(new Duration(
+                                                     fadeInLeadTime), // 400
                                                           new KeyValue(opacity,
-                                                                       1.0)));
+                                                                       fadeInOpacity))); // 1.0
                                      fadeIn.play();
                                  }
                              }, new KeyValue(opacity, 0.0)));
@@ -163,8 +183,9 @@ public class ScreensController extends StackPane {
                 getChildren().add(screens.get(name));       //no one else been displayed, then just show
                 Timeline fadeIn = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                        new KeyFrame(new Duration(500), new KeyValue(opacity,
-                                                                     1.0)));
+                        new KeyFrame(new Duration(fadeInLeadTime), new KeyValue(
+                                     opacity, // 500
+                                     fadeInOpacity)));
                 fadeIn.play();
             }
             return true;
@@ -204,5 +225,90 @@ public class ScreensController extends StackPane {
         } else {
             return true;
         }
+    }
+
+    /*
+ * The MIT License
+ *
+ * Copyright 2016 Georgia Tech PMASE 2014 Cohort Team Awesome.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+     */
+    // -------------------------------------------------------------------------
+    // Fancy pants initialization code used to allow default setting to work.
+    // This is a very complicated and sophisticated kluge that was added by
+    // Mike Shearin  which is goverend by the afore mentioned MIT license
+    // -------------------------------------------------------------------------
+    private static int curScreen = 0;
+
+    /**
+     *
+     * Loads each screen so that it's members can be accessed by the model. Each
+     * screen is set to 1% opacity to prevent screen flashing.
+     *
+     * @return
+     */
+    public boolean cycleThroughAllScreens() {
+        boolean finished = true;
+
+        if (curScreen < screens.size()) {
+            // -----------------------------------------------------------------
+            // Load each screen so that it's members can be accessed by the model
+            // -----------------------------------------------------------------
+            setScreen((String) screens.keySet().toArray()[curScreen]);
+            curScreen++;
+
+            finished = false;
+        } else {
+            // -----------------------------------------------------------------
+            // Now let's fade in the main screen
+            // -----------------------------------------------------------------
+            fadeInLeadTime = FADE_IN_TIME;
+            fadeInOpacity = FADE_IN_OPACITY;
+
+            setScreen(DisasterResponseTradeStudy.screenMainID);
+
+            // set afterwat to prevent flashing
+            fadeOutLeadTime = FADE_OUT_TIME;
+            fadeOutOpacity = FADE_OUT_OPACITY;
+        }
+        return finished;
+    }
+
+    public void initializeAllScreens(Stage theStage, String strTitle) {
+
+        Task<Void> sleeper = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                while (!cycleThroughAllScreens()) {
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                    }
+                }
+                theStage.setTitle(strTitle);        // currently doesn't work
+                theStage.show();
+                return null;
+            }
+        };
+
+        new Thread(sleeper).start();
     }
 }

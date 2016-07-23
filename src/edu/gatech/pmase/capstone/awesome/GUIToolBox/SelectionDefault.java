@@ -23,38 +23,14 @@
  */
 package edu.gatech.pmase.capstone.awesome.GUIToolBox;
 
-import edu.gatech.pmase.capstone.awesome.objects.enums.*;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ToggleGroup;
-
 /**
  *
  * @author Mike Shearin <mike.shearin@gtri.gatech.edu>
  */
-public class EnvOptCell extends ListCell<TerrainEffect> {
-
-    ToggleGroup tg;
+public interface SelectionDefault {
 
     /**
-     *
-     * @param tg
+     * Instructs a controller to set it's public value to a default state
      */
-    public EnvOptCell(ToggleGroup tg) {
-        this.tg = tg;
-        this.getStyleClass().add("list-cell");
-
-
-    }
-
-    @Override
-    public void updateItem(TerrainEffect te, boolean empty) {
-
-
-        super.updateItem(te, empty);
-        if (te != null) {
-            EnvOptData eod = new EnvOptData(this.tg);
-            eod.setInfo(te);
-            setGraphic(eod.getBox());
-        }
-    }
+    public void setDefaults();
 }

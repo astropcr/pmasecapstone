@@ -118,7 +118,7 @@ public class EnvironmentElementStatus extends AnchorPane {
         lblEnvOptWeight.textProperty().bind(envOptWeight);
     }
 
-// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
     // Event handlers
     // -------------------------------------------------------------------------
     @FXML
@@ -290,6 +290,6 @@ public class EnvironmentElementStatus extends AnchorPane {
 
     @FXML
     void initialize() {
-        lblEnvOptWeight.setTooltip(ttDescription);
+
     }
 }

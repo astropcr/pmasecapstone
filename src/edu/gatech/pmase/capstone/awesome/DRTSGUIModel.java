@@ -25,6 +25,7 @@ package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.DisasterEffectCheckBoxData;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EnvironmentElementStatus;
+import edu.gatech.pmase.capstone.awesome.GUIToolBox.GUIUpdateEvent;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ public class DRTSGUIModel {
     // Collections of Enumeration to GUI Objects (both views and controllers)
     // -------------------------------------------------------------------------
     private final HashMap<String, EnvironmentElementStatus> eesCollection = new HashMap<>();
+    private final HashMap<String, EnvironmentOptionsController> eopCollection = new HashMap<>();
     private final HashMap<String, CheckBox> weightingsOptionsCheckBoxenCollection = new HashMap<>();
     private final HashMap<String, Boolean> weightingsCompletedCollection = new HashMap<>();
 
@@ -197,6 +199,10 @@ public class DRTSGUIModel {
         this.eesCollection.put(te.terrainLabel, eesToAdd);
     }
 
+    public void addEop(TerrainEffect te, EnvironmentOptionsController eopToAdd) {
+        this.eopCollection.put(te.terrainLabel, eopToAdd);
+    }
+
     /**
      *
      * @param te
@@ -223,9 +229,39 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
             eesTemp.setHasBeenSet(true);
+            eesTemp.fireEvent(new GUIUpdateEvent());   // tells the GUI to update the calucte button...TODO: set up a custom event and related handler to make this more obvious.
         } else {
             LOGGER.debug("EES not found for status update!");
         }
+    }
+
+    /**
+     * Checks to see if the user has made decisions on all of the weightings.
+     *
+     */
+    public Boolean setAllEesSelectionsToDefaults() {
+        Boolean determination = true;
+
+
+        // .....................................................................
+        // peforms the following operation more efficiently
+        //
+        for (EnvironmentOptionsController eop : this.eopCollection.values()) {
+            if (eop != null) {
+                eop.setDefaults();
+            }
+        }
+
+// .....................................................................
+        determination = eesCollection
+                .values()
+                .stream()
+                .filter((ees) -> (ees != null))
+                .map((ees) -> ees.getHasBeenSet())
+                .reduce(determination,
+                        (accumulator, _item) -> accumulator & _item);
+
+        return determination;
     }
 
     /**

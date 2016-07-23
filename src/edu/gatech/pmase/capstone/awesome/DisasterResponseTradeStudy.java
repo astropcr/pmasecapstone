@@ -24,6 +24,7 @@
 package edu.gatech.pmase.capstone.awesome;
 
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
+import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
 import edu.gatech.pmase.capstone.awesome.objects.enums.TerrainEffect;
 import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.util.Set;
@@ -31,6 +32,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.paint.*;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -45,6 +47,10 @@ public class DisasterResponseTradeStudy extends Application {
      */
     private static final Logger LOGGER = LogManager.getLogger(
             DisasterResponseTradeStudy.class);
+
+    private DisasterResponseTradeStudySingleton DRTSS;
+    private DRTSGUIModel DRTSGM;
+    private static Stage mainStage;
 
     /**
      * These setup the windows that will be shown. This is inspired by the
@@ -93,6 +99,9 @@ public class DisasterResponseTradeStudy extends Application {
         LOGGER.info("Hello World!");
         LOGGER.debug("Testing Logger");
 
+        DRTSGM = DRTSGUIModel.getInstance();
+        DRTSS = DisasterResponseTradeStudySingleton.getInstance();
+
         ScreensController mainContainer = new ScreensController();
 
         // ---------------------------------------------------------------------
@@ -116,12 +125,14 @@ public class DisasterResponseTradeStudy extends Application {
         //          Environment Options/Factors Screens
         //......................................................................
         Set<String> strTELabels = TerrainEffect.getEffectLabels();
+        EnvironmentOptionsController eoc;
         for (String label : strTELabels) {
-            ((EnvironmentOptionsController) (mainContainer
-                                             .loadScreen(label,
-                                                         classPath
-                                                         + "EnvironmentOptions.fxml"))).
-                    setupEnvOpts(label);
+            eoc = ((EnvironmentOptionsController) (mainContainer
+                                                   .loadScreen(label,
+                                                               classPath
+                                                               + "EnvironmentOptions.fxml")));
+            eoc.setupEnvOpts(label);
+            DRTSGM.addEop(TerrainEffect.getEffectByLabel(label).get(0), eoc);
         }
 
         //......................................................................
@@ -153,7 +164,14 @@ public class DisasterResponseTradeStudy extends Application {
 
         Scene scene = new Scene(root);
 
-        primaryStage.setTitle("Disaster Response Trade Study Tool");
+        scene.setFill(Color.BLACK);
+
+        Color myColor = Color.BLACK;
+
+        mainStage = primaryStage;
+
+        primaryStage.setTitle(
+                "Disaster Response Trade Study Tool (loading...please standby)");
         primaryStage.setScene(scene);
 
         primaryStage.getIcons().add(
@@ -162,6 +180,12 @@ public class DisasterResponseTradeStudy extends Application {
                                 "icon.png")));
 
         primaryStage.show();
+
+        // ---------------------------------------------------------------------
+        // Cycle throw all screens so that the model will be able to see them
+        // ---------------------------------------------------------------------
+        mainContainer.initializeAllScreens(primaryStage,
+                                           "Disaster Response Trade Study Tool");
 
     }
 
