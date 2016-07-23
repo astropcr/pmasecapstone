@@ -32,7 +32,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.paint.*;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -159,11 +158,7 @@ public class DisasterResponseTradeStudy extends Application {
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
 
-        Scene scene = new Scene(root);
-
-        scene.setFill(Color.BLACK);
-
-        Color myColor = Color.BLACK;
+        Scene scene = new Scene(root);//        scene.setFill(Color.BLACK);
 
         mainStage = primaryStage;
 
@@ -181,9 +176,8 @@ public class DisasterResponseTradeStudy extends Application {
         // ---------------------------------------------------------------------
         // Cycle throw all screens so that the model will be able to see them
         // ---------------------------------------------------------------------
-        mainContainer.initializeAllScreens(primaryStage,
-                                           "Disaster Response Trade Study Tool");
-
+//        mainContainer.initializeAllScreens(primaryStage,
+//                                           "Disaster Response Trade Study Tool");
     }
 
     /**

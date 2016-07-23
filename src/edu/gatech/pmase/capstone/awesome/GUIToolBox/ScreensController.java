@@ -72,6 +72,10 @@ public class ScreensController extends StackPane {
 
     private HashMap<String, Node> screens = new HashMap<>();
 
+    /**
+     * The following constants and variables are used during initialization to
+     * hide the screens being loaded from the user.
+     */
     private static final int FADE_OUT_TIME_DURING_INIT = 5;
     private static final int FADE_IN_TIME_DURING_INIT = 5;
     private static final double FADE_OUT_OPACITY_DURING_INIT = 0.01;
@@ -82,10 +86,10 @@ public class ScreensController extends StackPane {
     private static final double FADE_OUT_OPACITY = 1.0;
     private static final double FADE_IN_OPACITY = 1.0;
 
-    private static int fadeOutLeadTime = FADE_OUT_TIME_DURING_INIT;
-    private static int fadeInLeadTime = FADE_IN_TIME_DURING_INIT;
-    private static double fadeInOpacity = FADE_IN_OPACITY_DURING_INIT;
-    private static double fadeOutOpacity = FADE_OUT_OPACITY_DURING_INIT;
+    private static int fadeOutLeadTime = FADE_OUT_TIME;
+    private static int fadeInLeadTime = FADE_IN_TIME;
+    private static double fadeInOpacity = FADE_IN_OPACITY;
+    private static double fadeOutOpacity = FADE_OUT_OPACITY;
 
     /**
      *

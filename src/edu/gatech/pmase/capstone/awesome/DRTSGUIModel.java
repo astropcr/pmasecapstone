@@ -98,6 +98,7 @@ public class DRTSGUIModel {
      */
     public void updateDisasterEffectsStatus(String status) {
         this.lblDisasterEffects.setText(status);
+        this.lblDisasterEffects.fireEvent(new GUIUpdateEvent());   // tells the GUI to update the calculate button.
     }
 
     /**
@@ -147,6 +148,7 @@ public class DRTSGUIModel {
                 waoc.label);
         if (cbTemp != null) {
             cbTemp.setSelected(update);
+            cbTemp.fireEvent(new GUIUpdateEvent());   // tells the GUI to update the calculate button.
         } else {
             LOGGER.debug("Weighting Area of Concern CheckBox not found update!");
         }
@@ -229,20 +231,17 @@ public class DRTSGUIModel {
         if (eesTemp != null) {
             eesTemp.setEnvOptWeight(weight);
             eesTemp.setHasBeenSet(true);
-            eesTemp.fireEvent(new GUIUpdateEvent());   // tells the GUI to update the calucte button...TODO: set up a custom event and related handler to make this more obvious.
+            eesTemp.fireEvent(new GUIUpdateEvent());   // tells the GUI to update the calculate button.
         } else {
             LOGGER.debug("EES not found for status update!");
         }
     }
 
     /**
-     * Checks to see if the user has made decisions on all of the weightings.
+     * Sets the EES controller/viewers to default values.
      *
      */
-    public Boolean setAllEesSelectionsToDefaults() {
-        Boolean determination = true;
-
-
+    public void setAllEesSelectionsToDefaults() {
         // .....................................................................
         // peforms the following operation more efficiently
         //
@@ -251,17 +250,6 @@ public class DRTSGUIModel {
                 eop.setDefaults();
             }
         }
-
-// .....................................................................
-        determination = eesCollection
-                .values()
-                .stream()
-                .filter((ees) -> (ees != null))
-                .map((ees) -> ees.getHasBeenSet())
-                .reduce(determination,
-                        (accumulator, _item) -> accumulator & _item);
-
-        return determination;
     }
 
     /**

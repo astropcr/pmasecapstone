@@ -115,6 +115,9 @@ public class MainWindowController implements Initializable,
     @FXML
     private Tooltip ttUseDefaults;
 
+    @FXML
+    private Tooltip ttCalculateStatus;
+
     private DisasterResponseTradeStudySingleton DRTSS;
     private DRTSGUIModel DRTSGM;
 
@@ -209,7 +212,6 @@ public class MainWindowController implements Initializable,
                                    .determineIfAllEesSelectionsHaveBeenMade()
                                    && DRTSGM /* Disaster Effect */
                                    .determineIfAllDisEffectsSelectionsHaveBeenMade());
-
         LOGGER.debug(
                 "determineIfAllSelectionsHaveBeenMade() has returned " + determination.
                 toString()
@@ -229,6 +231,7 @@ public class MainWindowController implements Initializable,
 
         //3. Weighting Criteria
         // set the calculate button to 'ret to go'
+        // Still half baked...
         setCalculateButtonMode();
     }
 
@@ -266,10 +269,15 @@ public class MainWindowController implements Initializable,
      */
     private void setCalculateButtonMode() {
         if (determineIfAllSelectionsHaveBeenMade()) {
+            ttCalculateStatus.setText("Please select a value for all options!");
+
             this.btnCalculate.getStyleClass().
                     remove("calculationButtonNotReady");
             this.btnCalculate.getStyleClass().add("calculationButtonReady");
+
         } else {
+            ttCalculateStatus.setText("Ready to calculate!");
+
             this.btnCalculate.getStyleClass().remove("calculationButtonReady");
             this.btnCalculate.getStyleClass().add("calculationButtonNotReady");
         }

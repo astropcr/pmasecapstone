@@ -32,7 +32,7 @@ THE SOFTWARE.
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root id="EffectsOptPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="760.0" styleClass="effectsOptionPanel" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="EffectsOptPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="760.0" styleClass="effectsOptionPanel" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@guitoolbox.css" />
     </stylesheets>
@@ -42,7 +42,7 @@ THE SOFTWARE.
                 <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" styleClass="titleLabel" text="Label" BorderPane.alignment="CENTER" />
             </top>
             <center>
-                <ListView fx:id="lvChoices" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="750.0" styleClass="listOfOptions" BorderPane.alignment="CENTER" />
+                <ListView fx:id="lvChoices" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" styleClass="listOfOptions" BorderPane.alignment="CENTER" />
             </center>
             <bottom>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0" BorderPane.alignment="CENTER" />
