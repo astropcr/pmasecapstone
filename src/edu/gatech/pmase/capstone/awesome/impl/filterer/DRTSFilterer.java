@@ -21,9 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.filterer;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFilterer;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;

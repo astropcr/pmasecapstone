@@ -21,25 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome;
+package edu.gatech.pmase.capstone.awesome.impl.finalSelector;
 
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseFinalSelectionCriterion;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * Criteria that an architecture must meet to be considered for the final
- * selection.
+ * Checks the given architecture to ensure that the selected Platform are
+ * compatible with the given communications and sensors.
  */
-public interface IDisasterResponseFinalSelectionCriterion {
+public class PlatformCompatibilityCriterion implements IDisasterResponseFinalSelectionCriterion {
 
-    /**
-     * Checks whether the given architecture result should be in the final
-     * selection.
-     *
-     * @param result the result to check
-     *
-     * @return true if should be filtered out (not included in final results),
-     *         false otherwise.
-     */
-    boolean checkArchitectureResultRemovedByFilter(
-            final DRTSArchitectureResult result);
+    @Override
+    public boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult arch) {
+        return Stream.concat(arch.getComms().getPlatformLimitations().stream(),
+                             arch.getSensor().getPlatformLimitations().stream())
+                .collect(Collectors.toList())
+                .stream()
+                .anyMatch(opt -> opt.getId() == arch.getPlatform().getId());
+    }
+
 }

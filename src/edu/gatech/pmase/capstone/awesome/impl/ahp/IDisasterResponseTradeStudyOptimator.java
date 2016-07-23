@@ -21,25 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome;
+package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
+import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
+import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
+import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
+import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
 import java.util.List;
 
 /**
- * Final selector for architecture.
+ * Creates a set of optimized architectures based on architecture options
+ * filtered by user inputs.
  */
-public interface IDisasterResponseTradeStudyFinalSelector {
+public interface IDisasterResponseTradeStudyOptimator {
 
     /**
-     * Selects the final architecture from an ranked (sorted) set of
-     * architectures. Assumes the first result is the highest ranked
-     * (totalScore).
      *
-     * @param archResults the list of generated architectures
+     * @param platformOptions
+     * @param sensorOptions
+     * @param commOptions
+     * @param platformPrioritizes
+     * @param sensorPrioritizes
+     * @param commPrioritizes
      *
-     * @return the top three selected architecture from the list.
+     * @return
      */
-    List<DRTSArchitectureResult> selectFinalArchitecture(
-            final List<DRTSArchitectureResult> archResults);
+    List<DRTSArchitectureResult> generateOptimizedArchitectures(
+            final List<PlatformOption> platformOptions,
+            final List<SensorOption> sensorOptions,
+            final List<CommunicationOption> commOptions,
+            final List<ArchitectureOptionAttribute> platformPrioritizes,
+            final List<ArchitectureOptionAttribute> sensorPrioritizes,
+            final List<ArchitectureOptionAttribute> commPrioritizes);
 }

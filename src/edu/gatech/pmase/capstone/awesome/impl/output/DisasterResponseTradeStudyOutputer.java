@@ -21,9 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.output;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOutputter;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
@@ -141,6 +140,11 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
     private static final Map<String, Integer> terEffectColsMap = new HashMap<>();
 
     /**
+     * RGB Color to use for text when no architecture was found.
+     */
+    private static final String NO_OPT_TEXT_COLOR = "922B21";
+
+    /**
      * Time and date the calculation was started.
      */
     private ZonedDateTime now;
@@ -221,7 +225,25 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             final List<XWPFTable> tables = xdoc.getTables();
 
             // set values
-            final DRTSArchitectureResult result = results.get(0);
+            DRTSArchitectureResult result = null;
+
+            if (null != results && !results.isEmpty()) {
+                result = results.get(0);
+
+                // create platform weightings table
+                this.createOptionWeightingTable(result.getPlatform(), tables.get(
+                        PLATFORM_WEIGHTING_TABLE_INDEX));
+
+                // create comm weighting table
+                this.createOptionWeightingTable(result.getComms(), tables.get(
+                        COMM_WEIGHTING_TABLE_INDEX));
+
+                // create sensor weighting table
+                this.createOptionWeightingTable(result.getSensor(), tables.get(
+                        SENSOR_WEIGHTING_TABLE_INDEX));
+            } else {
+                LOGGER.warn("No architecture result found, cannot place into output result.");
+            }
 
             // create arch table
             this.createArchTable(result, tables.get(ARCH_RESULT_TABLE_INDEX));
@@ -233,18 +255,6 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
             // create selected terrain table
             this.createSelectedTerrainTable(selectedTerrainEffects, tables.get(
                     SELECTED_TERRAIN_TABLE_INDEX));
-
-            // create platform weightings table
-            this.createOptionWeightingTable(result.getPlatform(), tables.get(
-                    PLATFORM_WEIGHTING_TABLE_INDEX));
-
-            // create comm weighting table
-            this.createOptionWeightingTable(result.getComms(), tables.get(
-                    COMM_WEIGHTING_TABLE_INDEX));
-
-            // create sensor weighting table
-            this.createOptionWeightingTable(result.getSensor(), tables.get(
-                    SENSOR_WEIGHTING_TABLE_INDEX));
 
             // create details
             this.createReportDetails(xdoc);
@@ -280,37 +290,47 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
      */
     private void createArchTable(final DRTSArchitectureResult result,
             final XWPFTable table) {
-        LOGGER.debug("Adding architecture result to output file: " + result.toString());
-
         final XWPFTableCell platLabel = table.getRow(1).getCell(0);
         platLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        platLabel.setText(result.getPlatform().getLabel());
-
-        final XWPFTableCell platDetails = table.getRow(1).getCell(2);
-        platDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        this.createArchitectureAttributeDescription(platDetails, result.
-                getPlatform().
-                getPrioritizationAttributess());
 
         final XWPFTableCell commLabel = table.getRow(2).getCell(0);
         commLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        commLabel.setText(result.getComms().getLabel());
-
-        final XWPFTableCell commDetails = table.getRow(2).getCell(2);
-        commDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        this.createArchitectureAttributeDescription(commDetails, result.
-                getComms().
-                getPrioritizationAttributess());
 
         final XWPFTableCell sensorLabel = table.getRow(3).getCell(0);
         sensorLabel.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        sensorLabel.setText(result.getSensor().getLabel());
 
-        final XWPFTableCell sensorDetails = table.getRow(3).getCell(2);
-        sensorDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
-        this.createArchitectureAttributeDescription(sensorDetails, result.
-                getSensor().
-                getPrioritizationAttributess());
+        if (null != result) {
+            LOGGER.debug("Adding architecture result to output file: " + result.toString());
+
+            platLabel.setText(result.getPlatform().getLabel());
+
+            final XWPFTableCell platDetails = table.getRow(1).getCell(2);
+            platDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+            this.createArchitectureAttributeDescription(platDetails, result.
+                    getPlatform().
+                    getPrioritizationAttributess());
+
+            commLabel.setText(result.getComms().getLabel());
+
+            final XWPFTableCell commDetails = table.getRow(2).getCell(2);
+            commDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+            this.createArchitectureAttributeDescription(commDetails, result.
+                    getComms().
+                    getPrioritizationAttributess());
+
+            sensorLabel.setText(result.getSensor().getLabel());
+
+            final XWPFTableCell sensorDetails = table.getRow(3).getCell(2);
+            sensorDetails.setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+            this.createArchitectureAttributeDescription(sensorDetails, result.
+                    getSensor().
+                    getPrioritizationAttributess());
+        } else {
+            LOGGER.debug("No result found, cannot create architecture options");
+            DisasterResponseTradeStudyOutputer.createNoOptionText(platLabel, "Platform");
+            DisasterResponseTradeStudyOutputer.createNoOptionText(commLabel, "Communications Option");
+            DisasterResponseTradeStudyOutputer.createNoOptionText(sensorLabel, "Sensor Option");
+        }
     }
 
     /**
@@ -457,6 +477,21 @@ public class DisasterResponseTradeStudyOutputer implements IDisasterResponseTrad
         final XWPFRun run4 = para.createRun();
         run4.setBold(false);
         run4.setText(currentLocale.getDisplayCountry());
+    }
+
+    /**
+     * Creates output for architecture options if no architecture was found.
+     *
+     * @param label the cell with the label
+     * @param optionName the name of the option to place
+     */
+    private static void createNoOptionText(final XWPFTableCell label, final String optionName) {
+        LOGGER.debug("Creationg No Option Text for option: " + optionName);
+        final XWPFParagraph platPara = label.getParagraphs().get(0);
+        final XWPFRun rh = platPara.createRun();
+        rh.setColor(DisasterResponseTradeStudyOutputer.NO_OPT_TEXT_COLOR);
+        rh.setText("No " + optionName + " Satisfies Selections");
+        platPara.setAlignment(ParagraphAlignment.CENTER);
     }
 
     /**

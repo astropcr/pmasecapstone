@@ -21,27 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.finalSelector;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
- * Checks the given architecture to ensure that the selected Platform are
- * compatible with the given communications and sensors.
+ * Final selector for architecture.
  */
-public class PlatformCompatibilityCriterion implements IDisasterResponseFinalSelectionCriterion {
+public interface IDisasterResponseTradeStudyFinalSelector {
 
-    @Override
-    public boolean checkArchitectureResultRemovedByFilter(
-            final DRTSArchitectureResult arch) {
-        return Stream.concat(arch.getComms().getPlatformLimitations().stream(),
-                             arch.getSensor().getPlatformLimitations().stream())
-                .collect(Collectors.toList())
-                .stream()
-                .anyMatch(opt -> opt.getId() == arch.getPlatform().getId());
-    }
-
+    /**
+     * Selects the final architecture from an ranked (sorted) set of
+     * architectures. Assumes the first result is the highest ranked
+     * (totalScore).
+     *
+     * @param archResults the list of generated architectures
+     *
+     * @return the top three selected architecture from the list.
+     */
+    List<DRTSArchitectureResult> selectFinalArchitecture(
+            final List<DRTSArchitectureResult> archResults);
 }

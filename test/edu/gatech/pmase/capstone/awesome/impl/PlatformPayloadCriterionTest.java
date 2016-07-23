@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.PlatformPayloadCriterion;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;

@@ -8,6 +8,8 @@
 *.DS_Store
 *.num
 *.mf
+MANIFEST
+build.num
 
 # Package Files #
 *.jar

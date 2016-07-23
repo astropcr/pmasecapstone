@@ -23,7 +23,6 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyComponentOptimator;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.enums.SortOrderEnum;

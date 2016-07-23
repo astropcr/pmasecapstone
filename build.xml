@@ -10,10 +10,9 @@
 <project name="DisasterResponseTradeStudy" default="default" basedir="." >
     <description>Builds, tests, and runs the project DisasterResponseTradeStudy.</description>
     <import file="nbproject/build-impl.xml"/>
-    <property name="version" value="0.5.3"/>
-    
+    <property name="version" value="0.5.4"/>
+            
     <!--
-
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
     before and after some main targets. They are: 
@@ -101,7 +100,7 @@
     <!-- Creates property to reference and load the properties file -->
     <property name="prop.file" value="disasterResponseTradeStudy.properties" />
     <property file="${prop.file}"/>
-   
+          
     <!-- Called in build before jar is made, see above note -->
     <target name="-pre-jar">
         <buildnumber file="build.num"/>

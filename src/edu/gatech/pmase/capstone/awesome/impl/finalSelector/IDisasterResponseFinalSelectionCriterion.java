@@ -21,31 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.finalSelector;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 
 /**
- * Checks the given architecture to ensure that the selected Platform can carry
- * the given sensor and comms weight.
+ * Criteria that an architecture must meet to be considered for the final
+ * selection.
  */
-public class PlatformPayloadCriterion implements IDisasterResponseFinalSelectionCriterion {
+public interface IDisasterResponseFinalSelectionCriterion {
 
-    @Override
-    public boolean checkArchitectureResultRemovedByFilter(
-            final DRTSArchitectureResult arch) {
-        boolean result = false;
-
-        final double platformPayload = arch.getPlatform().getPayload();
-        final double payloadWeight = (arch.getComms().getWeight() + arch.
-                                      getSensor().getWeight());
-
-        if (platformPayload < payloadWeight) {
-            result = true;
-        }
-
-        return result;
-    }
-
+    /**
+     * Checks whether the given architecture result should be in the final
+     * selection.
+     *
+     * @param result the result to check
+     *
+     * @return true if should be filtered out (not included in final results),
+     *         false otherwise.
+     */
+    boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult result);
 }

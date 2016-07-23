@@ -21,10 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome.impl;
+package edu.gatech.pmase.capstone.awesome.impl.finalSelector;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseFinalSelectionCriterion;
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFinalSelector;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.PlatformPayloadCriterion;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.PlatformCompatibilityCriterion;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseFinalSelectionCriterion;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseTradeStudyFinalSelector;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 import java.io.FileInputStream;
 import java.io.IOException;

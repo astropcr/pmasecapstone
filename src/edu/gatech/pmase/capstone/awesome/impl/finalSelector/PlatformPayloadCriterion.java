@@ -21,27 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package edu.gatech.pmase.capstone.awesome;
+package edu.gatech.pmase.capstone.awesome.impl.finalSelector;
 
-import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
-import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
-import java.util.List;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseFinalSelectionCriterion;
+import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;
 
 /**
- * Optimizes a specific component of the overall architecture.
+ * Checks the given architecture to ensure that the selected Platform can carry
+ * the given sensor and comms weight.
  */
-public interface IDisasterResponseTradeStudyComponentOptimator {
+public class PlatformPayloadCriterion implements IDisasterResponseFinalSelectionCriterion {
 
-    /**
-     *
-     * @param <T>
-     * @param options
-     * @param prioritizes
-     *
-     * @return
-     */
-    <T extends AbstractArchitectureOption> List generateOptimizedOption(
-            final List<T> options,
-            final List<ArchitectureOptionAttribute> prioritizes);
+    @Override
+    public boolean checkArchitectureResultRemovedByFilter(
+            final DRTSArchitectureResult arch) {
+        boolean result = false;
+
+        final double platformPayload = arch.getPlatform().getPayload();
+        final double payloadWeight = (arch.getComms().getWeight() + arch.
+                                      getSensor().getWeight());
+
+        if (platformPayload < payloadWeight) {
+            result = true;
+        }
+
+        return result;
+    }
 
 }
