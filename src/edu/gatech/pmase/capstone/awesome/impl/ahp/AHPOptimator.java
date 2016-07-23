@@ -24,7 +24,6 @@
 package edu.gatech.pmase.capstone.awesome.impl.ahp;
 
 import com.google.common.collect.Lists;
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.DRTSArchitectureResult;

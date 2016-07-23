@@ -23,6 +23,7 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
+import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.SensorsDatabaseDriver;

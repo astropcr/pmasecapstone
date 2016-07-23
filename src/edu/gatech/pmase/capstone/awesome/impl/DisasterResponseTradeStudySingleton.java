@@ -23,9 +23,12 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFilterer;
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyFinalSelector;
-import edu.gatech.pmase.capstone.awesome.IDisasterResponseTradeStudyOptimator;
+import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
+import edu.gatech.pmase.capstone.awesome.impl.output.DisasterResponseTradeStudyOutputer;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.DRTSSanityFilter;
+import edu.gatech.pmase.capstone.awesome.impl.filterer.IDisasterResponseTradeStudyFilterer;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseTradeStudyFinalSelector;
+import edu.gatech.pmase.capstone.awesome.impl.ahp.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.ahp.AHPOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
@@ -177,100 +180,128 @@ public class DisasterResponseTradeStudySingleton {
      * Calculates the Disaster Response Trade Study results given the same
      * input. Expects the disaster effects, terrain effects, and the three users
      * weightings to be set.
-     *
-     * @return Filename of the resulting architecture file
      */
-    public String calculate() {
-        String fileName = "";
-
+    public void calculate() {
         try {
-            if (selectedDisasterEffects == null || selectedTerrainEffects == null
-                    || selectedDisasterEffects.isEmpty() || selectedTerrainEffects.isEmpty()) {
-                LOGGER.warn("No disaster or terrain effects specified.");
-            } else {
+            List<DRTSArchitectureResult> finalResults = null;
+
+            if (null != selectedDisasterEffects
+                    && null != selectedTerrainEffects
+                    && null != commWeightingChoice
+                    && null != platformWeightingChoice
+                    && null != sensorWeightingChoice
+                    && !selectedDisasterEffects.isEmpty()
+                    && !selectedTerrainEffects.isEmpty()
+                    && !commWeightingChoice.isEmpty()
+                    && !platformWeightingChoice.isEmpty()
+                    && !sensorWeightingChoice.isEmpty()) {
                 LOGGER.trace("User Effect Inputs:");
                 LOGGER.trace("Selected Disaster Effects: " + selectedDisasterEffects.toString());
                 LOGGER.trace("Selected Terrain Effects: " + selectedTerrainEffects.toString());
-            }
 
-            if (null == commWeightingChoice || platformWeightingChoice == null || sensorWeightingChoice == null
-                    || commWeightingChoice.isEmpty() || platformWeightingChoice.isEmpty() || sensorWeightingChoice.isEmpty()) {
-                LOGGER.warn("No weighting choices selected by user..");
-            } else {
                 LOGGER.trace("User Weighting Inputs:");
                 LOGGER.trace("Selected Platform Weightings: " + platformWeightingChoice.toString());
                 LOGGER.trace("Selected Sensor Weightings: " + sensorWeightingChoice.toString());
                 LOGGER.trace("Selected Comm Weightings: " + commWeightingChoice.toString());
-            }
 
-            // filter results
-            final IDisasterResponseTradeStudyFilterer filterer = new DRTSFilterer();
-            final List<PlatformOption> filteredPlatforms = filterer.filterPlatforms(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
-            final List<CommunicationOption> filteredComms = filterer.filterCommunications(selectedDisasterEffects, selectedTerrainEffects, loadedCommOptions);
-            final List<SensorOption> filteredSensors = filterer.filterSensors(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
-
-            LOGGER.debug("Platforms Reamining after Filter: " + filteredPlatforms.size());
-            LOGGER.debug("Communications Reamining after Filter: " + filteredComms.size());
-            LOGGER.debug("Sensors Reamining after Filter: " + filteredSensors.size());
-
-            if (!filteredComms.isEmpty() && !filteredPlatforms.isEmpty() && !filteredSensors.isEmpty()) {
-                // get priorities from user input
-                final List<ArchitectureOptionAttribute> commPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(commWeightingChoice,
-                        DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredComms));
-                final List<ArchitectureOptionAttribute> sensorPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(sensorWeightingChoice,
-                        DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredSensors));
-                final List<ArchitectureOptionAttribute> platformPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(platformWeightingChoice,
-                        DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredPlatforms));
-
-                // optimate
-                final IDisasterResponseTradeStudyOptimator optimator = new AHPOptimator();
-                final List<DRTSArchitectureResult> results = optimator.generateOptimizedArchitectures(filteredPlatforms,
-                        filteredSensors, filteredComms, platformPriorities, sensorPriorities, commPriorities);
-
-                // sanity check
-                final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
-                final List<DRTSArchitectureResult> finalResults = sanity.selectFinalArchitecture(results);
-                LOGGER.info(finalResults.size() + " final results returned");
-
-                final DRTSArchitectureResult topResult = finalResults.get(0);
-                LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
-
-                // write file
-                final DisasterResponseTradeStudyOutputer outputter = new DisasterResponseTradeStudyOutputer();
-
-                try {
-                    final Path resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects);
-                    if (null != resultFile) {
-                        LOGGER.info("Architecture Results writen to file: " + resultFile.toAbsolutePath());
-                        fileName = resultFile.getFileName().toString();
-                        try {
-                            if (Desktop.isDesktopSupported()) {
-                                final File file = resultFile.toFile();
-                                if (file.exists() && file.canRead()) {
-                                    Desktop.getDesktop().open(file);
-                                } else {
-                                    LOGGER.error("Cannot open result file at path: " + resultFile.toString());
-                                }
-                            } else {
-                                LOGGER.warn("Computer does not support Desktop to open files.");
-                            }
-                        } catch (IOException ex) {
-                            LOGGER.warn("Could not open created file in Desktop", ex);
-                        }
-                    } else {
-                        LOGGER.error("Results file was not created.");
-                    }
-                } catch (IOException | InvalidFormatException ex) {
-                    LOGGER.error("Cannot write architecture results out.", ex);
-                }
+                // get results            
+                finalResults = this.getFinalResults();
             } else {
-                LOGGER.warn("No valid architectures found for selections.");
+                LOGGER.warn("Not all required user inputs specified. Cannot create architectures.");
             }
+
+            // create output file
+            this.createAndOpenOutputFile(finalResults);
         } catch (Throwable t) {
             LOGGER.error("Found an exception while trying to calculate result: ", t);
         }
+    }
 
-        return fileName;
+    /**
+     * Gets the final results if possible. If no results are found, returns
+     * null.
+     *
+     * @return The found final results or null if none found
+     */
+    private List<DRTSArchitectureResult> getFinalResults() {
+        List<DRTSArchitectureResult> finalResults = null;
+
+        // filter results
+        final IDisasterResponseTradeStudyFilterer filterer = new DRTSFilterer();
+        final List<PlatformOption> filteredPlatforms = filterer.filterPlatforms(selectedDisasterEffects, selectedTerrainEffects, loadedPlatformOptions);
+        final List<CommunicationOption> filteredComms = filterer.filterCommunications(selectedDisasterEffects, selectedTerrainEffects, loadedCommOptions);
+        final List<SensorOption> filteredSensors = filterer.filterSensors(selectedDisasterEffects, selectedTerrainEffects, loadedSensorOptions);
+
+        LOGGER.debug("Platforms Reamining after Filter: " + filteredPlatforms.size());
+        LOGGER.debug("Communications Reamining after Filter: " + filteredComms.size());
+        LOGGER.debug("Sensors Reamining after Filter: " + filteredSensors.size());
+
+        if (!filteredComms.isEmpty() && !filteredPlatforms.isEmpty() && !filteredSensors.isEmpty()) {
+            // get priorities from user input
+            final List<ArchitectureOptionAttribute> commPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(commWeightingChoice,
+                    DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredComms));
+            final List<ArchitectureOptionAttribute> sensorPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(sensorWeightingChoice,
+                    DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredSensors));
+            final List<ArchitectureOptionAttribute> platformPriorities = PrioritizationUtil.getPriorityWeightingsForAttributes(platformWeightingChoice,
+                    DisasterResponseTradeStudySingleton.getPrioritizationAttributess(filteredPlatforms));
+
+            // optimate
+            final IDisasterResponseTradeStudyOptimator optimator = new AHPOptimator();
+            final List<DRTSArchitectureResult> results = optimator.generateOptimizedArchitectures(filteredPlatforms,
+                    filteredSensors, filteredComms, platformPriorities, sensorPriorities, commPriorities);
+
+            if (!results.isEmpty()) {
+                // sanity check
+                final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
+
+                finalResults = sanity.selectFinalArchitecture(results);
+                LOGGER.info(finalResults.size() + " final architecture results returned");
+
+                final DRTSArchitectureResult topResult = finalResults.get(0);
+                LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+            } else {
+                LOGGER.warn("No valid architectures found after optimator.");
+            }
+        } else {
+            LOGGER.warn("No valid architectures found for selections.");
+        }
+
+        return finalResults;
+    }
+
+    /**
+     * Creates and opens the output file
+     *
+     * @param finalResults the final results
+     */
+    private void createAndOpenOutputFile(final List<DRTSArchitectureResult> finalResults) {
+        // write file
+        final DisasterResponseTradeStudyOutputer outputter = new DisasterResponseTradeStudyOutputer();
+
+        try {
+            final Path resultFile = outputter.createOutputFile(finalResults, selectedDisasterEffects, selectedTerrainEffects);
+            if (null != resultFile) {
+                LOGGER.info("Architecture Results writen to file: " + resultFile.toAbsolutePath());
+                try {
+                    if (Desktop.isDesktopSupported()) {
+                        final File file = resultFile.toFile();
+                        if (file.exists() && file.canRead()) {
+                            Desktop.getDesktop().open(file);
+                        } else {
+                            LOGGER.error("Cannot open result file at path: " + resultFile.toString());
+                        }
+                    } else {
+                        LOGGER.warn("Computer does not support Desktop to open files.");
+                    }
+                } catch (IOException ex) {
+                    LOGGER.warn("Could not open created file in Desktop", ex);
+                }
+            } else {
+                LOGGER.error("Results file was not created.");
+            }
+        } catch (IOException | InvalidFormatException ex) {
+            LOGGER.error("Cannot write architecture results out.", ex);
+        }
     }
 
     /**
