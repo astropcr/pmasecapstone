@@ -10,7 +10,7 @@
 <project name="DisasterResponseTradeStudy" default="default" basedir="." >
     <description>Builds, tests, and runs the project DisasterResponseTradeStudy.</description>
     <import file="nbproject/build-impl.xml"/>
-    <property name="version" value="0.5.3"/>
+    <property name="version" value="0.5.4"/>
             
     <!--
     There exist several targets which are by default empty and which can be 
