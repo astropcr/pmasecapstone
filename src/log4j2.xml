@@ -27,28 +27,27 @@ THE SOFTWARE.
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
         </Console>
-        <File name="FileAppender" fileName="disasterTradeStudyLog.log">
+        <RollingFile name="RollingFileAppender" fileName="disasterTradeStudyLog.log"
+                     filePattern="disasterTradeStudyLog-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
-        </File>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="5 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
     </Appenders>
-
+    
     <Loggers>
-        <Logger name="edu" level="debug"  additivity="false">
-            <AppenderRef ref="ConsoleAppender"/>
-        </Logger>
-        <Logger name="com" level="debug"  additivity="false">
-            <AppenderRef ref="ConsoleAppender"/>
-        </Logger>
         <Logger name="edu.gatech.pmase.capstone.awesome" level="error"  additivity="false">
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
         <Logger name="edu.gatech.pmase.capstone.awesome" level="trace"  additivity="false">
-            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="RollingFileAppender"/>
         </Logger>
-        
+       
         <Root level="error">
             <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="FileAppender"/>
+            <AppenderRef ref="RollingFileAppender"/>
         </Root>
     </Loggers>
 </Configuration>
