@@ -55,5 +55,9 @@ THE SOFTWARE.
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
         <dependency org="org.controlsfx" name="controlsfx" rev="8.40.10"/>
+        <!-- https://mvnrepository.com/artifact/ant-contrib/ant-contrib -->
+        <dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" > 
+                        <artifact name="ant-contrib" type="jar"/>
+        </dependency>
     </dependencies>
 </ivy-module>
