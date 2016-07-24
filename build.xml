@@ -10,11 +10,11 @@
 <project name="DisasterResponseTradeStudy" default="default" basedir="." >
     <description>Builds, tests, and runs the project DisasterResponseTradeStudy.</description>
     <import file="nbproject/build-impl.xml"/>
-            
+
     <!--
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
+    There exist several targets which are by default empty and which can be
+    used for execution of your tasks. These targets are usually executed
+    before and after some main targets. They are:
 
       -pre-init:                 called before initialization of project properties
       -post-init:                called after initialization of project properties
@@ -40,19 +40,19 @@
             </obfuscate>
         </target>
 
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
+    For list of available properties check the imported
+    nbproject/build-impl.xml file.
 
 
     Another way to customize the build is by overriding existing main targets.
-    The targets of interest are: 
+    The targets of interest are:
 
       -init-macrodef-javac:     defines macro for javac compilation
       -init-macrodef-junit:     defines macro for junit execution
       -init-macrodef-debug:     defines macro for class debugging
       -init-macrodef-java:      defines macro for class execution
       -do-jar:                  JAR building
-      run:                      execution of project 
+      run:                      execution of project
       -javadoc-build:           Javadoc generation
       test-report:              JUnit report generation
 
@@ -64,33 +64,33 @@
             </exec>
         </target>
 
-    Notice that the overridden target depends on the jar target and not only on 
-    the compile target as the regular run target does. Again, for a list of available 
+    Notice that the overridden target depends on the jar target and not only on
+    the compile target as the regular run target does. Again, for a list of available
     properties which you can use, check the target you are overriding in the
-    nbproject/build-impl.xml file. 
-    -->  
-    
+    nbproject/build-impl.xml file.
+    -->
+
     <!-- Team Awesome Defined -->
-        
+
     <!-- Project Version -->
-    <property name="version" value="0.7.0"/>
+    <property name="version" value="0.7.1"/>
 
     <!-- Directory the Libaries are put by Ivy -->
     <property name="lib.dir" location="lib" />
-    
+
     <!-- Name of the manifest file -->
     <property name="manifest.file" value="MANIFEST.MF" />
-    
-        <!-- Name of the user manual file -->
+
+    <!-- Name of the user manual file -->
     <property name="manual.file" value="TeamAwesome_DRTST_User_Guide_v1.docx" />
-    
+
     <!-- Location of the Executable Builder program -->
     <property name="exeBuilder.dir" location="includes" />
-    
+
     <!-- Location where Executable Builder Binaries should be temp put -->
-    <property name="launch4j.dir" location="${exeBuilder.dir}/launch4j" />  
-    
-    <!-- 
+    <property name="launch4j.dir" location="${exeBuilder.dir}/launch4j" />
+
+    <!--
     Sets up and hooks in Ivy to run and grab dependency libraries defined in ivy.xml
     -->
     <taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/>
@@ -106,12 +106,12 @@
             <entry operation="=" key="ivy.classpath" value="${ivy.classpath.computed}"/>
         </propertyfile>
     </target>
-    
+
     <target name="-pre-compile" depends="-ivy-retrieve"/>
-    
+
     <target name="-pre-compile-single" depends="-ivy-retrieve"/>
     <!-- End Ivy Config -->
-   
+
     <!-- Performs Cleanup -->
     <target name="-post-clean">
         <delete dir="${lib.dir}"/>
@@ -119,83 +119,83 @@
         <delete dir="${launch4j.dir}"/>
         <delete dir="${dist.dir}" includes="*.zip" />
     </target>
-    
-  
-    
+
+
+
     <!-- Creates property to reference and load the properties file -->
     <property name="prop.file" value="disasterResponseTradeStudy.properties" />
     <property file="${prop.file}"/>
-          
+
     <!-- Called in build before jar is made, see above note -->
     <target name="-pre-jar">
         <buildnumber file="build.num"/>
-        
+
         <!-- Copies workbooks from project root into dist folder -->
         <copy todir="${dist.dir}${file.separator}${workbook.dir}">
             <fileset dir="${workbook.dir}"/>
         </copy>
-        
+
         <!-- Copies result templater from project root into dist folder -->
         <copy todir="${dist.dir}${file.separator}${result.dir}">
             <fileset dir="${result.dir}"/>
         </copy>
-        
+
         <!-- Copies properties file to dist folder -->
         <copy todir="${dist.dir}" file="${prop.file}"/>
-        
+
         <!-- Update Manifest File -->
         <manifest file="${manifest.file}">
             <attribute name="Implementation-Version" value="${version}.${build.number}"/>
         </manifest>
-        
+
         <!-- Copy Manifest file -->
         <copy todir="${dist.dir}" file="${manifest.file}"/>
-        
+
         <!-- Copy User Manual -->
         <copy todir="${dist.dir}" file="${exeBuilder.dir}/${manual.file}"/>
-        
+
         <!-- Delete Manifest File -->
         <delete file="${manifest.file}" />
     </target>
-        
+
 
     <!-- Creates the .exe file with Launch4j: http://launch4j.sourceforge.net/docs.html#Ant_task -->
     <target name="-post-jfx-jar">
         <!-- Unzips the Launch4j folder to run the program -->
         <unzip src="${exeBuilder.dir}/launch4j.zip" dest="${exeBuilder.dir}"/>
-               
+
         <!-- Createst the task definition -->
         <taskdef name="launch4j"
                  classname="net.sf.launch4j.ant.Launch4jTask"
                  classpath="${launch4j.dir}/launch4j.jar:${launch4j.dir}/xstream.jar" />
-        
+
         <!-- Runs Launch4j to create the .exe -->
         <launch4j configFile="${exeBuilder.dir}/dstr.xml" />
-        
+
         <!-- Load the Property Regex Task -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties">
             <classpath>
                 <pathelement location="${lib.dir}/ant-contrib-1.0b3.jar"/>
             </classpath>
         </taskdef>
-        
+
         <!-- Create a Filename Safe Version of the Project Version -->
         <propertyregex property="safeVersion"
                        input="${version}"
                        regexp="\."
                        replace="-"
-                       global="true" />   
-        
+                       global="true" />
+
         <!-- Delete any exisiting zips -->
         <delete dir="${dist.dir}" includes="*.zip" />
-        
+
         <!-- Zip the Project into a Zip File -->
         <zip destfile="${dist.dir}/DRTST-v${safeVersion}.zip"
              basedir="${dist.dir}"
              update="true"
              excludes="**/DRTS-Results-*"   />
     </target>
-    
+
     <!-- Deletes the Launch4j folder and zips the results up-->
     <target name="-post-jfx-deploy">
         <!-- Delete created temp dir -->
