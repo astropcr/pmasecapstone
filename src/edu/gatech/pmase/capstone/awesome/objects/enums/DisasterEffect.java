@@ -54,7 +54,7 @@ public enum DisasterEffect {
     /**
      *
      */
-    GROUND_INSTABILITY("Gound Instability", 5),
+    GROUND_INSTABILITY("Ground Instability", 5),
     /**
      *
      */

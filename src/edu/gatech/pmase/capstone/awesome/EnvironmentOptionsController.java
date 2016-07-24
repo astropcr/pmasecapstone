@@ -122,11 +122,12 @@ public class EnvironmentOptionsController implements ControlledScreen,
             this.goToMain(event);
 
             // Clear the warning from the label text
-            this.questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
+            questionLabel.textProperty().setValue(envOpt + STR_QUESTION);
             questionLabel.getStyleClass().add("questionOnPanel");
             questionLabel.getStyleClass().remove("warning");
         } else {
-            this.questionLabel.textProperty().setValue(STR_WARNING);// inform the user!!!
+            // inform the user!!!
+            questionLabel.textProperty().setValue(STR_WARNING);
             questionLabel.getStyleClass().remove("questionOnPanel");
             questionLabel.getStyleClass().add("warning");
         }

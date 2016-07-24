@@ -27,6 +27,9 @@ import edu.gatech.pmase.capstone.awesome.GUIToolBox.ControlledScreen;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.EffectsOptionsPanel;
 import edu.gatech.pmase.capstone.awesome.GUIToolBox.ScreensController;
 import edu.gatech.pmase.capstone.awesome.impl.DisasterResponseTradeStudySingleton;
+import edu.gatech.pmase.capstone.awesome.objects.enums.DisasterEffect;
+import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,7 +47,7 @@ public class DisasterEffectOptionsController implements ControlledScreen {
     @FXML
     private EffectsOptionsPanel eopDisasterEffects;
     @FXML
-    private Label lblDisasterEffects;
+    private Label titleLabel;
     @FXML
     private Button btnDepClose;
 
@@ -54,12 +57,16 @@ public class DisasterEffectOptionsController implements ControlledScreen {
     private DisasterResponseTradeStudySingleton DRTSS;
     private DRTSGUIModel DRTSGM;
 
+    private static final String STR_QUESTION = "Select all disaster effects that apply.";
+    private static final String STR_WARNING = "(Please select at least one option)";
+
     /**
      * Initializes some things.
      */
     public void initialize() {
-        this.eopDisasterEffects.setQuestion(
-                "Select all disaster effects that apply.");
+        this.eopDisasterEffects.setQuestion("");
+        titleLabel.textProperty().setValue(STR_QUESTION); // use this label instead of the control's label
+
         DRTSGM = DRTSGUIModel.getInstance();
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
     }
@@ -72,19 +79,44 @@ public class DisasterEffectOptionsController implements ControlledScreen {
      */
     @FXML
     private void doneButtonClicked(ActionEvent event) {
-        // Update the model
-        DRTSGM.setDisasterEffectHasBeenSelected(true);
-        DRTSS.setSelectedDisasterEffects(
-                eopDisasterEffects.getSelectionList()
-        );
 
-        // Update the view
-        DRTSGM.updateDisasterEffectsStatus(
-                eopDisasterEffects.getSelectionStringized()
-        );
+        List<DisasterEffect> selectedDisasterEffects = FXCollections.
+                observableArrayList();
+        selectedDisasterEffects = eopDisasterEffects.getSelectionList();
 
-        // Now switch the window
-        goToMain(event);
+        // -----------------------------------------------------------------
+        // If a selection has been made, update the MVC and switch back to main
+        // -----------------------------------------------------------------
+        if (!selectedDisasterEffects.isEmpty()) {
+            // .................................................................
+            // Inform the user
+            // .................................................................
+            titleLabel.textProperty().setValue(STR_QUESTION);
+            titleLabel.getStyleClass().add("questionOnPanel");
+            titleLabel.getStyleClass().remove("warning");
+            // .................................................................
+            // Update the model
+            // .................................................................
+            DRTSGM.setDisasterEffectHasBeenSelected(true);
+            DRTSS.setSelectedDisasterEffects(selectedDisasterEffects);
+
+            // .................................................................
+            // Update the view
+            // .................................................................
+            DRTSGM.updateDisasterEffectsStatus(
+                    eopDisasterEffects.getSelectionStringized()
+            );
+
+            // Now switch the window
+            goToMain(event);
+        } // -----------------------------------------------------------------
+        // Inform the user of an error
+        // -----------------------------------------------------------------
+        else {
+            titleLabel.textProperty().setValue(STR_WARNING);
+            titleLabel.getStyleClass().add("warning");
+            titleLabel.getStyleClass().remove("questionOnPanel");
+        }
     }
 
     // -------------------------------------------------------------------------
