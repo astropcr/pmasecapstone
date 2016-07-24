@@ -32,12 +32,12 @@ THE SOFTWARE.
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root id="EffectsOptPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="760.0" styleClass="effectsOptionPanel" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root id="EffectsOptPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="760.0" styleClass="effectsOptionPanel" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@guitoolbox.css" />
     </stylesheets>
     <children>
-        <BorderPane fx:id="bpMain" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="760.0" styleClass="effectOptionPanel">
+        <BorderPane fx:id="bpMain" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="700.0" prefWidth="760.0" styleClass="effectOptionPanel">
             <top>
                 <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="600.0" styleClass="titleLabel" text="Label" BorderPane.alignment="CENTER" />
             </top>

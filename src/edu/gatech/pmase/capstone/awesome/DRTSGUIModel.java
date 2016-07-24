@@ -53,6 +53,7 @@ public class DRTSGUIModel {
             getLogger(DRTSGUIModel.class);
 
     private final static DRTSGUIModel instance = new DRTSGUIModel();
+    private static MainWindowController mainWindow;
 
     // -------------------------------------------------------------------------
     // Collections of Enumeration to GUI Objects (both views and controllers)
@@ -79,6 +80,18 @@ public class DRTSGUIModel {
      */
     public static DRTSGUIModel getInstance() {
         return instance;
+    }
+
+    // -------------------------------------------------------------------------
+    // Main Window
+    // -------------------------------------------------------------------------
+    /**
+     * Set's the main window's instance. Will be used for firing events.
+     *
+     * @param mwc
+     */
+    public void setDisasterEffectsStatus(MainWindowController mwc) {
+        this.mainWindow = mwc;
     }
 
     // -------------------------------------------------------------------------

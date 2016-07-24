@@ -37,6 +37,7 @@ import edu.gatech.pmase.capstone.awesome.objects.enums.WeightingAreasOfConcern;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -117,6 +118,7 @@ public class MainWindowController implements Initializable,
 
     @FXML
     private Tooltip ttCalculateStatus;
+    private SimpleStringProperty calculateButtonStatus;
 
     private DisasterResponseTradeStudySingleton DRTSS;
     private DRTSGUIModel DRTSGM;
@@ -129,6 +131,13 @@ public class MainWindowController implements Initializable,
 
         DRTSS = DisasterResponseTradeStudySingleton.getInstance();
         DRTSGM = DRTSGUIModel.getInstance();
+
+        // ---------------------------------------------------------------------
+        // Initialize toolTipCalculateButtonStatus properties and bind them
+        // where necessary.
+        // ---------------------------------------------------------------------
+        calculateButtonStatus = new SimpleStringProperty("");
+        ttCalculateStatus.textProperty().bind(calculateButtonStatusProperty());
 
         // ---------------------------------------------------------------------
         // Attach event handlers not attached by FXML controller
@@ -269,14 +278,15 @@ public class MainWindowController implements Initializable,
      */
     private void setCalculateButtonMode() {
         if (determineIfAllSelectionsHaveBeenMade()) {
-            ttCalculateStatus.setText("Please select a value for all options!");
+            this.setCalculateButtonStatus(
+                    "Please select a value for all options!");
 
             this.btnCalculate.getStyleClass().
                     remove("calculationButtonNotReady");
             this.btnCalculate.getStyleClass().add("calculationButtonReady");
 
         } else {
-            ttCalculateStatus.setText("Ready to calculate!");
+            this.setCalculateButtonStatus("Ready to calculate!");
 
             this.btnCalculate.getStyleClass().remove("calculationButtonReady");
             this.btnCalculate.getStyleClass().add("calculationButtonNotReady");
@@ -369,6 +379,33 @@ public class MainWindowController implements Initializable,
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
+    }
+
+    // -------------------------------------------------------------------------
+    //                            Properties
+    // -------------------------------------------------------------------------
+    /**
+     *
+     * @return
+     */
+    public String getCalculateButtonStatus() {
+        return calculateButtonStatusProperty().get();
+    }
+
+    /**
+     *
+     * @param fName
+     */
+    public void setCalculateButtonStatus(String fName) {
+        calculateButtonStatusProperty().set(fName);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public SimpleStringProperty calculateButtonStatusProperty() {
+        return calculateButtonStatus;
     }
 
     /**

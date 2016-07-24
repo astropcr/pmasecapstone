@@ -163,7 +163,8 @@ public class DisasterResponseTradeStudy extends Application {
         mainStage = primaryStage;
 
         primaryStage.setTitle(
-                "Disaster Response Trade Study Tool (loading...please standby)");
+                "Disaster Response Trade Study Tool");
+        // (loading...please standby)");
         primaryStage.setScene(scene);
 
         primaryStage.getIcons().add(

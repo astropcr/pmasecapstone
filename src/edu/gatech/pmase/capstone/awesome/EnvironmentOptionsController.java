@@ -65,7 +65,7 @@ public class EnvironmentOptionsController implements ControlledScreen,
 
     private ObservableList<TerrainEffect> tempObsList;
 
-    private static final String STR_QUESTION = " is defined as follow (choose most appropriate value):";
+    private static final String STR_QUESTION = " is defined as (choose most appropriate value):";
     private static final String STR_WARNING = "(Please select an option before continuing)";
     private String envOpt = "";
 
@@ -79,11 +79,9 @@ public class EnvironmentOptionsController implements ControlledScreen,
         tg = new ToggleGroup();
         DRTSGM = DRTSGUIModel.getInstance();
 
-
     }
 
     void setupEnvOpts(String envOpt) {
-
 
         List<TerrainEffect> envOptList = TerrainEffect.getEffectByLabel(envOpt);
         this.envOpt = envOpt;
