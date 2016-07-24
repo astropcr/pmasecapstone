@@ -23,16 +23,16 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
-import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
-import edu.gatech.pmase.capstone.awesome.impl.output.DisasterResponseTradeStudyOutputer;
-import edu.gatech.pmase.capstone.awesome.impl.finalSelector.DRTSSanityFilter;
-import edu.gatech.pmase.capstone.awesome.impl.filterer.IDisasterResponseTradeStudyFilterer;
-import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseTradeStudyFinalSelector;
-import edu.gatech.pmase.capstone.awesome.impl.ahp.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.ahp.AHPOptimator;
+import edu.gatech.pmase.capstone.awesome.impl.ahp.IDisasterResponseTradeStudyOptimator;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.SensorsDatabaseDriver;
+import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
+import edu.gatech.pmase.capstone.awesome.impl.filterer.IDisasterResponseTradeStudyFilterer;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.DRTSSanityFilter;
+import edu.gatech.pmase.capstone.awesome.impl.finalSelector.IDisasterResponseTradeStudyFinalSelector;
+import edu.gatech.pmase.capstone.awesome.impl.output.DisasterResponseTradeStudyOutputer;
 import edu.gatech.pmase.capstone.awesome.objects.AbstractArchitectureOption;
 import edu.gatech.pmase.capstone.awesome.objects.ArchitectureOptionAttribute;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
@@ -253,12 +253,15 @@ public class DisasterResponseTradeStudySingleton {
             if (!results.isEmpty()) {
                 // sanity check
                 final IDisasterResponseTradeStudyFinalSelector sanity = new DRTSSanityFilter();
-
                 finalResults = sanity.selectFinalArchitecture(results);
-                LOGGER.info(finalResults.size() + " final architecture results returned");
 
-                final DRTSArchitectureResult topResult = finalResults.get(0);
-                LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+                if (finalResults.isEmpty()) {
+                    LOGGER.info("No architecture results found after sanity filter.");
+                } else {
+                    LOGGER.info(finalResults.size() + " final architecture results returned");
+                    final DRTSArchitectureResult topResult = finalResults.get(0);
+                    LOGGER.info("Final Architecture Selected with a score of: " + topResult.getTotalScore() + ": " + topResult.toString());
+                }
             } else {
                 LOGGER.warn("No valid architectures found after optimator.");
             }
