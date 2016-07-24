@@ -42,7 +42,7 @@ public class PlatformDatabaseDriverTest {
         final List<PlatformOption> result = instance.
                 getPlatformOptionsFromDatabase();
 
-        assertEquals(14, result.size());
+        assertEquals(15, result.size());
     }
 
 }

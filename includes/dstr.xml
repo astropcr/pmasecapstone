@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>\..\dist\DisasterResponseTradeStudy.jar</jar>
+  <outfile>\..\dist\Disaster-Response-Trade-Study-Tool.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest>Disaster-Response-Trade-Study-Tool.manifest</manifest>
+  <icon>icon.ico</icon>
+  <singleInstance>
+    <mutexName>DRTST</mutexName>
+    <windowTitle>Disaster Response Trade Study Tool</windowTitle>
+  </singleInstance>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.8.0</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJre</jdkPreference>
+    <runtimeBits>64/32</runtimeBits>
+  </jre>
+  <splash>
+    <file>splash.bmp</file>
+    <waitForWindow>true</waitForWindow>
+    <timeout>30</timeout>
+    <timeoutErr>true</timeoutErr>
+  </splash>
+  <versionInfo>
+    <fileVersion>0.5.2.0</fileVersion>
+    <txtFileVersion>v0.5.2.0</txtFileVersion>
+    <fileDescription>Disaster Response Trade Study Tool</fileDescription>
+    <copyright>Copyright 2016 Georgia Tech PMASE 2014 Cohort Team Awesome</copyright>
+    <productVersion>0.6.2.0</productVersion>
+    <txtProductVersion>v0.6.2.0</txtProductVersion>
+    <productName>Disaster Response Trade Study Tool</productName>
+    <companyName>Team Awesome</companyName>
+    <internalName>DRTST</internalName>
+    <originalFilename>Disaster-Response-Trade-Study-Tool.exe</originalFilename>
+    <trademarks></trademarks>
+    <language>ENGLISH_US</language>
+  </versionInfo>
+</launch4jConfig>

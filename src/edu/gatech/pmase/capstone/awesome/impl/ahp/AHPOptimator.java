@@ -56,7 +56,7 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
      */
     private static final Logger LOGGER = LogManager.
             getLogger(AHPOptimator.class);
-    
+
     @Override
     public List<DRTSArchitectureResult> generateOptimizedArchitectures(
             List<PlatformOption> platformOptions,
@@ -75,7 +75,7 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
                 sensorPrioritizes);
         commOptions = compOptimator.generateOptimizedOption(commOptions,
                 commPrioritizes);
-        
+
         LOGGER.info(
                 "Creating architecture combinations from: " + platformOptions.
                 size() + " platforms, "
@@ -93,7 +93,7 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
                         get(COMM_INDEX))).
                 sorted().
                 collect(Collectors.toList());
-        
+
         if (LOGGER.isTraceEnabled()) {
             int count = 0;
             for (final DRTSArchitectureResult arch : results) {
@@ -104,10 +104,19 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
                         .append("\nArch Score: ")
                         .append(arch.getTotalScore())
                         .append("\nPlatform: ")
+                        .append("score: ")
+                        .append(arch.getPlatform().getScore())
+                        .append(" = ")
                         .append(arch.getPlatform().getPrioritizationAttributess().toString())
                         .append("\nComms: ")
+                        .append("score: ")
+                        .append(arch.getComms().getScore())
+                        .append(" = ")
                         .append(arch.getComms().getPrioritizationAttributess().toString())
                         .append("\nSensors: ")
+                        .append("score: ")
+                        .append(arch.getSensor().getScore())
+                        .append(" = ")
                         .append(arch.getSensor().getPrioritizationAttributess().toString());
                 LOGGER.trace(sb.toString());
             }
@@ -118,5 +127,5 @@ public class AHPOptimator implements IDisasterResponseTradeStudyOptimator {
         LOGGER.info("Created " + results.size() + " architecture combinations.");
         return results;
     }
-    
+
 }

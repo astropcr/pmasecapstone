@@ -82,7 +82,7 @@ public class CommunicationsDatabaseDriverTest {
         List<CommunicationOption> result = instance.getCommOptionsFromDatabase(
                 platformOptions);
 
-        assertEquals(9, result.size());
+        assertEquals(10, result.size());
 
     }
 

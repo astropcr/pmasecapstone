@@ -47,13 +47,13 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
      */
     private static final Logger LOGGER = LogManager.getLogger(
             ComponentAHPOptimator.class);
-    
+
     @Override
     public <T extends AbstractArchitectureOption> List generateOptimizedOption(
             final List<T> options,
             final List<ArchitectureOptionAttribute> prioritizes) {
         final List<T> optionResults = new ArrayList<>(options.size());
-        
+
         LOGGER.
                 debug("Will prioritize on " + prioritizes.size() + " attributes.");
         // create mapping of attribute to priority
@@ -88,7 +88,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
                                 attrMinAndMax.get(attr.
                                         getLabel()),
                                 priorityMap);
-                
+
                 if (null != value) {
                     attr.setValue(value);
                     attr.setType(Double.class);
@@ -103,13 +103,18 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
                 entrySet()) {
             final T option = entry.getKey();
             option.setScore(entry.getValue().stream().collect(Collectors.
-                    summingDouble(attr -> attr.getPriority())));
-            
+                    summingDouble(attr -> (Double) attr.getValue())));
             optionResults.add(option);
         }
 
         // sort by score
         Collections.sort(optionResults);
+
+        if (LOGGER.isDebugEnabled()) {
+            optionResults.forEach(option -> {
+                LOGGER.trace("Option:: " + option.getLabel() + " has score: " + Double.toString(option.getScore()));
+            });
+        }
 
         // return list of option
         return optionResults;
@@ -138,7 +143,10 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
 
             // flip if sorting decrees
             if (SortOrderEnum.ASCENDING == attr.getSorting()) {
+                LOGGER.trace("Attr: " + attr.getLabel() + " is sorted " + SortOrderEnum.ASCENDING.name() + ". Inverting value");
                 newValue = (1 - newValue);
+            } else {
+                LOGGER.trace("Attr: " + attr.getLabel() + " is sorted " + SortOrderEnum.DESCENDING.name());
             }
 
             // prioritize value
@@ -146,16 +154,16 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             LOGGER.trace(
                     attr.getLabel() + " priority is: " + pri);
             attr.setPriority(pri);
-            
+
             newValue = (newValue * pri);
-            
+
             LOGGER.debug(
                     attr.getLabel() + " scored: " + value + " to " + newValue);
             return newValue;
         } else {
             return value;
         }
-        
+
     }
 
     /**
@@ -171,28 +179,28 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
     private static Map<String, Double[]> getMinAndMaxOfEachColumn(
             final Collection<List<ArchitectureOptionAttribute>> optionAttributes) {
         final Map<String, Double[]> attributeMinAndMax = new HashMap<>();
-        
+
         for (final List<ArchitectureOptionAttribute> optionAttr : optionAttributes) {
             for (final ArchitectureOptionAttribute attr : optionAttr) {
                 final String key = attr.getLabel();
-                
+
                 final Double value = ArchitectureOptionAttribute.
                         getAttributeNumericalValue(attr);
                 if (null != value) {
-                    
+
                     Double[] minAndMax = attributeMinAndMax.get(key);
                     if (null == minAndMax || minAndMax.length < 2) {
                         minAndMax = new Double[]{Double.MAX_VALUE, Double.MIN_VALUE};
                     }
-                    
+
                     if (value < minAndMax[0]) {
                         minAndMax[0] = value;
                     }
-                    
+
                     if (value > minAndMax[1]) {
                         minAndMax[1] = value;
                     }
-                    
+
                     attributeMinAndMax.put(key, minAndMax);
                 } else {
                     LOGGER.warn(
@@ -200,7 +208,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
                 }
             }
         }
-        
+
         if (LOGGER.isTraceEnabled()) {
             final StringBuilder sb = new StringBuilder();
             attributeMinAndMax.entrySet().stream().forEach((entry) -> {
@@ -210,7 +218,7 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
             });
             LOGGER.trace("Attribute Min and Max:" + sb.toString());
         }
-        
+
         return attributeMinAndMax;
     }
 
@@ -230,13 +238,13 @@ public class ComponentAHPOptimator implements IDisasterResponseTradeStudyCompone
         double normalValue = 0;
         final double bottom = (attrMinAndMax[1] - attrMinAndMax[0]);
         final double top = (origValue - attrMinAndMax[0]);
-        
+
         if (bottom != 0) {
             normalValue = (top / bottom);
         }
-        
+
         LOGGER.trace("Normalized " + origValue + " to " + normalValue);
         return normalValue;
     }
-    
+
 }

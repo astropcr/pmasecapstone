@@ -31,7 +31,7 @@ THE SOFTWARE.
                      filePattern="disasterTradeStudyLog-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="5 MB" />
+                <SizeBasedTriggeringPolicy size="50 MB" />
             </Policies>
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>

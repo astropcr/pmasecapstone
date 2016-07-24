@@ -58,6 +58,7 @@ THE SOFTWARE.
         <!-- https://mvnrepository.com/artifact/ant-contrib/ant-contrib -->
         <dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" > 
                         <artifact name="ant-contrib" type="jar"/>
+                        <exclude module="ant"/>
         </dependency>
     </dependencies>
 </ivy-module>

@@ -73,7 +73,7 @@
     <!-- Team Awesome Defined -->
         
     <!-- Project Version -->
-    <property name="version" value="0.6.3"/>
+    <property name="version" value="0.7.0"/>
 
     <!-- Directory the Libaries are put by Ivy -->
     <property name="lib.dir" location="lib" />
@@ -81,8 +81,11 @@
     <!-- Name of the manifest file -->
     <property name="manifest.file" value="MANIFEST.MF" />
     
+        <!-- Name of the user manual file -->
+    <property name="manual.file" value="TeamAwesome_DRTST_User_Guide_v1.docx" />
+    
     <!-- Location of the Executable Builder program -->
-    <property name="exeBuilder.dir" location="exeBuilder" />
+    <property name="exeBuilder.dir" location="includes" />
     
     <!-- Location where Executable Builder Binaries should be temp put -->
     <property name="launch4j.dir" location="${exeBuilder.dir}/launch4j" />  
@@ -107,13 +110,14 @@
     <target name="-pre-compile" depends="-ivy-retrieve"/>
     
     <target name="-pre-compile-single" depends="-ivy-retrieve"/>
-   <!-- End Ivy Config -->
+    <!-- End Ivy Config -->
    
-   <!-- Performs Cleanup -->
+    <!-- Performs Cleanup -->
     <target name="-post-clean">
         <delete dir="${lib.dir}"/>
         <delete dir="${result.dir}" includes="DRTS-Results-*" />
         <delete dir="${launch4j.dir}"/>
+        <delete dir="${dist.dir}" includes="*.zip" />
     </target>
     
   
@@ -147,6 +151,9 @@
         <!-- Copy Manifest file -->
         <copy todir="${dist.dir}" file="${manifest.file}"/>
         
+        <!-- Copy User Manual -->
+        <copy todir="${dist.dir}" file="${exeBuilder.dir}/${manual.file}"/>
+        
         <!-- Delete Manifest File -->
         <delete file="${manifest.file}" />
     </target>
@@ -164,12 +171,6 @@
         
         <!-- Runs Launch4j to create the .exe -->
         <launch4j configFile="${exeBuilder.dir}/dstr.xml" />
-    </target>
-    
-    <!-- Deletes the Launch4j folder and zips the results up-->
-    <target name="-post-jfx-deploy">
-        <!-- Delete created temp dir -->
-        <delete dir="${launch4j.dir}"/>
         
         <!-- Load the Property Regex Task -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties">
@@ -185,11 +186,20 @@
                        replace="-"
                        global="true" />   
         
+        <!-- Delete any exisiting zips -->
+        <delete dir="${dist.dir}" includes="*.zip" />
+        
         <!-- Zip the Project into a Zip File -->
         <zip destfile="${dist.dir}/DRTST-v${safeVersion}.zip"
              basedir="${dist.dir}"
              update="true"
              excludes="**/DRTS-Results-*"   />
+    </target>
+    
+    <!-- Deletes the Launch4j folder and zips the results up-->
+    <target name="-post-jfx-deploy">
+        <!-- Delete created temp dir -->
+        <delete dir="${launch4j.dir}"/>
     </target>
 
 </project>

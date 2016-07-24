@@ -83,7 +83,7 @@ public class SensorsDatabaseDriverTest {
         final List<SensorOption> result = instance.getSensorOptionsFromDatabase(
                 platformOptions);
 
-        assertEquals(8, result.size());
+        assertEquals(10, result.size());
     }
 
 }

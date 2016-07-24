@@ -23,10 +23,10 @@
  */
 package edu.gatech.pmase.capstone.awesome.impl;
 
-import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
 import edu.gatech.pmase.capstone.awesome.impl.database.CommunicationsDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.PlatformDatabaseDriver;
 import edu.gatech.pmase.capstone.awesome.impl.database.SensorsDatabaseDriver;
+import edu.gatech.pmase.capstone.awesome.impl.filterer.DRTSFilterer;
 import edu.gatech.pmase.capstone.awesome.objects.CommunicationOption;
 import edu.gatech.pmase.capstone.awesome.objects.PlatformOption;
 import edu.gatech.pmase.capstone.awesome.objects.SensorOption;
@@ -154,11 +154,11 @@ public class DisasterResponseTradeStudyFiltererTest {
         final List<CommunicationOption> results = instance.filterCommunications(
                 selectedDisasterEffects,
                 selectedTerrainEffects, loadedCommOptions);
-        assertEquals(2, results.size());
+        assertEquals(3, results.size());
 
         for (final CommunicationOption result : results) {
             final long id = result.getId();
-            if (id != 2L && id != 3L) {
+            if (id != 2L && id != 3L && id != 10L) {
                 fail("Filter did not work found id: " + id);
             }
         }
@@ -183,11 +183,11 @@ public class DisasterResponseTradeStudyFiltererTest {
         final List<SensorOption> results = instance.filterSensors(
                 selectedDisasterEffects, selectedTerrainEffects,
                 loadedSensorOptions);
-        assertEquals(3, results.size());
+        assertEquals(5, results.size());
 
         for (final SensorOption result : results) {
             final long id = result.getId();
-            if (id != 5L && id != 6L && id != 7L) {
+            if (id != 5L && id != 6L && id != 7L && id != 9L && id != 10L) {
                 fail("Filter did not work found id: " + id);
             }
         }
