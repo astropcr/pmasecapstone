@@ -153,7 +153,7 @@ public class WeightingOptionQuestion extends AnchorPane {
         rb2.setUserData(WeightingCategory.SIGNIFICANTLY_MORE.value);
         rb3.setUserData(WeightingCategory.EQUALLY.value);
         rb4.setUserData(WeightingCategory.SIGNIFICANTLY_LESS.value);
-        rb5.setUserData(WeightingCategory.SIGNIFICANTLY_MORE.value);
+        rb5.setUserData(WeightingCategory.EXTREMELY_LESS.value);
 
         // ---------------------------------------------------------------------
         // Now let's set up the question
