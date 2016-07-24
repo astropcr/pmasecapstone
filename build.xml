@@ -10,7 +10,8 @@
 <project name="DisasterResponseTradeStudy" default="default" basedir="." >
     <description>Builds, tests, and runs the project DisasterResponseTradeStudy.</description>
     <import file="nbproject/build-impl.xml"/>
-    <property name="version" value="0.6.1"/>
+    <property name="version" value="0.6.2"/>
+    <property name="manifest.file" value="MANIFEST.MF" />
             
     <!--
     There exist several targets which are by default empty and which can be 
@@ -77,7 +78,6 @@
     Sets up and hooks in Ivy to run and grab dependency libraries defined in ivy.xml
     -->
     <taskdef name="ivy-retrieve" classname="org.apache.ivy.ant.IvyRetrieve"/>
-    
     <target name="-ivy-retrieve">
         <ivy-retrieve/> <!-- Load dependencies to the project -->
         <pathconvert property="ivy.classpath.computed" dirsep="/" pathsep=":">
@@ -94,8 +94,10 @@
     <target name="-pre-compile-single" depends="-ivy-retrieve"/>
     <target name="-post-clean">
         <delete dir="lib"/>
+        <delete dir="${result.dir}" includes="DRTS-Results-*" />
     </target>
     <!-- End Ivy Config -->
+  
     
     <!-- Creates property to reference and load the properties file -->
     <property name="prop.file" value="disasterResponseTradeStudy.properties" />
@@ -118,9 +120,16 @@
         <!-- Copies properties file to dist folder -->
         <copy todir="${dist.dir}" file="${prop.file}"/>
         
-        <manifest file="MANIFEST.MF">
+        <!-- Update Manifest File -->
+        <manifest file="${manifest.file}">
             <attribute name="Implementation-Version" value="${version}.${build.number}"/>
         </manifest>
+        
+        <!-- Copy Manifest file -->
+        <copy todir="${dist.dir}" file="${manifest.file}"/>
+        
+        <!-- Delete Manifest File -->
+        <delete file="${manifest.file}" />
     </target>
 </project>
 <!-- End File Copying Config -->
