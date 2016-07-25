@@ -44,7 +44,7 @@ public enum WeightingCategory {
     /**
      *
      */
-    SIGNIFICANTLY_LESS(2, "Significantly Less Important", 0.5),
+    SIGNIFICANTLY_LESS(2, "Significantly Less Important", 0.2),
     /**
      *
      */
