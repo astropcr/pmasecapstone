@@ -73,7 +73,7 @@
     <!-- Team Awesome Defined -->
 
     <!-- Project Version -->
-    <property name="version" value="0.7.1"/>
+    <property name="version" value="0.7.2"/>
 
     <!-- Directory the Libaries are put by Ivy -->
     <property name="lib.dir" location="lib" />
