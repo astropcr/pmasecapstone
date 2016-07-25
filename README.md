@@ -51,6 +51,21 @@ Notes:
 - The Apache Ivy library must be added to the Apache Ant libary folder as per instructions here: https://ant.apache.org/ivy/history/latest-milestone/install.html
 - JavaFX comes in the Java JDK as per Java 8
 - The project Ant task is setup to build and run only with Netbeans.
+- The Ant version that comes with Netbeans IDE was used
+
+The DRTST is protected by the MIT License. More info about that license can be found here: https://opensource.org/licenses/MIT
+
+###Development
+DRTST uses the Apache Log4j2 libary for logging. Configuration is controlled in the log4j2.xml as per instructions here: https://logging.apache.org/log4j/2.x/manual/configuration.html
+
+Dependencies are managed via Apache Ivy the ivy.xml and ivysettings.xml file as per instructions here: https://ant.apache.org/ivy/history/latest-milestone/tutorial/dependence.html
+
+Build is managed via Apache Ant build.xml as configured here: https://ant.apache.org/manual/index.html
+
+When Ant Clean and Build target is run, Ant builds a Windows Application .exe file. This file is created via Launch4j which can be read about here: http://launch4j.sourceforge.net/
+
+The Clean and Build target also builds a .zip file in the distribution folder that contains everything needed to distribute DRTST to users. 
+
 
 
 
