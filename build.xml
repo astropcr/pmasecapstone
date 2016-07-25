@@ -82,7 +82,7 @@
     <property name="manifest.file" value="MANIFEST.MF" />
 
     <!-- Name of the user manual file -->
-    <property name="manual.file" value="TeamAwesome_DRTST_User_Guide_v1.docx" />
+    <property name="manual.file" value="TeamAwesome_DRTST_User_Guide_v1.pdf" />
 
     <!-- Location of the Executable Builder program -->
     <property name="exeBuilder.dir" location="includes" />
