@@ -10,7 +10,7 @@
 
 > Team Awesome
 
-##General Information
+##Using Disaster Response Trade Study Tool
 ###Purpose
 The Disaster Response Trade Study Tool (DRTST) is designed for use at a state/regional/federal level in order to make long term funding and acquisition decisions on the types of technology solutions to better prepare for disaster response. The use of the tool could be at a local level but will most likely be at the state or federal level, or its equivalents in foreign nations. The user inputs the types of disasters that concern them as well as information about the environment such as the population density, terrain, and transportation infrastructure. The tool will output a list of technology descriptions that best meet the user’s chosen inputs.
 
@@ -35,6 +35,22 @@ As stated above, the technology options databases are the key source of informat
 Extract the DRTST zip file and save the contents to the appropriate directory for your organization. The unzipped folder will contain contents as shown in Figure 1. Once the file has been saved to the desired location, double click on the Disaster Response Trade Study Tool application file to start the DRTST program.
 ![image](https://cloud.githubusercontent.com/assets/7001697/17087752/436a1cf4-51df-11e6-8852-2b3b45b74e34.png)
 
+###Usage
+Refer to the include user manaul for how to use the Disaster Response Trade Study Tool.
+![main window - great success](https://cloud.githubusercontent.com/assets/7001697/17087920/95db3296-51e1-11e6-97bc-93b23bd19715.png)
+
+##Developing Disaster Response Trade Study Tool
+###Setup Development Environment
+DRTST was developed using a collection of tools. To develop for DRTST the following are required:
+- Java JDK 1.8 or greater
+- Netbeans IDE 8.1 or greater
+- Apache Ant 1.5 or greater
+- Apache Ivy 2.4.0 or greater
+
+Notes:
+- The Apache Ivy library must be added to the Apache Ant libary folder as per instructions here: https://ant.apache.org/ivy/history/latest-milestone/install.html
+- JavaFX comes in the Java JDK as per Java 8
+- The project Ant task is setup to build and run only with Netbeans.
 
 
 
