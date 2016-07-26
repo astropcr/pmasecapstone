@@ -22,31 +22,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -->
-<Configuration status="WARN">
+<Configuration status="ERROR">
     <Appenders>
-        <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
-        </Console>
         <RollingFile name="RollingFileAppender" fileName="disasterTradeStudyLog.log"
                      filePattern="disasterTradeStudyLog-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="[%p] %d{ISO8601} %c %M - %m%n"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="50 MB" />
+                <SizeBasedTriggeringPolicy size="5 MB" />
             </Policies>
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>
     </Appenders>
     
     <Loggers>
-        <Logger name="edu.gatech.pmase.capstone.awesome" level="error"  additivity="false">
-            <AppenderRef ref="ConsoleAppender"/>
-        </Logger>
-        <Logger name="edu.gatech.pmase.capstone.awesome" level="trace"  additivity="false">
+        <Logger name="edu.gatech.pmase.capstone.awesome" level="warn"  additivity="false">
             <AppenderRef ref="RollingFileAppender"/>
         </Logger>
        
         <Root level="error">
-            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="RollingFileAppender"/>
         </Root>
     </Loggers>
